@@ -7,3 +7,4 @@ We are a 6 members team :
  - Attila Nacsa (System Manager)
  - Guy-Raphaël Stauffer
  - Pavlos Tserevelakis
+ - David Alexander
