@@ -14,6 +14,6 @@ Presentations dates:
 
 Type | Date | Présentateurs
 ------------ | ------------- | ------------- 
-Intermediate presentation | 12.04 | Aurélia + ...
-Intermediate presentation | 17.05 | Attila + ...
-Final presentation | 07.06 | Aurélia + ...
+Intermediate presentation | 12.04 | Aurélia + Gibran
+Intermediate presentation | 17.05 | Attila + Gui-Raphaël
+Final presentation | 07.06 | Aurélia + David + Pavlos
