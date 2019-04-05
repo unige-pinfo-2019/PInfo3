@@ -13,7 +13,7 @@ We are a 6 members team :
 Presentations dates:
 
 Type | Date | Présentateurs
------------- | ------------- | ------------- 
+------------ | ------------- | -------------
 Intermediate presentation | 12.04 | Aurélia + Gibran
-Intermediate presentation | 17.05 | Attila + Gui-Raphaël
+Intermediate presentation | 17.05 | Attila + Guy-Raphaël
 Final presentation | 07.06 | Aurélia + David + Pavlos
