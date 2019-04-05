@@ -33,7 +33,14 @@ public class ClassAdEndpoint {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAll() {
+		//We get the ads back in a list
 		List<ClassAd> ads = classadservice.getAll();
+		
+		//We can transform a List in a JSON Array, the result looks like :
+		//[	{attr1:val1, attr2:val2, ...}, 
+		//	{...}, 
+		//	..., 
+		//	{...}	]
 		Gson gson = new Gson();
 		return gson.toJson(ads);
 	}
@@ -43,6 +50,8 @@ public class ClassAdEndpoint {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String addNewClassAd(ClassAd ad) {
+		//Is expecting a JSON object : { attr1 : val1, attr2 : val2, ...}
+		//where the attributes should be exactly the attributes of the class classAd
 		if(classadservice.createClassAd(ad)) {
 			return "You inserted an ad ";
 		} else {
@@ -54,6 +63,7 @@ public class ClassAdEndpoint {
 	@Path("/delete/")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String deleteClassAd(@QueryParam("id") String str_id) {
+		//Is expecting the id of the ad we want to delete
 		long id = Long.parseLong(str_id);
 
 		Optional<ClassAd> popt = classadservice.getById(id);
