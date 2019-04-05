@@ -9,10 +9,11 @@ We are a 6 members team :
  - Pavlos Tserevelakis
  - David alexander
 
+
 Presentations dates:
 
-Type | Date
------------- | -------------
-Intermediate presentation | 12.04
-Intermediate presentation | 17.05
-Final presentation | 07.06
+Type | Date | Présentateurs
+------------ | ------------- | ------------- 
+Intermediate presentation | 12.04 | Aurélia + ...
+Intermediate presentation | 17.05 | Attila + ...
+Final presentation | 07.06 | Aurélia + ...
