@@ -1,0 +1,17 @@
+Color palette:
+
+
+Rose foncé, (bordures):
+#82003D
+
+Rose principal, clair:
+#D80669
+
+Gris clair, background:
+#F5F5F5
+
+Gris:
+#AAAAAA
+
+Gris foncé:
+#CCCCCC
