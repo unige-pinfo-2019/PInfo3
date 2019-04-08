@@ -1,0 +1,9 @@
+matrix:
+  include:
+    - language: java
+      jdk: openjdk11
+      before_script:
+	- cd classads
+    - language: node_js
+      before_script:
+	- cd frontend
