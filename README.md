@@ -23,6 +23,33 @@ Open a terminal in the frontend directory, from here you can execute the followi
 npm run dev
 ```
 
+## Firefox REST client (to run backend alone)
+
+If you want to run some backend without running frontend, you can install the firefox extension RESTED.
+Then, you run the backend with `mvn thorntail:run` which will start a local server at `localhost:8080`.
+When Thorntail is ready, open a firefox browser and open a RESTED TAB (by clicking on </>).
+There, you can do REST requests.
+
+For example, to post a new ad using a JSON format:
+```
+Request:
+POST --> http://localhost:8080/ClassAd/new
+
+Headers
+Content-Type --> application/json
+
+Request body
+Type --> JSON
+titre --> "Any title"
+description --> "Any description"
+prix --> 10
+```
+
+Now, you can send the request.
+
+
+
+
 ## Group infos
 
 Presentation dates:
