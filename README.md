@@ -23,7 +23,7 @@ Open a terminal in the frontend directory, from here you can execute the followi
 npm run dev
 ```
 
-## Firefox REST client (to run backend alone)
+### Firefox REST client (to run only backend)
 
 If you want to run some backend without running frontend, you can install the firefox extension RESTED.
 Then, you run the backend with `mvn thorntail:run` which will start a local server at `localhost:8080`.
