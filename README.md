@@ -12,20 +12,20 @@ We are a 6 members team :
 
 ## Commands
 
-Open a terminal in the directory classads, from here you can execute the following commands to start a backend server locally at the adresse `localhost:8080` :
+Open a terminal in the directory classads, from here you can execute the following commands to start a backend server locally at the address `localhost:8080` :
 ```
 mvn clean install
 mvn thorntail:run
 ```
 
-Open a terminal in the directory frontend, from here you can execute the following command to start a frontend server locally at the adresse `localhost:8081` :
+Open a terminal in the directory frontend, from here you can execute the following command to start a frontend server locally at the address `localhost:8081` :
 ```
 npm run dev
 ```
 
 ## Group infos
 
-Presentations dates:
+Presentation dates:
 
 Type | Date | Présentateurs
 ------------ | ------------- | -------------
