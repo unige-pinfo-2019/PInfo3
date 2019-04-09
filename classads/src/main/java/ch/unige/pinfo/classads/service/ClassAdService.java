@@ -7,7 +7,7 @@ import ch.unige.pinfo.classads.model.ClassAd;
 
 public interface ClassAdService {
 	
-public boolean createClassAd(ClassAd c);
+	public boolean createClassAd(ClassAd c);
 	
 	public List<ClassAd> getAll();
 	
