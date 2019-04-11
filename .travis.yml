@@ -1,9 +1,23 @@
+
 matrix:
   include:
     - language: java
       jdk: openjdk11
+      services:
+        - docker
       before_script:
-	- cd classads
+        - cd classads
+      script:
+        - mvn clean package
+        - docker build -t pinfo3/classads .
     - language: node_js
+      node_js:
+        - "11"
+      services:
+        - docker
       before_script:
-	- cd frontend
+        - cd frontend
+        - npm install dependencies
+      script:
+        - npm run build
+        - docker build -t pinfo3/frontend .
