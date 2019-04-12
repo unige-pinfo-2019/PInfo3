@@ -13,7 +13,7 @@ import ch.unige.pinfo.classads.model.ClassAd;
 @ApplicationScoped
 @Transactional
 public class ClassAdServiceImpl implements ClassAdService{
-	
+
 	@PersistenceContext(name="InmemoryPU")
 	private EntityManager em;
 
