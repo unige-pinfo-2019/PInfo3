@@ -1,6 +1,7 @@
 package classads;
 
 
+
 import static org.junit.Assert.fail;
 
 import javax.persistence.EntityManager;
