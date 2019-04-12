@@ -20,6 +20,7 @@
 
   <modules>
   	<module>classads-service</module>
+    <module>user-service</module>
   </modules>
 
   <dependencyManagement>

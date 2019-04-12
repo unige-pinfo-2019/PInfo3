@@ -1,9 +1,9 @@
-package ch.unige.pinfo.classads.service;
+package ch.unige.pinfo.user.service;
 
 import java.util.List;
 import java.util.Optional;
 
-import ch.unige.pinfo.classads.model.User;
+import ch.unige.pinfo.user.model.User;
 
 public interface UserService {
 	

@@ -1,4 +1,4 @@
-package ch.unige.pinfo.classads.service;
+package ch.unige.pinfo.user.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
-import ch.unige.pinfo.classads.model.User;
+import ch.unige.pinfo.user.model.User;
 
 @ApplicationScoped
 @Transactional
@@ -54,6 +54,14 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void deleteUser(User user) {
 		em.remove(em.contains(user) ? user : em.merge(user));		
+	}
+	
+	public EntityManager getEm() {
+		return em;
+	}
+
+	public void setEm(EntityManager em) {
+		this.em = em;
 	}
 	
 	

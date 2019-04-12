@@ -1,4 +1,4 @@
-package ch.unige.pinfo.classads.rest;
+package ch.unige.pinfo.user.rest;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +16,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
-import ch.unige.pinfo.classads.model.User;
-import ch.unige.pinfo.classads.service.UserService;
+import ch.unige.pinfo.user.model.User;
+import ch.unige.pinfo.user.service.UserService;
 
 @ApplicationScoped
 @Path("/User")

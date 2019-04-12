@@ -1,4 +1,4 @@
-package ch.unige.pinfo.classads.model;
+package ch.unige.pinfo.user.model;
 
 import java.io.Serializable;
 
