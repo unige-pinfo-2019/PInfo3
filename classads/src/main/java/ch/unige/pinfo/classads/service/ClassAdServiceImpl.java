@@ -15,7 +15,7 @@ import ch.unige.pinfo.classads.model.ClassAd;
 public class ClassAdServiceImpl implements ClassAdService{
 	
 	@PersistenceContext(name="InmemoryPU")
-	EntityManager em;
+	private EntityManager em;
 
 	@Override
 	public boolean createClassAd(ClassAd c) {
@@ -58,6 +58,15 @@ public class ClassAdServiceImpl implements ClassAdService{
 		em.remove(em.contains(classad) ? classad : em.merge(classad));
 		
 	}
+
+	public EntityManager getEm() {
+		return em;
+	}
+
+	public void setEm(EntityManager em) {
+		this.em = em;
+	}
+	
 	
 }
 
