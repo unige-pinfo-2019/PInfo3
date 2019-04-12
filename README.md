@@ -12,7 +12,7 @@ We are a 6 members team :
 
 ## Commands
 
-Open a terminal in the classads directory, from here you can execute the following commands to start a backend server locally at the address `localhost:8080` :
+Open a terminal in the classads-service directory, from here you can execute the following commands to start a backend server locally at the address `localhost:8080` :
 ```
 mvn clean install
 mvn thorntail:run
@@ -22,6 +22,14 @@ Open a terminal in the frontend directory, from here you can execute the followi
 ```
 npm run dev
 ```
+
+### Skip tests
+It my take some time to build because of the tests, so if you want to skip them, we can use `-DskipTests` like :
+```
+mvn clean install -DskipTests
+mvn thorntail:run -DskipTests
+```
+
 
 ### Firefox REST client (to run only backend)
 
