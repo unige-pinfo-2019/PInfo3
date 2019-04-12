@@ -30,6 +30,10 @@ mvn clean install -DskipTests
 mvn thorntail:run -DskipTests
 ```
 
+### Docker
+
+To install the docker files, we can execute :
+` sudo ./dockerinstall.sh`
 
 ### Firefox REST client (to run only backend)
 
