@@ -19,7 +19,7 @@
   </properties>
 
   <modules>
-  	<module>classads</module>
+  	<module>classads-service</module>
   </modules>
 
   <dependencyManagement>
