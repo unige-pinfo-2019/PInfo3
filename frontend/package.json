@@ -11,8 +11,13 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "buefy": "^0.7.4",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "vee-validate": "^2.2.2",
     "vue": "^2.5.2",
-    "vue-resource": "^1.5.1"
+    "vue-resource": "^1.5.1",
+    "vue-router": "^3.0.4"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

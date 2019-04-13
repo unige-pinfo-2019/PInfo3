@@ -1,0 +1,128 @@
+<template>
+    <div class="timepicker control" :class="[size, {'is-expanded': expanded}]">
+        <b-dropdown
+            v-if="!isMobile || inline"
+            ref="dropdown"
+            :position="position"
+            :disabled="disabled"
+            :inline="inline">
+            <b-input
+                v-if="!inline"
+                ref="input"
+                slot="trigger"
+                autocomplete="off"
+                :value="formatValue(dateSelected)"
+                :placeholder="placeholder"
+                :size="size"
+                :icon="icon"
+                :icon-pack="iconPack"
+                :loading="loading"
+                :disabled="disabled"
+                :readonly="!editable"
+                :rounded="rounded"
+                v-bind="$attrs"
+                @change.native="onChange($event.target.value)"
+                @focus="$emit('focus', $event)"
+                @blur="$emit('blur', $event) && checkHtml5Validity()"/>
+
+            <b-dropdown-item :disabled="disabled" custom>
+                <b-field grouped position="is-centered">
+                    <b-select
+                        v-model="hoursSelected"
+                        @change.native="onHoursChange($event.target.value)"
+                        :disabled="disabled"
+                        placeholder="00">
+                        <option
+                            v-for="hour in hours"
+                            :value="hour.value"
+                            :key="hour.value"
+                            :disabled="isHourDisabled(hour.value)">
+                            {{ hour.label }}
+                        </option>
+                    </b-select>
+                    <span class="control is-colon">:</span>
+                    <b-select
+                        v-model="minutesSelected"
+                        @change.native="onMinutesChange($event.target.value)"
+                        :disabled="disabled"
+                        placeholder="00">
+                        <option
+                            v-for="minute in minutes"
+                            :value="minute.value"
+                            :key="minute.value"
+                            :disabled="isMinuteDisabled(minute.value)">
+                            {{ minute.label }}
+                        </option>
+                    </b-select>
+                    <b-select
+                        v-model="meridienSelected"
+                        @change.native="onMeridienChange($event.target.value)"
+                        v-if="!isHourFormat24"
+                        :disabled="disabled">
+                        <option
+                            v-for="meridien in meridiens"
+                            :value="meridien"
+                            :key="meridien">
+                            {{ meridien }}
+                        </option>
+                    </b-select>
+                </b-field>
+
+                <footer
+                    v-if="$slots.default !== undefined && $slots.default.length"
+                    class="timepicker-footer">
+                    <slot/>
+                </footer>
+            </b-dropdown-item>
+        </b-dropdown>
+
+        <b-input
+            v-else
+            ref="input"
+            type="time"
+            autocomplete="off"
+            :value="formatHHMMSS(value)"
+            :placeholder="placeholder"
+            :size="size"
+            :icon="icon"
+            :icon-pack="iconPack"
+            :loading="loading"
+            :max="formatHHMMSS(maxTime)"
+            :min="formatHHMMSS(minTime)"
+            :disabled="disabled"
+            :readonly="false"
+            v-bind="$attrs"
+            @change.native="onChangeNativePicker"
+            @focus="$emit('focus', $event)"
+            @blur="$emit('blur', $event) && checkHtml5Validity()"/>
+    </div>
+</template>
+
+<script>
+    import { default as TimepickerMixin } from '../../utils/TimepickerMixin'
+    import Dropdown from '../dropdown/Dropdown'
+    import DropdownItem from '../dropdown/DropdownItem'
+    import Input from '../input/Input'
+    import Field from '../field/Field'
+    import Select from '../select/Select'
+    import Icon from '../icon/Icon'
+
+    export default {
+        name: 'BTimepicker',
+        components: {
+            [Input.name]: Input,
+            [Field.name]: Field,
+            [Select.name]: Select,
+            [Icon.name]: Icon,
+            [Dropdown.name]: Dropdown,
+            [DropdownItem.name]: DropdownItem
+        },
+        mixins: [TimepickerMixin],
+        inheritAttrs: false,
+        data() {
+            return {
+                _isTimepicker: true
+            }
+        }
+    }
+</script>
