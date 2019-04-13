@@ -8,4 +8,4 @@ COPY /user-service/target /user-service/target
 EXPOSE 8082
 # define env. var.
 ENV Name World
-ENTRYPOINT ["java", "-Djava.net.preferIPv4Stack=true","-jar","/user-service/target/demo-thorntail.jar"]
+ENTRYPOINT ["java", "-Djava.net.preferIPv4Stack=true","-jar","/user-service/target/user-service-1.0.0-SNAPSHOT-thorntail.jar"]
