@@ -5,7 +5,7 @@ WORKDIR /user-service
 # copy build dir to curr dir.
 COPY /user-service/target /user-service/target
 # expose 8080
-EXPOSE 8080
+EXPOSE 8082
 # define env. var.
 ENV Name World
 ENTRYPOINT ["java", "-Djava.net.preferIPv4Stack=true","-jar","/user-service/target/demo-thorntail.jar"]

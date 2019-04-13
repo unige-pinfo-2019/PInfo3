@@ -6,10 +6,21 @@ matrix:
       services:
         - docker
       before_script:
-        - cd classads
+        - cd classads-service
       script:
         - mvn clean package
-        - docker build -t pinfo3/classads .
+        - docker build -t pinfo3/classads-service .
+
+    - language: java
+      jdk: openjdk11
+      services:
+        - docker
+      before_script:
+        - cd user-service
+      script:
+        - mvn clean package
+        - docker build -t pinfo3/user-service .
+
     - language: node_js
       node_js:
         - "11"
