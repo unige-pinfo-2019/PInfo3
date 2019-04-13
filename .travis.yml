@@ -28,6 +28,7 @@ matrix:
         - docker
       before_script:
         - cd frontend
+        - npm rebuild node-sass
         - npm install dependencies
       script:
         - npm run build
