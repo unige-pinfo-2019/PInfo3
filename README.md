@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/unige-pinfo-2019/PInfo3.svg?branch=master)](https://travis-ci.org/unige-pinfo-2019/PInfo3)
+
+
 # Welcome to ByteTheDust project repository
 
 We are a 6 members team :
