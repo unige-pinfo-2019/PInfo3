@@ -2,6 +2,7 @@
 matrix:
   include:
     - language: java
+      jdk: openjdk11
       addons:
         sonarcloud:
           organization: "unige-pinfo-2019" # the key of the org you chose at step #3
