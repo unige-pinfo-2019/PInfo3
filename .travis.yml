@@ -3,15 +3,15 @@ dist: trusty
 
 matrix:
   include:
-    - language: java
-      jdk: openjdk11
-      addons:
-        sonarcloud:
-          organization: "unige-pinfo-2019" # the key of the org you chose at step #3
-          token:
-            secure: 865e5a53c2e49a6a41fd91fe2cea0bbd0bbe8412 # encrypted value of your token
-      script:
-        - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo3 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=865e5a53c2e49a6a41fd91fe2cea0bbd0bbe8412 -Dsonar.branch=master
+  #   - language: java
+  #     jdk: openjdk11
+  #     addons:
+  #       sonarcloud:
+  #         organization: "unige-pinfo-2019" # the key of the org you chose at step #3
+  #         token:
+  #           secure: 865e5a53c2e49a6a41fd91fe2cea0bbd0bbe8412 # encrypted value of your token
+  #     script:
+  #       - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo3 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=865e5a53c2e49a6a41fd91fe2cea0bbd0bbe8412 -Dsonar.branch=master
     - language: java
       jdk: openjdk11
       services:
