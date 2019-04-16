@@ -3,4 +3,4 @@ COPY  . /frontend/
 WORKDIR /frontend
 EXPOSE 8081
 ENV Name World
-ENTRYPOINT ["npm","start"]
+ENTRYPOINT ["npm","run", "dev"]
