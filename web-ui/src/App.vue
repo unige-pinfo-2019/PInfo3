@@ -1,10 +1,13 @@
 <template>
   <div id="app">
-    <!-- <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view /> -->
+    <!-- <div class="banner-container">
+      <img class="banner-img" src="./assets/trangles.png" alt="">
+      <span class="brand-name-container"> <h1 class="brand-name">UniTrade</h1> </span>
+
+    </div> -->
+    <Banner/>
+
+
     <b-navbar class="navbar navbar-custom" type="dark">
       <b-navbar-brand href="#">UniTrade</b-navbar-brand>
       <b-nav-item to="/">Home</b-nav-item>
@@ -21,18 +24,30 @@
   </div>
 </template>
 
-<style lang="scss">
-// $primary-color: #002766;
-$primary-color: #D80669;
+<script>
+import Banner from './components/Banner.vue'
 
+export default {
+  name: 'app',
+  components: {
+    Banner
+  }
+}
+</script>
+
+<style lang="scss">
 
 .navbar-custom {
-    background-color: $primary-color;
+    background-color: $dark-color;
 }
 
 /* change the color of active or hovered links */
 .navbar-custom .nav-item .nav-link {
-    color: white;
+    color: $primary-color;
+}
+
+li {
+  list-style-type: none;
 }
 
 #app {
