@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.5"
 
 services:
 
@@ -11,6 +11,7 @@ services:
       - backend-network    
     ports:
       - "8080:8080"
+
   # user service is for logging in users
   user-service:
     container_name: user-service
@@ -21,15 +22,15 @@ services:
     ports:
       - "8082:8082"
 
-  # frontend is the UI through which the user interacts with the services
-  frontend:
-    container_name: frontend
-    image: 2019pinfo3/frontend:latest
-    hostname: frontend
+  # web-ui is the UI through which the user interacts with the services
+  web-ui:
+    container_name: web-ui
+    image: 2019pinfo3/web-ui:latest
+    hostname: web-ui
     networks:
       - backend-network
     ports:
-      - "8081:8081"
+      - "80:8081"
     depends_on:
        - classads-service
        - user-service

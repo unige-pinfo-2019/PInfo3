@@ -3,15 +3,15 @@ dist: trusty
 
 matrix:
   include:
-  #   - language: java
-  #     jdk: openjdk11
-  #     addons:
-  #       sonarcloud:
-  #         organization: "unige-pinfo-2019" # the key of the org you chose at step #3
-  #         token:
-  #           secure: 865e5a53c2e49a6a41fd91fe2cea0bbd0bbe8412 # encrypted value of your token
-  #     script:
-  #       - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo3 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=865e5a53c2e49a6a41fd91fe2cea0bbd0bbe8412 -Dsonar.branch=master
+    - language: java
+      jdk: openjdk11
+      addons:
+        sonarcloud:
+          organization: "unige-pinfo-2019" # the key of the org you chose at step #3
+      script:
+        - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo3 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=b89cca69d31bf42b2d5c4ec913c8ae8f1f84f450
+
+
     - language: java
       jdk: openjdk11
       services:
@@ -45,12 +45,12 @@ matrix:
       services:
         - docker
       before_script:
-        - cd frontend
+        - cd web-ui
         - npm rebuild node-sass
         - npm install dependencies
       script:
         - npm run build
-        - docker build -t 2019pinfo3/frontend .
+        - docker build -t 2019pinfo3/web-ui .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push 2019pinfo3/frontend:latest
+        - docker push 2019pinfo3/web-ui:latest
