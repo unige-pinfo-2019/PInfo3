@@ -21,7 +21,7 @@ matrix:
       script:
         - mvn clean package
         - docker build -t 2019pinfo3/classads-service .
-      deploy:
+      post-script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/classads-service:latest
 
@@ -35,7 +35,7 @@ matrix:
       script:
         - mvn clean package
         - docker build -t 2019pinfo3/user-service .
-      deploy:
+      post-script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/user-service:latest
 
@@ -51,6 +51,6 @@ matrix:
       script:
         - npm run build
         - docker build -t 2019pinfo3/frontend .
-      deploy:
+      post-script:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/frontend:latest
