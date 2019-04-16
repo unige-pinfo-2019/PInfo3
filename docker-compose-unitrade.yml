@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+
+  # classads service is for posting a classified ad
+  classads-service:
+    container_name: classads-service
+    image: 2019pinfo3/classads-service:latest
+    hostname: classads-service
+    networks:
+      - backend-network    
+    ports:
+      - "8080:8080"
+  # user service is for logging in users
+  user-service:
+    container_name: user-service
+    image: 2019pinfo3/user-service:latest
+    hostname: user-service
+    networks:
+      - backend-network
+    ports:
+      - "8082:8082"
+
+  # frontend is the UI through which the user interacts with the services
+  frontend:
+    container_name: frontend
+    image: 2019pinfo3/frontend:latest
+    hostname: frontend
+    networks:
+      - backend-network
+    ports:
+      - "8081:8081"
+    depends_on:
+       - classads-service
+       - user-service
+
+networks:
+  backend-network:
+    driver: bridge
