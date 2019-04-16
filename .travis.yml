@@ -20,7 +20,11 @@ matrix:
         - cd classads-service
       script:
         - mvn clean package
-        - docker build -t pinfo3/classads-service .
+        - docker build -t 2019pinfo3/classads-service .
+      deploy:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push 2019pinfo3/classads-service:latest
+
 
     - language: java
       jdk: openjdk11
@@ -30,7 +34,10 @@ matrix:
         - cd user-service
       script:
         - mvn clean package
-        - docker build -t pinfo3/user-service .
+        - docker build -t 2019pinfo3/user-service .
+      deploy:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push 2019pinfo3/user-service:latest
 
     - language: node_js
       node_js:
@@ -43,4 +50,7 @@ matrix:
         - npm install dependencies
       script:
         - npm run build
-        - docker build -t pinfo3/frontend .
+        - docker build -t 2019pinfo3/frontend .
+      deploy:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push 2019pinfo3/frontend:latest
