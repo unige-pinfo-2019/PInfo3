@@ -29,8 +29,8 @@ public class ClassAdServiceImpl implements ClassAdService{
 
 	@Override
 	public List<ClassAd> getAll() {
-		List<ClassAd> ClassAds = em.createQuery("SELECT a FROM ClassAd a", ClassAd.class).getResultList();
-		return ClassAds;
+		return em.createQuery("SELECT a FROM ClassAd a", ClassAd.class).getResultList();
+
 	}
 
 	@Override

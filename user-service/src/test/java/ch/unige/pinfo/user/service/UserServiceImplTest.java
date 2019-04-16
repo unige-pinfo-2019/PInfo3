@@ -47,5 +47,33 @@ public class UserServiceImplTest {
 			fail("On a pu ajouter le deuxième élément alors qu'il était censé être le même que le premier !");
 		}
 	}
-
+	
+	@Test
+	public void testCreateUserValues() {
+		String p = "Boulou";
+		String n = "Bala";
+		int a = 27;
+		String e = "bb@etu.unige.ch";
+		String t = "0223062091";
+		
+		User user = new User(p, n, a, e, t);
+		usi.createUser(user);
+		
+		String query = "SELECT a FROM User a";
+		int size = usi.getEm().createQuery(query, User.class).getResultList().size();
+		User userBDD = usi.getEm().createQuery(query, User.class).getResultList().get(size-1);
+		
+		
+		if (userBDD.getPrenom() != p) {
+			fail("Le prenom a changé à la création du User.");
+		} else if (userBDD.getNom() != n) {
+			fail("Le nom a changé à la création du User.");
+		} else if (userBDD.getAge() != a) {
+			fail("L'âge a changé à la création du User.");
+		} else if (userBDD.getEmail() != e) {
+			fail("L'email a changé à la création du User.");
+		} else if (userBDD.getTel() != t) {
+			fail("Le téléphone a changé à la création du User.");
+		}
+	}
 }
