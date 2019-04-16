@@ -45,12 +45,12 @@ matrix:
       services:
         - docker
       before_script:
-        - cd frontend
+        - cd web-ui
         - npm rebuild node-sass
         - npm install dependencies
       script:
         - npm run build
-        - docker build -t 2019pinfo3/frontend .
+        - docker build -t 2019pinfo3/web-ui .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push 2019pinfo3/frontend:latest
+        - docker push 2019pinfo3/web-ui:latest

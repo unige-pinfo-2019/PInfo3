@@ -22,11 +22,11 @@ services:
     ports:
       - "8082:8082"
 
-  # frontend is the UI through which the user interacts with the services
-  frontend:
-    container_name: frontend
-    image: 2019pinfo3/frontend:latest
-    hostname: frontend
+  # web-ui is the UI through which the user interacts with the services
+  web-ui:
+    container_name: web-ui
+    image: 2019pinfo3/web-ui:latest
+    hostname: web-ui
     networks:
       - backend-network
     ports:
