@@ -11,6 +11,7 @@ services:
       - backend-network    
     ports:
       - "8080:8080"
+
   # user service is for logging in users
   user-service:
     container_name: user-service
@@ -29,7 +30,7 @@ services:
     networks:
       - backend-network
     ports:
-      - "8081:8081"
+      - "80:8081"
     depends_on:
        - classads-service
        - user-service
