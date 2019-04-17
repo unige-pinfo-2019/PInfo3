@@ -6,7 +6,7 @@
 	
 	<persistence-unit name="UserPUTest" transaction-type="RESOURCE_LOCAL">
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
-      <class>ch.unige.pinfo.user.model.User</class>
+      <class>domain.model.User</class>
       <properties>
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
 		 <property name="hibernate.show_sql" value="true" />

@@ -6,7 +6,7 @@
 	
 	<persistence-unit name="AdUTest" transaction-type="RESOURCE_LOCAL">
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
-      <class>ch.unige.pinfo.classads.model.Ad</class>
+      <class>domain.model.Ad</class>
       <properties>
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
 		 <property name="hibernate.show_sql" value="true" />
