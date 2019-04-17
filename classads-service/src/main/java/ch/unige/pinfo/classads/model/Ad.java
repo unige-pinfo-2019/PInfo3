@@ -11,46 +11,46 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="CLASSAD")
-public class ClassAd implements Serializable{
+@Table(name="AD")
+public class Ad implements Serializable{
 
 	private static final long serialVersionUID = 5725261213022717645L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="CLASSAD_ID")
+	@Column(name="AD_ID")
 	private long id;
 	
-	@Column(name="TITRE")
-	private String titre;
+	@Column(name="TITLE")
+	private String title;
 	
 	@Column(name="DESCRIPTION")
 	private String description;
 	
-	@Column(name="PRIX")
-	private float prix;
+	@Column(name="PRICE")
+	private float price;
 	
 	
 	
-	public ClassAd() {}
+	public Ad() {}
 	
-	public ClassAd(String titre, String description, float prix) {
+	public Ad(String title, String description, float price) {
 		super();
-		this.titre = titre;
+		this.title = title;
 		this.description = description;
-		this.prix = prix;
+		this.price = price;
 	}
 	
 	@Override
 	public String toString() {
 		String NewLigne = System.getProperty("line.separator");
 		String ret;
-		ret = NewLigne + titre + " (id = " + String.valueOf(id) + ")"+ NewLigne + NewLigne + description + NewLigne + NewLigne + "Prix : " + String.valueOf(prix);
+		ret = NewLigne + title + " (id = " + String.valueOf(id) + ")"+ NewLigne + NewLigne + description + NewLigne + NewLigne + "Prix : " + String.valueOf(price);
 		return ret;
 	}
 	
 	public String returnJSON() {
-		return "{\"titre\":\""+this.titre+"\", \"description\":\"" + this.description + "\n, \"prix\":\"" + this.prix + "\"";
+		return "{\"title\":\""+this.title+"\", \"description\":\"" + this.description + "\n, \"price\":\"" + this.price + "\"";
 	}
 
 	public long getId() {
@@ -61,12 +61,12 @@ public class ClassAd implements Serializable{
 		this.id = id;
 	}
 
-	public String getTitre() {
-		return titre;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setTitre(String titre) {
-		this.titre = titre;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {
@@ -77,14 +77,13 @@ public class ClassAd implements Serializable{
 		this.description = description;
 	}
 
-	public float getPrix() {
-		return prix;
+	public float getPrice() {
+		return price;
 	}
 
-	public void setPrix(float prix) {
-		this.prix = prix;
+	public void setPrice(float price) {
+		this.price = price;
 	}
-	
 
 
 }

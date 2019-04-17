@@ -16,17 +16,17 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 
-import ch.unige.pinfo.classads.model.ClassAd;
-import ch.unige.pinfo.classads.service.ClassAdService;
+import ch.unige.pinfo.classads.model.Ad;
+import ch.unige.pinfo.classads.service.AdService;
 
 @ApplicationScoped
-@Path("/ClassAd")
-public class ClassAdEndpoint {
+@Path("/classads")
+public class AdEndpoint {
 	@Inject
-	private ClassAdService classadservice;
+	private AdService adservice;
 
-	public void setClassAdService(ClassAdService cs) {
-		classadservice = cs;
+	public void setAdService(AdService cs) {
+		adservice = cs;
 	}
 
 	@GET
@@ -34,7 +34,7 @@ public class ClassAdEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAll() {
 		//We get the ads back in a list
-		List<ClassAd> ads = classadservice.getAll();
+		List<Ad> ads = adservice.getAll();
 		
 		//We can transform a List in a JSON Array, the result looks like :
 		//[	{attr1:val1, attr2:val2, ...}, 
@@ -46,13 +46,13 @@ public class ClassAdEndpoint {
 	}
 	
 	@POST
-	@Path("/new/")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String addNewClassAd(ClassAd ad) {
+	public String addNewAd(Ad ad) {
 		//Is expecting a JSON object : { attr1 : val1, attr2 : val2, ...}
 		//where the attributes should be exactly the attributes of the class classAd
-		if(classadservice.createClassAd(ad)) {
+		if(adservice.createAd(ad)) {
 			return "You inserted an ad ";
 		} else {
 			return "Error. This ad already exists";
@@ -60,26 +60,31 @@ public class ClassAdEndpoint {
 	}
 
 	@DELETE
-	@Path("/delete/")
+	@Path("/")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteClassAd(@QueryParam("id") String str_id) {
+	public String deleteAd(@QueryParam("id") String str_id) {
 		//Is expecting the id of the ad we want to delete
 		long id = Long.parseLong(str_id);
 
-		Optional<ClassAd> popt = classadservice.getById(id);
+		Optional<Ad> popt = adservice.getById(id);
 		if(popt.isEmpty()) {
 			return "Error. There is no ad with ID "+ id;
 		}
 		else {
-			ClassAd c = popt.get();
+			
+			Ad ad;
+			if (popt.isPresent()) {
+				ad = popt.get();
 
-			try {
-				classadservice.deleteClassAd(c);
-				return "Deleted classadd "+ c.toString();
-			} catch(IllegalArgumentException ex) {
-				System.err.println(ex.toString());
-				return "Some form of error occurred. Could not delete "+ c.toString();
+				try {
+					adservice.deleteAd(ad);
+					return "Deleted classadd "+ ad.toString();
+				} catch(IllegalArgumentException ex) {
+					System.err.println(ex.toString());
+					return "Some form of error occurred. Could not delete "+ ad.toString();
+				}
 			}
+			return "Some form of error occurred.";
 		}
 
 		

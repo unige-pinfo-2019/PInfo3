@@ -4,9 +4,9 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	
-	<persistence-unit name="ClassAdUTest" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="AdUTest" transaction-type="RESOURCE_LOCAL">
       <provider>org.hibernate.ejb.HibernatePersistence</provider>
-      <class>ch.unige.pinfo.classads.model.ClassAd</class>
+      <class>ch.unige.pinfo.classads.model.Ad</class>
       <properties>
          <property name="hibernate.hbm2ddl.auto" value="create-drop" />
 		 <property name="hibernate.show_sql" value="true" />
