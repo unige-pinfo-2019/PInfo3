@@ -70,15 +70,18 @@ public class ClassAdEndpoint {
 		if(popt.isEmpty()) {
 			return "Error. There is no ad with ID "+ id;
 		}
+		else {
+			ClassAd c = popt.get();
 
-		ClassAd c = popt.get();
-
-		try {
-			classadservice.deleteClassAd(c);
-			return "Deleted classadd "+ c.toString();
-		} catch(IllegalArgumentException ex) {
-			System.out.println(ex.toString());
-			return "Some form of error occurred. Could not delete "+ c.toString();
+			try {
+				classadservice.deleteClassAd(c);
+				return "Deleted classadd "+ c.toString();
+			} catch(IllegalArgumentException ex) {
+				System.err.println(ex.toString());
+				return "Some form of error occurred. Could not delete "+ c.toString();
+			}
 		}
+
+		
 	}
 }
