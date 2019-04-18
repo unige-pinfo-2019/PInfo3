@@ -12,9 +12,9 @@ cd src/
 mkdir main test
 
 cd main/
-mkdir java resources resources/META-INF webapp
-touch resources/META-INF/persistence.xml
+mkdir java java/domain java/api resources resources/META-INF webapp
+touch java/domain/.gitkeep java/api/.gitkeep resources/META-INF/persistence.xml
 
 cd ../test
-mkdir java resources resources/META-INF
-touch resources/META-INF/persistence.xml
+mkdir java java/domain java/api resources resources/META-INF
+touch java/domain/.gitkeep java/api/.gitkeep resources/META-INF/persistence.xml
