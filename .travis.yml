@@ -42,7 +42,7 @@ matrix:
     - language: java
         jdk: openjdk11
         before_script:
-          - cd classadsreponse-service
+          - cd classadsresponse-service
         script:
           - mvn clean package
 
