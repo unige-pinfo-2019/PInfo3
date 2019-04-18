@@ -39,6 +39,20 @@ matrix:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/user-service:latest
 
+    - language: java
+        jdk: openjdk11
+        before_script:
+          - cd classadsreponse-service
+        script:
+          - mvn clean package
+
+    - language: java
+        jdk: openjdk11
+        before_script:
+          - cd statistic-service
+        script:
+          - mvn clean package
+
     - language: node_js
       node_js:
         - "11"
