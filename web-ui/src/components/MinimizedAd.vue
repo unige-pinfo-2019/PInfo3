@@ -7,7 +7,7 @@
       img-top
       tag="article"
       style="max-width: 20rem;"
-      class="mb-2"
+      class="mb-2 card"
     >
       <b-card-text id="descr">
         <!-- Some quick example text to build on the card title and make up the bulk of the card's content. -->
@@ -46,16 +46,26 @@ export default {
   },
   methods: {
     shortenTitle() {
-      if (this.title.length > 25) {
-        this.shortenedTitle = this.title.substring(0, 24) + "...";
+      var max_length = 25;
+
+      if (this.title.length > max_length) {
+        this.shortenedTitle = this.title.substring(0, max_length-1) + "...";
+      }
+      else {
+        this.shortenedTitle = this.title;
       }
       // console.log("Title length: " + this.title.length)
     },
     shortenDescription() {
-      if (this.description.length > 125) {
-        this.shortenedDescription = this.description.substring(0, 124) + "...";
+      var max_length = 190;
+
+      if (this.description.length > max_length) {
+        this.shortenedDescription = this.description.substring(0, max_length-1) + "...";
       }
-      // console.log(this.description.length)
+      else {
+        this.shortenedDescription = this.description;
+      }
+      console.log(this.description.length)
     }
   }
 }
@@ -65,6 +75,8 @@ export default {
 <style lang="scss" scoped>
 #descr {
   color: #666;
+  text-align: justify;
+  letter-spacing: -0.01em;
 }
 
 #price {
@@ -79,6 +91,10 @@ export default {
 //   margin-bottom: 0px;
 //   color: #AAA;
 // }
+.card {
+  text-align: left;
+  width: 600px;
+}
 
 .price-wrapper {
   margin-top: 30px;
