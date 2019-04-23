@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/unige-pinfo-2019/PInfo3.svg?branch=master)](https://travis-ci.org/unige-pinfo-2019/PInfo3)
+[![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=unige-pinfo-2019_PInfo3&metric=alert_status)](https://sonarcloud.io/dashboard?id=unige-pinfo-2019_PInfo3)
+[![Coverage (Sonar)](https://sonarcloud.io/api/project_badges/measure?project=unige-pinfo-2019_PInfo3&metric=coverage)](https://sonarcloud.io/dashboard?id=unige-pinfo-2019_PInfo3)
 
 
 # Welcome to ByteTheDust project repository

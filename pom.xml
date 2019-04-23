@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>ch.unige.pinfo</groupId>
+  <groupId>ch.unige</groupId>
   <artifactId>parent</artifactId>
   <name>UniTrade</name>
   <version>1.0.0-SNAPSHOT</version>
@@ -21,6 +21,8 @@
   <modules>
   	<module>classads-service</module>
     <module>user-service</module>
+    <module>classadsresponse-service</module>
+    <module>statistic-service</module>
   </modules>
 
   <dependencyManagement>
@@ -204,6 +206,7 @@
   			<plugin>
   				<groupId>io.thorntail</groupId>
   				<artifactId>thorntail-maven-plugin</artifactId>
+
   				<executions>
   					<execution>
   						<goals>
