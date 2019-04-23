@@ -58,7 +58,7 @@ matrix:
       before_script:
         - cd api-gateway
       script:
-        - docker build -t 2019pinfo3/api-gateway
+        - docker build -t 2019pinfo3/api-gateway .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/api-gateway:latest
