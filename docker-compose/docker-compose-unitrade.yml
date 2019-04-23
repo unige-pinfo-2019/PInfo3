@@ -28,7 +28,7 @@ services:
     image: 2019pinfo3/web-ui:latest
     hostname: web-ui
     networks:
-      - backend-network
+      - frontend-network
     ports:
       - "80:8081"
     depends_on:
@@ -37,4 +37,6 @@ services:
 
 networks:
   backend-network:
+    driver: bridge
+  frontend-network:
     driver: bridge
