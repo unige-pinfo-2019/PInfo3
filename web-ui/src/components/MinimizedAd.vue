@@ -1,7 +1,7 @@
 <template>
   <div class="minimized-ad">
     <b-card
-      v-bind:title="title"
+      v-bind:title="shortenedTitle"
       v-bind:img-src="imgUrl"
       img-alt="Image"
       img-top
@@ -11,7 +11,7 @@
     >
       <b-card-text id="descr">
         <!-- Some quick example text to build on the card title and make up the bulk of the card's content. -->
-        {{ description }}
+        {{ shortenedDescription }}
       </b-card-text>
 
       <div class="price-wrapper">
@@ -28,12 +28,35 @@
 <script>
 export default {
   name: 'minimized-ad',
-
   props: {
     imgUrl: String, //https://picsum.photos/600/300/?image=25
     title: String,
     description: String,
     prix: String
+  },
+  data() {
+    return {
+      shortenedDescription: null,
+      shortenedTitle: null
+    }
+  },
+  mounted() {
+    this.shortenTitle();
+    this.shortenDescription();
+  },
+  methods: {
+    shortenTitle() {
+      if (this.title.length > 25) {
+        this.shortenedTitle = this.title.substring(0, 24) + "...";
+      }
+      // console.log("Title length: " + this.title.length)
+    },
+    shortenDescription() {
+      if (this.description.length > 125) {
+        this.shortenedDescription = this.description.substring(0, 124) + "...";
+      }
+      // console.log(this.description.length)
+    }
   }
 }
 </script>
