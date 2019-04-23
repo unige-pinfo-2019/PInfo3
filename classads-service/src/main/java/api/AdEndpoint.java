@@ -1,6 +1,8 @@
 package api;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -15,10 +17,15 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
-
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import domain.model.Ad;
+import domain.model.Categories;
 import domain.service.AdService;
 
+/**
+ * Restful api for the ads.
+ */
 @ApplicationScoped
 @Path("/classads")
 public class AdEndpoint {
@@ -29,6 +36,7 @@ public class AdEndpoint {
 		adservice = cs;
 	}
 
+	/* Get all classads */
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -45,20 +53,64 @@ public class AdEndpoint {
 		return gson.toJson(ads);
 	}
 	
+	/* Add a new ad in the DB */
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String addNewAd(Ad ad) {
+	public String addNewAd(String jsonStr) {
 		//Is expecting a JSON object : { attr1 : val1, attr2 : val2, ...}
 		//where the attributes should be exactly the attributes of the class classAd
-		if(adservice.createAd(ad)) {
-			return "You inserted an ad ";
-		} else {
-			return "Error. This ad already exists";
+		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
+		Ad ad = new Ad(); //We create the ad
+		
+		//We need to decrypt the json object and instanciate the attributes of the ad
+		
+		try {
+			//Some attributes are mandatory so they'll generate an exception if they don't exist
+			
+			//This includes the category id
+			int categoryID = json.get("categoryID").getAsInt();
+			
+			//and the main attributes of an ad
+			try {
+				ad.setTitle(json.get("title").getAsString());
+				ad.setDescription(json.get("description").getAsString());
+				ad.setPrice(json.get("price").getAsInt());
+			} catch (Exception e) {
+				System.err.println("Mandatory fields are missing (title, description or price)");
+			}
+			
+			//For the attributes related to the category, we take the value if it exists or we assign the
+			//default value
+			Map<String, Object> attributes = Categories.getCategory(categoryID);
+			Map<String, Object> newAttributes = new HashMap<String, Object>();
+			newAttributes.put("categoryID", categoryID);
+			for (String key : attributes.keySet()) {
+				try {
+					JsonElement att = json.get(key);
+					System.out.println(getType(att));
+					System.out.println(attributes.get(key).getClass());
+					if (getType(att) == attributes.get(key).getClass()) {
+						newAttributes.put(key, json.get(key));
+					} else {
+						newAttributes.put(key, attributes.get(key));
+					}
+				} catch (Exception e) {}
+			}
+			
+			ad.setCategory(newAttributes);
+			
+			return "You've inserted an ad\n" + ad.toString()
+			;
+		} catch (Exception e) {
+			System.err.println("categoryID is missing or is not an Integer");
 		}
+		
+		return "Some error occured.";
 	}
 
+	/* Delete an ad according to its ID */
 	@DELETE
 	@Path("/")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -88,5 +140,21 @@ public class AdEndpoint {
 		}
 
 		
+	}
+	
+	/***** Manipulation *****/
+	
+	/* Find the type of a JsonElement (either boolean, string or integer) */
+	private Object getType(JsonElement var) {
+		if (var.getAsJsonPrimitive().isBoolean()) {
+			return Boolean.class;
+		}
+		else if (var.getAsJsonPrimitive().isString()) {
+			return String.class;
+		}
+		else if (var.getAsJsonPrimitive().isNumber()) {
+			return Integer.class;
+		}
+		return null;
 	}
 }

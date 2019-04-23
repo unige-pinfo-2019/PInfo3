@@ -1,6 +1,7 @@
 package domain.model;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,8 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import com.google.gson.JsonObject;
 
+/**
+ * Represents classifier ads and manage storage in DB.
+ */
 @Entity
 @Table(name="AD")
 public class Ad implements Serializable{
@@ -30,8 +36,10 @@ public class Ad implements Serializable{
 	@Column(name="PRICE")
 	private float price;
 	
-	
-	
+	@Transient
+	private Map<String, Object> category;
+
+	/***** Constructors *****/
 	public Ad() {}
 	
 	public Ad(String title, String description, float price) {
@@ -41,18 +49,27 @@ public class Ad implements Serializable{
 		this.price = price;
 	}
 	
+	/***** Manipulation *****/
+	/* Returns attributes and their default values in a json format */
+	public static JsonObject getAttributes() {
+		JsonObject json = new JsonObject();
+		json.addProperty("title", "");
+		json.addProperty("description", "");
+		json.addProperty("price", 0);
+		return json;
+	}
+	
+	/***** Utility methods *****/
 	@Override
 	public String toString() {
-		String NewLigne = System.getProperty("line.separator");
+		String newLine = System.getProperty("line.separator");
 		String ret;
-		ret = NewLigne + title + " (id = " + String.valueOf(id) + ")"+ NewLigne + NewLigne + description + NewLigne + NewLigne + "Prix : " + String.valueOf(price);
+		ret = newLine + title + " (Ad id = " + Long.toString(id) + ")"+ newLine + newLine + description + newLine + newLine + "Prix : " + String.valueOf(price);
+		ret += newLine + "Other fields : " + category.toString();
 		return ret;
 	}
 	
-	public String returnJSON() {
-		return "{\"title\":\""+this.title+"\", \"description\":\"" + this.description + "\n, \"price\":\"" + this.price + "\"";
-	}
-
+	/***** Getters and setters *****/
 	public long getId() {
 		return id;
 	}
@@ -83,6 +100,14 @@ public class Ad implements Serializable{
 
 	public void setPrice(float price) {
 		this.price = price;
+	}
+
+	public Map<String, Object> getCategory() {
+		return category;
+	}
+
+	public void setCategory(Map<String, Object> category) {
+		this.category = category;
 	}
 
 
