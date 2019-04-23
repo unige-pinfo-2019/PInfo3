@@ -1,8 +1,9 @@
 FROM node:11-alpine
-COPY  . /frontend/
-WORKDIR /frontend
+COPY  . /web-ui/
+WORKDIR /web-ui
 EXPOSE 8081
 ENV Name World
 CMD ["npm", "rebuild", "node-sass"]
 CMD ["npm", "install", "dependencies"]
+CMD ["npm", "install", "--save /frontend/npm"]
 ENTRYPOINT ["npm","run", "dev"]
