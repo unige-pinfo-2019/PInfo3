@@ -37,7 +37,11 @@ public class Ad implements Serializable{
 	private float price;
 	
 	@Transient
-	private Map<String, Object> category;
+	private Map<String, Integer> category_int;
+	@Transient
+	private Map<String, Boolean> category_bool;
+	@Transient
+	private Map<String, String> category_string;
 
 	/***** Constructors *****/
 	public Ad() {}
@@ -65,7 +69,7 @@ public class Ad implements Serializable{
 		String newLine = System.getProperty("line.separator");
 		String ret;
 		ret = newLine + title + " (Ad id = " + Long.toString(id) + ")"+ newLine + newLine + description + newLine + newLine + "Prix : " + String.valueOf(price);
-		ret += newLine + "Other fields : " + category.toString();
+		ret += newLine + "Other fields : " + category_int.toString() + category_bool.toString() + category_string.toString();
 		return ret;
 	}
 	
@@ -102,12 +106,22 @@ public class Ad implements Serializable{
 		this.price = price;
 	}
 
-	public Map<String, Object> getCategory() {
-		return category;
+	public Map<String, Integer> getCategory_int() {
+		return category_int;
+	}
+	
+	public Map<String, Boolean> getCategory_bool() {
+		return category_bool;
+	}
+	
+	public Map<String, String> getCategory_string() {
+		return category_string;
 	}
 
-	public void setCategory(Map<String, Object> category) {
-		this.category = category;
+	public void setCategory(Map<String, Integer> category_int, Map<String, Boolean> category_bool, Map<String, String> category_string) {
+		this.category_int = category_int;
+		this.category_bool = category_bool;
+		this.category_string = category_string;
 	}
 
 
