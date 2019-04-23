@@ -2,7 +2,10 @@
   <div class="banner">
     <div class="banner-container">
       <img class="banner-img" src="../assets/triangles.png" alt="">
-      <span class="brand-name-container"> <h1 class="brand-name">UniTrade</h1> </span>
+      <span class="brand-name-container">
+        <!-- <h1 id="brand-name">UniTrade</h1> -->
+        <router-link id="brand-name" to="/">UniTrade</router-link>
+      </span>
       <Login class="login"/>
       <!-- <div class="wrap">
         <div class="center" style="background: #888; min-height: 50px; min-width: 100px; float: right;">
@@ -14,7 +17,7 @@
 </template>
 
 <script>
-import Login from '@/components/Login.vue'
+import Login from '@/components/LoginButtons.vue'
 
 export default {
   name: 'banner',
@@ -66,15 +69,26 @@ export default {
 
   opacity: 0.2;
   filter: alpha(opacity=20); /* For IE8 and earlier */
+
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
 
-.brand-name {
+#brand-name {
   color: white;
   position: absolute;
   top: 0px;
   left: 0px;
   padding-left: 50px;
-  padding-top: 30px;
+  padding-top: 23px;
+
+  font-size: 2.5em;
+  // font-weight: bolder;
+  text-decoration: none;
 }
 
 .banner-container {

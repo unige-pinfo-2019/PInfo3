@@ -18,16 +18,15 @@
         <b-button variant="primary" href="#">Poster un annonce</b-button>
         <b-list-group>
           <!-- <b-list-group-item button active>Poster une annonce</b-list-group-item> -->
-          <b-list-group-item button="true" variant="outline-primary">Awesome link</b-list-group-item>
-          <b-list-group-item button>Link with active state</b-list-group-item>
-          <b-list-group-item button>Action links are easy</b-list-group-item>
-          <b-list-group-item button>Disabled link</b-list-group-item>
+          <b-list-group-item button>Ordinateurs</b-list-group-item>
+          <b-list-group-item button>Habits homme</b-list-group-item>
+          <b-list-group-item button>Habits femme</b-list-group-item>
+          <b-list-group-item button>Livres</b-list-group-item>
         </b-list-group>
       </b-col>
       <b-col cols="10">
         <!-- 2 of 3 (wider) -->
-        <!-- <router-view /> -->
-        <MiniAd/>
+        <router-view />
       </b-col>
     </b-row>
   </div>
@@ -40,8 +39,7 @@ import MiniAd from './components/MinimizedAd.vue'
 export default {
   name: 'app',
   components: {
-    Banner,
-    MiniAd
+    Banner
   }
 }
 </script>

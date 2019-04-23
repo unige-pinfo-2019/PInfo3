@@ -1,8 +1,8 @@
 <template>
   <div class="minimized-ad">
     <b-card
-      title="Card Title"
-      img-src="https://picsum.photos/600/300/?image=25"
+      v-bind:title="title"
+      v-bind:img-src="imgUrl"
       img-alt="Image"
       img-top
       tag="article"
@@ -10,7 +10,8 @@
       class="mb-2"
     >
       <b-card-text>
-        Some quick example text to build on the card title and make up the bulk of the card's content.
+        <!-- Some quick example text to build on the card title and make up the bulk of the card's content. -->
+        {{ description }}
       </b-card-text>
 
       <!-- <b-button href="#" variant="outline-primary">Go somewhere</b-button> -->
@@ -20,7 +21,13 @@
 
 <script>
 export default {
-  name: 'minimized-ad'
+  name: 'minimized-ad',
+
+  props: {
+    imgUrl: String, //https://picsum.photos/600/300/?image=25
+    title: String,
+    description: String
+  }
 }
 </script>
 
