@@ -68,32 +68,10 @@ public class AdEndpoint {
 			int categoryID = json.get("categoryID").getAsInt();
 			
 			//and the main attributes of an ad
-			try {
-				ad.setTitle(json.get("title").getAsString());
-				ad.setDescription(json.get("description").getAsString());
-				ad.setPrice(json.get("price").getAsInt());
-			} catch (Exception e) {
-				log.error("Mandatory fields are missing (title, description or price)");
-			}
+			setMandatoryParameters(ad, json);
 			
-			//For the attributes related to the category, we take the value if it exists or we assign the
-			//default value
-			Map<String, Object> attributes = Categories.getCategory(categoryID);
-			Map<String, Object> newAttributes = new HashMap<>();
-			newAttributes.put("categoryID", categoryID);
-			for (Map.Entry<String, Object> entry : attributes.entrySet()) {
-				String key = entry.getKey();
-				try {
-					JsonElement att = json.get(key);
-					if (getType(att) == attributes.get(key).getClass()) {
-						newAttributes.put(key, json.get(key));
-					} else {
-						newAttributes.put(key, attributes.get(key));
-					}
-				} catch (Exception e) {}
-			}
-			
-			ad.setCategory(newAttributes);
+			//then, we try to set the parameters from the category
+			setCategoryParameters(ad, categoryID, json);
 			
 			return "You've inserted an ad\n" + ad.toString()
 			;
@@ -132,6 +110,39 @@ public class AdEndpoint {
 	}
 	
 	/***** Manipulation *****/
+	
+	private void setMandatoryParameters(Ad ad, JsonObject json) {
+		try {
+			ad.setTitle(json.get("title").getAsString());
+			ad.setDescription(json.get("description").getAsString());
+			ad.setPrice(json.get("price").getAsInt());
+		} catch (Exception e) {
+			log.error("Mandatory fields are missing (title, description or price)");
+		}
+	}
+	
+	private void setCategoryParameters(Ad ad, int categoryID, JsonObject json) {
+		//For the attributes related to the category, we take the value if it exists or we assign the
+		//default value
+		Map<String, Object> attributes = Categories.getCategory(categoryID);
+		Map<String, Object> newAttributes = new HashMap<>();
+		newAttributes.put("categoryID", categoryID);
+		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
+			String key = entry.getKey();
+			try {
+				JsonElement att = json.get(key);
+				if (getType(att) == attributes.get(key).getClass()) {
+					newAttributes.put(key, json.get(key));
+				} else {
+					newAttributes.put(key, attributes.get(key));
+				}
+			} catch (Exception e) {
+				log.warn("Key " + key + " doesn't exist in json");
+			}
+		}
+		
+		ad.setCategory(newAttributes);
+	}
 	
 	/* Find the type of a JsonElement (either boolean, string or integer) */
 	private Object getType(JsonElement var) {
