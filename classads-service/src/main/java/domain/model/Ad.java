@@ -3,12 +3,16 @@ package domain.model;
 import java.io.Serializable;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 import javax.persistence.Transient;
 
 import com.google.gson.JsonObject;
@@ -36,12 +40,23 @@ public class Ad implements Serializable{
 	@Column(name="PRICE")
 	private float price;
 	
-	@Transient
-	private Map<String, Integer> category_int;
-	@Transient
-	private Map<String, Boolean> category_bool;
-	@Transient
-	private Map<String, String> category_string;
+	@ElementCollection
+    @MapKeyColumn(name="name")
+    @Column(name="value")
+    @CollectionTable(name="category_integer_attribute", joinColumns=@JoinColumn(name="cat_int_id"))
+	private Map<String, Integer> category_int;				// integer attributes specific to the category
+	
+	@ElementCollection
+    @MapKeyColumn(name="name")
+    @Column(name="value")
+    @CollectionTable(name="category_boolean_attribute", joinColumns=@JoinColumn(name="cat_bool_id"))
+	private Map<String, Boolean> category_bool;				// boolean attributes specific to the category
+	
+	@ElementCollection
+    @MapKeyColumn(name="name")
+    @Column(name="value")
+    @CollectionTable(name="category_string_attribute", joinColumns=@JoinColumn(name="cat_string_id"))
+	private Map<String, String> category_string;				// string attributes specific to the category
 
 	/***** Constructors *****/
 	public Ad() {}
