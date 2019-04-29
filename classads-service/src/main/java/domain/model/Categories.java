@@ -13,76 +13,60 @@ import java.util.Set;
 public class Categories {
 	
 	/***** Attributes *****/
-	private static ArrayList<Map<String, Object>> categories = new ArrayList<Map<String, Object>>() {
-		private static final long serialVersionUID = -9048579182940936998L;
-	{
-		add(new HashMap<String, Object>() {
-			private static final long serialVersionUID = -4825294092867421792L;
-		{
-			put("categoryName", "General");
-		}});
-		add(new HashMap<String, Object>() {
-			private static final long serialVersionUID = -4825294092867421792L;
-		{
-			put("categoryName", "Books");
-			put("parent", null);
-			put("authors", "");
-			put("nbPages", 0);
-		}});
-		
-		add(new HashMap<String, Object>() {
-			private static final long serialVersionUID = 1132122537391987013L;
-		{
-			put("categoryName", "Math Books");
-			put("parent", "Books");
-			put("Theme", "");
-		}});
-		
-		add(new HashMap<String, Object>() {
-			private static final long serialVersionUID = -2194122124855841116L;
-		{
-			put("categoryName", "Computers");
-			put("parent", null);
-			put("size", 0);
-			put("memory", 0);
-		}});
-		
-		add(new HashMap<String, Object>() {
-			private static final long serialVersionUID = 5685199085258040747L;
-		{
-			put("categoryName", "Bikes");
-			put("parent", null);
-			put("type", "");
-			put("color", "");
-		}});
-		
-	}};
+	private static ArrayList<Map<String, Object>> categoriesList = new ArrayList<>();
+	private static String categoryNameField = "categoryName";
+	private static String parentField = "parent";
 	
 	/***** Other attributes (automatically computed) *****/
-	private static Map<Integer, Map<String, Object>> categoryAttributes = new HashMap<Integer, Map<String, Object>>();
-	private static Map<Integer, Map<String, Object>> categoryStore = new HashMap<Integer, Map<String, Object>>();
-	private static Map<String, Integer> categoryIndex = new HashMap<String, Integer>();
+	private static Map<Integer, Map<String, Object>> categoryAttributes = new HashMap<>();
+	private static Map<Integer, Map<String, Object>> categoryStore = new HashMap<>();
+	private static Map<String, Integer> categoryIndex = new HashMap<>();
 	
-	/***** Static code (will be run once) to build the 3 previous attributes *****/
+	/***** Constructors *****/
+	private Categories() {}
+	
+	/***** Defining the list of categories *****/	
 	static {
+		
+		addCategory("General", null);
+		addCategory("Books", null, "authors", "", "nbPages", 0);
+		addCategory("Math Books", "Books", "Theme", "");
+		addCategory("Computers", null, "size", 0, "memory", 0);
+		addCategory("Bikes", null, "type", "", "color", "");
+		
+	
 		int id = 0;
-		for (Map<String, Object> map : categories) {
+		for (Map<String, Object> map : categoriesList) {
 			
-			Map<String, Object> newMap = new HashMap<String, Object>();
-			Map<String, Object> newMapStore= new HashMap<String, Object>();
-			for (String key : map.keySet()) {
+			Map<String, Object> newMap = new HashMap<>();
+			Map<String, Object> newMapStore= new HashMap<>();
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+				String key = entry.getKey();
 				newMap.put(key, map.get(key));
 				newMapStore.put(key, map.get(key));
 			}
 	
-			newMap.remove("categoryName");
-			newMap.remove("parent");
+			newMap.remove(categoryNameField);
+			newMap.remove(parentField);
 			categoryAttributes.put(id, newMap);
 			
 			categoryStore.put(id, newMapStore);
-			categoryIndex.put((String) newMapStore.get("categoryName"), id);
+			categoryIndex.put((String) newMapStore.get(categoryNameField), id);
 			id += 1;
 		}
+	}
+	
+	/***** Manipulation *****/
+	private static void addCategory(String categoryName, String parent, Object... objects) {
+		Map<String, Object> attributes = new HashMap<>();
+		attributes.put(categoryNameField, categoryName);
+		attributes.put(parentField, parent);
+		
+		for (int i=0; i < objects.length; i=i+2) {
+			attributes.put((String)objects[i], objects[i+1]);
+		}
+		categoriesList.add(attributes);
+		
 	}
 	
 	/***** Custom getters and setters *****/
