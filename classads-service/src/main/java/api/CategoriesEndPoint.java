@@ -1,5 +1,7 @@
 package api;
 
+import java.util.Map.Entry;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -8,6 +10,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import domain.model.Ad;
@@ -42,9 +45,11 @@ public class CategoriesEndPoint {
 	public String getCategoriesAttributes(@QueryParam("categoryID") int categoryID) {
 		JsonObject adAttributes = Ad.getAttributes();
 		JsonObject catAttributes = catService.getAttributes(categoryID);
-		catAttributes.keySet().forEach(key -> {
-	        adAttributes.add(key, catAttributes.get(key));        
-	    });
+		
+		for (Entry<String, JsonElement> entry : catAttributes.entrySet()) {
+			adAttributes.add(entry.getKey(), entry.getValue());
+		}
+
 
 		return adAttributes.toString();
 	}
