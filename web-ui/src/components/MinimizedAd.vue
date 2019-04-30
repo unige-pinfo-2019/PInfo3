@@ -97,6 +97,6 @@ export default {
 }
 
 .minimized-ad {
-  margin-bottom: 50px; // Temporaire, pour faire joli
+  margin-bottom: 40px; // Temporaire, pour faire joli
 }
 </style>
