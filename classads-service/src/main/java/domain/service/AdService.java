@@ -3,6 +3,8 @@ package domain.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.gson.JsonObject;
+
 import domain.model.Ad;
 
 public interface AdService {
@@ -16,5 +18,7 @@ public interface AdService {
 	public Optional<Ad> getById(long id);
 	
 	public void deleteAd(Ad ad);
+	
+	public Ad createAdFromJson(JsonObject json);
 
 }

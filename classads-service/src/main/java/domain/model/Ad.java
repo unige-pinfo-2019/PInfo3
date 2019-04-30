@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
 
 import com.google.gson.JsonObject;
 
