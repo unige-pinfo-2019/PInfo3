@@ -22,6 +22,8 @@
         <router-view />
       </b-col>
     </b-row>
+
+    <Footer/>
   </div>
 </template>
 
@@ -29,13 +31,14 @@
 import Banner from '@/components/Banner.vue'
 import MiniAd from '@/components/MinimizedAd.vue'
 import LeftMenu from '@/components/LeftMenu.vue'
+import Footer from '@/components/Footer.vue'
 
 export default {
   name: 'app',
   components: {
     Banner,
-    MiniAd,
-    LeftMenu
+    LeftMenu,
+    Footer
   }
 }
 </script>
@@ -53,16 +56,4 @@ export default {
   background-color: $background-gray;
 }
 
-// #nav {
-//   padding: 30px;
-// }
-//
-// #nav a {
-//   font-weight: bold;
-//   color: #2c3e50;
-// }
-//
-// #nav a.router-link-exact-active {
-//   color: #42b983;
-// }
 </style>
