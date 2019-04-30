@@ -1,0 +1,162 @@
+30-04-2019 17:02:26 WARN  AdEndpoint:171 - Key parent doesn't exist in json
+30-04-2019 17:02:26 WARN  AdEndpoint:171 - Key categoryName doesn't exist in json
+30-04-2019 17:02:26 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:26 INFO  stdout:71 -     select
+30-04-2019 17:02:26 INFO  stdout:71 -         ad0_.AD_ID as AD_ID1_0_,
+30-04-2019 17:02:26 INFO  stdout:71 -         ad0_.DESCRIPTION as DESCRIPT2_0_,
+30-04-2019 17:02:26 INFO  stdout:71 -         ad0_.PRICE as PRICE3_0_,
+30-04-2019 17:02:26 INFO  stdout:71 -         ad0_.TITLE as TITLE4_0_ 
+30-04-2019 17:02:26 INFO  stdout:71 -     from
+30-04-2019 17:02:26 INFO  stdout:71 -         AD ad0_ 
+30-04-2019 17:02:26 INFO  stdout:71 -     where
+30-04-2019 17:02:26 INFO  stdout:71 -         lower(ad0_.TITLE)=lower(?)
+30-04-2019 17:02:26 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:26 INFO  stdout:71 -     call next value for hibernate_sequence
+30-04-2019 17:02:26 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:26 INFO  stdout:71 -     insert 
+30-04-2019 17:02:26 INFO  stdout:71 -     into
+30-04-2019 17:02:26 INFO  stdout:71 -         AD
+30-04-2019 17:02:26 INFO  stdout:71 -         (DESCRIPTION, PRICE, TITLE, AD_ID) 
+30-04-2019 17:02:26 INFO  stdout:71 -     values
+30-04-2019 17:02:26 INFO  stdout:71 -         (?, ?, ?, ?)
+30-04-2019 17:02:26 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:26 INFO  stdout:71 -     insert 
+30-04-2019 17:02:26 INFO  stdout:71 -     into
+30-04-2019 17:02:26 INFO  stdout:71 -         category_integer_attribute
+30-04-2019 17:02:26 INFO  stdout:71 -         (cat_int_id, cat_int, value) 
+30-04-2019 17:02:26 INFO  stdout:71 -     values
+30-04-2019 17:02:26 INFO  stdout:71 -         (?, ?, ?)
+30-04-2019 17:02:26 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:26 INFO  stdout:71 -     insert 
+30-04-2019 17:02:26 INFO  stdout:71 -     into
+30-04-2019 17:02:26 INFO  stdout:71 -         category_string_attribute
+30-04-2019 17:02:26 INFO  stdout:71 -         (cat_string_id, cat_string, value) 
+30-04-2019 17:02:26 INFO  stdout:71 -     values
+30-04-2019 17:02:26 INFO  stdout:71 -         (?, ?, ?)
+30-04-2019 17:02:46 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:46 INFO  stdout:71 -     select
+30-04-2019 17:02:46 INFO  stdout:71 -         ad0_.AD_ID as AD_ID1_0_,
+30-04-2019 17:02:46 INFO  stdout:71 -         ad0_.DESCRIPTION as DESCRIPT2_0_,
+30-04-2019 17:02:46 INFO  stdout:71 -         ad0_.PRICE as PRICE3_0_,
+30-04-2019 17:02:46 INFO  stdout:71 -         ad0_.TITLE as TITLE4_0_ 
+30-04-2019 17:02:46 INFO  stdout:71 -     from
+30-04-2019 17:02:46 INFO  stdout:71 -         AD ad0_
+30-04-2019 17:02:46 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:46 INFO  stdout:71 -     select
+30-04-2019 17:02:46 INFO  stdout:71 -         category_s0_.cat_string_id as cat_stri1_3_0_,
+30-04-2019 17:02:46 INFO  stdout:71 -         category_s0_.value as value2_3_0_,
+30-04-2019 17:02:46 INFO  stdout:71 -         category_s0_.cat_string as cat_stri3_0_ 
+30-04-2019 17:02:46 INFO  stdout:71 -     from
+30-04-2019 17:02:46 INFO  stdout:71 -         category_string_attribute category_s0_ 
+30-04-2019 17:02:46 INFO  stdout:71 -     where
+30-04-2019 17:02:46 INFO  stdout:71 -         category_s0_.cat_string_id=?
+30-04-2019 17:02:46 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:46 INFO  stdout:71 -     select
+30-04-2019 17:02:46 INFO  stdout:71 -         category_i0_.cat_int_id as cat_int_1_2_0_,
+30-04-2019 17:02:46 INFO  stdout:71 -         category_i0_.value as value2_2_0_,
+30-04-2019 17:02:46 INFO  stdout:71 -         category_i0_.cat_int as cat_int3_0_ 
+30-04-2019 17:02:46 INFO  stdout:71 -     from
+30-04-2019 17:02:46 INFO  stdout:71 -         category_integer_attribute category_i0_ 
+30-04-2019 17:02:46 INFO  stdout:71 -     where
+30-04-2019 17:02:46 INFO  stdout:71 -         category_i0_.cat_int_id=?
+30-04-2019 17:02:46 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:46 INFO  stdout:71 -     select
+30-04-2019 17:02:46 INFO  stdout:71 -         category_b0_.cat_bool_id as cat_bool1_1_0_,
+30-04-2019 17:02:46 INFO  stdout:71 -         category_b0_.value as value2_1_0_,
+30-04-2019 17:02:46 INFO  stdout:71 -         category_b0_.cat_bool as cat_bool3_0_ 
+30-04-2019 17:02:46 INFO  stdout:71 -     from
+30-04-2019 17:02:46 INFO  stdout:71 -         category_boolean_attribute category_b0_ 
+30-04-2019 17:02:46 INFO  stdout:71 -     where
+30-04-2019 17:02:46 INFO  stdout:71 -         category_b0_.cat_bool_id=?
+30-04-2019 17:02:46 INFO  AdEndpoint:52 - Size of ads : 1
+30-04-2019 17:02:59 WARN  AdEndpoint:171 - Key parent doesn't exist in json
+30-04-2019 17:02:59 WARN  AdEndpoint:171 - Key categoryName doesn't exist in json
+30-04-2019 17:02:59 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:59 INFO  stdout:71 -     select
+30-04-2019 17:02:59 INFO  stdout:71 -         ad0_.AD_ID as AD_ID1_0_,
+30-04-2019 17:02:59 INFO  stdout:71 -         ad0_.DESCRIPTION as DESCRIPT2_0_,
+30-04-2019 17:02:59 INFO  stdout:71 -         ad0_.PRICE as PRICE3_0_,
+30-04-2019 17:02:59 INFO  stdout:71 -         ad0_.TITLE as TITLE4_0_ 
+30-04-2019 17:02:59 INFO  stdout:71 -     from
+30-04-2019 17:02:59 INFO  stdout:71 -         AD ad0_ 
+30-04-2019 17:02:59 INFO  stdout:71 -     where
+30-04-2019 17:02:59 INFO  stdout:71 -         lower(ad0_.TITLE)=lower(?)
+30-04-2019 17:02:59 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:59 INFO  stdout:71 -     call next value for hibernate_sequence
+30-04-2019 17:02:59 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:59 INFO  stdout:71 -     insert 
+30-04-2019 17:02:59 INFO  stdout:71 -     into
+30-04-2019 17:02:59 INFO  stdout:71 -         AD
+30-04-2019 17:02:59 INFO  stdout:71 -         (DESCRIPTION, PRICE, TITLE, AD_ID) 
+30-04-2019 17:02:59 INFO  stdout:71 -     values
+30-04-2019 17:02:59 INFO  stdout:71 -         (?, ?, ?, ?)
+30-04-2019 17:02:59 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:02:59 INFO  stdout:71 -     insert 
+30-04-2019 17:02:59 INFO  stdout:71 -     into
+30-04-2019 17:02:59 INFO  stdout:71 -         category_integer_attribute
+30-04-2019 17:02:59 INFO  stdout:71 -         (cat_int_id, cat_int, value) 
+30-04-2019 17:02:59 INFO  stdout:71 -     values
+30-04-2019 17:02:59 INFO  stdout:71 -         (?, ?, ?)
+30-04-2019 17:03:13 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:03:13 INFO  stdout:71 -     select
+30-04-2019 17:03:13 INFO  stdout:71 -         ad0_.AD_ID as AD_ID1_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         ad0_.DESCRIPTION as DESCRIPT2_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         ad0_.PRICE as PRICE3_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         ad0_.TITLE as TITLE4_0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     from
+30-04-2019 17:03:13 INFO  stdout:71 -         AD ad0_
+30-04-2019 17:03:13 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:03:13 INFO  stdout:71 -     select
+30-04-2019 17:03:13 INFO  stdout:71 -         category_s0_.cat_string_id as cat_stri1_3_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_s0_.value as value2_3_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_s0_.cat_string as cat_stri3_0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     from
+30-04-2019 17:03:13 INFO  stdout:71 -         category_string_attribute category_s0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     where
+30-04-2019 17:03:13 INFO  stdout:71 -         category_s0_.cat_string_id=?
+30-04-2019 17:03:13 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:03:13 INFO  stdout:71 -     select
+30-04-2019 17:03:13 INFO  stdout:71 -         category_i0_.cat_int_id as cat_int_1_2_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_i0_.value as value2_2_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_i0_.cat_int as cat_int3_0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     from
+30-04-2019 17:03:13 INFO  stdout:71 -         category_integer_attribute category_i0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     where
+30-04-2019 17:03:13 INFO  stdout:71 -         category_i0_.cat_int_id=?
+30-04-2019 17:03:13 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:03:13 INFO  stdout:71 -     select
+30-04-2019 17:03:13 INFO  stdout:71 -         category_b0_.cat_bool_id as cat_bool1_1_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_b0_.value as value2_1_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_b0_.cat_bool as cat_bool3_0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     from
+30-04-2019 17:03:13 INFO  stdout:71 -         category_boolean_attribute category_b0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     where
+30-04-2019 17:03:13 INFO  stdout:71 -         category_b0_.cat_bool_id=?
+30-04-2019 17:03:13 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:03:13 INFO  stdout:71 -     select
+30-04-2019 17:03:13 INFO  stdout:71 -         category_s0_.cat_string_id as cat_stri1_3_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_s0_.value as value2_3_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_s0_.cat_string as cat_stri3_0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     from
+30-04-2019 17:03:13 INFO  stdout:71 -         category_string_attribute category_s0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     where
+30-04-2019 17:03:13 INFO  stdout:71 -         category_s0_.cat_string_id=?
+30-04-2019 17:03:13 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:03:13 INFO  stdout:71 -     select
+30-04-2019 17:03:13 INFO  stdout:71 -         category_i0_.cat_int_id as cat_int_1_2_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_i0_.value as value2_2_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_i0_.cat_int as cat_int3_0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     from
+30-04-2019 17:03:13 INFO  stdout:71 -         category_integer_attribute category_i0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     where
+30-04-2019 17:03:13 INFO  stdout:71 -         category_i0_.cat_int_id=?
+30-04-2019 17:03:13 INFO  stdout:71 - Hibernate: 
+30-04-2019 17:03:13 INFO  stdout:71 -     select
+30-04-2019 17:03:13 INFO  stdout:71 -         category_b0_.cat_bool_id as cat_bool1_1_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_b0_.value as value2_1_0_,
+30-04-2019 17:03:13 INFO  stdout:71 -         category_b0_.cat_bool as cat_bool3_0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     from
+30-04-2019 17:03:13 INFO  stdout:71 -         category_boolean_attribute category_b0_ 
+30-04-2019 17:03:13 INFO  stdout:71 -     where
+30-04-2019 17:03:13 INFO  stdout:71 -         category_b0_.cat_bool_id=?
+30-04-2019 17:03:13 INFO  AdEndpoint:52 - Size of ads : 2

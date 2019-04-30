@@ -1,6 +1,6 @@
 <template>
   <div class="left-menu">
-    <b-button variant="primary" href="#">Poster un annonce</b-button>
+    <b-button variant="primary" to="/newad">Poster un annonce</b-button>
     <b-list-group>
       <!-- <b-list-group-item button active>Poster une annonce</b-list-group-item> -->
       <b-list-group-item button>Ordinateurs</b-list-group-item>

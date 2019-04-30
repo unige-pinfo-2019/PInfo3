@@ -7,6 +7,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,20 +40,20 @@ public class Ad implements Serializable{
 	@Column(name="PRICE")
 	private float price;
 
-	@ElementCollection
-    @MapKeyColumn(name="name")
+	@ElementCollection(fetch = FetchType.EAGER)
+    @MapKeyColumn(name="cat_int")
     @Column(name="value")
     @CollectionTable(name="category_integer_attribute", joinColumns=@JoinColumn(name="cat_int_id"))
 	private Map<String, Integer> category_int;				// integer attributes specific to the category
 
-	@ElementCollection
-    @MapKeyColumn(name="name")
+	@ElementCollection(fetch = FetchType.EAGER)
+    @MapKeyColumn(name="cat_bool")
     @Column(name="value")
     @CollectionTable(name="category_boolean_attribute", joinColumns=@JoinColumn(name="cat_bool_id"))
 	private Map<String, Boolean> category_bool;				// boolean attributes specific to the category
 
-	@ElementCollection
-    @MapKeyColumn(name="name")
+	@ElementCollection(fetch = FetchType.EAGER)
+    @MapKeyColumn(name="cat_string")
     @Column(name="value")
     @CollectionTable(name="category_string_attribute", joinColumns=@JoinColumn(name="cat_string_id"))
 	private Map<String, String> category_string;				// string attributes specific to the category

@@ -86,11 +86,6 @@ export default {
   // font-size: 1.4em;
 }
 
-// #price-name {
-//   float: left;
-//   margin-bottom: 0px;
-//   color: #AAA;
-// }
 .card {
   text-align: left;
   width: 600px;
@@ -99,5 +94,9 @@ export default {
 .price-wrapper {
   margin-top: 30px;
   font-size: 1.3em;
+}
+
+.minimized-ad {
+  margin-bottom: 50px; // Temporaire, pour faire joli
 }
 </style>
