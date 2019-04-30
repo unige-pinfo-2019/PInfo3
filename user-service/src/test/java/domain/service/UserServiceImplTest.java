@@ -2,6 +2,8 @@ package domain.service;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -12,7 +14,6 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import domain.model.User;
-import domain.service.UserServiceImpl;
 import eu.drus.jpa.unit.api.JpaUnit;
 
 @ExtendWith(JpaUnit.class)
@@ -28,7 +29,7 @@ public class UserServiceImplTest {
 
 	
 	@Test
-	public void testCreateClassAd() {
+	public void testCreateUser() {
 		User user = new User("Martin", "Dupont", 23, "martin.dupont@etu.unige.ch", "022 539 13 83");
 		
 		int tailleInitiale = 0 ;//= cas.getEm().createQuery("SELECT a FROM ClassAd a", ClassAd.class).getResultList().size();
@@ -64,9 +65,9 @@ public class UserServiceImplTest {
 		User userBDD = usi.getEm().createQuery(query, User.class).getResultList().get(size-1);
 		
 		
-		if (userBDD.getPrenom() != p) {
+		if (userBDD.getFirstName() != p) {
 			fail("Le prenom a changé à la création du User.");
-		} else if (userBDD.getNom() != n) {
+		} else if (userBDD.getLastName() != n) {
 			fail("Le nom a changé à la création du User.");
 		} else if (userBDD.getAge() != a) {
 			fail("L'âge a changé à la création du User.");
@@ -76,4 +77,33 @@ public class UserServiceImplTest {
 			fail("Le téléphone a changé à la création du User.");
 		}
 	}
+	
+	@Test
+	public void testCreateClassAdId() {
+		User caA = new User("Aaaa","AAAA",11, "aaa@aaa.com", "111-111-11-11");
+		User caB = new User("Bbbb","BBBB",11, "bbb@bbb.com", "222-222-22-22");
+		User caC = new User("Cccc","CCCC",11, "ccc@ccc.com", "333-333-33-33");
+		User caD = new User("Dddd","DDDD",11, "ddd@ddd.com", "444-444-44-44");
+		User caE = new User("Eeee","EEEE",11, "eee@eee.com", "555-555-55-55");
+		User caF = new User("Ffff","FFFF",11, "fff@fff.com", "666-666-66-66");
+		
+		usi.createUser(caA);
+		usi.createUser(caB);
+		usi.createUser(caC);
+		usi.createUser(caD);
+		usi.createUser(caE);
+		usi.createUser(caF);
+		
+		List<User> lU = usi.getEm().createQuery("SELECT a FROM User a", User.class).getResultList();
+		
+		for (int i=0; i<lU.size(); ++i) {
+			for (int j=i+1; j<lU.size(); ++j) {
+				if (lU.get(i).getId() == lU.get(j).getId()) {
+					fail("Les users \"" + lU.get(i).getFirstName() + " " + lU.get(i).getLastName() + "\" et \"" + lU.get(j).getFirstName() + " " + lU.get(j).getLastName() + "\" ont le même id.");
+				}
+			}
+		}
+		
+	}
+	
 }

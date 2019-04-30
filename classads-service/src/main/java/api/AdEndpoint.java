@@ -17,6 +17,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import domain.model.Ad;
@@ -46,8 +47,28 @@ public class AdEndpoint {
 	public String getAll() {
 		//We get the ads back in a list
 		List<Ad> ads = adservice.getAll();
-		Gson gson = new Gson();
-		return gson.toJson(ads);
+		JsonArray result = new JsonArray();
+		
+		log.info("Size of ads : " + ads.size());
+		
+		for (Ad ad : ads) {
+			JsonObject jsonAd = new JsonObject();
+			jsonAd.addProperty("title", ad.getTitle());
+			jsonAd.addProperty("description", ad.getDescription());
+			jsonAd.addProperty("price", ad.getPrice());
+			for (Map.Entry<String, Integer> entryInt : ad.getCategory_int().entrySet()) {
+				jsonAd.addProperty(entryInt.getKey(), entryInt.getValue());
+			}
+			for (Map.Entry<String, Boolean> entryBool : ad.getCategory_bool().entrySet()) {
+				jsonAd.addProperty(entryBool.getKey(), entryBool.getValue());
+			}
+			for (Map.Entry<String, String> entryString : ad.getCategory_string().entrySet()) {
+				jsonAd.addProperty(entryString.getKey(), entryString.getValue());
+			}
+			result.add(jsonAd);
+		}
+		
+		return result.toString();
 	}
 	
 	/* Add a new ad in the DB */
@@ -68,19 +89,21 @@ public class AdEndpoint {
 			int categoryID = json.get("categoryID").getAsInt();
 			
 			//and the main attributes of an ad
-
 			setMandatoryParameters(ad, json);
 			
 			//then, we try to set the parameters from the category
 			setCategoryParameters(ad, categoryID, json);
 			
-			return "You've inserted an ad\n" + ad.toString()
-			;
+			if (adservice.createAd(ad)) {
+				return "You've inserted an ad\n" + ad.toString();
+			} else {
+				return "This ad already exists";
+			}
+		
 		} catch (Exception e) {
 			log.error("categoryID is missing or is not an Integer");
+			return "Some error occured";
 		}
-		
-		return "Some error occured.";
 	}
 
 	/* Delete an ad according to its ID */
@@ -119,6 +142,7 @@ public class AdEndpoint {
 			ad.setPrice(json.get("price").getAsInt());
 		} catch (Exception e) {
 			log.error("Mandatory fields are missing (title, description or price)");
+			return;
 		}
 	}
 	
