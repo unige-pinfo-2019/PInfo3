@@ -28,7 +28,7 @@ public class UserServiceImplTest {
 
 	
 	@Test
-	public void testCreateClassAd() {
+	public void testCreateUser() {
 		User user = new User("Martin", "Dupont", 23, "martin.dupont@etu.unige.ch", "022 539 13 83");
 		
 		int tailleInitiale = 0 ;//= cas.getEm().createQuery("SELECT a FROM ClassAd a", ClassAd.class).getResultList().size();
@@ -64,9 +64,9 @@ public class UserServiceImplTest {
 		User userBDD = usi.getEm().createQuery(query, User.class).getResultList().get(size-1);
 		
 		
-		if (userBDD.getPrenom() != p) {
+		if (userBDD.getFirstName() != p) {
 			fail("Le prenom a changé à la création du User.");
-		} else if (userBDD.getNom() != n) {
+		} else if (userBDD.getLastName() != n) {
 			fail("Le nom a changé à la création du User.");
 		} else if (userBDD.getAge() != a) {
 			fail("L'âge a changé à la création du User.");

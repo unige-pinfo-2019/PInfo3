@@ -20,11 +20,11 @@ public class User implements Serializable {
 	@Column(name="USER_ID")
 	private long id;
 	
-	@Column(name="PRENOM")
-	private String prenom;
+	@Column(name="FIRSTNAME")
+	private String firstName;
 	
-	@Column(name="NOM")
-	private String nom;
+	@Column(name="LASTNAME")
+	private String lastName;
 	
 	@Column(name="AGE")
 	private int age;
@@ -40,8 +40,8 @@ public class User implements Serializable {
 	public User(String prenom, String nom, int age, String email, String tel) {
 		this.age = age;
 		this.email = email;
-		this.nom = nom;
-		this.prenom = prenom;
+		this.lastName = nom;
+		this.firstName = prenom;
 		this.tel = tel;
 	}
 	
@@ -49,7 +49,7 @@ public class User implements Serializable {
 	public String toString() {
 		String NewLigne = System.getProperty("line.separator");
 		String ret;
-		ret = NewLigne + nom + " " + prenom + " (id = " + String.valueOf(id) + ")";
+		ret = NewLigne + lastName + " " + firstName + " (id = " + String.valueOf(id) + ")";
 		ret += NewLigne + NewLigne + "Age : " + String.valueOf(age); 
 		ret += NewLigne + NewLigne + "e-mail : " + email;
 		ret += NewLigne + NewLigne + "tel : " + tel;
@@ -57,7 +57,7 @@ public class User implements Serializable {
 	}
 	
 	public String returnJSON() {
-		return "{\"nom\":\""+this.nom+"\", \"prenom\":\"" + this.prenom + "\n, \"age\":\"" + this.age +"\", \"tel\":\"" + this.tel +"\", \"email\":\"" + this.email + "\"";
+		return "{\"nom\":\""+this.lastName+"\", \"prenom\":\"" + this.firstName + "\n, \"age\":\"" + this.age +"\", \"tel\":\"" + this.tel +"\", \"email\":\"" + this.email + "\"";
 	}
 
 	public long getId() {
@@ -68,20 +68,20 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getPrenom() {
-		return prenom;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public int getAge() {
