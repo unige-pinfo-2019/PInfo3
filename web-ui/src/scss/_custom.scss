@@ -1,2 +1,4 @@
-$primary: #D80669;
-$brand-primary: #D80669;
+$primary: $primary-color;
+
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap-vue/src/index.scss'
