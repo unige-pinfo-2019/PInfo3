@@ -62,7 +62,7 @@ public class AdServiceImpl implements AdService{
 		query.setParameter(p, title);
 		List<Ad> results = query.getResultList();
 		
-		if (results.isEmpty()) {
+		if (!results.isEmpty()) {
 			return Optional.of(results.get(0));
 		}
 		return Optional.empty();
@@ -83,7 +83,7 @@ public class AdServiceImpl implements AdService{
 		query.setParameter(p, id);
 		List<Ad> results = query.getResultList();
 		
-		if(results.isEmpty()) {
+		if(!results.isEmpty()) {
 			return Optional.of(results.get(0));
 		}
 		
