@@ -44,19 +44,19 @@ public class Ad implements Serializable{
     @MapKeyColumn(name="cat_int")
     @Column(name="value")
     @CollectionTable(name="category_integer_attribute", joinColumns=@JoinColumn(name="cat_int_id"))
-	private Map<String, Integer> category_int;				// integer attributes specific to the category
+	private Map<String, Integer> categoryInt;				// integer attributes specific to the category
 
 	@ElementCollection(fetch = FetchType.EAGER)
     @MapKeyColumn(name="cat_bool")
     @Column(name="value")
     @CollectionTable(name="category_boolean_attribute", joinColumns=@JoinColumn(name="cat_bool_id"))
-	private Map<String, Boolean> category_bool;				// boolean attributes specific to the category
+	private Map<String, Boolean> categoryBool;				// boolean attributes specific to the category
 
 	@ElementCollection(fetch = FetchType.EAGER)
     @MapKeyColumn(name="cat_string")
     @Column(name="value")
     @CollectionTable(name="category_string_attribute", joinColumns=@JoinColumn(name="cat_string_id"))
-	private Map<String, String> category_string;				// string attributes specific to the category
+	private Map<String, String> categoryString;				// string attributes specific to the category
 
 	/***** Constructors *****/
 	public Ad() {}
@@ -82,9 +82,8 @@ public class Ad implements Serializable{
 	@Override
 	public String toString() {
 		String newLine = System.getProperty("line.separator");
-		String ret;
-		ret = newLine + title + " (Ad id = " + Long.toString(id) + ")"+ newLine + newLine + description + newLine + newLine + "Prix : " + String.valueOf(price);
-		ret += newLine + "Other fields : " + category_int.toString() + category_bool.toString() + category_string.toString();
+		String ret = newLine + title + " (Ad id = " + id + ")"+ newLine + newLine + description + newLine + newLine + "Prix : " + price;
+		ret += newLine + "Other fields : " + categoryInt.toString() + categoryBool.toString() + categoryString.toString();
 		return ret;
 	}
 
@@ -121,22 +120,22 @@ public class Ad implements Serializable{
 		this.price = price;
 	}
 
-	public Map<String, Integer> getCategory_int() {
-		return category_int;
+	public Map<String, Integer> getCategoryInt() {
+		return categoryInt;
 	}
 
-	public Map<String, Boolean> getCategory_bool() {
-		return category_bool;
+	public Map<String, Boolean> getCategoryBool() {
+		return categoryBool;
 	}
 
-	public Map<String, String> getCategory_string() {
-		return category_string;
+	public Map<String, String> getCategoryString() {
+		return categoryString;
 	}
 
-	public void setCategory(Map<String, Integer> category_int, Map<String, Boolean> category_bool, Map<String, String> category_string) {
-		this.category_int = category_int;
-		this.category_bool = category_bool;
-		this.category_string = category_string;
+	public void setCategory(Map<String, Integer> categoryInt, Map<String, Boolean> categoryBool, Map<String, String> categoryString) {
+		this.categoryInt = categoryInt;
+		this.categoryBool = categoryBool;
+		this.categoryString = categoryString;
 	}
 
 
