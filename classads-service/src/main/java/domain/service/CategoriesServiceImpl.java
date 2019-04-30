@@ -55,11 +55,11 @@ public class CategoriesServiceImpl implements CategoriesService {
 				JsonObject newCat = new JsonObject();
 				newCat.addProperty("name", (String) cat.getValue().get("categoryName"));
 				newCat.add("children", getChildren(cat.getKey()));
-				
 				tree.add(newCat);
 			}
 			
 		}
+		
 		return tree;
 	}
 	
@@ -79,15 +79,18 @@ public class CategoriesServiceImpl implements CategoriesService {
 	/* Returns a JsonArray with the children categories of a specified category */
 	private JsonArray getChildren(int categoryID) {
 		//We get the name of the category
+		
 		String categoryName = Categories.getCategoryName(categoryID);
 		JsonArray children = new JsonArray();
-		
+
 		//We look for all children in the categories
 		for (Map.Entry<Integer, Map<String, Object>> cat : Categories.getCategoryStore().entrySet()) {
-			if (((String) cat.getValue().get("parent")).equals(categoryName)) {
+			
+			if (((String) cat.getValue().get("parent")) == categoryName) {
 				JsonObject child = new JsonObject();
 				child.addProperty("name", (String) cat.getValue().get("categoryName"));
 				//We call the function recursively to get the children of the subcategory
+				
 				child.add("children", getChildren(cat.getKey()));
 				children.add(child);
 			}
