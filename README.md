@@ -1,6 +1,9 @@
 [![Build Status](https://travis-ci.org/unige-pinfo-2019/PInfo3.svg?branch=master)](https://travis-ci.org/unige-pinfo-2019/PInfo3)
 [![Sonarcloud Status](https://sonarcloud.io/api/project_badges/measure?project=unige-pinfo-2019_PInfo3&metric=alert_status)](https://sonarcloud.io/dashboard?id=unige-pinfo-2019_PInfo3)
 [![Coverage (Sonar)](https://sonarcloud.io/api/project_badges/measure?project=unige-pinfo-2019_PInfo3&metric=coverage)](https://sonarcloud.io/dashboard?id=unige-pinfo-2019_PInfo3)
+[![Bugs (Sonar)](https://sonarcloud.io/api/project_badges/measure?project=unige-pinfo-2019_PInfo3&metric=bugs)](https://sonarcloud.io/dashboard?id=unige-pinfo-2019_PInfo3)
+[![Code smells (Sonar)](https://sonarcloud.io/api/project_badges/measure?project=unige-pinfo-2019_PInfo3&metric=code_smells)](https://sonarcloud.io/dashboard?id=unige-pinfo-2019_PInfo3)
+[![Vulnerabilities (Sonar)](https://sonarcloud.io/api/project_badges/measure?project=unige-pinfo-2019_PInfo3&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=unige-pinfo-2019_PInfo3)
 
 
 # Welcome to ByteTheDust project repository
@@ -17,33 +20,48 @@ We are a 6 members team :
 
 ## Commands
 
-Open a terminal in the `classads-service` directory, from here you can execute the following commands to start a backend server locally at the address `localhost:8080` :
+### Running on the server
+
+You can access the application on `pinfo3.unige.ch`
+
+If you want to deploy the docker images, we need to connect to the VM (with your university login):
+
+```
+ssh username@pinfo3.unige.ch
+```
+
+Then to execute the following command to update the docker images :
+
+```
+docker stop $(docker ls -a -q)
+docker rm $(docker ls -a -q)
+docker-compose -f docker-compose-unitrade.yml pull
+```
+
+Finally, to run
+
+`docker-compose -f docker-compose-unitrade.yml up` : start the containers and display informations (but you won't be able to log out from the VM)
+
+`docker-compose -f docker-compose-unitrade.yml up - d` : just start the containers in detached mode so we can log out from the VM
+
+
+### Running frontend locally
+
+Open a terminal in the `web-ui` directory, from here you can execute the following command to start a frontend server locally at the address `localhost:8081` :
+```
+npm run dev
+```
+
+### Running backend locally
+
+Open a terminal in a microservice folder, from here you can execute the following commands to start a backend server locally at the address `localhost:8080` :
 ```
 mvn clean install
 mvn thorntail:run
 ```
 
-Open a terminal in the `frontend` directory, from here you can execute the following command to start a frontend server locally at the address `localhost:8081` :
-```
-npm run dev
-```
+We can skip tests by using `-DskipTests`.
 
-### Skip tests
-It my take some time to build because of the tests, so if you want to skip them, we can use `-DskipTests` like :
-```
-mvn clean install -DskipTests
-mvn thorntail:run -DskipTests
-```
-
-### Docker
-
-To install the docker files, we can execute :
-` sudo ./dockerinstall.sh`
-
-### Firefox REST client (to run only backend)
-
-If you want to run some backend without running frontend, you can install the firefox extension RESTED.
-Then, you run the backend with `mvn thorntail:run` which will start a local server at `localhost:8080`.
 When Thorntail is ready, open a firefox browser and open a RESTED TAB (by clicking on </>).
 There, you can do REST requests.
 
@@ -63,9 +81,6 @@ prix --> 10
 ```
 
 Now, you can send the request.
-
-
-
 
 ## Group infos
 
