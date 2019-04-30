@@ -69,6 +69,7 @@ public class Categories {
 		
 	}
 	
+
 	/***** Custom getters and setters *****/
 	public static Set<String> getCategories() {
 		return categoryIndex.keySet();
@@ -93,6 +94,14 @@ public class Categories {
 
 	public static Map<String, Integer> getCategoryIndex() {
 		return categoryIndex;
+	}
+	
+	public static String getCategoryNameField() {
+		return categoryNameField;
+	}
+
+	public static String getParentField() {
+		return parentField;
 	}
 
 }
