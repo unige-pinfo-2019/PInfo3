@@ -20,7 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CategoriesServiceImpl implements CategoriesService {
 	
-	private String nameField = "name", childrenField = "children";
+	private String nameField = "name";
+	private String childrenField = "children";
 	
 	//***** Overrided methods *****
 	@Override

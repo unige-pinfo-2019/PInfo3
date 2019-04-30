@@ -42,7 +42,6 @@ public class AdServiceImpl implements AdService{
 
 	@Override
 	public List<Ad> getAll() {
-		//return em.createQuery("SELECT a FROM Ad a", Ad.class).getResultList();
 		CriteriaBuilder qb = getEm().getCriteriaBuilder();
 		CriteriaQuery<Ad> c = qb.createQuery(Ad.class);
 		Root<Ad> adRoot = c.from(Ad.class);
@@ -51,9 +50,7 @@ public class AdServiceImpl implements AdService{
 	}
 
 	@Override
-	public Optional<Ad> getByTitle(String title) {
-//		List<Ad> ads = em.createQuery("SELECT a FROM Ad a WHERE LOWER(a.title) = LOWER('"+title+"')", Ad.class).getResultList();
-		
+	public Optional<Ad> getByTitle(String title) {		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Ad> q = cb.createQuery(Ad.class);
 		Root<Ad> c = q.from(Ad.class);
@@ -65,7 +62,7 @@ public class AdServiceImpl implements AdService{
 		query.setParameter(p, title);
 		List<Ad> results = query.getResultList();
 		
-		if (results.size() > 0) {
+		if (results.isEmpty()) {
 			return Optional.of(results.get(0));
 		}
 		return Optional.empty();
@@ -74,9 +71,7 @@ public class AdServiceImpl implements AdService{
 	}
 
 	@Override
-	public Optional<Ad> getById(long id) {
-		// List<Ad> ads = em.createQuery("SELECT a FROM Ad a WHERE LOWER(a.id) = LOWER('"+id+"')", Ad.class).getResultList();
-		
+	public Optional<Ad> getById(long id) {		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Ad> q = cb.createQuery(Ad.class);
 		Root<Ad> c = q.from(Ad.class);
@@ -88,7 +83,7 @@ public class AdServiceImpl implements AdService{
 		query.setParameter(p, id);
 		List<Ad> results = query.getResultList();
 		
-		if(results.size() > 0) {
+		if(results.isEmpty()) {
 			return Optional.of(results.get(0));
 		}
 		
@@ -120,12 +115,12 @@ public class AdServiceImpl implements AdService{
 			int categoryID = json.get("categoryID").getAsInt();
 			
 			//and the main attributes of an ad
-			setMandatoryParameters(ad, json);
-			
-			//then, we try to set the parameters from the category
-			setCategoryParameters(ad, categoryID, json);
-			
-			
+			if (setMandatoryParameters(ad, json)) {
+				//then, we try to set the parameters from the category
+				setCategoryParameters(ad, categoryID, json);
+			} else {
+				return null;
+			}
 		
 		} catch (Exception e) {
 			log.error("categoryID is missing or is not an Integer");
@@ -135,44 +130,45 @@ public class AdServiceImpl implements AdService{
 	}
 	
 	/***** Manipulation *****/
-	private void setMandatoryParameters(Ad ad, JsonObject json) {
+	private Boolean setMandatoryParameters(Ad ad, JsonObject json) {
 		try {
 			ad.setTitle(json.get("title").getAsString());
 			ad.setDescription(json.get("description").getAsString());
 			ad.setPrice(json.get("price").getAsInt());
 		} catch (Exception e) {
 			log.error("Mandatory fields are missing (title, description or price)");
-			return;
+			return false;
 		}
+		return true;
 	}
 	
 	private void setCategoryParameters(Ad ad, int categoryID, JsonObject json) {
 		//For the attributes related to the category, we take the value if it exists or we assign the
 		//default value
 		Map<String, Object> attributes = Categories.getCategory(categoryID);
-		Map<String, Integer> newAttributes_int = new HashMap<String, Integer>();
-		Map<String, Boolean> newAttributes_bool = new HashMap<String, Boolean>();
-		Map<String, String> newAttributes_string = new HashMap<String, String>();
-		newAttributes_int.put("categoryID", categoryID);
+		Map<String, Integer> newAttributesInt = new HashMap<>();
+		Map<String, Boolean> newAttributesBool = new HashMap<>();
+		Map<String, String> newAttributesString = new HashMap<>();
+		newAttributesInt.put("categoryID", categoryID);
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String key = entry.getKey();
 			try {
 				JsonElement att = json.get(key);
 				if (getType(att) == attributes.get(key).getClass()) {
-					if(getType(att)== int.class) newAttributes_int.put(key, json.get(key).getAsInt());
-					if(getType(att)== boolean.class) newAttributes_bool.put(key, json.get(key).getAsBoolean());
-					if(getType(att)== String.class) newAttributes_string.put(key, json.get(key).getAsString());
+					if(getType(att)== int.class) newAttributesInt.put(key, json.get(key).getAsInt());
+					if(getType(att)== boolean.class) newAttributesBool.put(key, json.get(key).getAsBoolean());
+					if(getType(att)== String.class) newAttributesString.put(key, json.get(key).getAsString());
 				} else {
-					if(attributes.get(key).getClass()== int.class) newAttributes_int.put(key, (Integer) attributes.get(key));
-					if(attributes.get(key).getClass()== boolean.class) newAttributes_bool.put(key, (Boolean) attributes.get(key));
-					if(attributes.get(key).getClass()== String.class) newAttributes_string.put(key, (String) attributes.get(key));
+					if(attributes.get(key).getClass()== int.class) newAttributesInt.put(key, (Integer) attributes.get(key));
+					if(attributes.get(key).getClass()== boolean.class) newAttributesBool.put(key, (Boolean) attributes.get(key));
+					if(attributes.get(key).getClass()== String.class) newAttributesString.put(key, (String) attributes.get(key));
 				}
 			} catch (Exception e) {
 				log.warn("Key " + key + " doesn't exist in json");
 			}
 		}
 		
-		ad.setCategory(newAttributes_int,newAttributes_bool, newAttributes_string);
+		ad.setCategory(newAttributesInt,newAttributesBool, newAttributesString);
 	}
 	
 	/* Find the type of a JsonElement (either boolean, string or integer) */

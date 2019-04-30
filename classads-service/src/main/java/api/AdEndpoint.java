@@ -75,7 +75,7 @@ public class AdEndpoint {
 		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
 		Ad ad = adservice.createAdFromJson(json); //We create the ad
 		
-		if (adservice.createAd(ad)) {
+		if (ad != null && adservice.createAd(ad)) {
 			return "You've inserted an ad\n" + ad.toString();
 		} else {
 			return "This ad already exists";
