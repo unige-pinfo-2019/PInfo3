@@ -85,8 +85,8 @@ public class CategoriesServiceImpl implements CategoriesService {
 
 		//We look for all children in the categories
 		for (Map.Entry<Integer, Map<String, Object>> cat : Categories.getCategoryStore().entrySet()) {
-			
-			if (((String) cat.getValue().get("parent")) == categoryName) {
+			String parent = (String) cat.getValue().get("parent");
+			if (parent != null && parent.equals(categoryName)) {
 				JsonObject child = new JsonObject();
 				child.addProperty("name", (String) cat.getValue().get("categoryName"));
 				//We call the function recursively to get the children of the subcategory
