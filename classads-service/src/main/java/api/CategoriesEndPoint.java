@@ -42,8 +42,7 @@ public class CategoriesEndPoint {
 	public String getCategoriesAttributes(@QueryParam("categoryID") int categoryID) {
 		JsonObject adAttributes = Ad.getAttributes();
 		JsonObject catAttributes = catService.getAttributes(categoryID);
-		catAttributes.keySet().forEach(key ->
-	    {
+		catAttributes.keySet().forEach(key -> {
 	        adAttributes.add(key, catAttributes.get(key));        
 	    });
 

@@ -47,12 +47,11 @@ public class User implements Serializable {
 	
 	@Override
 	public String toString() {
-		String NewLigne = System.getProperty("line.separator");
-		String ret;
-		ret = NewLigne + lastName + " " + firstName + " (id = " + String.valueOf(id) + ")";
-		ret += NewLigne + NewLigne + "Age : " + String.valueOf(age); 
-		ret += NewLigne + NewLigne + "e-mail : " + email;
-		ret += NewLigne + NewLigne + "tel : " + tel;
+		String newLine = System.getProperty("line.separator");
+		String ret = newLine + lastName + " " + firstName + " (User id = " + id + ")";
+		ret += newLine + newLine + "Age : " + age; 
+		ret += newLine + newLine + "e-mail : " + email;
+		ret += newLine + newLine + "tel : " + tel;
 		return ret;
 	}
 	
