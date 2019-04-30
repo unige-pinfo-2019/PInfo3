@@ -33,10 +33,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public List<User> getAll() {
-		// List<User> users = em.createQuery("SELECT a FROM User a", User.class).getResultList();
-		// return users;
-		
+	public List<User> getAll() {		
 		CriteriaBuilder qb = getEm().getCriteriaBuilder();
 		CriteriaQuery<User> c = qb.createQuery(User.class);
 		Root<User> adRoot = c.from(User.class);
@@ -47,8 +44,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Optional<User> getByName(String name) {
-		//List<User> users = em.createQuery("SELECT a FROM User a WHERE LOWER(a.nom) = LOWER('"+name+"')", User.class).getResultList();
-		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<User> q = cb.createQuery(User.class);
 		Root<User> c = q.from(User.class);
@@ -60,7 +55,7 @@ public class UserServiceImpl implements UserService {
 		query.setParameter(p, name);
 		List<User> results = query.getResultList();
 		
-		if(results.size() > 0) {
+		if(!results.isEmpty()) {
 			return Optional.of(results.get(0));
 		}
 		return Optional.empty();
@@ -68,8 +63,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Optional<User> getById(long id) {
-		// List<User> users = em.createNamedQuery("SELECT a FROM User a WHERE LOWER(a.id) = LOWER('"+id+"')", User.class).getResultList();
-		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<User> q = cb.createQuery(User.class);
 		Root<User> c = q.from(User.class);
@@ -81,7 +74,7 @@ public class UserServiceImpl implements UserService {
 		query.setParameter(p, id);
 		List<User> results = query.getResultList();
 		
-		if (results.size() > 0) {
+		if (!results.isEmpty()) {
 			return Optional.of(results.get(0));
 		}
 		return Optional.empty();
