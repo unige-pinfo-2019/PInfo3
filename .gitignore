@@ -6,6 +6,7 @@ target/
 .project
 *.jar
 *.war
+classads-service/classads-service.log
 
 # Frontend #
 .DS_Store

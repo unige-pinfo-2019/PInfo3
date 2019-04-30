@@ -42,7 +42,7 @@ Finally, to run
 
 `docker-compose -f docker-compose-unitrade.yml up` : start the containers and display informations (but you won't be able to log out from the VM)
 
-`docker-compose -f docker-compose-unitrade.yml up - d` : just start the containers in detached mode so we can log out from the VM
+`docker-compose -f docker-compose-unitrade.yml up -d` : just start the containers in detached mode so we can log out from the VM
 
 
 ### Running frontend locally

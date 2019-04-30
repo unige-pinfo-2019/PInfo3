@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import domain.model.Categories;
+import lombok.extern.slf4j.Slf4j;
 
 
 /**
@@ -16,7 +17,11 @@ import domain.model.Categories;
  *
  */
 @ApplicationScoped
+@Slf4j
 public class CategoriesServiceImpl implements CategoriesService {
+	
+	private String nameField = "name";
+	private String childrenField = "children";
 	
 	//***** Overrided methods *****
 	@Override
@@ -38,7 +43,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 				parent = getCategoryParent(parent);
 			}
 		} catch (Exception e) {
-			System.err.println("Error in categoty ID");
+			log.error("Error in categoty ID");
 		}
 		
 		return result;
@@ -50,11 +55,11 @@ public class CategoriesServiceImpl implements CategoriesService {
 		
 		//We go through our category to find the root categories
 		for (Map.Entry<Integer, Map<String, Object>> cat : Categories.getCategoryStore().entrySet()) {
-			if (cat.getValue().get("parent") == null) {
+			if (cat.getValue().get(Categories.getParentField()) == null) {
 				//When we find one, we add it to our json array with its children
 				JsonObject newCat = new JsonObject();
-				newCat.addProperty("name", (String) cat.getValue().get("categoryName"));
-				newCat.add("children", getChildren(cat.getKey()));
+				newCat.addProperty(nameField, (String) cat.getValue().get(Categories.getCategoryNameField()));
+				newCat.add(childrenField, getChildren(cat.getKey()));
 				tree.add(newCat);
 			}
 			
@@ -67,7 +72,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 	/* Returns the index of the parent category or -1 if there is no parent */
 	private int getCategoryParent(int categoryID) {
 		//We get the parent
-		String parentName = (String) Categories.getCategoryStore().get(categoryID).get("parent");
+		String parentName = (String) Categories.getCategoryStore().get(categoryID).get(Categories.getParentField());
 		
 		//We return either -1 or the index
 		if (parentName == null) {
@@ -85,13 +90,13 @@ public class CategoriesServiceImpl implements CategoriesService {
 
 		//We look for all children in the categories
 		for (Map.Entry<Integer, Map<String, Object>> cat : Categories.getCategoryStore().entrySet()) {
-			
-			if (((String) cat.getValue().get("parent")) == categoryName) {
+			String parent = (String) cat.getValue().get(Categories.getParentField());
+			if (parent != null && parent.equals(categoryName)) {
 				JsonObject child = new JsonObject();
-				child.addProperty("name", (String) cat.getValue().get("categoryName"));
+				child.addProperty(nameField, (String) cat.getValue().get(Categories.getCategoryNameField()));
 				//We call the function recursively to get the children of the subcategory
 				
-				child.add("children", getChildren(cat.getKey()));
+				child.add(childrenField, getChildren(cat.getKey()));
 				children.add(child);
 			}
 		}
