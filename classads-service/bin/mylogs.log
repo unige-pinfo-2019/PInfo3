@@ -1,0 +1,9 @@
+26-04-2019 21:46:31 ERROR AdEndpoint:48 - Extracting all ads from the database
+26-04-2019 21:46:32 INFO  stdout:71 - Hibernate: 
+26-04-2019 21:46:32 INFO  stdout:71 -     select
+26-04-2019 21:46:32 INFO  stdout:71 -         ad0_.AD_ID as AD_ID1_0_,
+26-04-2019 21:46:32 INFO  stdout:71 -         ad0_.DESCRIPTION as DESCRIPT2_0_,
+26-04-2019 21:46:32 INFO  stdout:71 -         ad0_.PRICE as PRICE3_0_,
+26-04-2019 21:46:32 INFO  stdout:71 -         ad0_.TITLE as TITLE4_0_ 
+26-04-2019 21:46:32 INFO  stdout:71 -     from
+26-04-2019 21:46:32 INFO  stdout:71 -         AD ad0_

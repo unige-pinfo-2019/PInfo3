@@ -68,6 +68,7 @@ public class AdEndpoint {
 			int categoryID = json.get("categoryID").getAsInt();
 			
 			//and the main attributes of an ad
+
 			setMandatoryParameters(ad, json);
 			
 			//then, we try to set the parameters from the category
@@ -125,23 +126,29 @@ public class AdEndpoint {
 		//For the attributes related to the category, we take the value if it exists or we assign the
 		//default value
 		Map<String, Object> attributes = Categories.getCategory(categoryID);
-		Map<String, Object> newAttributes = new HashMap<>();
-		newAttributes.put("categoryID", categoryID);
+		Map<String, Integer> newAttributes_int = new HashMap<String, Integer>();
+		Map<String, Boolean> newAttributes_bool = new HashMap<String, Boolean>();
+		Map<String, String> newAttributes_string = new HashMap<String, String>();
+		newAttributes_int.put("categoryID", categoryID);
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String key = entry.getKey();
 			try {
 				JsonElement att = json.get(key);
 				if (getType(att) == attributes.get(key).getClass()) {
-					newAttributes.put(key, json.get(key));
+					if(getType(att)== int.class) newAttributes_int.put(key, json.get(key).getAsInt());
+					if(getType(att)== boolean.class) newAttributes_bool.put(key, json.get(key).getAsBoolean());
+					if(getType(att)== String.class) newAttributes_string.put(key, json.get(key).getAsString());
 				} else {
-					newAttributes.put(key, attributes.get(key));
+					if(attributes.get(key).getClass()== int.class) newAttributes_int.put(key, (Integer) attributes.get(key));
+					if(attributes.get(key).getClass()== boolean.class) newAttributes_bool.put(key, (Boolean) attributes.get(key));
+					if(attributes.get(key).getClass()== String.class) newAttributes_string.put(key, (String) attributes.get(key));
 				}
 			} catch (Exception e) {
 				log.warn("Key " + key + " doesn't exist in json");
 			}
 		}
 		
-		ad.setCategory(newAttributes);
+		ad.setCategory(newAttributes_int,newAttributes_bool, newAttributes_string);
 	}
 	
 	/* Find the type of a JsonElement (either boolean, string or integer) */

@@ -1,9 +1,13 @@
-26-04-2019 21:46:31 ERROR AdEndpoint:48 - Extracting all ads from the database
-26-04-2019 21:46:32 INFO  stdout:71 - Hibernate: 
-26-04-2019 21:46:32 INFO  stdout:71 -     select
-26-04-2019 21:46:32 INFO  stdout:71 -         ad0_.AD_ID as AD_ID1_0_,
-26-04-2019 21:46:32 INFO  stdout:71 -         ad0_.DESCRIPTION as DESCRIPT2_0_,
-26-04-2019 21:46:32 INFO  stdout:71 -         ad0_.PRICE as PRICE3_0_,
-26-04-2019 21:46:32 INFO  stdout:71 -         ad0_.TITLE as TITLE4_0_ 
-26-04-2019 21:46:32 INFO  stdout:71 -     from
-26-04-2019 21:46:32 INFO  stdout:71 -         AD ad0_
+30-04-2019 15:08:48 ERROR AdEndpoint:121 - Mandatory fields are missing (title, description or price)
+30-04-2019 15:08:48 WARN  AdEndpoint:147 - Key parent doesn't exist in json
+30-04-2019 15:08:48 WARN  AdEndpoint:147 - Key categoryName doesn't exist in json
+30-04-2019 15:10:33 WARN  AdEndpoint:147 - Key parent doesn't exist in json
+30-04-2019 15:10:33 WARN  AdEndpoint:147 - Key categoryName doesn't exist in json
+30-04-2019 15:11:01 INFO  stdout:71 - Hibernate: 
+30-04-2019 15:11:01 INFO  stdout:71 -     select
+30-04-2019 15:11:01 INFO  stdout:71 -         ad0_.AD_ID as AD_ID1_0_,
+30-04-2019 15:11:01 INFO  stdout:71 -         ad0_.DESCRIPTION as DESCRIPT2_0_,
+30-04-2019 15:11:01 INFO  stdout:71 -         ad0_.PRICE as PRICE3_0_,
+30-04-2019 15:11:01 INFO  stdout:71 -         ad0_.TITLE as TITLE4_0_ 
+30-04-2019 15:11:01 INFO  stdout:71 -     from
+30-04-2019 15:11:01 INFO  stdout:71 -         AD ad0_
