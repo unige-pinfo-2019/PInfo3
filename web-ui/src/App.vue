@@ -15,14 +15,7 @@
 
     <b-row>
       <b-col>
-        <b-button variant="primary" href="#">Poster un annonce</b-button>
-        <b-list-group>
-          <!-- <b-list-group-item button active>Poster une annonce</b-list-group-item> -->
-          <b-list-group-item button>Ordinateurs</b-list-group-item>
-          <b-list-group-item button>Habits homme</b-list-group-item>
-          <b-list-group-item button>Habits femme</b-list-group-item>
-          <b-list-group-item button>Livres</b-list-group-item>
-        </b-list-group>
+        <LeftMenu/>
       </b-col>
       <b-col cols="10">
         <!-- 2 of 3 (wider) -->
@@ -33,32 +26,21 @@
 </template>
 
 <script>
-import Banner from './components/Banner.vue'
-import MiniAd from './components/MinimizedAd.vue'
+import Banner from '@/components/Banner.vue'
+import MiniAd from '@/components/MinimizedAd.vue'
+import LeftMenu from '@/components/LeftMenu.vue'
 
 export default {
   name: 'app',
   components: {
-    Banner
+    Banner,
+    MiniAd,
+    LeftMenu
   }
 }
 </script>
 
 <style lang="scss">
-
-// .navbar-custom {
-//     background-color: $dark-color;
-//     // box-shadow: 0px 2px 5px grey;
-// }
-//
-// /* change the color of active or hovered links */
-// .navbar-custom .nav-item .nav-link {
-//     color: $primary-color;
-// }
-//
-// li {
-//   list-style-type: none;
-// }
 
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;

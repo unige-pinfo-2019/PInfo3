@@ -82,6 +82,13 @@ prix --> 10
 
 Now, you can send the request.
 
+### Downloading the docker compose files and running them
+After cloning the repository, you can find the compose files in the docker-compose directory.
+To copy them you have to use the following command:
+`scp compose-file.yml nomuser@pinfo3.unige.ch:~/somelocation`
+To run it you have to also copy over the docker image runner script, which would automatically remove older containers and check for image updates.
+
+
 ## Group infos
 
 Presentation dates:
