@@ -46,20 +46,6 @@ export default {
 
 <style lang="scss">
 
-// .navbar-custom {
-//     background-color: $dark-color;
-//     // box-shadow: 0px 2px 5px grey;
-// }
-//
-// /* change the color of active or hovered links */
-// .navbar-custom .nav-item .nav-link {
-//     color: $primary-color;
-// }
-//
-// li {
-//   list-style-type: none;
-// }
-
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

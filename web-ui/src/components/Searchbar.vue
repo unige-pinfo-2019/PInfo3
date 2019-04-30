@@ -2,7 +2,7 @@
   <div class="search-bar-component">
     <div class="search-bar-wrapper">
       <input type="text" class="search-bar" value="" placeholder="Rechercher">
-      <button type="button" class="search-button"></button>
+      <button type="button" class="search-button"><font-awesome-icon icon="search"/></button>
     </div>
   </div>
 </template>
@@ -39,8 +39,9 @@ export default {
 
 .search-bar:focus {
   outline: none;
+  box-shadow: 0 0 3pt 2pt rgba($primary-color, 0.2);
+  // outline: 5px solid rgba($primary-color, 0.2);
   border: 1px solid $primary-color;
-  // box-shadow: 5px 5px 5px 5px $primary-color;
 }
 
 .search-button {
