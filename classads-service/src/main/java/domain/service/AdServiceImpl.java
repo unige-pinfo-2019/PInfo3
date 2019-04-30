@@ -142,13 +142,18 @@ public class AdServiceImpl implements AdService{
 		return true;
 	}
 	
+	
 	private void setCategoryParameters(Ad ad, int categoryID, JsonObject json) {
 		//For the attributes related to the category, we take the value if it exists or we assign the
 		//default value
+		
+		//Initialize maps
 		Map<String, Object> attributes = Categories.getCategory(categoryID);
 		Map<String, Integer> newAttributesInt = new HashMap<>();
 		Map<String, Boolean> newAttributesBool = new HashMap<>();
 		Map<String, String> newAttributesString = new HashMap<>();
+		
+		//Set the attributes for the category
 		newAttributesInt.put("categoryID", categoryID);
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String key = entry.getKey();
