@@ -63,6 +63,8 @@ public class User implements Serializable {
 		return id;
 	}
 
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -78,27 +80,55 @@ public class User implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj) return true;
 		
-		if (obj == null || getClass() != obj.getClass()) return false;
+		if (this == obj) return true;
+		if (obj == null) return false;		
+		if (getClass() != obj.getClass()) return false;
 		
 		User other = (User) obj;
+		
+		if (!isTheSameAge(other) && hasTheSameEmail(other) && hasTheSameFirstName(other) && hasTheSameId(other) && hasTheSameLastName(other) && hasTheSameTel(other)) return true;
+		else return false;
+		
+	}
+	
+	public boolean isTheSameAge(User other) {
 		if (age != other.age) return false;
-		
-		if (email == null && other.email != null) return false;
-		if (email != null && !email.equals(other.email)) return false;
-		
-		if (firstName == null && other.firstName != null) return false;
-		if (firstName != null && !firstName.equals(other.firstName)) return false;
-		
+		return true;
+	}
+	
+	public boolean hasTheSameEmail(User other) {
+		if (email == null) {
+			if (other.email != null) return false;
+		}
+		else if (!email.equals(other.email)) return false;
+		return true;
+	}
+	
+	public boolean hasTheSameFirstName(User other) {
+		if (firstName == null) {
+			if (other.firstName != null) return false;
+		} 
+		else if (!firstName.equals(other.firstName)) return false;
+		return true;
+	}
+	
+	public boolean hasTheSameId(User other) {
 		if (id != other.id) return false;
-		
-		if (lastName == null && other.lastName != null) return false;
-		if (lastName != null && !lastName.equals(other.lastName)) return false;
-		
-		if (tel == null && other.tel != null) return false;
-		if (tel != null && !tel.equals(other.tel)) return false;
-		
+		return true;
+	}
+	
+	public boolean hasTheSameLastName(User other) {
+		if (lastName == null) {
+			if (other.lastName != null) return false;
+		} else if (!lastName.equals(other.lastName)) return false;
+		return true;
+	}
+	
+	public boolean hasTheSameTel(User other) {
+		if (tel == null) {
+			if (other.tel != null) return false;
+		} else if (!tel.equals(other.tel)) return false;
 		return true;
 	}
 
