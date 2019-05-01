@@ -87,14 +87,12 @@ public class User implements Serializable {
 		
 		User other = (User) obj;
 		
-		if (!isTheSameAge(other) && hasTheSameEmail(other) && hasTheSameFirstName(other) && hasTheSameId(other) && hasTheSameLastName(other) && hasTheSameTel(other)) return true;
-		else return false;
+		return (isTheSameAge(other) && hasTheSameEmail(other) && hasTheSameFirstName(other) && hasTheSameId(other) && hasTheSameLastName(other) && hasTheSameTel(other));
 		
 	}
 	
 	public boolean isTheSameAge(User other) {
-		if (age != other.age) return false;
-		return true;
+		return (age != other.age);
 	}
 	
 	public boolean hasTheSameEmail(User other) {
@@ -114,8 +112,7 @@ public class User implements Serializable {
 	}
 	
 	public boolean hasTheSameId(User other) {
-		if (id != other.id) return false;
-		return true;
+		return (id == other.id);
 	}
 	
 	public boolean hasTheSameLastName(User other) {
