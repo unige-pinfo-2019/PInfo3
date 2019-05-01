@@ -78,37 +78,27 @@ public class User implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
+		if (this == obj) return true;
+		
+		if (obj == null || getClass() != obj.getClass()) return false;
+		
 		User other = (User) obj;
-		if (age != other.age)
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (id != other.id)
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (tel == null) {
-			if (other.tel != null)
-				return false;
-		} else if (!tel.equals(other.tel))
-			return false;
+		if (age != other.age) return false;
+		
+		if (email == null && other.email != null) return false;
+		if (email != null && !email.equals(other.email)) return false;
+		
+		if (firstName == null && other.firstName != null) return false;
+		if (firstName != null && !firstName.equals(other.firstName)) return false;
+		
+		if (id != other.id) return false;
+		
+		if (lastName == null && other.lastName != null) return false;
+		if (lastName != null && !lastName.equals(other.lastName)) return false;
+		
+		if (tel == null && other.tel != null) return false;
+		if (tel != null && !tel.equals(other.tel)) return false;
+		
 		return true;
 	}
 
