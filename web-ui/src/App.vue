@@ -14,12 +14,11 @@
     </b-navbar> -->
 
     <b-row>
-      <b-col>
+      <b-col cols="2">
         <LeftMenu/>
       </b-col>
       <b-col cols="10">
-        <!-- 2 of 3 (wider) -->
-        <router-view />
+        <router-view class="test"/>
       </b-col>
     </b-row>
 
@@ -54,6 +53,11 @@ export default {
   // color: $primary-color;
   // background-color: #e6ecf0;
   background-color: $background-gray;
+  overflow-x: hidden;
+}
+
+.test {
+  min-height: 600px;
 }
 
 </style>

@@ -51,13 +51,13 @@ public class AdEndpoint {
 			jsonAd.addProperty("title", ad.getTitle());
 			jsonAd.addProperty("description", ad.getDescription());
 			jsonAd.addProperty("price", ad.getPrice());
-			for (Map.Entry<String, Integer> entryInt : ad.getCategory_int().entrySet()) {
+			for (Map.Entry<String, Integer> entryInt : ad.getCategoryInt().entrySet()) {
 				jsonAd.addProperty(entryInt.getKey(), entryInt.getValue());
 			}
-			for (Map.Entry<String, Boolean> entryBool : ad.getCategory_bool().entrySet()) {
+			for (Map.Entry<String, Boolean> entryBool : ad.getCategoryBool().entrySet()) {
 				jsonAd.addProperty(entryBool.getKey(), entryBool.getValue());
 			}
-			for (Map.Entry<String, String> entryString : ad.getCategory_string().entrySet()) {
+			for (Map.Entry<String, String> entryString : ad.getCategoryString().entrySet()) {
 				jsonAd.addProperty(entryString.getKey(), entryString.getValue());
 			}
 			result.add(jsonAd);
@@ -75,7 +75,7 @@ public class AdEndpoint {
 		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
 		Ad ad = adservice.createAdFromJson(json); //We create the ad
 		
-		if (adservice.createAd(ad)) {
+		if (ad != null && adservice.createAd(ad)) {
 			return "You've inserted an ad\n" + ad.toString();
 		} else {
 			return "This ad already exists";

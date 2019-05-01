@@ -8,9 +8,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
-import domain.model.Ad;
 import domain.model.Categories;
 import domain.service.CategoriesService;
 
@@ -40,14 +37,7 @@ public class CategoriesEndPoint {
 	@Path("all/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCategoriesAttributes(@QueryParam("categoryID") int categoryID) {
-		JsonObject adAttributes = Ad.getAttributes();
-		JsonObject catAttributes = catService.getAttributes(categoryID);
-		catAttributes.keySet().forEach(key ->
-	    {
-	        adAttributes.add(key, catAttributes.get(key));        
-	    });
-
-		return adAttributes.toString();
+		return catService.getAttributes(categoryID).toString();
 	}
 	
 	/* Get a list of all the categories and their related indices */

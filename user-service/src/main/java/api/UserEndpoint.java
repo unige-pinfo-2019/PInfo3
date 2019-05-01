@@ -18,7 +18,9 @@ import com.google.gson.Gson;
 
 import domain.model.User;
 import domain.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @ApplicationScoped
 @Path("/User")
 public class UserEndpoint {
@@ -54,8 +56,8 @@ public class UserEndpoint {
 	@DELETE
 	@Path("/delete")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteUser(@QueryParam("id") String str_id) {
-		long id = Long.parseLong(str_id);
+	public String deleteUser(@QueryParam("id") String strID) {
+		long id = Long.parseLong(strID);
 		
 		Optional<User> popt = userservice.getById(id);
 		if (popt.isEmpty()) {
@@ -67,7 +69,7 @@ public class UserEndpoint {
 				userservice.deleteUser(u);
 				return "Deleted classadd "+ u.toString();
 			} catch(IllegalArgumentException ex) {
-				System.err.println(ex.toString());
+				log.error(ex.toString());
 				return "Some form of error occurred. Could not delete "+ u.toString();
 			}
 		}

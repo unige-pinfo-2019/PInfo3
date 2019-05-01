@@ -76,7 +76,7 @@ public class Categories {
 	}
 	
 	public static Map<String, Object> getCategory(int categoryID) {
-		return categoryStore.get(categoryID);
+		return categoryAttributes.get(categoryID);
 	}
 	
 	public static String getCategoryName(int categoryID) {
