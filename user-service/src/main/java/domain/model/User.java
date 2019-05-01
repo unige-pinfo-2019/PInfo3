@@ -60,6 +60,13 @@ public class User implements Serializable {
 		return "{\"nom\":\""+this.lastName+"\", \"prenom\":\"" + this.firstName + "\n, \"age\":\"" + this.age +"\", \"tel\":\"" + this.tel +"\", \"email\":\"" + this.email + "\"";
 	}
 
+	public boolean equals(User user) {
+		if (user.getFirstName() == this.getFirstName() && user.getLastName() == this.getLastName() && user.getAge() == this.getAge() && user.getEmail() == this.getEmail() && user.getTel() == this.getTel() && user.getId() == this.getId()) {
+			return true;
+		}
+		return false;
+	}
+	
 	public long getId() {
 		return id;
 	}
