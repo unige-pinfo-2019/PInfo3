@@ -148,6 +148,27 @@ public class AdServiceImpl implements AdService{
 		return true;
 	}
 	
+	private Boolean addAttributeToMap(String key, JsonObject json, Map<String, Object> attributes, Map<String, Integer> mapInt, Map<String, Boolean> mapBool, Map<String, String> mapString) {
+		//Check if the key exist
+		if (json.has(key)) {
+			//Add the attributes in the right map
+			JsonElement att = json.get(key);
+			if (getType(att) == attributes.get(key).getClass()) {
+				if(getType(att)== Integer.class) mapInt.put(key, json.get(key).getAsInt());
+				if(getType(att)== Boolean.class) mapBool.put(key, json.get(key).getAsBoolean());
+				if(getType(att)== String.class) mapString.put(key, json.get(key).getAsString());
+			} else {
+			//Add the default value if the attribute doesn't exist
+				if(attributes.get(key).getClass()== Integer.class) mapInt.put(key, (Integer) attributes.get(key));
+				if(attributes.get(key).getClass()== Boolean.class) mapBool.put(key, (Boolean) attributes.get(key));
+				if(attributes.get(key).getClass()== String.class) mapString.put(key, (String) attributes.get(key));
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	
 	private void setCategoryParameters(Ad ad, int categoryID, JsonObject json) {
 		//For the attributes related to the category, we take the value if it exists or we assign the
@@ -163,19 +184,8 @@ public class AdServiceImpl implements AdService{
 		newAttributesInt.put(Categories.getCategoryIDField(), categoryID);
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String key = entry.getKey();
-			try {
-				JsonElement att = json.get(key);
-				if (getType(att) == attributes.get(key).getClass()) {
-					if(getType(att)== int.class) newAttributesInt.put(key, json.get(key).getAsInt());
-					if(getType(att)== boolean.class) newAttributesBool.put(key, json.get(key).getAsBoolean());
-					if(getType(att)== String.class) newAttributesString.put(key, json.get(key).getAsString());
-				} else {
-					if(attributes.get(key).getClass()== int.class) newAttributesInt.put(key, (Integer) attributes.get(key));
-					if(attributes.get(key).getClass()== boolean.class) newAttributesBool.put(key, (Boolean) attributes.get(key));
-					if(attributes.get(key).getClass()== String.class) newAttributesString.put(key, (String) attributes.get(key));
-				}
-			} catch (Exception e) {
-				log.warn("Key " + key + " doesn't exist in json");
+			if (!addAttributeToMap(key, json, attributes, newAttributesInt, newAttributesBool, newAttributesString)) {
+				log.warn("The category field "+key+" wasn't specified");
 			}
 		}
 		

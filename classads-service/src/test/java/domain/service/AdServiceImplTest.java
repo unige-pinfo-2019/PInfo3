@@ -171,12 +171,12 @@ public class AdServiceImplTest {
 		Map<String, Boolean> mapBool = new HashMap<>();
 		
 		Ad ad1 = new Ad("Livre de Maupassant", "Livre utilisé au collège pour un cours de français", 10);
-		mapInt = new HashMap<>(); mapInt.put("nbPages", 394);
+		mapInt = new HashMap<>(); mapInt.put("nbPages", 394); mapInt.put(Categories.getCategoryIDField(), 2);
 		mapString = new HashMap<>(); mapString.put("authors", "Guy de Maupassant");
 		ad1.setCategory(mapInt, mapBool, mapString);
 		
 		Ad ad2 = new Ad("Vélo bleu", "VTT de mon frere devenu trop petit pour lui", 100);
-		mapInt = new HashMap<>();
+		mapInt = new HashMap<>(); mapInt.put(Categories.getCategoryIDField(), 4);
 		mapString = new HashMap<>(); mapString.put("type", "VTT"); mapString.put("color", "bleu");
 		ad2.setCategory(mapInt, mapBool, mapString);
 		
@@ -198,11 +198,13 @@ public class AdServiceImplTest {
 				Assertions.fail("Coudn't extract description from json");
 			if (!jsonAtt.getAsJsonObject().has(Ad.getPriceField())) 
 				Assertions.fail("Coudn't extract price from json");
+			if (!jsonAtt.getAsJsonObject().has(Categories.getCategoryIDField())) 
+				Assertions.fail("Coudn't extract categoryID from json"); 
 		}
 		
 		//Test if the first object has 5 fields and test the 2 category fields
 		JsonObject jsonAd1 = json.get(0).getAsJsonObject();
-		Assertions.assertEquals(5, jsonAd1.keySet().size());
+		Assertions.assertEquals(6, jsonAd1.keySet().size());
 		if (!jsonAd1.has("authors")) 
 			Assertions.fail("Coudn't extract authors from json");
 		if (!jsonAd1.has("nbPages")) 
@@ -210,7 +212,7 @@ public class AdServiceImplTest {
 		
 		//Test if the second object has 5 fields and test the 2 category fields
 		JsonObject jsonAd2 = json.get(1).getAsJsonObject();
-		Assertions.assertEquals(5, jsonAd2.keySet().size());
+		Assertions.assertEquals(6, jsonAd2.keySet().size());
 		if (!jsonAd2.has("type")) 
 			Assertions.fail("Coudn't extract type from json");
 		if (!jsonAd2.has("color")) 
@@ -249,6 +251,8 @@ public class AdServiceImplTest {
 		ad = as.createAdFromJson(json);
 		Assertions.assertNotEquals(null, ad);
 		Assertions.assertEquals(ad.getClass(), adExample.getClass());
+		if (!ad.getCategoryString().containsKey("authors"))
+			Assertions.fail("Category property wasn't added");
 		
 		//Test to decrypt an ad with the right mandatory field but not all category fields
 		//For category 1 which is Books, fields are authors and nbPages
@@ -262,6 +266,10 @@ public class AdServiceImplTest {
 		ad = as.createAdFromJson(json);
 		Assertions.assertNotEquals(null, ad);
 		Assertions.assertEquals(ad.getClass(), adExample.getClass());
+		if (!ad.getCategoryString().containsKey("authors"))
+			Assertions.fail("Category property wasn't added");
+		if (!ad.getCategoryInt().containsKey("nbPages"))
+			Assertions.fail("Category property wasn't added");
 		
 	
 	}
