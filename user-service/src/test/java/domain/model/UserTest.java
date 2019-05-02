@@ -56,9 +56,28 @@ class UserTest {
 		User u = new User("Jon","SNOW",21, "j.snow@got.com", "003-994-10-24");
 		User v = new User("Jon","SNOW",21, "j.snow@got.com", "003-994-10-24");
 		User w = new User("Boba","FETT",43, "j.fett@sw.com", "077-726-52-73");
+		User t = new User();
 		
 		if (u.equals(w))
 			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		if (v.equals(t) || t.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		if (t.equals(null))
+			fail("Un user non null est semblable à null.");
+		
+	}
+	
+	@Test
+	void testToString() {
+		
+		User x = new User("Jon","SNOW",21, "j.snow@got.com", "003-994-10-24");
+		x.setId(0);
+		
+		String newLine = System.getProperty("line.separator");
+		String ret = newLine + "SNOW Jon (User id = 0)";
+		ret += newLine + newLine + "Age : 21"; 
+		ret += newLine + newLine + "e-mail : j.snow@got.com";
+		ret += newLine + newLine + "tel : 003-994-10-24";
 		
 	}
 
