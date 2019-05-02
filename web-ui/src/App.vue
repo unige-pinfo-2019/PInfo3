@@ -2,25 +2,24 @@
   <div id="app">
     <Banner/>
 
-    <!-- <b-navbar class="navbar navbar-custom" type="dark">
-      <b-navbar-brand href="#">UniTrade</b-navbar-brand>
-      <b-nav-item to="/">Home</b-nav-item>
-      <b-nav-item to="/about">About</b-nav-item>
-
-      <b-navbar-nav class="ml-auto">
-        <b-nav-item href="#">Login</b-nav-item>
-        <b-nav-item href="#">Register</b-nav-item>
-      </b-navbar-nav>
-    </b-navbar> -->
-
-    <b-row>
+    <!-- <b-row>
       <b-col cols="2">
         <LeftMenu/>
       </b-col>
       <b-col cols="10">
         <router-view class="test"/>
       </b-col>
-    </b-row>
+    </b-row> -->
+
+    <div class="center-wrapper">
+      <div class="sidebar">
+        <LeftMenu/>
+      </div>
+      <div class="router-wrapper">
+        <router-view class="test"/>
+      </div>
+    </div>
+
 
     <Footer/>
   </div>
@@ -58,6 +57,27 @@ export default {
 
 .test {
   min-height: 600px;
+}
+
+.center-wrapper {
+  display: flex;
+  // grid-template-columns: 20% 80%;
+  // grid-column-gap: 30px;
+}
+
+.sidebar {
+  width: 100%;
+  text-align: left;
+  // border: 1px solid black;
+  flex-basis: 20%;
+  margin-right: 30px;
+}
+
+.router-wrapper {
+  width: 100%;
+  text-align: center;
+  // border: 1px solid black;
+  padding-right: 30px;
 }
 
 </style>
