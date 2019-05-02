@@ -47,12 +47,11 @@ public class User implements Serializable {
 	
 	@Override
 	public String toString() {
-		String NewLigne = System.getProperty("line.separator");
-		String ret;
-		ret = NewLigne + lastName + " " + firstName + " (id = " + String.valueOf(id) + ")";
-		ret += NewLigne + NewLigne + "Age : " + String.valueOf(age); 
-		ret += NewLigne + NewLigne + "e-mail : " + email;
-		ret += NewLigne + NewLigne + "tel : " + tel;
+		String newLine = System.getProperty("line.separator");
+		String ret = newLine + lastName + " " + firstName + " (User id = " + id + ")";
+		ret += newLine + newLine + "Age : " + age; 
+		ret += newLine + newLine + "e-mail : " + email;
+		ret += newLine + newLine + "tel : " + tel;
 		return ret;
 	}
 	
@@ -62,6 +61,55 @@ public class User implements Serializable {
 
 	public long getId() {
 		return id;
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + age;
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (this == obj) return true;
+		if (obj == null) return false;		
+		if (getClass() != obj.getClass()) return false;
+		
+		User other = (User) obj;
+		
+		return (hasTheSameFirstName(other) && hasTheSameLastName(other) && isTheSameAge(other) && hasTheSameId(other));
+		
+	}
+	
+	public boolean isTheSameAge(User other) {
+		return (age == other.age);
+	}
+	
+	public boolean hasTheSameFirstName(User other) {
+		if (firstName == null) {
+			if (other.firstName != null) return false;
+		} 
+		else if (!firstName.equals(other.firstName)) return false;
+		return true;
+	}
+	
+	public boolean hasTheSameId(User other) {
+		return (id == other.id);
+	}
+	
+	public boolean hasTheSameLastName(User other) {
+		if (lastName == null) {
+			if (other.lastName != null) return false;
+		} else if (!lastName.equals(other.lastName)) return false;
+		return true;
 	}
 
 	public void setId(long id) {

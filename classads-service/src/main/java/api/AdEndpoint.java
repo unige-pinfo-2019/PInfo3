@@ -1,7 +1,5 @@
 package api;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -16,7 +14,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import domain.model.Ad;
 import domain.service.AdService;
@@ -43,27 +40,7 @@ public class AdEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAll() {
 		//We get the ads back in a list
-		List<Ad> ads = adservice.getAll();
-		JsonArray result = new JsonArray();
-		
-		for (Ad ad : ads) {
-			JsonObject jsonAd = new JsonObject();
-			jsonAd.addProperty("title", ad.getTitle());
-			jsonAd.addProperty("description", ad.getDescription());
-			jsonAd.addProperty("price", ad.getPrice());
-			for (Map.Entry<String, Integer> entryInt : ad.getCategoryInt().entrySet()) {
-				jsonAd.addProperty(entryInt.getKey(), entryInt.getValue());
-			}
-			for (Map.Entry<String, Boolean> entryBool : ad.getCategoryBool().entrySet()) {
-				jsonAd.addProperty(entryBool.getKey(), entryBool.getValue());
-			}
-			for (Map.Entry<String, String> entryString : ad.getCategoryString().entrySet()) {
-				jsonAd.addProperty(entryString.getKey(), entryString.getValue());
-			}
-			result.add(jsonAd);
-		}
-		
-		return result.toString();
+		return adservice.getJsonListAds(adservice.getAll()).toString();
 	}
 	
 	/* Add a new ad in the DB */

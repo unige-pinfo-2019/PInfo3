@@ -9,12 +9,15 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.google.gson.JsonObject;
 
 import domain.model.Ad;
 import domain.service.AdServiceImpl;
@@ -30,150 +33,175 @@ public class AdServiceImplTest {
 	EntityManager em;
 
 	@InjectMocks
-	private AdServiceImpl cas;
+	private AdServiceImpl as;
+	
+	private String title = "Charger iPhone";
+	private String description = "Works with Android (not a joke)";
+	private float price = (float) 120;
+	private Ad adExample = new Ad(title, description, price);
 
 	
 	@Test
 	public void testCreateAd() {
-		Ad ad = new Ad("Un titre original", "En fait je nétais pas tres inspiré pour le titre", (float) 12.50);
+		//We create an ad
+		Ad ad = new Ad("Any title", "Any description", (float) 12.50);
 		
-		int tailleInitiale = cas.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
-		cas.createAd(ad);
-		int tailleFinale = cas.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
+		//At the beginning, the DB is empty but we get its size and we insert the ad
+		int tailleInitiale = as.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
+		as.createAd(ad);
 		
+		//Then, we check if the size has increased by 1
+		int tailleFinale = as.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
 		if (tailleFinale != tailleInitiale+1) {
-			fail("Le premier element na pas ete ajouté !");
+			fail("We cannot insert the ad in the DB");
 		}
 		
-		tailleInitiale = cas.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
-		cas.createAd(ad);
-		tailleFinale = cas.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
+		//Now, we check that we cannot insert the same ad twice
+		tailleInitiale = as.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
+		as.createAd(ad);
 		
+		tailleFinale = as.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
 		if (tailleFinale != tailleInitiale) {
-			fail("On a pu ajouter le deuxième élément alors qu'il était censé être le même que le premier !");
+			fail("We've inserted the same ad twice");
 		}
 	}
 	
 	@Test
 	public void testCreateAdValues() {
-		String t = "Chargeur iPhone";
-		String d = "Fonctionne avec Android (c'est pas une blague)";
-		float p = (float) 120;
-		Ad ad = new Ad(t, d, p);
-		cas.createAd(ad);
+		//We create a new ad and insert it in the DB
+		Ad ad = adExample;
+		as.createAd(ad);
 		
+		//Then, we extract the ad from the DB
 		String query = "SELECT a FROM Ad a";
-		int size = cas.getEm().createQuery(query, Ad.class).getResultList().size();
-		Ad caBDD = cas.getEm().createQuery(query, Ad.class).getResultList().get(size-1);
+		int size = as.getEm().createQuery(query, Ad.class).getResultList().size();
+		Ad adInDB = as.getEm().createQuery(query, Ad.class).getResultList().get(size-1);
 
-		if (caBDD.getTitle() != t) {
-			fail("Le titre est différent après ajout de l'annonce.");
-		} else if (caBDD.getDescription() != d) {
-			fail("La description est différente après ajout de l'annonce.");
-		} else if (caBDD.getPrice() != p) {
-			fail("Le prix est différent après ajout de l'annonce");
+		//And, we check if it has the same values
+		if (adInDB.getTitle() != title) {
+			fail("Title is different in the DB");
+		} else if (adInDB.getDescription() != description) {
+			fail("Description is different in the DB");
+		} else if (adInDB.getPrice() != price) {
+			fail("Price is different in the DB");
 		}
 	}
 	
 	@Test
 	public void testCreateClassAdId() {
-		Ad caA = new Ad("AAAA", "aaaaa", (float) 111);
-		Ad caB = new Ad("BBBB", "bbbbb", (float) 222);
-		Ad caC = new Ad("CCCC", "ccccc", (float) 333);
-		Ad caD = new Ad("DDDD", "ddddd", (float) 444);
-		Ad caE = new Ad("EEEE", "eeeee", (float) 555);
-		Ad caF = new Ad("FFFF", "fffff", (float) 666);
 		
-		cas.createAd(caA);
-		cas.createAd(caB);
-		cas.createAd(caC);
-		cas.createAd(caD);
-		cas.createAd(caE);
-		cas.createAd(caF);
+		//We create some ads and add them in the DB
+		for (int i=0; i<5; i++) {
+			as.createAd(new Ad("Title"+i, "Description"+i, (float)i*10));
+		}
 		
-		List<Ad> lCA = cas.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList();
+		//We extract the ads
+		List<Ad> ads = as.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList();
 		
-		for (int i=0; i<lCA.size(); ++i) {
-			for (int j=i+1; j<lCA.size(); ++j) {
-				if (lCA.get(i).getId() == lCA.get(j).getId()) {
-					fail("Les annonces \"" + lCA.get(i).getTitle() + "\" et \"" + lCA.get(j).getTitle() + "\" ont le même id.");
+		//We check if all ads have a different ID
+		for (int i=0; i<ads.size(); ++i) {
+			for (int j=i+1; j<ads.size(); ++j) {
+				if (ads.get(i).getId() == ads.get(j).getId()) {
+					fail("Ads \"" + ads.get(i).getTitle() + "\" and \"" + ads.get(j).getTitle() + "\" have the same id.");
 				}
 			}
 		}
 		
 	}
-	/*
-	@Test
-	public void testGetAll() {
-		fail("Not yet implemented");
-	}
-	*/
+
 	@Test
 	public void testGetByTitle() {
-		String t = "Chargeur Android";
-		String d = "Fonctionne avec Android et même Xperia";
-		float p = (float) 50;
-		Ad ad = new Ad(t, d, p);
-		cas.createAd(ad);
+		//We create a new ad and insert it in the DB
+		Ad ad = adExample;
+		as.createAd(ad);
 		
-		Optional<Ad> caBDD = cas.getByTitle(t);
+		//We check if we can get by the title
+		Optional<Ad> adInDB = as.getByTitle(title);
 		
-		if (caBDD.isEmpty()) {
-			fail("Le titre " + t + " n'a pas été trouvé dans la base de données.");
+		if (adInDB.isEmpty()) {
+			fail("Title " + title + " has not been resolved in the DB.");
 		}
 	}
 	
 	@Test
 	public void testGetById() {
-		Ad caM = new Ad("MMMM", "mmmmm", (float) 1);
-		Ad caN = new Ad("NNNN", "nnnnn", (float) 2);
-		Ad caO = new Ad("OOOO", "ooooo", (float) 3);
-		Ad caP = new Ad("PPPP", "ppppp", (float) 4);
-		Ad caQ = new Ad("QQQQ", "qqqqq", (float) 5);
-		Ad caR = new Ad("RRRR", "rrrrr", (float) 6);
+		//We create a new ad and insert it in the DB
+		Ad ad = adExample;
+		as.createAd(ad);
 		
-		cas.createAd(caM);
-		cas.createAd(caN);
-		cas.createAd(caO);
-		cas.createAd(caP);
-		cas.createAd(caQ);
-		cas.createAd(caR);
+		//We check if we can get by the title
+		Ad adInDB = as.getByTitle(title).get();
+		long id = adInDB.getId();
 		
-		Ad caP_byT = cas.getByTitle("PPPP").get();
-		long idP = caP_byT.getId();
-		
-		Ad caP_byI = cas.getById(idP).get();
-		
-		if (caP_byT.getTitle() != caP_byI.getTitle() || caP_byT.getDescription() != caP_byI.getDescription() || caP_byT.getPrice() != caP_byI.getPrice()) {
-			fail("L'annonce \"PPPP\" ne semble pas avoir été retrouvée par son id.");
+		Optional<Ad> adById = as.getById(id);
+		if (adById.isEmpty()) {
+			fail("ID " + id + " has not been resolved in the DB.");
 		}
 	}
 	
 	@Test
 	public void testDeleteClassAd() {
-		Ad caG = new Ad("GGGG", "ggggg", (float) 11);
-		Ad caH = new Ad("HHHH", "hhhhh", (float) 22);
-		Ad caI = new Ad("IIII", "iiiii", (float) 33);
-		Ad caJ = new Ad("JJJJ", "jjjjj", (float) 44);
-		Ad caK = new Ad("KKKK", "kkkkk", (float) 55);
-		Ad caL = new Ad("LLLL", "lllll", (float) 66);
+		//We create some ads and add them in the DB
+		for (int i=0; i<5; i++) {
+			as.createAd(new Ad("Title"+i, "Description"+i, (float)i*10));
+		}
+		as.createAd(adExample);
+		as.deleteAd(adExample);
 		
-		cas.createAd(caG);
-		cas.createAd(caH);
-		cas.createAd(caI);
-		cas.createAd(caJ);
-		cas.createAd(caK);
-		cas.createAd(caL);
+		List<Ad> ads = as.getAll();
 		
-		cas.deleteAd(caI);
-		
-		List<Ad> lCA = cas.getAll();
-		
-		for (Ad ad: lCA) {
-			if (ad.getTitle() == caI.getTitle()) {
-				fail("L'élément caI n'a pas été supprimé correctement.");
+		for (Ad ad: ads) {
+			if (ad.getTitle() == title) {
+				fail("Coudn't delete ad properly");
 			}
 		}
+	}
+	
+	@Test
+	public void createAdFromJsonTest() {
+		JsonObject json;
+		Ad ad;
+		
+		//Test to decrypt an ad with a bad category ID
+		json = new JsonObject();
+		json.addProperty("categoryID", -1);
+		ad = as.createAdFromJson(json);
+		Assertions.assertEquals(null, ad);
+		
+		//Test to decrypt an ad with a right categoryID but not all mandatory parameters
+		json = new JsonObject();
+		json.addProperty("categoryID", 0);
+		json.addProperty("title", "Any title");
+		json.addProperty("price", 10);
+		ad = as.createAdFromJson(json);
+		Assertions.assertEquals(null, ad);
+		
+		//Test to decrypt an ad with the right mandatory field but not all category fields
+		//For category 1 which is Books, fields are authors and nbPages
+		json = new JsonObject();
+		json.addProperty("categoryID", 1);
+		json.addProperty("title", "Bel-ami");
+		json.addProperty("description", "Interessing book");
+		json.addProperty("price", 20);
+		json.addProperty("authors", "Guy de Maupassant");
+		ad = as.createAdFromJson(json);
+		Assertions.assertNotEquals(null, ad);
+		Assertions.assertEquals(ad.getClass(), adExample.getClass());
+		
+		//Test to decrypt an ad with the right mandatory field but not all category fields
+		//For category 1 which is Books, fields are authors and nbPages
+		json = new JsonObject();
+		json.addProperty("categoryID", 1);
+		json.addProperty("title", "Bel-ami");
+		json.addProperty("description", "Interessing book");
+		json.addProperty("price", 20);
+		json.addProperty("authors", "Guy de Maupassant");
+		json.addProperty("nbPages", 394);
+		ad = as.createAdFromJson(json);
+		Assertions.assertNotEquals(null, ad);
+		Assertions.assertEquals(ad.getClass(), adExample.getClass());
+		
+	
 	}
 	
 }

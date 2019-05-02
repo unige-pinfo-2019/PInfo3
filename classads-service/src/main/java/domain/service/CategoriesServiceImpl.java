@@ -1,12 +1,16 @@
 package domain.service;
 
+import java.util.Collection;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.enterprise.context.ApplicationScoped;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import domain.model.Ad;
 import domain.model.Categories;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,12 +26,18 @@ public class CategoriesServiceImpl implements CategoriesService {
 	
 	private String nameField = "name";
 	private String childrenField = "children";
-	
+
 	//***** Overrided methods *****
 	@Override
 	public JsonObject getAttributes(int categoryID) {
-		JsonObject result = new JsonObject();
+		JsonObject catAttributes = new JsonObject();
 		try {
+			//We check if the category ID is correct
+			Collection<Integer> indices = Categories.getCategoryIndex().values();
+			if (!indices.contains(categoryID)) {
+				throw new IllegalArgumentException("Bad categoryID");
+			}
+			
 			//We start the category itself then we move back up to the parents until a root category
 			int parent = categoryID;
 			while (parent != -1) {
@@ -37,16 +47,24 @@ public class CategoriesServiceImpl implements CategoriesService {
 				
 				//and add them to our json object
 				for (Map.Entry<String, Object> entry : attributes.entrySet()) {
-					result.addProperty(entry.getKey(), entry.getValue().toString());
+					catAttributes.addProperty(entry.getKey(), entry.getValue().toString());
 				}
 				//We move to the next parent
 				parent = getCategoryParent(parent);
 			}
 		} catch (Exception e) {
 			log.error("Error in categoty ID");
+			return null;
 		}
 		
-		return result;
+		JsonObject adAttributes = Ad.getAttributes();
+	
+		for (Entry<String, JsonElement> entry : catAttributes.entrySet()) {
+			adAttributes.add(entry.getKey(), entry.getValue());
+		}
+
+		
+		return adAttributes;
 	}
 	
 	@Override
@@ -102,6 +120,15 @@ public class CategoriesServiceImpl implements CategoriesService {
 		}
 		
 		return children;		
+	}
+	
+	/***** Getters and setters *****/
+	public String getNameField() {
+		return nameField;
+	}
+
+	public String getChildrenField() {
+		return childrenField;
 	}
 
 }

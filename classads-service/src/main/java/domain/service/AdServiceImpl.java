@@ -1,5 +1,6 @@
 package domain.service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -62,7 +64,7 @@ public class AdServiceImpl implements AdService{
 		query.setParameter(p, title);
 		List<Ad> results = query.getResultList();
 		
-		if (results.isEmpty()) {
+		if (!results.isEmpty()) {
 			return Optional.of(results.get(0));
 		}
 		return Optional.empty();
@@ -83,7 +85,7 @@ public class AdServiceImpl implements AdService{
 		query.setParameter(p, id);
 		List<Ad> results = query.getResultList();
 		
-		if(results.isEmpty()) {
+		if(!results.isEmpty()) {
 			return Optional.of(results.get(0));
 		}
 		
@@ -113,17 +115,21 @@ public class AdServiceImpl implements AdService{
 			
 			//This includes the category id
 			int categoryID = json.get("categoryID").getAsInt();
+			Collection<Integer> indices = Categories.getCategoryIndex().values();
+			if (!indices.contains(categoryID)) {
+				throw new IllegalArgumentException("Bad categoryID");
+			}
 			
 			//and the main attributes of an ad
 			if (setMandatoryParameters(ad, json)) {
 				//then, we try to set the parameters from the category
 				setCategoryParameters(ad, categoryID, json);
 			} else {
-				return null;
+				throw new IllegalArgumentException("Mandatory fields are missing");
 			}
 		
 		} catch (Exception e) {
-			log.error("categoryID is missing or is not an Integer");
+			log.error(e.getMessage());
 			return null;
 		}
 		return ad;
@@ -142,13 +148,18 @@ public class AdServiceImpl implements AdService{
 		return true;
 	}
 	
+	
 	private void setCategoryParameters(Ad ad, int categoryID, JsonObject json) {
 		//For the attributes related to the category, we take the value if it exists or we assign the
 		//default value
+		
+		//Initialize maps
 		Map<String, Object> attributes = Categories.getCategory(categoryID);
 		Map<String, Integer> newAttributesInt = new HashMap<>();
 		Map<String, Boolean> newAttributesBool = new HashMap<>();
 		Map<String, String> newAttributesString = new HashMap<>();
+		
+		//Set the attributes for the category
 		newAttributesInt.put("categoryID", categoryID);
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String key = entry.getKey();
@@ -183,6 +194,29 @@ public class AdServiceImpl implements AdService{
 			return Integer.class;
 		}
 		return null;
+	}
+
+	@Override
+	public JsonArray getJsonListAds(List<Ad> ads) {
+		JsonArray result = new JsonArray();
+		
+		for (Ad ad : ads) {
+			JsonObject jsonAd = new JsonObject();
+			jsonAd.addProperty("title", ad.getTitle());
+			jsonAd.addProperty("description", ad.getDescription());
+			jsonAd.addProperty("price", ad.getPrice());
+			for (Map.Entry<String, Integer> entryInt : ad.getCategoryInt().entrySet()) {
+				jsonAd.addProperty(entryInt.getKey(), entryInt.getValue());
+			}
+			for (Map.Entry<String, Boolean> entryBool : ad.getCategoryBool().entrySet()) {
+				jsonAd.addProperty(entryBool.getKey(), entryBool.getValue());
+			}
+			for (Map.Entry<String, String> entryString : ad.getCategoryString().entrySet()) {
+				jsonAd.addProperty(entryString.getKey(), entryString.getValue());
+			}
+			result.add(jsonAd);
+		}
+		return result;
 	}
 	
 	
