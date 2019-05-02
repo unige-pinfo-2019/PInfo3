@@ -1,5 +1,6 @@
 package domain.service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,17 +115,21 @@ public class AdServiceImpl implements AdService{
 			
 			//This includes the category id
 			int categoryID = json.get("categoryID").getAsInt();
+			Collection<Integer> indices = Categories.getCategoryIndex().values();
+			if (!indices.contains(categoryID)) {
+				throw new IllegalArgumentException("Bad categoryID");
+			}
 			
 			//and the main attributes of an ad
 			if (setMandatoryParameters(ad, json)) {
 				//then, we try to set the parameters from the category
 				setCategoryParameters(ad, categoryID, json);
 			} else {
-				return null;
+				throw new IllegalArgumentException("Mandatory fields are missing");
 			}
 		
 		} catch (Exception e) {
-			log.error("categoryID is missing or is not an Integer");
+			log.error(e.getMessage());
 			return null;
 		}
 		return ad;
