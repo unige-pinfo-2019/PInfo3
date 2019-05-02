@@ -79,6 +79,9 @@ class UserTest {
 		ret += newLine + newLine + "e-mail : j.snow@got.com";
 		ret += newLine + newLine + "tel : 003-994-10-24";
 		
+		if (!x.toString().equals(ret))
+			fail("toString() ne fait pas ce qu'on attend.");
+		
 	}
 
 }
