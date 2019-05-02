@@ -70,11 +70,9 @@ public class User implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + age;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((tel == null) ? 0 : tel.hashCode());
 		return result;
 	}
 
@@ -87,20 +85,12 @@ public class User implements Serializable {
 		
 		User other = (User) obj;
 		
-		return (isTheSameAge(other) && hasTheSameEmail(other) && hasTheSameFirstName(other) && hasTheSameId(other) && hasTheSameLastName(other) && hasTheSameTel(other));
+		return (hasTheSameFirstName(other) && hasTheSameLastName(other) && isTheSameAge(other) && hasTheSameId(other));
 		
 	}
 	
 	public boolean isTheSameAge(User other) {
-		return (age != other.age);
-	}
-	
-	public boolean hasTheSameEmail(User other) {
-		if (email == null) {
-			if (other.email != null) return false;
-		}
-		else if (!email.equals(other.email)) return false;
-		return true;
+		return (age == other.age);
 	}
 	
 	public boolean hasTheSameFirstName(User other) {
@@ -119,13 +109,6 @@ public class User implements Serializable {
 		if (lastName == null) {
 			if (other.lastName != null) return false;
 		} else if (!lastName.equals(other.lastName)) return false;
-		return true;
-	}
-	
-	public boolean hasTheSameTel(User other) {
-		if (tel == null) {
-			if (other.tel != null) return false;
-		} else if (!tel.equals(other.tel)) return false;
 		return true;
 	}
 
