@@ -150,21 +150,17 @@ public class AdServiceImpl implements AdService{
 	
 	private Boolean addAttributeToMap(String key, JsonObject json, Map<String, Object> attributes, Map<String, Integer> mapInt, Map<String, Boolean> mapBool, Map<String, String> mapString) {
 		//Check if the key exist
-		if (json.has(key)) {
+		if (json.has(key) && getType(json.get(key)) == attributes.get(key).getClass()) {
 			//Add the attributes in the right map
-			JsonElement att = json.get(key);
-			if (getType(att) == attributes.get(key).getClass()) {
-				if(getType(att)== Integer.class) mapInt.put(key, json.get(key).getAsInt());
-				if(getType(att)== Boolean.class) mapBool.put(key, json.get(key).getAsBoolean());
-				if(getType(att)== String.class) mapString.put(key, json.get(key).getAsString());
-			} else {
-			//Add the default value if the attribute doesn't exist
-				if(attributes.get(key).getClass()== Integer.class) mapInt.put(key, (Integer) attributes.get(key));
-				if(attributes.get(key).getClass()== Boolean.class) mapBool.put(key, (Boolean) attributes.get(key));
-				if(attributes.get(key).getClass()== String.class) mapString.put(key, (String) attributes.get(key));
-			}
+			if(getType(json.get(key))== Integer.class) mapInt.put(key, json.get(key).getAsInt());
+			if(getType(json.get(key))== Boolean.class) mapBool.put(key, json.get(key).getAsBoolean());
+			if(getType(json.get(key))== String.class) mapString.put(key, json.get(key).getAsString());
 			return true;
 		} else {
+			//Add the default value if the attribute doesn't exist
+			if(attributes.get(key).getClass()== Integer.class) mapInt.put(key, (Integer) attributes.get(key));
+			if(attributes.get(key).getClass()== Boolean.class) mapBool.put(key, (Boolean) attributes.get(key));
+			if(attributes.get(key).getClass()== String.class) mapString.put(key, (String) attributes.get(key));
 			return false;
 		}
 	}

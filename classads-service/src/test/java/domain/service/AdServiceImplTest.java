@@ -253,6 +253,8 @@ public class AdServiceImplTest {
 		Assertions.assertEquals(ad.getClass(), adExample.getClass());
 		if (!ad.getCategoryString().containsKey("authors"))
 			Assertions.fail("Category property wasn't added");
+		if (!ad.getCategoryInt().containsKey("nbPages"))
+			Assertions.fail("Category property wasn't added");
 		
 		//Test to decrypt an ad with the right mandatory field but not all category fields
 		//For category 1 which is Books, fields are authors and nbPages
