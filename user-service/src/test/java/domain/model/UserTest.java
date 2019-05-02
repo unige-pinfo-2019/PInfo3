@@ -48,11 +48,10 @@ class UserTest {
 		
 		if (!x.equals(y)) {
 			fail("Deux users semblent différents alors qu'ils ne le devraient pas.");
-			if (x.hashCode() != y.hashCode()) {
-				fail("Le hashcode ne donne pas le même résultat que equals.");
-			}
 		}
-		
+		if (x.hashCode() != y.hashCode()) {
+			fail("Le hashcode ne donne pas le même résultat que equals.");
+		}
 		
 		User u = new User("Jon","SNOW",21, "j.snow@got.com", "003-994-10-24");
 		User v = new User("Jon","SNOW",21, "j.snow@got.com", "003-994-10-24");
