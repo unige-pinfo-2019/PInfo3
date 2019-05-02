@@ -15,6 +15,7 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -188,6 +189,29 @@ public class AdServiceImpl implements AdService{
 			return Integer.class;
 		}
 		return null;
+	}
+
+	@Override
+	public JsonArray getJsonListAds(List<Ad> ads) {
+		JsonArray result = new JsonArray();
+		
+		for (Ad ad : ads) {
+			JsonObject jsonAd = new JsonObject();
+			jsonAd.addProperty("title", ad.getTitle());
+			jsonAd.addProperty("description", ad.getDescription());
+			jsonAd.addProperty("price", ad.getPrice());
+			for (Map.Entry<String, Integer> entryInt : ad.getCategoryInt().entrySet()) {
+				jsonAd.addProperty(entryInt.getKey(), entryInt.getValue());
+			}
+			for (Map.Entry<String, Boolean> entryBool : ad.getCategoryBool().entrySet()) {
+				jsonAd.addProperty(entryBool.getKey(), entryBool.getValue());
+			}
+			for (Map.Entry<String, String> entryString : ad.getCategoryString().entrySet()) {
+				jsonAd.addProperty(entryString.getKey(), entryString.getValue());
+			}
+			result.add(jsonAd);
+		}
+		return result;
 	}
 	
 	
