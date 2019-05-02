@@ -67,6 +67,8 @@ class UserTest {
 		if (t.equals(null))
 			fail("Un user non null est semblable à null.");
 		
+		v = new User();
+		
 		v.setId(0);
 		w.setId(1);
 		
