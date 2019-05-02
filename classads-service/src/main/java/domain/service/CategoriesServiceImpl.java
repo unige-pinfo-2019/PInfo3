@@ -35,7 +35,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 			//We check if the category ID is correct
 			Collection<Integer> indices = Categories.getCategoryIndex().values();
 			if (!indices.contains(categoryID)) {
-				throw new Exception("Bad categoryID");
+				throw new IllegalArgumentException("Bad categoryID");
 			}
 			
 			//We start the category itself then we move back up to the parents until a root category
