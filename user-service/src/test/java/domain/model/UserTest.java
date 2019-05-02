@@ -39,6 +39,9 @@ class UserTest {
 		z.setId(0);
 		
 		
+		Integer trololo = Integer.valueOf(35);
+		if (x.equals(trololo))
+			fail("Un user ne peut pas être comparé à un entier.");
 		if (!(x.equals(x)))
 			fail("La méthode equals n'est pas réflexive.");
 		if (x.equals(y) != y.equals(x))
@@ -67,7 +70,27 @@ class UserTest {
 		if (t.equals(null))
 			fail("Un user non null est semblable à null.");
 		
+		
+		v.setId(0);
+		w.setId(1);
+		
+		v.setFirstName("sgjk");
+		w.setFirstName("sgjk");
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		
+		v.setLastName("ashsdgnh");
+		w.setLastName("ashsdgnh");
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		
+		v.setAge(35);
+		w.setAge(35);
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		
 		v = new User();
+		w = new User();
 		
 		v.setId(0);
 		w.setId(1);
