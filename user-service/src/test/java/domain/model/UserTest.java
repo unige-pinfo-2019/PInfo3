@@ -27,6 +27,14 @@ class UserTest {
 			fail("Erreur. Le contructeur de user n'attribue pas correctement le numéro de téléphone.");
 		
 	}
+	
+	@Test
+	void testReturnJSON() {
+		User x = new User("Jon","SNOW",21, "j.snow@got.com", "003-994-10-24");
+		String attendu = "{\"nom\":\"SNOW\", \"prenom\":\"Jon\n, \"age\":\"21\", \"tel\":\"003-994-10-24\", \"email\":\"j.snow@got.com\"";
+		if (!attendu.equals(x.returnJSON()))
+			fail("Le JSON attendu n'est pas le même que le JSON reçu.");
+	}
 
 	@Test
 	void testEquals() {
