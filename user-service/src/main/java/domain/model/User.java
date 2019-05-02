@@ -38,11 +38,12 @@ public class User implements Serializable {
 	public User() {}
 	
 	public User(String prenom, String nom, int age, String email, String tel) {
-		this.age = age;
-		this.email = email;
-		this.lastName = nom;
-		this.firstName = prenom;
-		this.tel = tel;
+		this.setAge(age);
+		this.setEmail(email);
+		this.setLastName(nom);
+		this.setFirstName(prenom);
+		this.setTel(tel);
+		
 	}
 	
 	@Override

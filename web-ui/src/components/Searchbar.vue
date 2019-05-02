@@ -25,7 +25,7 @@ export default {
   height: 50px;
   font-size: 1.5em;
   margin: 50px 0px;
-  margin-right: 30px;
+  // margin-right: 30px;
   // background-color: black;
 }
 
