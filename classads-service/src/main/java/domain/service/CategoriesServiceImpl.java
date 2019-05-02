@@ -1,5 +1,6 @@
 package domain.service;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -31,6 +32,12 @@ public class CategoriesServiceImpl implements CategoriesService {
 	public JsonObject getAttributes(int categoryID) {
 		JsonObject catAttributes = new JsonObject();
 		try {
+			//We check if the category ID is correct
+			Collection<Integer> indices = Categories.getCategoryIndex().values();
+			if (!indices.contains(categoryID)) {
+				throw new Exception("Bad categoryID");
+			}
+			
 			//We start the category itself then we move back up to the parents until a root category
 			int parent = categoryID;
 			while (parent != -1) {
@@ -47,6 +54,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 			}
 		} catch (Exception e) {
 			log.error("Error in categoty ID");
+			return null;
 		}
 		
 		JsonObject adAttributes = Ad.getAttributes();

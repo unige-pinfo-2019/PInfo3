@@ -51,6 +51,10 @@ public class CategoriesServiceImplTest {
 		for (int i=0; i<nbCategories; i++) {
 			testMandatoryAttributes(i);
 		}
+		
+		//We can also test that the function returns null if the categoryID is wrong
+		JsonObject json = csi.getAttributes(-1);
+		Assertions.assertEquals(null, json);
 	}
 	
 	@Test
