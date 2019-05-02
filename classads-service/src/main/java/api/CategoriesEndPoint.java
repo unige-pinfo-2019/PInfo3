@@ -36,7 +36,7 @@ public class CategoriesEndPoint {
 	@GET
 	@Path("all/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getCategoriesAttributes(@QueryParam("categoryID") int categoryID) {
+	public String getCategoriesAttributes(@QueryParam("id") int categoryID) {
 		return catService.getAttributes(categoryID).toString();
 	}
 	

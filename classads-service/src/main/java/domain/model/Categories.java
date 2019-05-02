@@ -15,6 +15,7 @@ public class Categories {
 	/***** Attributes *****/
 	private static ArrayList<Map<String, Object>> categoriesList = new ArrayList<>();
 	private static String categoryNameField = "categoryName";
+	private static String categoryIDField = "categoryID";
 	private static String parentField = "parent";
 	
 	/***** Other attributes (automatically computed) *****/
@@ -80,7 +81,7 @@ public class Categories {
 	}
 	
 	public static String getCategoryName(int categoryID) {
-		return (String) Categories.getCategoryStore().get(categoryID).get("categoryName");
+		return (String) Categories.getCategoryStore().get(categoryID).get(categoryNameField);
 	}
 	
 	/***** Getters and setters *****/
@@ -102,6 +103,10 @@ public class Categories {
 
 	public static String getParentField() {
 		return parentField;
+	}
+	
+	public static String getCategoryIDField() {
+		return categoryIDField;
 	}
 
 }

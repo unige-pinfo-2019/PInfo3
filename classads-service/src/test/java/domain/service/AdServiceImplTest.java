@@ -24,6 +24,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import domain.model.Ad;
+import domain.model.Categories;
 import eu.drus.jpa.unit.api.JpaUnit;
 
 
@@ -191,11 +192,11 @@ public class AdServiceImplTest {
 		
 		//Test if we can extract the mandatory fields from these objects
 		for (JsonElement jsonAtt : json) {
-			if (!jsonAtt.getAsJsonObject().has("title")) 
+			if (!jsonAtt.getAsJsonObject().has(Ad.getTitleField())) 
 				Assertions.fail("Coudn't extract title from json");
-			if (!jsonAtt.getAsJsonObject().has("description")) 
+			if (!jsonAtt.getAsJsonObject().has(Ad.getDescriptionField())) 
 				Assertions.fail("Coudn't extract description from json");
-			if (!jsonAtt.getAsJsonObject().has("price")) 
+			if (!jsonAtt.getAsJsonObject().has(Ad.getPriceField())) 
 				Assertions.fail("Coudn't extract price from json");
 		}
 		
@@ -225,25 +226,25 @@ public class AdServiceImplTest {
 		
 		//Test to decrypt an ad with a bad category ID
 		json = new JsonObject();
-		json.addProperty("categoryID", -1);
+		json.addProperty(Categories.getCategoryIDField(), -1);
 		ad = as.createAdFromJson(json);
 		Assertions.assertEquals(null, ad);
 		
 		//Test to decrypt an ad with a right categoryID but not all mandatory parameters
 		json = new JsonObject();
-		json.addProperty("categoryID", 0);
-		json.addProperty("title", "Any title");
-		json.addProperty("price", 10);
+		json.addProperty(Categories.getCategoryIDField(), 0);
+		json.addProperty(Ad.getTitleField(), "Any title");
+		json.addProperty(Ad.getPriceField(), 10);
 		ad = as.createAdFromJson(json);
 		Assertions.assertEquals(null, ad);
 		
 		//Test to decrypt an ad with the right mandatory field but not all category fields
 		//For category 1 which is Books, fields are authors and nbPages
 		json = new JsonObject();
-		json.addProperty("categoryID", 1);
-		json.addProperty("title", "Bel-ami");
-		json.addProperty("description", "Interessing book");
-		json.addProperty("price", 20);
+		json.addProperty(Categories.getCategoryIDField(), 1);
+		json.addProperty(Ad.getTitleField(), "Bel-ami");
+		json.addProperty(Ad.getDescriptionField(), "Interessing book");
+		json.addProperty(Ad.getPriceField(), 20);
 		json.addProperty("authors", "Guy de Maupassant");
 		ad = as.createAdFromJson(json);
 		Assertions.assertNotEquals(null, ad);
@@ -252,10 +253,10 @@ public class AdServiceImplTest {
 		//Test to decrypt an ad with the right mandatory field but not all category fields
 		//For category 1 which is Books, fields are authors and nbPages
 		json = new JsonObject();
-		json.addProperty("categoryID", 1);
-		json.addProperty("title", "Bel-ami");
-		json.addProperty("description", "Interessing book");
-		json.addProperty("price", 20);
+		json.addProperty(Categories.getCategoryIDField(), 1);
+		json.addProperty(Ad.getTitleField(), "Bel-ami");
+		json.addProperty(Ad.getDescriptionField(), "Interessing book");
+		json.addProperty(Ad.getPriceField(), 20);
 		json.addProperty("authors", "Guy de Maupassant");
 		json.addProperty("nbPages", 394);
 		ad = as.createAdFromJson(json);

@@ -58,7 +58,7 @@ public class AdServiceImpl implements AdService{
 		Root<Ad> c = q.from(Ad.class);
 		
 		ParameterExpression<String> p = cb.parameter(String.class);
-		q.select(c).where(cb.equal(cb.lower(c.get("title")), cb.lower(p)));
+		q.select(c).where(cb.equal(cb.lower(c.get(Ad.getTitleField())), cb.lower(p)));
 		
 		TypedQuery<Ad> query = em.createQuery(q);
 		query.setParameter(p, title);
@@ -114,7 +114,7 @@ public class AdServiceImpl implements AdService{
 			//Some attributes are mandatory so they'll generate an exception if they don't exist
 			
 			//This includes the category id
-			int categoryID = json.get("categoryID").getAsInt();
+			int categoryID = json.get(Categories.getCategoryIDField()).getAsInt();
 			Collection<Integer> indices = Categories.getCategoryIndex().values();
 			if (!indices.contains(categoryID)) {
 				throw new IllegalArgumentException("Bad categoryID");
@@ -138,9 +138,9 @@ public class AdServiceImpl implements AdService{
 	/***** Manipulation *****/
 	private Boolean setMandatoryParameters(Ad ad, JsonObject json) {
 		try {
-			ad.setTitle(json.get("title").getAsString());
-			ad.setDescription(json.get("description").getAsString());
-			ad.setPrice(json.get("price").getAsInt());
+			ad.setTitle(json.get(Ad.getTitleField()).getAsString());
+			ad.setDescription(json.get(Ad.getDescriptionField()).getAsString());
+			ad.setPrice(json.get(Ad.getPriceField()).getAsInt());
 		} catch (Exception e) {
 			log.error("Mandatory fields are missing (title, description or price)");
 			return false;
@@ -160,7 +160,7 @@ public class AdServiceImpl implements AdService{
 		Map<String, String> newAttributesString = new HashMap<>();
 		
 		//Set the attributes for the category
-		newAttributesInt.put("categoryID", categoryID);
+		newAttributesInt.put(Categories.getCategoryIDField(), categoryID);
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String key = entry.getKey();
 			try {
@@ -202,9 +202,9 @@ public class AdServiceImpl implements AdService{
 		
 		for (Ad ad : ads) {
 			JsonObject jsonAd = new JsonObject();
-			jsonAd.addProperty("title", ad.getTitle());
-			jsonAd.addProperty("description", ad.getDescription());
-			jsonAd.addProperty("price", ad.getPrice());
+			jsonAd.addProperty(Ad.getTitleField(), ad.getTitle());
+			jsonAd.addProperty(Ad.getDescriptionField(), ad.getDescription());
+			jsonAd.addProperty(Ad.getPriceField(), ad.getPrice());
 			for (Map.Entry<String, Integer> entryInt : ad.getCategoryInt().entrySet()) {
 				jsonAd.addProperty(entryInt.getKey(), entryInt.getValue());
 			}

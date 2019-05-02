@@ -25,6 +25,10 @@ import com.google.gson.JsonObject;
 public class Ad implements Serializable{
 
 	private static final long serialVersionUID = 5725261213022717645L;
+	
+	private static String titleField = "title";
+	private static String descriptionField = "description";
+	private static String priceField = "price";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -72,9 +76,9 @@ public class Ad implements Serializable{
 	/* Returns attributes and their default values in a json format */
 	public static JsonObject getAttributes() {
 		JsonObject json = new JsonObject();
-		json.addProperty("title", "");
-		json.addProperty("description", "");
-		json.addProperty("price", 0);
+		json.addProperty(titleField, "");
+		json.addProperty(descriptionField, "");
+		json.addProperty(priceField, 0);
 		return json;
 	}
 
@@ -130,6 +134,18 @@ public class Ad implements Serializable{
 
 	public Map<String, String> getCategoryString() {
 		return categoryString;
+	}
+	
+	public static String getTitleField() {
+		return titleField;
+	}
+
+	public static String getDescriptionField() {
+		return descriptionField;
+	}
+
+	public static String getPriceField() {
+		return priceField;
 	}
 
 	public void setCategory(Map<String, Integer> categoryInt, Map<String, Boolean> categoryBool, Map<String, String> categoryString) {
