@@ -62,8 +62,28 @@ class UserTest {
 			fail("Deux users différents sont les mêmes pour la méthode equals.");
 		if (v.equals(t) || t.equals(v))
 			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		if (v.hashCode() == t.hashCode())
+			fail("Le hashcode ne donne pas le même résultat que equals.");
 		if (t.equals(null))
 			fail("Un user non null est semblable à null.");
+		
+		v.setId(0);
+		w.setId(1);
+		
+		v.setFirstName("sgjk");
+		w.setFirstName("sgjk");
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		
+		v.setLastName("ashsdgnh");
+		w.setLastName("ashsdgnh");
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		
+		v.setAge(35);
+		w.setAge(35);
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
 		
 	}
 	
