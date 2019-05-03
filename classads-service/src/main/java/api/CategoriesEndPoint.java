@@ -34,7 +34,7 @@ public class CategoriesEndPoint {
 	
 	/* Get all attributes (including those for ad class) of a specific category */
 	@GET
-	@Path("all/")
+	@Path("category/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCategoriesAttributes(@QueryParam("id") int categoryID) {
 		return catService.getAttributes(categoryID).toString();
@@ -42,7 +42,7 @@ public class CategoriesEndPoint {
 	
 	/* Get a list of all the categories and their related indices */
 	@GET
-	@Path("/")
+	@Path("index/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCategories() {
 		Gson gson = new Gson(); 
