@@ -52,7 +52,7 @@ export default {
   // color: $primary-color;
   // background-color: #e6ecf0;
   background-color: $background-gray;
-  overflow-x: hidden;
+  // overflow-x: hidden;
 }
 
 .test {
