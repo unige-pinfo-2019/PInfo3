@@ -134,8 +134,8 @@ volumes:
    
 networks:
   frontend-network:
-     driver: bridge 
+     driver: docker-compose_frontend-network 
   gateway-network:
      driver: bridge     
   backend-network:
-     driver: bridge
+     driver: docker-compose_backend-network
