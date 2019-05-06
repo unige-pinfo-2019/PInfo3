@@ -37,7 +37,13 @@ public class AdEndpoint {
 	public void setAdService(AdService cs) {
 		adservice = cs;
 	}
-
+	
+	@GET
+	@Path("/search")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getRequest(@QueryParam("request") String request) {
+		return searchService.searchResquet(request).toString();
+	}
 	/* Get all classads */
 	@GET
 	@Path("/")
@@ -48,11 +54,12 @@ public class AdEndpoint {
 	}
 	
 	@GET
-	@Path("/ads")
+	@Path("/ad")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String getByID(@QueryParam("id") long id) {
 		Ad ad = adservice.getById(id).get();
-		
+		log.info(ad.toString());
+		searchService.getAdById(Long.toString(id));		
 		return ad.toString();
 	}
 	
