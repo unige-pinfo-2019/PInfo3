@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import domain.model.Ad;
 import domain.service.AdService;
+import domain.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -29,6 +30,9 @@ import lombok.extern.slf4j.Slf4j;
 public class AdEndpoint {
 	@Inject
 	private AdService adservice;
+	
+	@Inject
+	private SearchService searchService;
 
 	public void setAdService(AdService cs) {
 		adservice = cs;
@@ -43,6 +47,15 @@ public class AdEndpoint {
 		return adservice.getJsonListAds(adservice.getAll()).toString();
 	}
 	
+	@GET
+	@Path("/ads")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String getByID(@QueryParam("id") long id) {
+		Ad ad = adservice.getById(id).get();
+		
+		return ad.toString();
+	}
+	
 	/* Add a new ad in the DB */
 	@POST
 	@Path("/")
@@ -53,6 +66,7 @@ public class AdEndpoint {
 		Ad ad = adservice.createAdFromJson(json); //We create the ad
 		
 		if (ad != null && adservice.createAd(ad)) {
+			searchService.insertAd(ad);
 			return "You've inserted an ad\n" + ad.toString();
 		} else {
 			return "This ad already exists";
