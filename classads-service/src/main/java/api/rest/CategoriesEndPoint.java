@@ -1,4 +1,4 @@
-package api;
+package api.rest;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

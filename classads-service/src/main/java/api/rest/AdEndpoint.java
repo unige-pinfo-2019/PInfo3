@@ -1,4 +1,4 @@
-package api;
+package api.rest;
 
 import java.util.Optional;
 
@@ -15,9 +15,10 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
+import api.msg.AdProducer;
 import domain.model.Ad;
 import domain.service.AdService;
-import domain.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -32,18 +33,13 @@ public class AdEndpoint {
 	private AdService adservice;
 	
 	@Inject
-	private SearchService searchService;
-
+	private AdProducer adProducer;
+	
 	public void setAdService(AdService cs) {
 		adservice = cs;
 	}
 	
-	@GET
-	@Path("/search")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getRequest(@QueryParam("request") String request) {
-		return searchService.searchResquet(request).toString();
-	}
+	
 	/* Get all classads */
 	@GET
 	@Path("/")
@@ -51,16 +47,6 @@ public class AdEndpoint {
 	public String getAll() {
 		//We get the ads back in a list
 		return adservice.getJsonListAds(adservice.getAll()).toString();
-	}
-	
-	@GET
-	@Path("/ad")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String getByID(@QueryParam("id") long id) {
-		Ad ad = adservice.getById(id).get();
-		log.info(ad.toString());
-		searchService.getAdById(Long.toString(id));		
-		return ad.toString();
 	}
 	
 	/* Add a new ad in the DB */
@@ -73,7 +59,7 @@ public class AdEndpoint {
 		Ad ad = adservice.createAdFromJson(json); //We create the ad
 		
 		if (ad != null && adservice.createAd(ad)) {
-			searchService.insertAd(ad);
+			adProducer.send(ad);
 			return "You've inserted an ad\n" + ad.toString();
 		} else {
 			return "This ad already exists";
@@ -98,6 +84,7 @@ public class AdEndpoint {
 
 			try {
 				adservice.deleteAd(ad);
+				adProducer.sendDelete(ad);
 				return "Deleted classadd "+ ad.toString();
 			} catch(IllegalArgumentException ex) {
 				log.error(ex.toString());

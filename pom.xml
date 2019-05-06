@@ -23,6 +23,7 @@
 
   <modules>
   	<module>classads-service</module>
+  	<module>search-service</module>
     <module>user-service</module>
     <module>classadsresponse-service</module>
     <module>statistic-service</module>
