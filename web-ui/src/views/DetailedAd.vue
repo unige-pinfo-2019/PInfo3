@@ -1,0 +1,162 @@
+<template>
+  <div class="detailed-ad">
+    <div class="mycontainer">
+
+      <div class="ad-rows">
+        <div class="row-ad">
+          <div class="block">
+            <h1 class="title">{{this.title}}</h1>
+
+            <div class="carousel-container">
+              <b-carousel
+              id="carousel-1"
+              v-model="slide"
+              controls
+              indicators
+              background="#ababab"
+              style="text-shadow: 1px 1px 2px #333;"
+              @sliding-start="onSlideStart"
+              @sliding-end="onSlideEnd"
+              >
+              <!-- Text slides with image -->
+              <b-carousel-slide
+              caption="First slide"
+              text="Nulla vitae elit libero, a pharetra augue mollis interdum."
+              img-src="https://picsum.photos/1024/480/?image=52"
+              ></b-carousel-slide>
+            </b-carousel>
+          </div>
+
+          <p class="description">{{this.description}}</p>
+
+          <p class="price">{{this.prix}} CHF</p>
+        </div>
+        </div>
+
+        <div class="row-user">
+          <div class="block user-container">
+            <b-img src="https://i.stack.imgur.com/o1z7p.jpg" rounded="circle" center width="100px" height="100px"></b-img>
+
+            <div class="user-name-container">
+              <div class="user-name">
+                Lena
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'detailed-ad',
+  props: {
+    id: String,
+    // imgUrl: {
+    //   type: String,
+    //   default: "http://batanes.dost02.com/wp-content/themes/iloveit/images/no.image.600x300.png",
+    // },
+    // title: String,
+    // description: String,
+    // prix: String,
+  },
+  data() {
+    return {
+      title: "Je vevnd un pc très très bien",
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      prix: "69",
+    }
+  },
+  mounted() {
+    console.log('Need to do a request to: ' + this.id);
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss" scoped>
+
+.ad-rows {
+  display: flex;
+}
+
+.row-ad {
+  // flex-basis: 80%;
+}
+
+.row-user {
+  flex-basis: 25%;
+  margin-left: 30px;
+}
+
+
+.mycontainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // margin: 0;
+  margin-top: 50px;
+}
+
+.block {
+  width: 100%;
+  // max-width: 800px;
+  background: white;
+  min-height: 100px;
+  border-radius: 3px;
+  border: 1px solid lightgrey;
+  padding: 20px 20px 20px 20px;
+  margin-bottom: 30px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+.user-name-container {
+  margin-top: 10px;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  // text-align: center;
+}
+
+.user-name {
+  text-align: center;
+}
+
+.carousel-container {
+  align-self: center;
+}
+
+.description {
+  // align-self: flex-start;
+  text-align: justify;
+  margin-bottom: 20px;
+}
+
+.price {
+  align-self: flex-end;
+  font-size: 1.5em;
+  // text-align: right;
+  margin-bottom: 0px;
+}
+
+
+</style>
