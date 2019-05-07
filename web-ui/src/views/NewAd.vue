@@ -135,11 +135,6 @@ h4 {
   margin-bottom: 0px;
 }
 
-hr {
-  border: 2px solid $primary-color;
-  margin: 0px;
-}
-
 .field-title {
   transform: translateX(-50px);
 
@@ -155,8 +150,6 @@ hr {
   width: 45%;
   text-align: left;
 }
-
-
 
 .input {
   margin-bottom: 30px;
