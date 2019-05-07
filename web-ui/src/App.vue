@@ -29,7 +29,7 @@
 import Banner from '@/components/Banner.vue'
 import MiniAd from '@/components/MinimizedAd.vue'
 import LeftMenu from '@/components/LeftMenu.vue'
-import OurFooter from '@/components/Footer.vue'
+import OurFooter from '@/components/OurFooter.vue'
 
 export default {
   name: 'app',
@@ -43,8 +43,10 @@ export default {
 
 <style lang="scss">
 
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Lato", Helvetica, Arial, sans-serif; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

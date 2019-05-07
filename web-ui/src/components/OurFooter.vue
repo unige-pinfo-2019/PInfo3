@@ -1,5 +1,5 @@
 <template>
-  <div class="footer">
+  <div class="ourfooter">
     <footer>
       <b-container class="column-wrapper">
         <b-row>
@@ -44,7 +44,7 @@
 
 <script>
 export default {
-  name: 'footer'
+  name: 'ourfooter'
 }
 </script>
 

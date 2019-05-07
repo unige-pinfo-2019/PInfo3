@@ -3,7 +3,7 @@
     <div class="container">
       <div class="block">
 
-        <span class="field-title" > <h4>Titre</h4> </span>
+        <span class="field-title" > <h4>Titre</h4> <hr> </span>
 
         <div class="input">
           <b-form-input v-model="title"
@@ -14,7 +14,7 @@
           ></b-form-input>
         </div>
 
-        <span class="field-title" > <h4>Description</h4> </span>
+        <span class="field-title" > <h4>Description</h4> <hr> </span>
 
         <div class="input">
           <b-form-textarea v-model="description"
@@ -26,7 +26,7 @@
           ></b-form-textarea>
         </div>
 
-        <span class="field-title" > <h4>Ajouter une image</h4> </span>
+        <span class="field-title" > <h4>Images</h4> <hr> </span>
 
         <!-- <span > -->
         <div class="input">
@@ -34,15 +34,18 @@
         </div>
         <!-- </span> -->
 
-        <span class="field-title" > <h4>Prix</h4> </span>
+        <span class="field-title" > <h4>Prix</h4> <hr> </span>
 
-        <b-form-input
-          id="price-field"
-          v-model="price"
-          required
-          type="number"
-          placeholder="0.00"
-        ></b-form-input>
+        <b-input-group append="CHF" style="width: 45%;">
+          <b-form-input
+            id="price-field"
+            v-model="price"
+            required
+            type="number"
+            placeholder="0.00"
+
+          ></b-form-input>
+        </b-input-group>
 
 
 
@@ -50,7 +53,7 @@
 
       <div class="block">
 
-        <span class="field-title" > <h4>Sélectionner une catégorie</h4> </span>
+        <span class="field-title" > <h4>Catégories</h4> <hr> </span>
 
         <div class="input">
           <b-form-select v-model="categoryID" :options="categories" />
@@ -109,6 +112,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
 .container {
   display: flex;
   flex-direction: column;
@@ -131,28 +135,37 @@ export default {
 }
 
 h4 {
-  font-size: 1.2em;
+  font-size: 1.3em;
   margin-bottom: 0px;
+  font-weight: normal;
+  // font-family: 'Open Sans', sans-serif;
+}
+
+.field-title > hr {
+  border: 1px solid $primary-color;
+  margin: 0px 0px 5px 0px;
+  width: 100%;
 }
 
 .field-title {
-  transform: translateX(-50px);
+  // transform: translateX(-50px);
 
   align-self: flex-start;
 
-  color: white;
-  background-color: $primary-color;
-  padding: 3px 10px 5px 10px;
+  // color: white;
+  // background-color: $primary-color;
+  // padding: 3px 10px 5px 10px;
   margin-bottom: 12px;
 
-  box-shadow: 5px 5px 5px #AAA;
+  // box-shadow: 5px 5px 5px #AAA;
 
-  width: 45%;
+  // width: 45%;
   text-align: left;
 }
 
 .input {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+
 }
 
 .new-photo {
