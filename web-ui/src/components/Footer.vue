@@ -6,7 +6,7 @@
           <b-col cols="4">
             <h4>ByteTheDust</h4>
             <hr>
-            <p>Ce site a été réalisé dans le cadre du cours Projet Informatique de l'université de Genève par l'équipe ByteTheDust.</p>
+            <p>Ce site a été réalisé dans le cadre du cours Projet Informatique de l'Université de Genève par l'équipe ByteTheDust.</p>
 
           </b-col>
           <!-- <b-col>2 of 3</b-col> -->
@@ -28,7 +28,7 @@
              <b-col>
                <li>Guy-Raphaël Stauffer</li>
                <li>Pavlos Tserevelakis</li>
-               <li>David alexander</li>
+               <li>David Alexander</li>
              </b-col>
             </b-row>
 
