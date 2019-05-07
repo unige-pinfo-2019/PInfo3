@@ -11,4 +11,4 @@ curl -S -s -i -X POST   -url http://localhost:8001/services/web-ui/routes  --dat
 
 
 #Enable the Open ID Plugin
-curl -S -s -i -X POST  --url http://api-gateway:8001/plugins --data "name=jwt" --data "enabled=true"
+#curl -S -s -i -X POST  --url http://api-gateway:8001/plugins --data "name=jwt" --data "enabled=true"
