@@ -42,6 +42,8 @@ public class SearchServiceImpl implements SearchService {
 	RestHighLevelClient client = new RestHighLevelClient(
 	        RestClient.builder(new HttpHost("elasticsearch", 9200, "http")));
 	
+	private String index = "posts";
+	
 	
 	public JsonArray searchResquet(String request) {
 		//Request without arguments to run for all indices
@@ -68,7 +70,6 @@ public class SearchServiceImpl implements SearchService {
 		try {
 			searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
 		} catch (IOException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 		} 
 		
@@ -92,13 +93,12 @@ public class SearchServiceImpl implements SearchService {
 	public void insertAd(Ad ad){
 	    
 		Map<String, Object> dataMap = buildMapFromAd(ad);
-	    IndexRequest indexRequest = new IndexRequest("posts").id(Long.toString(ad.getId())).source(dataMap);
+	    IndexRequest indexRequest = new IndexRequest(index).id(Long.toString(ad.getId())).source(dataMap);
 	    try {
 	    	client.index(indexRequest, RequestOptions.DEFAULT);
 	    } catch(ElasticsearchException e) {
 	        log.error(e.getDetailedMessage());
 	    } catch (java.io.IOException e){
-	        e.getLocalizedMessage();
 	        log.error(e.getMessage());
 	    } finally {
 	    	log.info("The ad has been added to elastic search data");
@@ -108,14 +108,12 @@ public class SearchServiceImpl implements SearchService {
 	
 	public void updateAd(Ad ad) {
 		Map<String, Object> dataMap = buildMapFromAd(ad);
-		UpdateRequest request = new UpdateRequest("posts", Long.toString(ad.getId())).doc(dataMap);
+		UpdateRequest request = new UpdateRequest(index, Long.toString(ad.getId())).doc(dataMap);
 		try {
 			client.update(request, RequestOptions.DEFAULT);
 		} catch (ElasticsearchException e) {
-			e.getDetailedMessage();
 			log.error(e.getDetailedMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
 			log.error(e.getMessage());
 		} finally {
 			log.info("Succefully updated the ad with id : "+ad.getId());
@@ -123,32 +121,30 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	public Ad getAdById(String id){
-	    GetRequest getRequest = new GetRequest("posts", id);
+	    GetRequest getRequest = new GetRequest(index, id);
 	    GetResponse getResponse = null;
 	    Ad ad = null;
 	    try {
 	        getResponse = client.get(getRequest, RequestOptions.DEFAULT);
 	    } catch (java.io.IOException e){
-	        e.getLocalizedMessage();
 	        log.error(e.getMessage());
-	    } 
-	    
-	    if (getResponse.isExists()) {
-	    	Map<String, Object> mapData = getResponse.getSourceAsMap();
-	    	ad = buildAdFromMap(mapData);
-	    	log.info("Succefully get the ad with id : "+id+"\nAd information : "+ad);
+	    } finally {
+	    	if (getResponse != null) {
+		    	Map<String, Object> mapData = getResponse.getSourceAsMap();
+		    	ad = buildAdFromMap(mapData);
+		    	if (ad != null)
+		    		log.info("Succefully get the ad with id : "+id+"\nAd information : "+ad);
+		    }
 	    }
-	    
 	    return ad;
 	    
 	}
 	
 	public void deleteAdById(String id) {
-	    DeleteRequest deleteRequest = new DeleteRequest("posts", id);
+	    DeleteRequest deleteRequest = new DeleteRequest(index, id);
 	    try {
 	    	client.delete(deleteRequest, RequestOptions.DEFAULT);
 	    } catch (java.io.IOException e){
-	        e.getLocalizedMessage();
 	        log.error(e.getMessage());
 	    } finally {
 	    	log.info("Succefully delete the ad with id : "+id);
