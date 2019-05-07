@@ -177,7 +177,7 @@ hr {
 }
 
 #price-field {
-  width: 25%;
+  width: 45%;
   align-self: flex-start;
   height: 40px;
   font-size: 1.1em;
