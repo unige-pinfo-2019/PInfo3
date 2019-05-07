@@ -3,7 +3,7 @@
     <div class="container">
       <div class="block">
 
-        <span style="text-align: left;"> <h4>Titre</h4> </span>
+        <span class="field-title" > <h4>Titre</h4> </span>
 
         <div class="input">
           <b-form-input v-model="title"
@@ -14,7 +14,7 @@
           ></b-form-input>
         </div>
 
-        <span class="field-title" style="text-align: left;"> <h4>Description</h4> </span>
+        <span class="field-title" > <h4>Description</h4> </span>
 
         <div class="input">
           <b-form-textarea v-model="description"
@@ -26,17 +26,31 @@
           ></b-form-textarea>
         </div>
 
-        <span style="text-align: left;"> <h4>Ajouter une image</h4> </span>
+        <span class="field-title" > <h4>Ajouter une image</h4> </span>
 
-        <span style="text-align: left; padding-bottom: 30px;">
+        <!-- <span > -->
+        <div class="input">
           <b-button class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
-        </span>
+        </div>
+        <!-- </span> -->
+
+        <span class="field-title" > <h4>Prix</h4> </span>
+
+        <b-form-input
+          id="price-field"
+          v-model="price"
+          required
+          type="number"
+          placeholder="0.00"
+        ></b-form-input>
+
+
 
       </div>
 
       <div class="block">
 
-        <span style="text-align: left;"> <h4>Sélectionner une catégorie</h4> </span>
+        <span class="field-title" > <h4>Sélectionner une catégorie</h4> </span>
 
         <div class="input">
           <b-form-select v-model="categoryID" :options="categories" />
@@ -67,6 +81,28 @@ export default {
         { value: 4, text: 'Livres' },
       ]
     }
+  },
+  methods: {
+    // format(value, event) {
+    //   console.log('[' + value + ']');
+    //   console.log('Caller event: ' + event);
+    //   if(!value.includes('.')) {
+    //     console.log('No dot');
+    //     return value;
+    //   }
+    //
+    //   if((value.split(".").length) > 2) { // Si il y a plus d'une virgule
+    //   console.log('More than one dot');
+    //     var elements = value.split(".");
+    //     console.log(elements);
+    //     var toReturn = elements[0] + "." + elements[1]
+    //     console.log("Value to return: " + toReturn);
+    //     return toReturn;
+    //   }
+    //
+    //   console.log('Exactly one dot');
+    //   return value;
+    // }
   }
 }
 </script>
@@ -89,11 +125,37 @@ export default {
   border: 1px solid lightgrey;
   padding: 20px 20px 20px 20px;
   margin-bottom: 30px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 h4 {
-  align-self: start;
+  font-size: 1.2em;
+  margin-bottom: 0px;
 }
+
+hr {
+  border: 2px solid $primary-color;
+  margin: 0px;
+}
+
+.field-title {
+  transform: translateX(-50px);
+
+  align-self: flex-start;
+
+  color: white;
+  background-color: $primary-color;
+  padding: 3px 10px 5px 10px;
+  margin-bottom: 12px;
+
+  box-shadow: 5px 5px 5px #AAA;
+
+  width: 45%;
+  text-align: left;
+}
+
 
 
 .input {
@@ -112,6 +174,13 @@ h4 {
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
+}
+
+#price-field {
+  width: 25%;
+  align-self: flex-start;
+  height: 40px;
+  font-size: 1.1em;
 }
 
 </style>
