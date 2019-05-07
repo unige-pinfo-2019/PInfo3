@@ -180,31 +180,30 @@ public class SearchServiceImpl implements SearchService {
 		Map<String, Integer> mapInt = new HashMap<>();
 		Map<String, Boolean> mapBool = new HashMap<>();
 		Map<String, String> mapString = new HashMap<>();
-	
 		
+		if (mapData.containsKey(Ad.getTitleField())) {
+			ad.setTitle((String)(mapData.get(Ad.getTitleField())));
+			mapData.remove(Ad.getTitleField());
+		} 
+		if (mapData.containsKey(Ad.getDescriptionField())) {
+			ad.setDescription((String)(mapData.get(Ad.getDescriptionField())));
+			mapData.remove(Ad.getDescriptionField());
+		} 
+		if (mapData.containsKey(Ad.getPriceField())) {
+			ad.setPrice((float)(mapData.get(Ad.getPriceField())));
+			mapData.remove(Ad.getPriceField());
+		} 
+		if (mapData.containsKey("id")) {
+			ad.setId((int)(mapData.get("id")));
+			mapData.remove("id");
+		} 
+	
 		for (Map.Entry<String, Object> entry : mapData.entrySet()) {
 			
-			if (entry.getKey().equals("id")) {
-				int i = (int)(entry.getValue());
-				ad.setId((long)i);
-			}
+			if(entry.getValue().getClass()== Integer.class) mapInt.put(entry.getKey(), (Integer) entry.getValue());
+			if(entry.getValue().getClass()== Boolean.class) mapBool.put(entry.getKey(), (Boolean) entry.getValue());
+			if(entry.getValue().getClass()== String.class) mapString.put(entry.getKey(), (String) entry.getValue());
 			
-			else if (entry.getKey().equals(Ad.getTitleField()))
-				ad.setTitle((String)(entry.getValue()));
-			
-			else if (entry.getKey().equals(Ad.getDescriptionField()))
-				ad.setDescription((String)(entry.getValue()));
-			
-			else if (entry.getKey().equals(Ad.getPriceField())) {
-				double d = (double)(entry.getValue());
-				ad.setPrice((float)d);
-			}
-			
-			else {
-				if(entry.getValue().getClass()== Integer.class) mapInt.put(entry.getKey(), (Integer) entry.getValue());
-				if(entry.getValue().getClass()== Boolean.class) mapBool.put(entry.getKey(), (Boolean) entry.getValue());
-				if(entry.getValue().getClass()== String.class) mapString.put(entry.getKey(), (String) entry.getValue());	
-			}
 		}
 		
 		ad.setCategory(mapInt, mapBool, mapString);
