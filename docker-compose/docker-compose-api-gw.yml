@@ -67,7 +67,7 @@ services:
           condition: service_healthy
 
    api-gateway-init:
-    image: unige/api-gateway
+    image: 2019pinfo3/api-gateway
     container_name:  api-gateway-init
     hostname:  api-gateway-init
     networks:
