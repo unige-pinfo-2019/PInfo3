@@ -51,11 +51,11 @@ public class AdEndpoint {
 	public String addNewAd(String jsonStr) {
 		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
 		Ad ad = adservice.createAdFromJson(json); //We create the ad
-		
-		if (ad != null && adservice.createAd(ad)) {
+		if (ad != null) {
+			adservice.createAd(ad);
 			return "You've inserted an ad\n" + ad.toString();
 		} else {
-			return "This ad already exists";
+			return "Unable to create ad. Please check your parameters.";
 		}
 		
 	}

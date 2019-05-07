@@ -29,6 +29,7 @@ public class Ad implements Serializable{
 	private static String titleField = "title";
 	private static String descriptionField = "description";
 	private static String priceField = "price";
+	private static String userIDField = "userID";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -43,6 +44,9 @@ public class Ad implements Serializable{
 
 	@Column(name="PRICE")
 	private float price;
+	
+	@Column(name="USER_ID")
+	private long user_id;
 
 	@ElementCollection(fetch = FetchType.EAGER)
     @MapKeyColumn(name="cat_int")
@@ -79,6 +83,7 @@ public class Ad implements Serializable{
 		json.addProperty(titleField, "");
 		json.addProperty(descriptionField, "");
 		json.addProperty(priceField, 0);
+		json.addProperty(userIDField, 0);
 		return json;
 	}
 
@@ -86,7 +91,7 @@ public class Ad implements Serializable{
 	@Override
 	public String toString() {
 		String newLine = System.getProperty("line.separator");
-		String ret = newLine + title + " (Ad id = " + id + ")"+ newLine + newLine + description + newLine + newLine + "Prix : " + price;
+		String ret = newLine + title + " (Ad id = " + id + ")"+ newLine + newLine + description + newLine + newLine + "Prix : " + price + newLine + newLine + "ID Utilisateur : " + user_id;
 		ret += newLine + "Other fields : " + categoryInt.toString() + categoryBool.toString() + categoryString.toString();
 		return ret;
 	}
@@ -131,6 +136,7 @@ public class Ad implements Serializable{
 	public Map<String, Boolean> getCategoryBool() {
 		return categoryBool;
 	}
+	
 
 	public Map<String, String> getCategoryString() {
 		return categoryString;
@@ -147,11 +153,23 @@ public class Ad implements Serializable{
 	public static String getPriceField() {
 		return priceField;
 	}
+	
+	public static String getUserIDField() {
+		return userIDField;
+	}
 
 	public void setCategory(Map<String, Integer> categoryInt, Map<String, Boolean> categoryBool, Map<String, String> categoryString) {
 		this.categoryInt = categoryInt;
 		this.categoryBool = categoryBool;
 		this.categoryString = categoryString;
+	}
+
+	public long getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(long user_id) {
+		this.user_id = user_id;
 	}
 
 
