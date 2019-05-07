@@ -7,4 +7,4 @@ curl -S -s -i -X POST  --url http://api-gateway:8001/services/classads-service/r
 curl -S -s -i -X POST  --url http://api-gateway:8001/services/instrument-service/routes   --data "paths[]=/api/user"
 curl -S -s -i -X POST  --url http://api-gateway:8001/services/web-ui/routes --data "paths[]=/"
 #Enable the Open ID Plugin
-curl -S -s -i -X POST  --url http://api-gateway:8001/plugins --data "name=jwt" --data "enabled=false"
+curl -S -s -i -X POST  --url http://api-gateway:8001/plugins --data "name=jwt" --data "enabled=true"
