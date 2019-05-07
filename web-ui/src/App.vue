@@ -21,7 +21,7 @@
     </div>
 
 
-    <Footer/>
+    <OurFooter/>
   </div>
 </template>
 
@@ -29,14 +29,14 @@
 import Banner from '@/components/Banner.vue'
 import MiniAd from '@/components/MinimizedAd.vue'
 import LeftMenu from '@/components/LeftMenu.vue'
-import Footer from '@/components/Footer.vue'
+import OurFooter from '@/components/Footer.vue'
 
 export default {
   name: 'app',
   components: {
     Banner,
     LeftMenu,
-    Footer
+    OurFooter
   }
 }
 </script>
