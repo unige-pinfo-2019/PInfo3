@@ -19,7 +19,7 @@ services:
       timeout: 30s
       retries: 3
     volumes:
-      - pgdata-classads:/var/lib/postgresql/data
+      - pgdata-ad:/var/lib/postgresql/data
     restart: on-failure
     stdin_open: true
     tty: true
@@ -64,7 +64,7 @@ services:
        - user-service
 
 volumes:
-  pgdata-classads:
+  pgdata-ad:
 
 networks:
   backend-network:

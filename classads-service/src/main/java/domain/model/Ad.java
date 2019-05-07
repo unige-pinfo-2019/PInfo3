@@ -46,19 +46,19 @@ public class Ad implements Serializable{
 
 	@ElementCollection(fetch = FetchType.EAGER)
     @MapKeyColumn(name="cat_int")
-    @Column(name="value")
+    @Column(name="value_int")
     @CollectionTable(name="category_integer_attribute", joinColumns=@JoinColumn(name="cat_int_id"))
 	private Map<String, Integer> categoryInt;				// integer attributes specific to the category
 
 	@ElementCollection(fetch = FetchType.EAGER)
     @MapKeyColumn(name="cat_bool")
-    @Column(name="value")
+    @Column(name="value_bool")
     @CollectionTable(name="category_boolean_attribute", joinColumns=@JoinColumn(name="cat_bool_id"))
 	private Map<String, Boolean> categoryBool;				// boolean attributes specific to the category
 
 	@ElementCollection(fetch = FetchType.EAGER)
     @MapKeyColumn(name="cat_string")
-    @Column(name="value")
+    @Column(name="value_string")
     @CollectionTable(name="category_string_attribute", joinColumns=@JoinColumn(name="cat_string_id"))
 	private Map<String, String> categoryString;				// string attributes specific to the category
 

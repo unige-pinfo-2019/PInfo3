@@ -12,7 +12,7 @@
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.H2Dialect" />
+				value="org.hibernate.dialect.PostgreSQLDialect" />
 				
 			<property name="hibernate.hbm2ddl.charset_name" value="UTF-8"/>	
 			<property name="hibernate.connection.CharSet" value="UTF-8"/>
