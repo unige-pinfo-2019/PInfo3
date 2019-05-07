@@ -27,6 +27,14 @@ class UserTest {
 			fail("Erreur. Le contructeur de user n'attribue pas correctement le numéro de téléphone.");
 		
 	}
+	
+	@Test
+	void testReturnJSON() {
+		User x = new User("Jon","SNOW",21, "j.snow@got.com", "003-994-10-24");
+		String attendu = "{\"nom\":\"SNOW\", \"prenom\":\"Jon\n, \"age\":\"21\", \"tel\":\"003-994-10-24\", \"email\":\"j.snow@got.com\"";
+		if (!attendu.equals(x.returnJSON()))
+			fail("Le JSON attendu n'est pas le même que le JSON reçu.");
+	}
 
 	@Test
 	void testEquals() {
@@ -39,6 +47,9 @@ class UserTest {
 		z.setId(0);
 		
 		
+		Integer trololo = Integer.valueOf(35);
+		if (x.equals(trololo))
+			fail("Un user ne peut pas être comparé à un entier.");
 		if (!(x.equals(x)))
 			fail("La méthode equals n'est pas réflexive.");
 		if (x.equals(y) != y.equals(x))
@@ -62,8 +73,50 @@ class UserTest {
 			fail("Deux users différents sont les mêmes pour la méthode equals.");
 		if (v.equals(t) || t.equals(v))
 			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		if (v.hashCode() == t.hashCode())
+			fail("Le hashcode ne donne pas le même résultat que equals.");
 		if (t.equals(null))
 			fail("Un user non null est semblable à null.");
+		
+		
+		v.setId(0);
+		w.setId(1);
+		
+		v.setFirstName("sgjk");
+		w.setFirstName("sgjk");
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		
+		v.setLastName("ashsdgnh");
+		w.setLastName("ashsdgnh");
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		
+		v.setAge(35);
+		w.setAge(35);
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		
+		v = new User();
+		w = new User();
+		
+		v.setId(0);
+		w.setId(1);
+		
+		v.setFirstName("sgjk");
+		w.setFirstName("sgjk");
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		
+		v.setLastName("ashsdgnh");
+		w.setLastName("ashsdgnh");
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
+		
+		v.setAge(35);
+		w.setAge(35);
+		if (v.equals(w) || w.equals(v))
+			fail("Deux users différents sont les mêmes pour la méthode equals.");
 		
 	}
 	

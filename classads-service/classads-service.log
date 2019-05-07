@@ -1,0 +1,39 @@
+02-05-2019 20:54:25 INFO  AdServiceImpl:152 - key is nbPages
+02-05-2019 20:54:25 INFO  AdServiceImpl:155 - type of json att : class java.lang.Integer
+02-05-2019 20:54:25 INFO  AdServiceImpl:156 - type of cate att : class java.lang.Integer
+02-05-2019 20:54:25 INFO  AdServiceImpl:152 - key is authors
+02-05-2019 20:54:25 INFO  AdServiceImpl:155 - type of json att : class java.lang.String
+02-05-2019 20:54:25 INFO  AdServiceImpl:156 - type of cate att : class java.lang.String
+02-05-2019 20:54:26 INFO  stdout:71 - Hibernate: 
+02-05-2019 20:54:26 INFO  stdout:71 -     select
+02-05-2019 20:54:26 INFO  stdout:71 -         ad0_.AD_ID as AD_ID1_0_,
+02-05-2019 20:54:26 INFO  stdout:71 -         ad0_.DESCRIPTION as DESCRIPT2_0_,
+02-05-2019 20:54:26 INFO  stdout:71 -         ad0_.PRICE as PRICE3_0_,
+02-05-2019 20:54:26 INFO  stdout:71 -         ad0_.TITLE as TITLE4_0_ 
+02-05-2019 20:54:26 INFO  stdout:71 -     from
+02-05-2019 20:54:26 INFO  stdout:71 -         AD ad0_ 
+02-05-2019 20:54:26 INFO  stdout:71 -     where
+02-05-2019 20:54:26 INFO  stdout:71 -         lower(ad0_.TITLE)=lower(?)
+02-05-2019 20:54:26 INFO  stdout:71 - Hibernate: 
+02-05-2019 20:54:26 INFO  stdout:71 -     call next value for hibernate_sequence
+02-05-2019 20:54:26 INFO  stdout:71 - Hibernate: 
+02-05-2019 20:54:26 INFO  stdout:71 -     insert 
+02-05-2019 20:54:26 INFO  stdout:71 -     into
+02-05-2019 20:54:26 INFO  stdout:71 -         AD
+02-05-2019 20:54:26 INFO  stdout:71 -         (DESCRIPTION, PRICE, TITLE, AD_ID) 
+02-05-2019 20:54:26 INFO  stdout:71 -     values
+02-05-2019 20:54:26 INFO  stdout:71 -         (?, ?, ?, ?)
+02-05-2019 20:54:26 INFO  stdout:71 - Hibernate: 
+02-05-2019 20:54:26 INFO  stdout:71 -     insert 
+02-05-2019 20:54:26 INFO  stdout:71 -     into
+02-05-2019 20:54:26 INFO  stdout:71 -         category_integer_attribute
+02-05-2019 20:54:26 INFO  stdout:71 -         (cat_int_id, cat_int, value) 
+02-05-2019 20:54:26 INFO  stdout:71 -     values
+02-05-2019 20:54:26 INFO  stdout:71 -         (?, ?, ?)
+02-05-2019 20:54:26 INFO  stdout:71 - Hibernate: 
+02-05-2019 20:54:26 INFO  stdout:71 -     insert 
+02-05-2019 20:54:26 INFO  stdout:71 -     into
+02-05-2019 20:54:26 INFO  stdout:71 -         category_string_attribute
+02-05-2019 20:54:26 INFO  stdout:71 -         (cat_string_id, cat_string, value) 
+02-05-2019 20:54:26 INFO  stdout:71 -     values
+02-05-2019 20:54:26 INFO  stdout:71 -         (?, ?, ?)

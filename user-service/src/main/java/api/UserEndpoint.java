@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ApplicationScoped
-@Path("/User")
+@Path("/user")
 public class UserEndpoint {
 	@Inject
 	private UserService userservice;
@@ -42,7 +42,7 @@ public class UserEndpoint {
 	}
 	
 	@POST
-	@Path("/new")
+	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String addNewUser(User u) {
@@ -54,7 +54,7 @@ public class UserEndpoint {
 	}
 	
 	@DELETE
-	@Path("/delete")
+	@Path("/")
 	@Produces(MediaType.TEXT_PLAIN)
 	public String deleteUser(@QueryParam("id") String strID) {
 		long id = Long.parseLong(strID);

@@ -16,10 +16,14 @@
     <failOnMissingWebXml>false</failOnMissingWebXml>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <skip-docker-build>true</skip-docker-build>
+	<skip-docker-compose>false</skip-docker-compose>
+	<dockerHost>unix:///var/run/docker.sock</dockerHost>
   </properties>
 
   <modules>
   	<module>classads-service</module>
+  	<module>search-service</module>
     <module>user-service</module>
     <module>classadsresponse-service</module>
     <module>statistic-service</module>
@@ -177,6 +181,11 @@
       				<artifactId>maven-surefire-plugin</artifactId>
       				<version>3.0.0-M3</version>
     			</plugin>
+    			<plugin>
+					<groupId>io.fabric8</groupId>
+					<artifactId>fabric8-maven-plugin</artifactId>
+					<version>4.0.0-M2</version>
+				</plugin>
   			</plugins>
   		</pluginManagement>
 
@@ -217,5 +226,51 @@
   			</plugin>
   		</plugins>
   </build>
+  
+ <profiles>
+		<profile>
+			<id>package-docker-image</id>
+			<activation>
+				<property>
+					<name>docker-build</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>io.fabric8</groupId>
+						<artifactId>fabric8-maven-plugin</artifactId>
+						<configuration>
+							<skip>${skip-docker-build}</skip>
+							<useColor>true</useColor>
+							<dockerHost>${dockerHost}</dockerHost>
+							<images>
+								<image>
+									<name>2019pinfo3/%a:%l</name>
+									<run>
+										<ports>
+											<port>8080:8080</port>
+										</ports>
+									</run>
+									<build>
+										<dockerFileDir>${project.basedir}</dockerFileDir>
+                    					<filter>@</filter>
+									</build>
+								</image>
+							</images>
+						</configuration>
+						<executions>
+							<execution>
+								<phase>package</phase>
+								<goals>
+									<goal>build</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>
