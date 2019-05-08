@@ -100,6 +100,20 @@
     		<artifactId>elasticsearch-rest-high-level-client</artifactId>
     		<version>${elasticsearch.version}</version>
   		</dependency>
+  		
+  		<dependency>
+		    <groupId>com.github.smitajit</groupId>
+		    <artifactId>es-rest-mock</artifactId>
+		    <version>1.0.0</version>
+		    <scope>test</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>fr.pilato.elasticsearch.testcontainers</groupId>
+		    <artifactId>testcontainers-elasticsearch</artifactId>
+		    <version>0.1</version>
+		</dependency>
+		
 	
   </dependencies>
 </project>
