@@ -189,13 +189,11 @@ public class SearchServiceImpl implements SearchService {
 			mapData.remove(Ad.getDescriptionField());
 		}
 		if (mapData.containsKey(Ad.getPriceField())) {
-			double d = (double)(mapData.get(Ad.getPriceField()));
-			ad.setPrice((float)(d));
+			ad.setPrice(Float.parseFloat(mapData.get(Ad.getPriceField()).toString()));
 			mapData.remove(Ad.getPriceField());
 		}
 		if (mapData.containsKey("id")) {
-			int i = (int)(mapData.get("id"));
-			ad.setId((long)(i));
+			ad.setId(Long.parseLong(mapData.get("id").toString()));
 			mapData.remove("id");
 		}
 
