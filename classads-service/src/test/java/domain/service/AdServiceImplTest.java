@@ -60,14 +60,6 @@ public class AdServiceImplTest {
 			fail("We cannot insert the ad in the DB");
 		}
 		
-		//Now, we check that we cannot insert the same ad twice
-		tailleInitiale = as.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
-		as.createAd(ad);
-		
-		tailleFinale = as.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
-		if (tailleFinale != tailleInitiale) {
-			fail("We've inserted the same ad twice");
-		}
 	}
 	
 	@Test
@@ -204,7 +196,7 @@ public class AdServiceImplTest {
 		
 		//Test if the first object has 5 fields and test the 2 category fields
 		JsonObject jsonAd1 = json.get(0).getAsJsonObject();
-		Assertions.assertEquals(6, jsonAd1.keySet().size());
+		Assertions.assertEquals(7, jsonAd1.keySet().size());
 		if (!jsonAd1.has("authors")) 
 			Assertions.fail("Coudn't extract authors from json");
 		if (!jsonAd1.has("nbPages")) 
@@ -212,7 +204,7 @@ public class AdServiceImplTest {
 		
 		//Test if the second object has 5 fields and test the 2 category fields
 		JsonObject jsonAd2 = json.get(1).getAsJsonObject();
-		Assertions.assertEquals(6, jsonAd2.keySet().size());
+		Assertions.assertEquals(7, jsonAd2.keySet().size());
 		if (!jsonAd2.has("type")) 
 			Assertions.fail("Coudn't extract type from json");
 		if (!jsonAd2.has("color")) 
@@ -237,6 +229,7 @@ public class AdServiceImplTest {
 		json.addProperty(Categories.getCategoryIDField(), 0);
 		json.addProperty(Ad.getTitleField(), "Any title");
 		json.addProperty(Ad.getPriceField(), 10);
+		json.addProperty(Ad.getUserIDField(), 0);
 		ad = as.createAdFromJson(json);
 		Assertions.assertEquals(null, ad);
 		
@@ -247,6 +240,7 @@ public class AdServiceImplTest {
 		json.addProperty(Ad.getTitleField(), "Bel-ami");
 		json.addProperty(Ad.getDescriptionField(), "Interessing book");
 		json.addProperty(Ad.getPriceField(), 20);
+		json.addProperty(Ad.getUserIDField(), 0);
 		json.addProperty("authors", "Guy de Maupassant");
 		ad = as.createAdFromJson(json);
 		Assertions.assertNotEquals(null, ad);
@@ -263,6 +257,7 @@ public class AdServiceImplTest {
 		json.addProperty(Ad.getTitleField(), "Bel-ami");
 		json.addProperty(Ad.getDescriptionField(), "Interessing book");
 		json.addProperty(Ad.getPriceField(), 20);
+		json.addProperty(Ad.getUserIDField(), 0);
 		json.addProperty("authors", "Guy de Maupassant");
 		json.addProperty("nbPages", 394);
 		ad = as.createAdFromJson(json);

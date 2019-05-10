@@ -22,10 +22,11 @@ import lombok.Data;
 public abstract class Ad implements Serializable{
 
 	private static final long serialVersionUID = 5725261213022717645L;
-	
+
 	private static String titleField = "title";
 	private static String descriptionField = "description";
 	private static String priceField = "price";
+	private static String userIDField = "userID";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -40,6 +41,9 @@ public abstract class Ad implements Serializable{
 
 	@Column(name="PRICE")
 	private float price;
+
+	@Column(name="USER_ID")
+	private long user_id;
 
 	@Column(name="CATEGORY_ID")
 	private int categoryID;
@@ -63,7 +67,7 @@ public abstract class Ad implements Serializable{
 		String newLine = System.getProperty("line.separator");
 		String res = "Ad ID : " + id + newLine;
 		res += "Title : " + newLine + "Description : " + description + newLine + "Prix : " + price + newLine;
-		res += "Category ID : " + categoryID + newLine; 
+		res += "Category ID : " + categoryID + newLine;
 		return res;
 	}
 
@@ -78,6 +82,10 @@ public abstract class Ad implements Serializable{
 
 	public static String getPriceField() {
 		return priceField;
+	}
+
+	public static String getUserIDField() {
+		return userIDField;
 	}
 
 

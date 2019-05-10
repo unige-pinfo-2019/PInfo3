@@ -13,6 +13,7 @@
 	</parent>
 
   <properties>
+
   	<elasticsearch.version>7.0.1</elasticsearch.version>
   	<skip-docker-build>false</skip-docker-build>
   </properties>
@@ -54,12 +55,16 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
-  
+
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.5</version>
+		</dependency>
 		<dependency>
 		    <groupId>org.slf4j</groupId>
 		    <artifactId>slf4j-api</artifactId>
