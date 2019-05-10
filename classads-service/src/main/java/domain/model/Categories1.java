@@ -10,7 +10,7 @@ import java.util.Set;
  * categories.
  *
  */
-public class Categories {
+public class Categories1 {
 	
 	/***** Attributes *****/
 	private static ArrayList<Map<String, Object>> categoriesList = new ArrayList<>();
@@ -24,7 +24,7 @@ public class Categories {
 	private static Map<String, Integer> categoryIndex = new HashMap<>();
 	
 	/***** Constructors *****/
-	private Categories() {}
+	private Categories1() {}
 	
 	/***** Defining the list of categories *****/	
 	static {
@@ -81,7 +81,7 @@ public class Categories {
 	}
 	
 	public static String getCategoryName(int categoryID) {
-		return (String) Categories.getCategoryStore().get(categoryID).get(categoryNameField);
+		return (String) Categories1.getCategoryStore().get(categoryID).get(categoryNameField);
 	}
 	
 	/***** Getters and setters *****/

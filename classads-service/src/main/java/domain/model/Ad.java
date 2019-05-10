@@ -43,7 +43,7 @@ public abstract class Ad implements Serializable{
 	private float price;
 
 	@Column(name="USER_ID")
-	private long user_id;
+	private long userID;
 
 	@Column(name="CATEGORY_ID")
 	private int categoryID;
@@ -52,13 +52,8 @@ public abstract class Ad implements Serializable{
 	public Ad() {}
 
 	/***** Manipulation *****/
-	/* Returns attributes and their default values in a json format */
-	public JsonObject getJSONAttributes() {
-		JsonObject json = new JsonObject();
-		json.addProperty(titleField, "text");
-		json.addProperty(descriptionField, "text");
-		json.addProperty(priceField, "number");
-		return json;
+	public static JsonObject getJSONAttributes() {		
+		return new JsonObject();
 	}
 
 	/***** Utility methods *****/
