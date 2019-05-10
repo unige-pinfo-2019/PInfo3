@@ -21,7 +21,7 @@
     </div>
 
 
-    <Footer/>
+    <OurFooter/>
   </div>
 </template>
 
@@ -29,22 +29,24 @@
 import Banner from '@/components/Banner.vue'
 import MiniAd from '@/components/MinimizedAd.vue'
 import LeftMenu from '@/components/LeftMenu.vue'
-import Footer from '@/components/Footer.vue'
+import OurFooter from '@/components/OurFooter.vue'
 
 export default {
   name: 'app',
   components: {
     Banner,
     LeftMenu,
-    Footer
+    OurFooter
   }
 }
 </script>
 
 <style lang="scss">
 
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Lato", Helvetica, Arial, sans-serif; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -52,7 +54,7 @@ export default {
   // color: $primary-color;
   // background-color: #e6ecf0;
   background-color: $background-gray;
-  overflow-x: hidden;
+  // overflow-x: hidden;
 }
 
 .test {

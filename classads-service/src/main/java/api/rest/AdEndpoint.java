@@ -1,4 +1,4 @@
-package api;
+package api.rest;
 
 import java.util.Optional;
 
@@ -15,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
+import api.msg.AdProducer;
 import domain.model.Ad;
 import domain.service.AdService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,11 +31,15 @@ import lombok.extern.slf4j.Slf4j;
 public class AdEndpoint {
 	@Inject
 	private AdService adservice;
-
+	
+	@Inject
+	private AdProducer adProducer;
+	
 	public void setAdService(AdService cs) {
 		adservice = cs;
 	}
-
+	
+	
 	/* Get all classads */
 	@GET
 	@Path("/")
@@ -53,6 +59,7 @@ public class AdEndpoint {
 		Ad ad = adservice.createAdFromJson(json); //We create the ad
 		if (ad != null) {
 			adservice.createAd(ad);
+			adProducer.send(ad);
 			return "You've inserted an ad\n" + ad.toString();
 		} else {
 			return "Unable to create ad. Please check your parameters.";
@@ -77,6 +84,7 @@ public class AdEndpoint {
 
 			try {
 				adservice.deleteAd(ad);
+				adProducer.sendDelete(ad);
 				return "Deleted classadd "+ ad.toString();
 			} catch(IllegalArgumentException ex) {
 				log.error(ex.toString());

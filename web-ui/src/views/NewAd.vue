@@ -3,10 +3,10 @@
     <div class="container">
       <div class="block">
 
-        <span style="text-align: left;"> <h4>Titre</h4> </span>
+        <span class="field-title" > <h4>Titre</h4> <hr> </span>
 
         <div class="input">
-          <b-form-input
+          <b-form-input v-model="title"
           id="input-1"
           type="email"
           required
@@ -14,10 +14,10 @@
           ></b-form-input>
         </div>
 
-        <span class="field-title" style="text-align: left;"> <h4>Description</h4> </span>
+        <span class="field-title" > <h4>Description</h4> <hr> </span>
 
         <div class="input">
-          <b-form-textarea
+          <b-form-textarea v-model="description"
             id="textarea-auto-height"
             rows="6"
             max-rows="12"
@@ -26,12 +26,43 @@
           ></b-form-textarea>
         </div>
 
-        <span style="text-align: left;"> <h4>Ajouter une image</h4> </span>
+        <span class="field-title" > <h4>Images</h4> <hr> </span>
 
-        <span style="text-align: left;">
+        <!-- <span > -->
+        <div class="input">
           <b-button class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
-        </span>
+        </div>
+        <!-- </span> -->
 
+        <span class="field-title" > <h4>Prix</h4> <hr> </span>
+
+        <b-input-group append="CHF" style="width: 45%;">
+          <b-form-input
+            id="price-field"
+            v-model="price"
+            required
+            type="number"
+            placeholder="0.00"
+
+          ></b-form-input>
+        </b-input-group>
+
+
+
+      </div>
+
+      <div class="block">
+
+        <span class="field-title" > <h4>Catégories</h4> <hr> </span>
+
+        <div class="input">
+          <b-form-select v-model="categoryID" :options="categories" />
+        </div>
+
+      </div>
+
+      <div class="block submit-flex">
+        <b-button style="float: right;" variant="primary">Sousmettre</b-button>
       </div>
     </div>
   </div>
@@ -39,12 +70,49 @@
 
 <script>
 export default {
-  name: 'new-ad'
+  name: 'new-ad',
+  data() {
+    return {
+      title: '',
+      description: '',
+      price: '', // float
+      categoryID: '',
+      categories: [
+        { value: 1, text: 'Ordinateur' },
+        { value: 2, text: 'Habits homme' },
+        { value: 3, text: 'Habits femme' },
+        { value: 4, text: 'Livres' },
+      ]
+    }
+  },
+  methods: {
+    // format(value, event) {
+    //   console.log('[' + value + ']');
+    //   console.log('Caller event: ' + event);
+    //   if(!value.includes('.')) {
+    //     console.log('No dot');
+    //     return value;
+    //   }
+    //
+    //   if((value.split(".").length) > 2) { // Si il y a plus d'une virgule
+    //   console.log('More than one dot');
+    //     var elements = value.split(".");
+    //     console.log(elements);
+    //     var toReturn = elements[0] + "." + elements[1]
+    //     console.log("Value to return: " + toReturn);
+    //     return toReturn;
+    //   }
+    //
+    //   console.log('Exactly one dot');
+    //   return value;
+    // }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
 .container {
   display: flex;
   flex-direction: column;
@@ -59,22 +127,66 @@ export default {
   min-height: 100px;
   border-radius: 3px;
   border: 1px solid lightgrey;
-  padding: 20px;
+  padding: 20px 20px 20px 20px;
+  margin-bottom: 30px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 h4 {
-  align-self: start;
+  font-size: 1.3em;
+  margin-bottom: 0px;
+  font-weight: normal;
+  // font-family: 'Open Sans', sans-serif;
 }
 
+.field-title > hr {
+  border: 1px solid $primary-color;
+  margin: 0px 0px 5px 0px;
+  width: 100%;
+}
+
+.field-title {
+  // transform: translateX(-50px);
+
+  align-self: flex-start;
+
+  // color: white;
+  // background-color: $primary-color;
+  // padding: 3px 10px 5px 10px;
+  margin-bottom: 12px;
+
+  // box-shadow: 5px 5px 5px #AAA;
+
+  // width: 45%;
+  text-align: left;
+}
 
 .input {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+
 }
 
 .new-photo {
   float: left;
   width: 100px;
   height: 100px;
+  // margin-bottom: 20px;
+}
+
+.submit-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+#price-field {
+  width: 45%;
+  align-self: flex-start;
+  height: 40px;
+  font-size: 1.1em;
 }
 
 </style>

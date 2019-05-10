@@ -67,7 +67,7 @@ services:
           condition: service_healthy
 
    api-gateway-init:
-    image: unige/api-gateway
+    image: 2019pinfo3/api-gateway
     container_name:  api-gateway-init
     hostname:  api-gateway-init
     networks:
@@ -134,8 +134,10 @@ volumes:
    
 networks:
   frontend-network:
-     driver: bridge 
+     external:
+        name: dockercomposefiles_frontend-network 
   gateway-network:
      driver: bridge     
   backend-network:
-     driver: bridge
+     external:
+        name: dockercomposefiles_backend-network

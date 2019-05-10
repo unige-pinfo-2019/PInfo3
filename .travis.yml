@@ -12,6 +12,21 @@ matrix:
         - mvn clean package
         - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo3 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=b89cca69d31bf42b2d5c4ec913c8ae8f1f84f450
 
+
+    - language: java
+      jdk: openjdk11
+      services:
+        - docker
+      before_script:
+        - cd search-service
+      script:
+        - mvn clean package
+        - docker build -t 2019pinfo3/search-service .
+      after_success:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push 2019pinfo3/search-service:latest
+
+
     - language: java
       jdk: openjdk11
       services:
@@ -52,6 +67,8 @@ matrix:
     #       - cd statistic-service
     #     script:
     #       - mvn clean package
+
+
     - language: minimal
       services:
         - docker
@@ -62,6 +79,7 @@ matrix:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/api-gateway:latest
+
 
     - language: node_js
       node_js:

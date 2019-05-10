@@ -20,6 +20,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+.left-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
 .new {
   // -webkit-appearance: none;
   // background: #862d86;
@@ -27,5 +33,6 @@ export default {
   // border: 1px solid gray;
   margin: 15px 5px 15px 5px;
   height: 90%;
+  align-self: center;
 }
 </style>
