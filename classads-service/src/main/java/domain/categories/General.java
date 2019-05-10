@@ -12,8 +12,8 @@ public class General extends Ad {
 	
 	private static final long serialVersionUID = -921278118126506709L;
 
-	public JsonObject getJSONAttributes() {
-		JsonObject json = new JsonObject();
+	public static JsonObject getJSONAttributes() {
+		JsonObject json = Ad.getJSONAttributes();
 		return json;
 	}
 	

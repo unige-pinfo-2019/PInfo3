@@ -11,13 +11,13 @@ import lombok.EqualsAndHashCode;
 public class Books extends Ad {
 	
 	private static final long serialVersionUID = 6632845671512550210L;
-	String authors = null;
-	String publisher = null;
+	private String authors = null;
+	private String publisher = null;
 	
-	public JsonObject getJSONAttributes() {
-		JsonObject json = super.getJSONAttributes();
-		json.addProperty("authors", "");
-		json.addProperty("publisher", "");
+	public static JsonObject getJSONAttributes() {
+		JsonObject json = Ad.getJSONAttributes();
+		json.addProperty("authors", "text");
+		json.addProperty("publisher", "text");
 		return json;
 	}
 	
