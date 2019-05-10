@@ -43,17 +43,46 @@ services:
       - zookeeper
 
   # classads service is for posting a classified ad
+  classads-database:
+    image: postgres:10
+    container_name: classads-database
+    hostname: classads-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: ad
+      POSTGRES_PASSWORD: ad
+      POSTGRES_DB: classadsdb
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "ad", "-d", "classadsdb"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-ad:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
   classads-service:
     container_name: classads-service
     image: 2019pinfo3/classads-service:latest
     hostname: classads-service
-    environment:
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
-      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+    
     networks:
       - backend-network
     ports:
       - "8081:8080"
+    environment:
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_CONNECTION_DASH_URL: "jdbc:postgresql://classads-database:5432/classadsdb"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_DRIVER_DASH_NAME: 'postgresql'   
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_USER_DASH_NAME: 'ad'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_PASSWORD: 'ad'
+    depends_on:
+      - classads-database
+
 
   # user service is for logging in users
   user-service:
@@ -90,6 +119,9 @@ services:
     depends_on:
        - classads-service
        - user-service
+
+volumes:
+  pgdata-ad:
 
 networks:
   backend-network:

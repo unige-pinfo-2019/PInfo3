@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 
 import domain.model.Ad;
 import domain.model.Categories;
+import jdk.internal.jline.internal.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -34,12 +35,9 @@ public class AdServiceImpl implements AdService{
 
 	@Override
 	public boolean createAd(Ad ad) {
-		Optional<Ad> existing = this.getByTitle(ad.getTitle());
-		if(!existing.isPresent()) {
-			em.persist(ad);
-			return true;
-		}
-		return false;
+		em.persist(ad);
+		//log.info("Ad "+ ad.toString()+" created and stored in database");
+		return true;
 	}
 
 	@Override
@@ -141,8 +139,9 @@ public class AdServiceImpl implements AdService{
 			ad.setTitle(json.get(Ad.getTitleField()).getAsString());
 			ad.setDescription(json.get(Ad.getDescriptionField()).getAsString());
 			ad.setPrice(json.get(Ad.getPriceField()).getAsInt());
+			ad.setUser_id(json.get(Ad.getUserIDField()).getAsLong());
 		} catch (Exception e) {
-			log.error("Mandatory fields are missing (title, description or price)");
+			log.error("Mandatory fields are missing (title, description, price or userID)");
 			return false;
 		}
 		return true;
@@ -211,6 +210,7 @@ public class AdServiceImpl implements AdService{
 			jsonAd.addProperty(Ad.getTitleField(), ad.getTitle());
 			jsonAd.addProperty(Ad.getDescriptionField(), ad.getDescription());
 			jsonAd.addProperty(Ad.getPriceField(), ad.getPrice());
+			jsonAd.addProperty(Ad.getUserIDField(), ad.getUser_id());
 			for (Map.Entry<String, Integer> entryInt : ad.getCategoryInt().entrySet()) {
 				jsonAd.addProperty(entryInt.getKey(), entryInt.getValue());
 			}
