@@ -32,7 +32,7 @@
                 >
               </b-carousel-slide>
 
-              <b-carousel-slide v-for="image in images">
+              <b-carousel-slide v-for="image in images" v-bind:key="image">
                 <img
                   slot="img"
                   class="d-block img-fluid w-100"
@@ -97,14 +97,14 @@ export default {
       description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       prix: "69",
       // images: [],
-      images: ["https://i.stack.imgur.com/o1z7p.jpg", "https://picsum.photos/480/1024/?image=52", "https://picsum.photos/1024/480/?image=55"],
+      images: ["https://picsum.photos/480/1024/?image=52", "https://picsum.photos/1024/480/?image=55"],
     }
   },
   mounted() {
     // TODO: Faire les requêtes axios pour charger les bonnes valeurs dans les
     // variables title, description, prix, images ci-dessus. Si il faut on peut
     // les renomer, faut juste les renomer dans la partie HTML ci-dessus.
-    console.log('Need to do a request to: ' + this.id);
+    console.log('Need to do a request to: ' + this.id); // Cette ligne pour être supprimée une fois la requête implémentée
   }
 }
 </script>
