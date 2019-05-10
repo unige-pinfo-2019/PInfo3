@@ -8,6 +8,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.google.gson.JsonObject;
+
+import domain.model.Ad;
 import domain.service.SearchService;
 
 @ApplicationScoped
@@ -27,5 +30,17 @@ public class SearchEndpoint {
 	public String getRequest(@QueryParam("request") String request) {
 		return searchService.searchResquet(request).toString();
 	}
+	
+	@GET
+	@Path("/ad")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAdById(@QueryParam("id") Long id) {
+		Ad ad = searchService.getAdById(Long.toString(id));
+		JsonObject json = new JsonObject();
+		json.addProperty("title", ad.getTitle());
+		json.addProperty("description", ad.getDescription());
+		return json.toString();
+	}
+
 
 }

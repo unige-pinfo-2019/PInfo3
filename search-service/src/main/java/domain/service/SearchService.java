@@ -10,5 +10,7 @@ public interface SearchService {
 	public void updateAd(Ad ad);
 	public Ad getAdById(String id);
 	public void deleteAdById(String id);
+	
 	public JsonArray searchResquet(String request);
+
 }

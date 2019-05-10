@@ -34,64 +34,22 @@ import com.google.gson.JsonArray;
 import domain.model.Ad;
 import lombok.extern.slf4j.Slf4j;
 
-
 @Slf4j
 @ApplicationScoped
 public class SearchServiceImpl implements SearchService {
 
-	RestHighLevelClient client = new RestHighLevelClient(
-	        RestClient.builder(new HttpHost("elasticsearch", 9200, "http")));
-	
 	private String index = "posts";
-	
-	
-	public JsonArray searchResquet(String request) {
-		//Request without arguments to run for all indices
-		SearchRequest searchRequest = new SearchRequest(); 
-		
-		//Specify informations about the request
-		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder(); //With default option
-		sourceBuilder.from(0); //Set the starting index to search 
-		sourceBuilder.size(5); //Set the number of reponses
-		sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS)); //Set the maximum time for the search
-		sourceBuilder.sort(new ScoreSortBuilder().order(SortOrder.DESC)); //Sort by the highest matching
-		
-		QueryBuilder queryBuilder = QueryBuilders.matchQuery("description", request)
-                .fuzziness(Fuzziness.AUTO) //Enable fuzzy matching (search even if there's not a full match)
-                .prefixLength(3)
-                .maxExpansions(10);
-		sourceBuilder.query(queryBuilder);
-		
-		//Add the source builder to the search request
-		searchRequest.source(sourceBuilder);
-		
-		//Getting the results
-		SearchResponse searchResponse = null;
-		try {
-			searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
-		} catch (IOException e) {
-			log.error(e.getMessage());
-		} 
-		
-		if (searchResponse != null) {
-			JsonArray json = new JsonArray();		
-			
-			SearchHits hits = searchResponse.getHits();
-			SearchHit[] searchHits = hits.getHits();
-			for (SearchHit hit : searchHits) {
-				String sourceAsString = hit.getSourceAsString();
-				json.add(sourceAsString);
-			}
-			log.info("Search done, the results are : "+json.toString());
-			return json;
-		}
-		
-		log.error("Error in the search process");
-		return null;
+
+	private RestHighLevelClient client = new RestHighLevelClient(
+	        RestClient.builder(new HttpHost("elasticsearch", 9200, "http")));
+
+	public void setClient(RestHighLevelClient client) {
+		this.client = client;
 	}
-	
-	public void insertAd(Ad ad){
-	    
+
+
+	/***** "Classical" methods *****/
+	public void insertAd(Ad ad) {
 		Map<String, Object> dataMap = buildMapFromAd(ad);
 	    IndexRequest indexRequest = new IndexRequest(index).id(Long.toString(ad.getId())).source(dataMap);
 	    try {
@@ -103,14 +61,14 @@ public class SearchServiceImpl implements SearchService {
 	    } finally {
 	    	log.info("The ad has been added to elastic search data");
 	    }
-	    
+
 	}
-	
+
 	public void updateAd(Ad ad) {
 		Map<String, Object> dataMap = buildMapFromAd(ad);
-		UpdateRequest request = new UpdateRequest(index, Long.toString(ad.getId())).doc(dataMap);
+		UpdateRequest updateRequest = new UpdateRequest(index, Long.toString(ad.getId())).doc(dataMap);
 		try {
-			client.update(request, RequestOptions.DEFAULT);
+			client.update(updateRequest, RequestOptions.DEFAULT);
 		} catch (ElasticsearchException e) {
 			log.error(e.getDetailedMessage());
 		} catch (IOException e) {
@@ -123,23 +81,21 @@ public class SearchServiceImpl implements SearchService {
 	public Ad getAdById(String id){
 	    GetRequest getRequest = new GetRequest(index, id);
 	    GetResponse getResponse = null;
-	    Ad ad = null;
 	    try {
 	        getResponse = client.get(getRequest, RequestOptions.DEFAULT);
 	    } catch (java.io.IOException e){
 	        log.error(e.getMessage());
-	    } finally {
-	    	if (getResponse != null) {
-		    	Map<String, Object> mapData = getResponse.getSourceAsMap();
-		    	ad = buildAdFromMap(mapData);
-		    	if (ad != null)
-		    		log.info("Succefully get the ad with id : "+id+"\nAd information : "+ad);
-		    }
 	    }
-	    return ad;
-	    
+	    Ad ad = null;
+		if (getResponse != null) {
+	    	Map<String, Object> mapData = getResponse.getSourceAsMap();
+	    	ad = buildAdFromMap(mapData);
+	    	if (ad != null)
+	    		log.info("Succefully get the ad\nAd information : "+ad);
+	    }
+		return ad;
 	}
-	
+
 	public void deleteAdById(String id) {
 	    DeleteRequest deleteRequest = new DeleteRequest(index, id);
 	    try {
@@ -150,15 +106,62 @@ public class SearchServiceImpl implements SearchService {
 	    	log.info("Succefully delete the ad with id : "+id);
 	    }
 	}
-	
-	private Map<String, Object> buildMapFromAd(Ad ad) {
+
+	/***** Search methods *****/
+	public JsonArray searchResquet(String request) {
+		//Request without arguments to run for all indices
+		SearchRequest searchRequest = new SearchRequest();
+
+		//Specify informations about the request
+		SearchSourceBuilder sourceBuilder = new SearchSourceBuilder(); //With default option
+		sourceBuilder.from(0); //Set the starting index to search
+		sourceBuilder.size(5); //Set the number of reponses
+		sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS)); //Set the maximum time for the search
+		sourceBuilder.sort(new ScoreSortBuilder().order(SortOrder.DESC)); //Sort by the highest matching
+
+		QueryBuilder queryBuilder = QueryBuilders.matchQuery("description", request)
+                .fuzziness(Fuzziness.AUTO) //Enable fuzzy matching (search even if there's not a full match)
+                .prefixLength(3)
+                .maxExpansions(10);
+		sourceBuilder.query(queryBuilder);
+
+		//Add the source builder to the search request
+		searchRequest.source(sourceBuilder);
+
+		//Getting the results
+		SearchResponse searchResponse = null;
+		try {
+			searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+		} catch (IOException e) {
+			log.error(e.getMessage());
+		}
+
+		if (searchResponse != null) {
+			JsonArray json = new JsonArray();
+
+			SearchHits hits = searchResponse.getHits();
+			SearchHit[] searchHits = hits.getHits();
+			for (SearchHit hit : searchHits) {
+				String sourceAsString = hit.getSourceAsString();
+				json.add(sourceAsString);
+			}
+			log.info("Search done, the results are : "+json.toString());
+			return json;
+		}
+
+		log.error("Error in the search process");
+		return null;
+	}
+
+	/****** Manipulation *****/
+	Map<String, Object> buildMapFromAd(Ad ad) {
 		Map<String, Object> dataMap = new HashMap<>();
 	    dataMap.put("id", ad.getId());
 	    dataMap.put(Ad.getTitleField(), ad.getTitle());
 	    dataMap.put(Ad.getDescriptionField(), ad.getDescription());
 	    dataMap.put(Ad.getPriceField(), ad.getPrice());
-	
-	    
+
+
 	    for (Map.Entry<String, Integer> entry : ad.getCategoryInt().entrySet()) {
 	    	dataMap.put(entry.getKey(), entry.getValue());
 	    }
@@ -170,39 +173,41 @@ public class SearchServiceImpl implements SearchService {
 	    }
 	    return dataMap;
 	}
-	
-	private Ad buildAdFromMap(Map<String, Object> mapData) {
+
+	Ad buildAdFromMap(Map<String, Object> mapData) {
 		Ad ad = new Ad();
 		Map<String, Integer> mapInt = new HashMap<>();
 		Map<String, Boolean> mapBool = new HashMap<>();
 		Map<String, String> mapString = new HashMap<>();
-		
+
 		if (mapData.containsKey(Ad.getTitleField())) {
 			ad.setTitle((String)(mapData.get(Ad.getTitleField())));
 			mapData.remove(Ad.getTitleField());
-		} 
+		}
 		if (mapData.containsKey(Ad.getDescriptionField())) {
 			ad.setDescription((String)(mapData.get(Ad.getDescriptionField())));
 			mapData.remove(Ad.getDescriptionField());
-		} 
+		}
 		if (mapData.containsKey(Ad.getPriceField())) {
-			ad.setPrice((float)(mapData.get(Ad.getPriceField())));
+			ad.setPrice(Float.parseFloat(mapData.get(Ad.getPriceField()).toString()));
 			mapData.remove(Ad.getPriceField());
-		} 
+		}
 		if (mapData.containsKey("id")) {
-			ad.setId((int)(mapData.get("id")));
+			ad.setId(Long.parseLong(mapData.get("id").toString()));
 			mapData.remove("id");
-		} 
-	
+		}
+
 		for (Map.Entry<String, Object> entry : mapData.entrySet()) {
-			
+
 			if(entry.getValue().getClass()== Integer.class) mapInt.put(entry.getKey(), (Integer) entry.getValue());
 			if(entry.getValue().getClass()== Boolean.class) mapBool.put(entry.getKey(), (Boolean) entry.getValue());
 			if(entry.getValue().getClass()== String.class) mapString.put(entry.getKey(), (String) entry.getValue());
-			
+
 		}
-		
+
 		ad.setCategory(mapInt, mapBool, mapString);
 		return ad;
 	}
+
+
 }

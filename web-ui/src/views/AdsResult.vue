@@ -4,9 +4,7 @@
       <Searchbar/>
     </div>
 
-    <div class="ads-wrapper">
-      <MiniAd title="Pc de collection à vendre" prix="9500" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" description="Je vend mon pc pour un bon prix, modèle Apple IIc je suis prêt à négocier le prix. N'hésitez pas à regarder tous les autres PC de collection que je vend depuis la vitrinne de mon profil. Allez bye les amis !"/>
-    </div>
+      <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
   </div>
 </template>
 
@@ -14,12 +12,25 @@
 // @ is an alias to /src
 import MiniAd from '@/components/MinimizedAd.vue'
 import Searchbar from '@/components/Searchbar.vue'
+import axios from 'axios';
+
 
 export default {
   name: 'results',
   components: {
     MiniAd,
     Searchbar
+  },
+  data() {
+  return {
+    ads : null
   }
+  },
+  mounted: function () {
+    // retrieve list of categories
+    axios
+      .get('http://localhost:8081/classads')
+      .then(response => (this.ads = response))
+  },
 }
 </script>
