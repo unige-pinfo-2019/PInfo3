@@ -3,21 +3,29 @@ package domain.model;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import com.google.gson.JsonObject;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Represents classifier ads and manage storage in DB.
  */
 @Entity
 @Table(name="AD")
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="TYPE", discriminatorType = DiscriminatorType.STRING, length=20)
+@Slf4j
 @Data
 public abstract class Ad implements Serializable{
 
@@ -54,6 +62,32 @@ public abstract class Ad implements Serializable{
 	/***** Manipulation *****/
 	public static JsonObject getJSONAttributes() {		
 		return new JsonObject();
+	}
+	
+	
+	public abstract boolean setParameters(JsonObject json, long userID);
+	public abstract Ad getNewInstance();
+	
+	public JsonObject getJsonValues() {
+		JsonObject jsonAd = new JsonObject();
+		jsonAd.addProperty(Ad.getTitleField(), this.getTitle());
+		jsonAd.addProperty(Ad.getDescriptionField(), this.getDescription());
+		jsonAd.addProperty(Ad.getPriceField(), this.getPrice());
+		jsonAd.addProperty(Ad.getUserIDField(), this.getUserID());
+		return jsonAd;
+	}
+	
+	public boolean setMandatoryParameters(JsonObject json, long userID) {
+		try {
+			this.setTitle(json.get(titleField).getAsString());
+			this.setDescription(json.get(descriptionField).getAsString());
+			this.setPrice(json.get(priceField).getAsFloat());
+			this.setUserID(userID);
+		} catch (IllegalArgumentException e) {
+			log.error("Mandatory fields couldn't be extracted");
+			return false;
+		}
+		return true;
 	}
 
 	/***** Utility methods *****/

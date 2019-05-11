@@ -59,7 +59,7 @@ public class AdEndpoint {
 		Ad ad = adservice.createAdFromJson(json); //We create the ad
 		if (ad != null) {
 			adservice.createAd(ad);
-			adProducer.send(ad);
+			//adProducer.send(ad);
 			return "You've inserted an ad\n" + ad.toString();
 		} else {
 			return "Unable to create ad. Please check your parameters.";

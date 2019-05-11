@@ -1,10 +1,9 @@
 package domain.service;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
@@ -17,12 +16,11 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import domain.model.Ad;
-import domain.model.Categories1;
-import jdk.internal.jline.internal.Log;
+import domain.model.Categories;
+import domain.model.Category;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -104,122 +102,75 @@ public class AdServiceImpl implements AdService{
 		this.em = em;
 	}
 
+
 	@Override
 	public Ad createAdFromJson(JsonObject json) {
-		Ad ad = new Ad();
-		//We need to decrypt the json object and instanciate the attributes of the ad
+		log.info("Enter the function createAdFromJson");
+		Ad ad = null;
 		try {
-			//Some attributes are mandatory so they'll generate an exception if they don't exist
-			
-			//This includes the category id
-			int categoryID = json.get(Categories1.getCategoryIDField()).getAsInt();
-			Collection<Integer> indices = Categories1.getCategoryIndex().values();
-			if (!indices.contains(categoryID)) {
+			if (hasValidCategoryID(json)) {
+				log.info("Has category ID");
+				int categoryID = json.get(Categories.getCategoryIDField()).getAsInt();
+				Category cat = Categories.getCategoryById(categoryID);
+				
+				if (hasMandatoryParameters(json)) {
+					log.info("has mandatory fields");
+					
+					try {
+
+						ad = (Ad) cat.getClassName().getDeclaredConstructor().newInstance();
+//						Method m = cat.getClassName().getMethod("getNewInstance");
+//						ad = (Ad) m.invoke(ad);
+						log.info("Ad created"+ad);
+						if (!ad.setParameters(json, 0)) {
+							throw new IllegalArgumentException();
+						}
+						
+					} catch (SecurityException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
+						log.error("Couldn't call method to instantiate attributes. "+e.getMessage());
+					} catch (IllegalArgumentException e) {
+						log.error("Couldn't extract properties from json");
+					}
+					
+				} else {
+					new IllegalArgumentException("Mandatory fields are missing");
+				}
+				
+				
+			} else {
 				throw new IllegalArgumentException("Bad categoryID");
 			}
-			
-			//and the main attributes of an ad
-			if (setMandatoryParameters(ad, json)) {
-				//then, we try to set the parameters from the category
-				setCategoryParameters(ad, categoryID, json);
-			} else {
-				throw new IllegalArgumentException("Mandatory fields are missing");
-			}
-		
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			log.error(e.getMessage());
-			return null;
 		}
 		return ad;
 	}
 	
 	/***** Manipulation *****/
-	private Boolean setMandatoryParameters(Ad ad, JsonObject json) {
-		try {
-			ad.setTitle(json.get(Ad.getTitleField()).getAsString());
-			ad.setDescription(json.get(Ad.getDescriptionField()).getAsString());
-			ad.setPrice(json.get(Ad.getPriceField()).getAsInt());
-			ad.setUser_id(json.get(Ad.getUserIDField()).getAsLong());
-		} catch (Exception e) {
-			log.error("Mandatory fields are missing (title, description, price or userID)");
+	private Boolean hasMandatoryParameters(JsonObject json) {
+		if (!(json.has(Ad.getTitleField()) && json.has(Ad.getDescriptionField()) && json.has(Ad.getPriceField()))) {
 			return false;
 		}
 		return true;
 	}
 	
-	private Boolean addAttributeToMap(String key, JsonObject json, Map<String, Object> attributes, Map<String, Integer> mapInt, Map<String, Boolean> mapBool, Map<String, String> mapString) {
-		//Check if the key exist
-		if (json.has(key) && getType(json.get(key)) == attributes.get(key).getClass()) {
-			//Add the attributes in the right map
-			if(getType(json.get(key))== Integer.class) mapInt.put(key, json.get(key).getAsInt());
-			if(getType(json.get(key))== Boolean.class) mapBool.put(key, json.get(key).getAsBoolean());
-			if(getType(json.get(key))== String.class) mapString.put(key, json.get(key).getAsString());
-			return true;
-		} else {
-			//Add the default value if the attribute doesn't exist
-			if(attributes.get(key).getClass()== Integer.class) mapInt.put(key, (Integer) attributes.get(key));
-			if(attributes.get(key).getClass()== Boolean.class) mapBool.put(key, (Boolean) attributes.get(key));
-			if(attributes.get(key).getClass()== String.class) mapString.put(key, (String) attributes.get(key));
-			return false;
-		}
-	}
-	
-	
-	private void setCategoryParameters(Ad ad, int categoryID, JsonObject json) {
-		//For the attributes related to the category, we take the value if it exists or we assign the
-		//default value
-		
-		//Initialize maps
-		Map<String, Object> attributes = Categories1.getCategory(categoryID);
-		Map<String, Integer> newAttributesInt = new HashMap<>();
-		Map<String, Boolean> newAttributesBool = new HashMap<>();
-		Map<String, String> newAttributesString = new HashMap<>();
-		
-		//Set the attributes for the category
-		newAttributesInt.put(Categories1.getCategoryIDField(), categoryID);
-		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
-			String key = entry.getKey();
-			if (!addAttributeToMap(key, json, attributes, newAttributesInt, newAttributesBool, newAttributesString)) {
-				log.warn("The category field "+key+" wasn't specified");
+	private boolean hasValidCategoryID(JsonObject json) {
+		if (json.has(Categories.getCategoryIDField())) {
+			Set<Integer> indices = Categories.getCategoriesID();
+			if (indices.contains(json.get(Categories.getCategoryIDField()).getAsInt())) {
+				return true;
 			}
-		}
-		
-		ad.setCategory(newAttributesInt,newAttributesBool, newAttributesString);
+		} 
+		return false;
 	}
 	
-	/* Find the type of a JsonElement (either boolean, string or integer) */
-	private Object getType(JsonElement var) {
-		if (var.getAsJsonPrimitive().isBoolean()) {
-			return Boolean.class;
-		}
-		else if (var.getAsJsonPrimitive().isString()) {
-			return String.class;
-		}
-		else if (var.getAsJsonPrimitive().isNumber()) {
-			return Integer.class;
-		}
-		return null;
-	}
 
 	@Override
 	public JsonArray getJsonListAds(List<Ad> ads) {
 		JsonArray result = new JsonArray();
 		
 		for (Ad ad : ads) {
-			JsonObject jsonAd = new JsonObject();
-			jsonAd.addProperty(Ad.getTitleField(), ad.getTitle());
-			jsonAd.addProperty(Ad.getDescriptionField(), ad.getDescription());
-			jsonAd.addProperty(Ad.getPriceField(), ad.getPrice());
-			jsonAd.addProperty(Ad.getUserIDField(), ad.getUser_id());
-			for (Map.Entry<String, Integer> entryInt : ad.getCategoryInt().entrySet()) {
-				jsonAd.addProperty(entryInt.getKey(), entryInt.getValue());
-			}
-			for (Map.Entry<String, Boolean> entryBool : ad.getCategoryBool().entrySet()) {
-				jsonAd.addProperty(entryBool.getKey(), entryBool.getValue());
-			}
-			for (Map.Entry<String, String> entryString : ad.getCategoryString().entrySet()) {
-				jsonAd.addProperty(entryString.getKey(), entryString.getValue());
-			}
+			JsonObject jsonAd = ad.getJsonValues();
 			result.add(jsonAd);
 		}
 		return result;

@@ -1,42 +1,57 @@
 package domain.model;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
-import domain.categories.Books;
-import domain.categories.Computers;
-import domain.categories.General;
-import domain.categories.MathBooks;
+import domain.categories.*;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Categories {
 	
-	private static ArrayList<Category> categories = new ArrayList<>();
-	private static Map<Integer, Category> categoriesIndex = new HashMap<>();
+	private static String categoryIDField = "categoryID";
+	private static Map<Integer, Category> categories = new HashMap<>();
 	
 	static {
-		int id = 0;
-		categories.add(new Category("General", id, null, General.class)); id++;
-		categories.add(new Category("Books", id, null, Books.class)); id++;
-		categories.add(new Category("Maths Books", id, null, MathBooks.class)); id++;
-		categories.add(new Category("Computers", id, null, Computers.class)); id++;
+		addNewCategory(new Category("General", 0, null, General.class));
 		
-		for (Category cat : categories) {
-			categoriesIndex.put(cat.getCategoryID(), cat);
-		}
+		int id = 1;		
+		addNewCategory(new Category("Ordinateurs", id++, null, Computer.class));
+		addNewCategory(new Category("Vélos", id++, null, Bike.class));
+		addNewCategory(new Category("Vinyles", id++, null, Vinyl.class));
+		
+		addNewCategory(new Category("Livres", id++, null, Book.class));
+		addNewCategory(new Category("Livres de maths", id++, "Livres", MathBook.class));
+		addNewCategory(new Category("Livres de physique", id++, "Livres", PhysicBook.class));
+		
+		addNewCategory(new Category("Immobilier", id++, null, Property.class));
+		addNewCategory(new Category("Colocations", id++, "Immobilier", FlatShare.class));
+		addNewCategory(new Category("Studios", id++, "Immobilier", Studio.class));
 	}
 	
-	public static ArrayList<Category> getCategories() {
-		return Categories.categories;
+	private static void addNewCategory(Category newCategory) {
+		Categories.categories.put(newCategory.getCategoryID(), newCategory);
+	}
+	
+	public static Collection<Category> getCategories() {
+		return Categories.categories.values();
+	}
+	
+	public static Set<Integer> getCategoriesID() {
+		return categories.keySet();
 	}
 	
 	public static Category getCategoryById(int id) {
-		if (Categories.categoriesIndex.containsKey(id))
-			return Categories.categoriesIndex.get(id);
+		if (Categories.categories.containsKey(id))
+			return Categories.categories.get(id);
 		log.error("Try to get a category for which the ID doesn't exist");
 		return null;
+	}
+	
+	public static String getCategoryIDField() {
+		return categoryIDField;
 	}
 
 }
