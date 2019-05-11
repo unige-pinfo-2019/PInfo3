@@ -8,7 +8,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.google.gson.Gson;
-import domain.model.Categories;
+import domain.model.Categories1;
 import domain.service.CategoriesService;
 
 /**
@@ -46,7 +46,7 @@ public class CategoriesEndPoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCategories() {
 		Gson gson = new Gson(); 
-		return gson.toJson(Categories.getCategoryIndex()); 
+		return gson.toJson(Categories1.getCategoryIndex()); 
 	}
 	
 

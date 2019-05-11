@@ -21,7 +21,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import domain.model.Ad;
-import domain.model.Categories;
+import domain.model.Categories1;
 import jdk.internal.jline.internal.Log;
 import lombok.extern.slf4j.Slf4j;
 
@@ -112,8 +112,8 @@ public class AdServiceImpl implements AdService{
 			//Some attributes are mandatory so they'll generate an exception if they don't exist
 			
 			//This includes the category id
-			int categoryID = json.get(Categories.getCategoryIDField()).getAsInt();
-			Collection<Integer> indices = Categories.getCategoryIndex().values();
+			int categoryID = json.get(Categories1.getCategoryIDField()).getAsInt();
+			Collection<Integer> indices = Categories1.getCategoryIndex().values();
 			if (!indices.contains(categoryID)) {
 				throw new IllegalArgumentException("Bad categoryID");
 			}
@@ -170,13 +170,13 @@ public class AdServiceImpl implements AdService{
 		//default value
 		
 		//Initialize maps
-		Map<String, Object> attributes = Categories.getCategory(categoryID);
+		Map<String, Object> attributes = Categories1.getCategory(categoryID);
 		Map<String, Integer> newAttributesInt = new HashMap<>();
 		Map<String, Boolean> newAttributesBool = new HashMap<>();
 		Map<String, String> newAttributesString = new HashMap<>();
 		
 		//Set the attributes for the category
-		newAttributesInt.put(Categories.getCategoryIDField(), categoryID);
+		newAttributesInt.put(Categories1.getCategoryIDField(), categoryID);
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String key = entry.getKey();
 			if (!addAttributeToMap(key, json, attributes, newAttributesInt, newAttributesBool, newAttributesString)) {

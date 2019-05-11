@@ -14,28 +14,37 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @Entity
-@Table(name = "GENERAL")
-@DiscriminatorValue("GENERAL")
-public class General extends Ad {
+@Table(name = "STUDIOS")
+@DiscriminatorValue("STUDIOS")
+public class Studio extends Property {
 	
-	private static final long serialVersionUID = -921278118126506709L;
-
+	private static final long serialVersionUID = 6632845671512550210L;
+	private float flatSize = -1;
+	
+	private static String flatSizeFieldName = "Taille du studio";
+	
 	public static JsonObject getJSONAttributes() {
-		JsonObject json = Ad.getJSONAttributes();
+		JsonObject json = Property.getJSONAttributes();
+		json.addProperty(flatSizeFieldName, "number");
 		return json;
 	}
-	
+
 	@Override
 	public boolean setParameters(JsonObject json, long userID) {
-		return super.setMandatoryParameters(json, userID);
+		if (super.setMandatoryParameters(json, userID)) {
+			if (json.has(flatSizeFieldName))
+				this.setFlatSize(json.get(flatSizeFieldName).getAsFloat());
+		}
+		return false;
 	}
 	
 	public Ad getNewInstance() {
-		return new General();
+		return new Studio();
 	}
 	
 	public JsonObject getJsonValues() {
 		JsonObject json = super.getJsonValues();
+		json.addProperty(flatSizeFieldName, this.flatSize);
 		return json;
 	}
 	

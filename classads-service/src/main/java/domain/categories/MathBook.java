@@ -14,28 +14,37 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @Entity
-@Table(name = "GENERAL")
-@DiscriminatorValue("GENERAL")
-public class General extends Ad {
+@Table(name = "MATH_BOOKS")
+@DiscriminatorValue("MATH_BOOKS")
+public class MathBook extends Book {
 	
-	private static final long serialVersionUID = -921278118126506709L;
-
+	private static final long serialVersionUID = 6632845671512550210L;
+	private String theme = null;
+	
+	private static String themeFieldName = "Sujet";
+	
 	public static JsonObject getJSONAttributes() {
-		JsonObject json = Ad.getJSONAttributes();
+		JsonObject json = Book.getJSONAttributes();
+		json.addProperty(themeFieldName, "text");
 		return json;
 	}
 	
 	@Override
 	public boolean setParameters(JsonObject json, long userID) {
-		return super.setMandatoryParameters(json, userID);
+		if (super.setMandatoryParameters(json, userID)) {
+			if (json.has(themeFieldName)) 
+				this.setTheme(json.get(themeFieldName).getAsString());
+		}
+		return false;
 	}
 	
 	public Ad getNewInstance() {
-		return new General();
+		return new MathBook();
 	}
 	
 	public JsonObject getJsonValues() {
 		JsonObject json = super.getJsonValues();
+		json.addProperty(themeFieldName, this.theme);
 		return json;
 	}
 	
