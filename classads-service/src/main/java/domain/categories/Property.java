@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor
 @EqualsAndHashCode(callSuper=false)
 @Entity
-@Table(name = "BOOKS")
-@DiscriminatorValue("BOOKS")
+@Table(name = "PROPERTIES")
+@DiscriminatorValue("PROPERTIES")
 public class Property extends Ad {
 	
 	private static final long serialVersionUID = 6632845671512550210L;
