@@ -6,12 +6,26 @@
 	<persistence-unit name="ClassAdsPU"
 		transaction-type="JTA">
 		<jta-data-source>java:jboss/datasources/classadsds</jta-data-source>
-		<class>domain.model.Ad</class>
+		<class>domain.model.Ad</class> 
+		<class>domain.categories.General</class>
+		<class>domain.categories.Computer</class>
+		<class>domain.categories.Bike</class>
+		
+		<class>domain.categories.Book</class>
+		<class>domain.categories.MathBook</class>
+		<class>domain.categories.PhysicBook</class>
+		
+		<class>domain.categories.Property</class>
+		<class>domain.categories.Studio</class>
+		<class>domain.categories.FlatShare</class>
+
 		<properties>
-			<!--
+			
+			<!--  
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
 			-->
-			 
+			
+		
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			
 			<property name="hibernate.show_sql" value="true" />
