@@ -103,6 +103,7 @@ public class AdServiceImpl implements AdService{
 	}
 
 
+
 	@Override
 	public Ad createAdFromJson(JsonObject json) {
 		log.info("Enter the function createAdFromJson");

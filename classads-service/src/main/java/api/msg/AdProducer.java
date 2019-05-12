@@ -9,6 +9,8 @@ import org.aerogear.kafka.SimpleKafkaProducer;
 import org.aerogear.kafka.cdi.annotation.KafkaConfig;
 import org.aerogear.kafka.cdi.annotation.Producer;
 
+import com.google.gson.JsonObject;
+
 import domain.model.Ad;
 import domain.service.AdService;
 import lombok.extern.slf4j.Slf4j;
@@ -19,26 +21,32 @@ import lombok.extern.slf4j.Slf4j;
 public class AdProducer {
 	
 	@Producer
-	private SimpleKafkaProducer<String, Ad> producer;
+	private SimpleKafkaProducer<String, JsonObject> producer;
 	
 	@Inject
 	private AdService adService;
 	
 	public void sendAllAds() {
 		log.info("Send the current state of ALL ads to the topic");
-		for (Ad instrument : adService.getAll()) {
-			producer.send("ads", instrument);	
+		for (Ad ad : adService.getAll()) {
+			JsonObject json = ad.getJsonValues();
+			json.addProperty("id", ad.getId());
+			producer.send("ads", json);	
 		}
 	}
 	
 	public void sendDelete(Ad ad) {
 		log.info("Send an ad to delete to the topic with id " + ad.getId());
-		producer.send("deleteAds", ad);
+		JsonObject json = ad.getJsonValues();
+		json.addProperty("id", ad.getId());
+		producer.send("deleteAds", json);
 	}
 	
 	public void send(Ad ad) {
 		log.info("Send an ad to the topic with id " + ad.getId() );
-		producer.send("ads", ad);			
+		JsonObject json = ad.getJsonValues();
+		json.addProperty("id", ad.getId());
+		producer.send("ads", json);			
 	}	
 	
 	public void send(Long id) {

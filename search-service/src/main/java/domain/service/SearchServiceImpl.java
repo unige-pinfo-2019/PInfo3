@@ -85,6 +85,8 @@ public class SearchServiceImpl implements SearchService {
 	        getResponse = client.get(getRequest, RequestOptions.DEFAULT);
 	    } catch (java.io.IOException e){
 	        log.error(e.getMessage());
+	    } catch (ElasticsearchException e) {
+			log.error(e.getDetailedMessage());
 	    }
 	    Ad ad = null;
 		if (getResponse != null) {
@@ -102,6 +104,8 @@ public class SearchServiceImpl implements SearchService {
 	    	client.delete(deleteRequest, RequestOptions.DEFAULT);
 	    } catch (java.io.IOException e){
 	        log.error(e.getMessage());
+	    } catch (ElasticsearchException e) {
+			log.error(e.getDetailedMessage());
 	    } finally {
 	    	log.info("Succefully delete the ad with id : "+id);
 	    }
@@ -161,24 +165,14 @@ public class SearchServiceImpl implements SearchService {
 	    dataMap.put(Ad.getDescriptionField(), ad.getDescription());
 	    dataMap.put(Ad.getPriceField(), ad.getPrice());
 
-
-	    for (Map.Entry<String, Integer> entry : ad.getCategoryInt().entrySet()) {
-	    	dataMap.put(entry.getKey(), entry.getValue());
-	    }
-	    for (Map.Entry<String, String> entry : ad.getCategoryString().entrySet()) {
-	    	dataMap.put(entry.getKey(), entry.getValue());
-	    }
-	    for (Map.Entry<String, Boolean> entry : ad.getCategoryBool().entrySet()) {
-	    	dataMap.put(entry.getKey(), entry.getValue());
-	    }
+		for (Map.Entry<String, Object> entry : ad.getCategoryAttributes().entrySet()) {
+			dataMap.put(entry.getKey(), entry.getValue());
+		}
 	    return dataMap;
 	}
 
 	Ad buildAdFromMap(Map<String, Object> mapData) {
 		Ad ad = new Ad();
-		Map<String, Integer> mapInt = new HashMap<>();
-		Map<String, Boolean> mapBool = new HashMap<>();
-		Map<String, String> mapString = new HashMap<>();
 
 		if (mapData.containsKey(Ad.getTitleField())) {
 			ad.setTitle((String)(mapData.get(Ad.getTitleField())));
@@ -197,15 +191,8 @@ public class SearchServiceImpl implements SearchService {
 			mapData.remove("id");
 		}
 
-		for (Map.Entry<String, Object> entry : mapData.entrySet()) {
+		ad.setCategoryAttributes(mapData);
 
-			if(entry.getValue().getClass()== Integer.class) mapInt.put(entry.getKey(), (Integer) entry.getValue());
-			if(entry.getValue().getClass()== Boolean.class) mapBool.put(entry.getKey(), (Boolean) entry.getValue());
-			if(entry.getValue().getClass()== String.class) mapString.put(entry.getKey(), (String) entry.getValue());
-
-		}
-
-		ad.setCategory(mapInt, mapBool, mapString);
 		return ad;
 	}
 

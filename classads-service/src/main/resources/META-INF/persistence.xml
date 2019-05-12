@@ -12,8 +12,6 @@
 		<class>domain.categories.Bike</class>
 		
 		<class>domain.categories.Book</class>
-		<class>domain.categories.MathBook</class>
-		<class>domain.categories.PhysicBook</class>
 		
 		<class>domain.categories.Property</class>
 		<class>domain.categories.Studio</class>

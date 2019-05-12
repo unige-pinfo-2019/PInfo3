@@ -42,11 +42,9 @@ public class SearchServiceImplTest {
 		ad.setPrice((float)(10));
 		ad.setId((long)(100));
 		
-		Map<String, Integer> mapInt = new HashMap<>();
-		Map<String, String> mapString = new HashMap<>();
-		Map<String, Boolean> mapBool = new HashMap<>();
+		Map<String, Object> mapCat = new HashMap<>();
 		
-		ad.setCategory(mapInt, mapBool, mapString);
+		ad.setCategoryAttributes(mapCat);
 		
 		return ad;
 	}

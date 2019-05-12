@@ -21,10 +21,7 @@ public class Categories {
 		addNewCategory(new Category("Ordinateurs", id++, null, Computer.class));
 		addNewCategory(new Category("Vélos", id++, null, Bike.class));
 		addNewCategory(new Category("Vinyles", id++, null, Vinyl.class));
-		
 		addNewCategory(new Category("Livres", id++, null, Book.class));
-		addNewCategory(new Category("Livres de maths", id++, "Livres", MathBook.class));
-		addNewCategory(new Category("Livres de physique", id++, "Livres", PhysicBook.class));
 		
 		addNewCategory(new Category("Immobilier", id++, null, Property.class));
 		addNewCategory(new Category("Colocations", id++, "Immobilier", FlatShare.class));

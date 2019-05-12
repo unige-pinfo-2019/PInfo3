@@ -19,18 +19,8 @@ public class Ad {
 
 	private float price;
 
-	private Map<String, Integer> categoryInt;				// integer attributes specific to the category
+	private Map<String, Object> categoryAttributes;
 
-	private Map<String, Boolean> categoryBool;				// boolean attributes specific to the category
-
-	private Map<String, String> categoryString;				// string attributes specific to the category
-	
-	public void setCategory(Map<String, Integer> categoryInt, Map<String, Boolean> categoryBool, Map<String, String> categoryString) {
-		this.categoryInt = categoryInt;
-		this.categoryBool = categoryBool;
-		this.categoryString = categoryString;
-	}
-	
 	public static String getTitleField() {
 		return titleField;
 	}
@@ -42,11 +32,11 @@ public class Ad {
 	public static String getPriceField() {
 		return priceField;
 	}
-	
+
 	public String toString() {
 		String newLine = System.getProperty("line.separator");
 		String ret = newLine + title + " (Ad id = " + id + ")"+ newLine + newLine + description + newLine + newLine + "Prix : " + price;
-		ret += newLine + "Other fields : " + categoryInt.toString() + categoryBool.toString() + categoryString.toString();
+		ret += newLine + "Other fields : " + categoryAttributes.toString();
 		return ret;
 	}
 
