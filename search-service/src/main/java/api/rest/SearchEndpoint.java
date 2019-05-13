@@ -2,6 +2,7 @@ package api.rest;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -10,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 import com.google.gson.JsonObject;
 
-import domain.model.Ad;
+import domain.model.AdSearchable;
 import domain.service.SearchService;
 
 @ApplicationScoped
@@ -35,7 +36,7 @@ public class SearchEndpoint {
 	@Path("/ad")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getAdById(@QueryParam("id") Long id) {
-		Ad ad = searchService.getAdById(Long.toString(id));
+		AdSearchable ad = searchService.getAdById(Long.toString(id));
 		JsonObject json = new JsonObject();
 		json.addProperty("title", ad.getTitle());
 		json.addProperty("description", ad.getDescription());

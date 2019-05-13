@@ -1,5 +1,6 @@
 package api.rest;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -8,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -66,6 +68,38 @@ public class AdEndpoint {
 		}
 		
 	}
+	
+	@PUT
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateAd(String jsonStr, @QueryParam("id") long id) {
+		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
+		Ad ad = adservice.createAdFromJson(json); //We create the ad
+		if (adservice.updateAd(ad, id)) {
+			return "Ad updated with success";
+		} 
+		return "Some error occured when updating the ad (maybe the id doesn't exist)";
+	}
+	
+	@DELETE
+	@Path("/all")
+	@Produces(MediaType.TEXT_PLAIN)
+	public String deleteAllAd() {
+		List<Ad> ads = adservice.getAll();
+		for (Ad ad : ads) {
+			try {
+				adservice.deleteAd(ad);
+				//adProducer.sendDelete(ad);
+				log.info("Deleted classad "+ ad.toString());
+			} catch(IllegalArgumentException ex) {
+				log.error(ex.toString());
+				log.info("Some form of error occurred. Could not delete "+ ad.toString());
+			}
+		}
+		return "Delete all ads finished";
+	}
+	
 
 	/* Delete an ad according to its ID */
 	@DELETE
@@ -84,7 +118,7 @@ public class AdEndpoint {
 
 			try {
 				adservice.deleteAd(ad);
-				adProducer.sendDelete(ad);
+				//adProducer.sendDelete(ad);
 				return "Deleted classadd "+ ad.toString();
 			} catch(IllegalArgumentException ex) {
 				log.error(ex.toString());

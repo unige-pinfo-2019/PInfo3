@@ -31,7 +31,7 @@ import org.elasticsearch.search.sort.SortOrder;
 
 import com.google.gson.JsonArray;
 
-import domain.model.Ad;
+import domain.model.AdSearchable;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -49,7 +49,7 @@ public class SearchServiceImpl implements SearchService {
 
 
 	/***** "Classical" methods *****/
-	public void insertAd(Ad ad) {
+	public void insertAd(AdSearchable ad) {
 		Map<String, Object> dataMap = buildMapFromAd(ad);
 	    IndexRequest indexRequest = new IndexRequest(index).id(Long.toString(ad.getId())).source(dataMap);
 	    try {
@@ -64,7 +64,7 @@ public class SearchServiceImpl implements SearchService {
 
 	}
 
-	public void updateAd(Ad ad) {
+	public void updateAd(AdSearchable ad) {
 		Map<String, Object> dataMap = buildMapFromAd(ad);
 		UpdateRequest updateRequest = new UpdateRequest(index, Long.toString(ad.getId())).doc(dataMap);
 		try {
@@ -78,7 +78,7 @@ public class SearchServiceImpl implements SearchService {
 		}
 	}
 
-	public Ad getAdById(String id){
+	public AdSearchable getAdById(String id){
 	    GetRequest getRequest = new GetRequest(index, id);
 	    GetResponse getResponse = null;
 	    try {
@@ -88,7 +88,7 @@ public class SearchServiceImpl implements SearchService {
 	    } catch (ElasticsearchException e) {
 			log.error(e.getDetailedMessage());
 	    }
-	    Ad ad = null;
+	    AdSearchable ad = null;
 		if (getResponse != null) {
 	    	Map<String, Object> mapData = getResponse.getSourceAsMap();
 	    	ad = buildAdFromMap(mapData);
@@ -158,12 +158,12 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/****** Manipulation *****/
-	Map<String, Object> buildMapFromAd(Ad ad) {
+	Map<String, Object> buildMapFromAd(AdSearchable ad) {
 		Map<String, Object> dataMap = new HashMap<>();
 	    dataMap.put("id", ad.getId());
-	    dataMap.put(Ad.getTitleField(), ad.getTitle());
-	    dataMap.put(Ad.getDescriptionField(), ad.getDescription());
-	    dataMap.put(Ad.getPriceField(), ad.getPrice());
+	    dataMap.put(AdSearchable.getTitleField(), ad.getTitle());
+	    dataMap.put(AdSearchable.getDescriptionField(), ad.getDescription());
+	    dataMap.put(AdSearchable.getPriceField(), ad.getPrice());
 
 		for (Map.Entry<String, Object> entry : ad.getCategoryAttributes().entrySet()) {
 			dataMap.put(entry.getKey(), entry.getValue());
@@ -171,28 +171,33 @@ public class SearchServiceImpl implements SearchService {
 	    return dataMap;
 	}
 
-	Ad buildAdFromMap(Map<String, Object> mapData) {
-		Ad ad = new Ad();
+	AdSearchable buildAdFromMap(Map<String, Object> mapData) {
+		AdSearchable ad = new AdSearchable();
+		
+		if (mapData != null) {
 
-		if (mapData.containsKey(Ad.getTitleField())) {
-			ad.setTitle((String)(mapData.get(Ad.getTitleField())));
-			mapData.remove(Ad.getTitleField());
+			if (mapData.containsKey(AdSearchable.getTitleField())) {
+				ad.setTitle((String)(mapData.get(AdSearchable.getTitleField())));
+				mapData.remove(AdSearchable.getTitleField());
+			}
+			if (mapData.containsKey(AdSearchable.getDescriptionField())) {
+				ad.setDescription((String)(mapData.get(AdSearchable.getDescriptionField())));
+				mapData.remove(AdSearchable.getDescriptionField());
+			}
+			if (mapData.containsKey(AdSearchable.getPriceField())) {
+				ad.setPrice(Float.parseFloat(mapData.get(AdSearchable.getPriceField()).toString()));
+				mapData.remove(AdSearchable.getPriceField());
+			}
+			if (mapData.containsKey("id")) {
+				ad.setId(Long.parseLong(mapData.get("id").toString()));
+				mapData.remove("id");
+			}
+	
+			ad.setCategoryAttributes(mapData);
+		} else {
+			log.error("mapData shouldn't be null");
 		}
-		if (mapData.containsKey(Ad.getDescriptionField())) {
-			ad.setDescription((String)(mapData.get(Ad.getDescriptionField())));
-			mapData.remove(Ad.getDescriptionField());
-		}
-		if (mapData.containsKey(Ad.getPriceField())) {
-			ad.setPrice(Float.parseFloat(mapData.get(Ad.getPriceField()).toString()));
-			mapData.remove(Ad.getPriceField());
-		}
-		if (mapData.containsKey("id")) {
-			ad.setId(Long.parseLong(mapData.get("id").toString()));
-			mapData.remove("id");
-		}
-
-		ad.setCategoryAttributes(mapData);
-
+		
 		return ad;
 	}
 

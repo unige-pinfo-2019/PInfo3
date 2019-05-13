@@ -34,8 +34,17 @@ public class AdServiceImpl implements AdService{
 	@Override
 	public boolean createAd(Ad ad) {
 		em.persist(ad);
-		//log.info("Ad "+ ad.toString()+" created and stored in database");
+		log.info("Ad "+ ad.toString()+" created and stored in database");
 		return true;
+	}
+	
+	@Override
+	public boolean updateAd(Ad ad, long id) {
+		Optional<Ad> oldAd = getById(id);
+		if (oldAd.isEmpty()) 
+			return false;
+		
+		return false;
 	}
 
 	@Override
@@ -120,8 +129,6 @@ public class AdServiceImpl implements AdService{
 					try {
 
 						ad = (Ad) cat.getClassName().getDeclaredConstructor().newInstance();
-//						Method m = cat.getClassName().getMethod("getNewInstance");
-//						ad = (Ad) m.invoke(ad);
 						log.info("Ad created"+ad);
 						if (!ad.setParameters(json, 0)) {
 							throw new IllegalArgumentException();

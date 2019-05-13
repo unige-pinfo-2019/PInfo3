@@ -2,10 +2,10 @@ package domain.service;
 
 import com.google.gson.JsonObject;
 
-import domain.model.Ad;
+import domain.model.AdSearchable;
 
 public interface AdService {
 	
-	public Ad buildAdFromJson(JsonObject json);
+	public AdSearchable buildAdFromJson(JsonObject json);
 
 }

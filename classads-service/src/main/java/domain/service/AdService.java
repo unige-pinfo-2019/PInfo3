@@ -12,6 +12,8 @@ public interface AdService {
 	
 	public boolean createAd(Ad ad);
 	
+	public boolean updateAd(Ad ad, long id);
+	
 	public List<Ad> getAll();
 	
 	public Optional<Ad> getByTitle(String title);

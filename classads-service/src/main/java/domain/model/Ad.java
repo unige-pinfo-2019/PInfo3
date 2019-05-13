@@ -34,6 +34,7 @@ public abstract class Ad implements Serializable{
 	private static String titleField = "title";
 	private static String descriptionField = "description";
 	private static String priceField = "price";
+	private static String idField = "id";
 	private static String userIDField = "userID";
 
 	@Id
@@ -70,6 +71,7 @@ public abstract class Ad implements Serializable{
 	
 	public JsonObject getJsonValues() {
 		JsonObject jsonAd = new JsonObject();
+		jsonAd.addProperty(idField, this.getId());
 		jsonAd.addProperty(Ad.getTitleField(), this.getTitle());
 		jsonAd.addProperty(Ad.getDescriptionField(), this.getDescription());
 		jsonAd.addProperty(Ad.getPriceField(), this.getPrice());

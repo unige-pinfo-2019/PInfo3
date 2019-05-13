@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.github.smitajit.elasticsearch.rest.mock.ESRestMockCore;
 import com.github.smitajit.elasticsearch.rest.mock.runner.ESRestMockRunner;
 
-import domain.model.Ad;
+import domain.model.AdSearchable;
 
 @ExtendWith(MockitoExtension.class)
 @RunWith(ESRestMockRunner.class)
@@ -35,8 +35,8 @@ public class SearchServiceImplTest {
         searchService.setClient(client);
     }
 	
-	private Ad getDefaultAd() {
-		Ad ad = new Ad();
+	private AdSearchable getDefaultAd() {
+		AdSearchable ad = new AdSearchable();
 		ad.setTitle("Any title");
 		ad.setDescription("Any description");
 		ad.setPrice((float)(10));
@@ -51,7 +51,7 @@ public class SearchServiceImplTest {
 	
 	@Test 
 	public void buildMapTest() {
-		Ad ad = getDefaultAd();
+		AdSearchable ad = getDefaultAd();
 		Map<String, Object> dataMap = searchService.buildMapFromAd(ad);
 		
 		//Testing mandatory fields
@@ -60,28 +60,28 @@ public class SearchServiceImplTest {
 		} else {
 			Assertions.assertEquals(ad.getId(), (long)(dataMap.get("id")));
 		}
-		if (!dataMap.containsKey(Ad.getTitleField())) {
+		if (!dataMap.containsKey(AdSearchable.getTitleField())) {
 			Assertions.fail("Field 'title' is missing from the map");
 		} else {
-			Assertions.assertEquals(ad.getTitle(), (String)(dataMap.get(Ad.getTitleField())));
+			Assertions.assertEquals(ad.getTitle(), (String)(dataMap.get(AdSearchable.getTitleField())));
 		}
-		if (!dataMap.containsKey(Ad.getDescriptionField())) {
+		if (!dataMap.containsKey(AdSearchable.getDescriptionField())) {
 			Assertions.fail("Field 'description' is missing from the map");
 		} else {
-			Assertions.assertEquals(ad.getDescription(), (String)(dataMap.get(Ad.getDescriptionField())));
+			Assertions.assertEquals(ad.getDescription(), (String)(dataMap.get(AdSearchable.getDescriptionField())));
 		}
-		if (!dataMap.containsKey(Ad.getPriceField())) {
+		if (!dataMap.containsKey(AdSearchable.getPriceField())) {
 			Assertions.fail("Field 'price' is missing from the map");
 		} else {
-			Assertions.assertEquals(ad.getPrice(), (float)(dataMap.get(Ad.getPriceField())));
+			Assertions.assertEquals(ad.getPrice(), (float)(dataMap.get(AdSearchable.getPriceField())));
 		}
 	}
 	
 	@Test 
 	public void buildAdTest() {
-		Ad ad = getDefaultAd();
+		AdSearchable ad = getDefaultAd();
 		Map<String, Object> dataMap = searchService.buildMapFromAd(ad);
-		Ad newAd = searchService.buildAdFromMap(dataMap);
+		AdSearchable newAd = searchService.buildAdFromMap(dataMap);
 		
 		//Testing mandatory fields
 		Assertions.assertEquals(ad.getTitle(), newAd.getTitle());
@@ -94,7 +94,7 @@ public class SearchServiceImplTest {
 	@Test
 	public void insertAdTest() {
 		
-		Ad ad = getDefaultAd(); 
+		AdSearchable ad = getDefaultAd(); 
 		 
 		ESRestMockCore.newBuilder()
 				.forMethod("POST")
@@ -113,7 +113,7 @@ public class SearchServiceImplTest {
 	@Test
 	public void updateAdTest() {
 		
-		Ad ad = getDefaultAd(); 		 
+		AdSearchable ad = getDefaultAd(); 		 
 		ESRestMockCore.newBuilder()
 				.forMethod("PUT")
 				.forEndPoint("/posts/"+Long.toString(ad.getId()))
@@ -130,7 +130,7 @@ public class SearchServiceImplTest {
 	@Test
 	public void getAdTest() {
 		
-		Ad ad = getDefaultAd(); 		 
+		AdSearchable ad = getDefaultAd(); 		 
 		ESRestMockCore.newBuilder()
 				.forMethod("GET")
 				.forEndPoint("/posts/"+Long.toString(ad.getId()))
@@ -147,7 +147,7 @@ public class SearchServiceImplTest {
 	@Test
 	public void deleteAdTest() {
 		
-		Ad ad = getDefaultAd(); 		 
+		AdSearchable ad = getDefaultAd(); 		 
 		ESRestMockCore.newBuilder()
 				.forMethod("DELETE")
 				.forEndPoint("/posts/"+Long.toString(ad.getId()))
