@@ -3,8 +3,10 @@
     <div class="search-bar-wrapper">
       <Searchbar/>
     </div>
+    <template v-if="ads !=null">
+    <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/> -->
+    </template>
 
-      <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
   </div>
 </template>
 

@@ -62,13 +62,15 @@
       </div>
 
       <div class="block submit-flex">
-        <b-button style="float: right;" variant="primary">Sousmettre</b-button>
+        <b-button style="float: right;" v-on:click="submit" variant="primary">Soumettre</b-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'new-ad',
   data() {
@@ -86,6 +88,28 @@ export default {
     }
   },
   methods: {
+    submit: function (event) {
+       // `this` inside methods points to the Vue instance
+       // Data
+       var data = new FormData();
+       data.append("title", this.title);
+       data.append("description", this.title);
+       data.append("price", this.price);
+       data.append("categories", this.categoryID);
+
+
+          axios
+         .post('https://api.imgur.com/3/image',data)
+         .then((response) => {
+           // Success
+           this.$router.push('/ad/');
+         })
+         .catch(error => {
+           alert('Request failed');
+         });
+
+     }
+
     // format(value, event) {
     //   console.log('[' + value + ']');
     //   console.log('Caller event: ' + event);
