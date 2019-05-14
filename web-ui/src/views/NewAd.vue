@@ -37,6 +37,7 @@
             <b-img v-bind:src="image" rounded width="100px" height="100px"></b-img>
           </div>
           <b-button class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
+          <input type="file" class="invisible-file-input">
         </div>
 
 
@@ -143,6 +144,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+.invisible-file-input {
+  display: none;
+}
 
 .images-wrapper {
   // display: inline-block;
