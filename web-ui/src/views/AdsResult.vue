@@ -5,9 +5,11 @@
       <Searchbar/>
     </div>
 
-    <template v-if="ads !=null">
-      <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/> -->
-    </template>
+    <div class="results-wrapper">
+      <template v-if="ads !=null">
+        <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
+      </template>
+    </div>
 
   </div>
 </template>
@@ -38,3 +40,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.results-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+</style>
