@@ -1,15 +1,20 @@
 <template>
   <div class="search-bar-component">
     <div class="search-bar-wrapper">
-      <input type="text" class="search-bar" value="" placeholder="Rechercher">
-      <button type="button" class="search-button"><font-awesome-icon icon="search"/></button>
+      <input type="text" class="search-bar"  v-model="query"  placeholder="Rechercher">
+      <button type="button" class="search-button" v-on:click="$emit('clicked', this.query)"><font-awesome-icon icon="search"/></button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'search-bar-component'
+  name: 'search-bar-component',
+  data() {
+  return {
+    query:"Hello World"
+  }
+  },
 }
 </script>
 

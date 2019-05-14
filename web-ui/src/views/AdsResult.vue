@@ -1,10 +1,11 @@
 <template>
   <div class="results">
     <div class="search-bar-wrapper">
-      <Searchbar/>
+      <Searchbar v-model="query"/>
     </div>
+    {{query}}
     <template v-if="ads !=null">
-    <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/> 
+    <MiniAd @clicked="onClickSearch" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
     </template>
 
   </div>
@@ -25,8 +26,15 @@ export default {
   },
   data() {
   return {
-    ads : null
+    ads : null,
+    query:"Hello World"
   }
+  },
+  methods: {
+    onClickSearch (value) {
+      console.log(value);
+      this.query=value;
+    }
   },
   mounted: function () {
     // retrieve list of categories
