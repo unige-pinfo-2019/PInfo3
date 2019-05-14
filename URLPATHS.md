@@ -11,7 +11,7 @@ Get the list of all ads (in json format)
           "description" : String,
           "price" : Float,
           "categoryID" : Integer,
-          (other fields : ...)}},
+          "userID" : Integer}},
   {"1" : {...}},
 ]
  ```
@@ -25,7 +25,7 @@ Post an ad (in json format)
  "description" : String,
  "price" : Float,
  "categoryID" : Integer,
- (other fields : ...)
+ "userID" : Integer
 }
 ```
 
@@ -60,18 +60,6 @@ Get the categories indices
 {
  "nameCategory0" : "0",
  "nameCategory1" : "1"
-}
-```
-
-Get the attributes of a specific category
-`GET http://host:port/categories/category?id=0` returns
-
-```
-{
- "title" : String,
- "description" : String,
- "price" : Float,
- (other fields : ...)
 }
 ```
 
