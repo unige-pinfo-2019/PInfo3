@@ -55,7 +55,8 @@ public class CategoriesServiceImplTest {
 		Set<Entry<String, JsonElement>> entrySet = json.entrySet();
 		for(Map.Entry<String,JsonElement> entry : entrySet){
 			for(Map.Entry<String,JsonElement> entry2 : entrySet){
-				Assertions.assertNotEquals(entry.getValue().getAsInt(), entry2.getValue().getAsInt());
+				if (entry != entry2)
+					Assertions.assertNotEquals(entry.getValue().getAsInt(), entry2.getValue().getAsInt());
 			}
 		}
 		
