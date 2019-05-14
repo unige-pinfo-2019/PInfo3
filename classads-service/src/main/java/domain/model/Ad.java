@@ -1,11 +1,17 @@
 package domain.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +19,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import lombok.Data;
@@ -36,7 +44,8 @@ public abstract class Ad implements Serializable{
 	private static String priceField = "price";
 	private static String idField = "id";
 	private static String userIDField = "userID";
-
+	private static String imageField = "images";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="AD_ID")
@@ -56,6 +65,11 @@ public abstract class Ad implements Serializable{
 
 	@Column(name="CATEGORY_ID")
 	private int categoryID;
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "images_string_id", joinColumns = @JoinColumn(name = "Ad_id"))
+    @Column(name = "images")
+	private List<String> images;
 
 	/***** Constructors *****/
 	public Ad() {}
@@ -76,6 +90,8 @@ public abstract class Ad implements Serializable{
 		jsonAd.addProperty(Ad.getDescriptionField(), this.getDescription());
 		jsonAd.addProperty(Ad.getPriceField(), this.getPrice());
 		jsonAd.addProperty(Ad.getUserIDField(), this.getUserID());
+		
+		jsonAd.add(Ad.getImageField(), this.getImagesInJson());
 		return jsonAd;
 	}
 	
@@ -85,6 +101,7 @@ public abstract class Ad implements Serializable{
 			this.setDescription(json.get(descriptionField).getAsString());
 			this.setPrice(json.get(priceField).getAsFloat());
 			this.setUserID(userID);
+			this.setImagesFromJson(json.get(imageField).getAsJsonArray());
 		} catch (IllegalArgumentException e) {
 			log.error("Mandatory fields couldn't be extracted");
 			return false;
@@ -118,6 +135,23 @@ public abstract class Ad implements Serializable{
 	public static String getUserIDField() {
 		return userIDField;
 	}
+
+	public static String getImageField() {
+		return imageField;
+	}
+	
+	public void setImagesFromJson(JsonArray J_array) {
+		images= new ArrayList<String>();
+		for(int i = 0; i < J_array.size(); i++){
+		    images.add(J_array.get(i).getAsString());
+		}	
+	}
+	JsonArray getImagesInJson() {
+		JsonArray J = new JsonArray();
+		for(int i=0; i<images.size(); i++) J.add(images.get(i));
+		return J;
+	}
+	
 
 
 }
