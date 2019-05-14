@@ -1,35 +1,32 @@
 package domain.model;
 
 import java.io.Serializable;
-import java.util.Map;
 
-import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
-import com.google.gson.JsonObject;
+import lombok.Data;
 
 /**
  * Represents classifier ads and manage storage in DB.
  */
 @Entity
 @Table(name="AD")
+@Data
 public class Ad implements Serializable{
 
 	private static final long serialVersionUID = 5725261213022717645L;
-	
+
 	private static String titleField = "title";
 	private static String descriptionField = "description";
 	private static String priceField = "price";
+	private static String idField = "id";
 	private static String userIDField = "userID";
+	private static String categoryIDField = "categoryID";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -44,104 +41,35 @@ public class Ad implements Serializable{
 
 	@Column(name="PRICE")
 	private float price;
-	
+
 	@Column(name="USER_ID")
-	private long user_id;
+	private long userID;
 
-	@ElementCollection(fetch = FetchType.EAGER)
-    @MapKeyColumn(name="cat_int")
-    @Column(name="value_int")
-    @CollectionTable(name="category_integer_attribute", joinColumns=@JoinColumn(name="cat_int_id"))
-	private Map<String, Integer> categoryInt;				// integer attributes specific to the category
-
-	@ElementCollection(fetch = FetchType.EAGER)
-    @MapKeyColumn(name="cat_bool")
-    @Column(name="value_bool")
-    @CollectionTable(name="category_boolean_attribute", joinColumns=@JoinColumn(name="cat_bool_id"))
-	private Map<String, Boolean> categoryBool;				// boolean attributes specific to the category
-
-	@ElementCollection(fetch = FetchType.EAGER)
-    @MapKeyColumn(name="cat_string")
-    @Column(name="value_string")
-    @CollectionTable(name="category_string_attribute", joinColumns=@JoinColumn(name="cat_string_id"))
-	private Map<String, String> categoryString;				// string attributes specific to the category
+	@Column(name="CATEGORY_ID")
+	private int categoryID;
 
 	/***** Constructors *****/
 	public Ad() {}
-
-	public Ad(String title, String description, float price) {
-		super();
+	
+	public Ad(String title, String description, float price, long userID, int categoryID) {
 		this.title = title;
 		this.description = description;
 		this.price = price;
+		this.userID = userID;
+		this.categoryID = categoryID;
 	}
-
-	/***** Manipulation *****/
-	/* Returns attributes and their default values in a json format */
-	public static JsonObject getAttributes() {
-		JsonObject json = new JsonObject();
-		json.addProperty(titleField, "");
-		json.addProperty(descriptionField, "");
-		json.addProperty(priceField, 0);
-		json.addProperty(userIDField, 0);
-		return json;
-	}
-
+	
 	/***** Utility methods *****/
 	@Override
 	public String toString() {
 		String newLine = System.getProperty("line.separator");
-		String ret = newLine + title + " (Ad id = " + id + ")"+ newLine + newLine + description + newLine + newLine + "Prix : " + price + newLine + newLine + "ID Utilisateur : " + user_id;
-		ret += newLine + "Other fields : " + categoryInt.toString() + categoryBool.toString() + categoryString.toString();
-		return ret;
+		String res = "Ad ID : " + id + newLine;
+		res += "Title : " + newLine + "Description : " + description + newLine + "Prix : " + price + newLine;
+		res += "Category ID : " + categoryID + newLine;
+		return res;
 	}
 
 	/***** Getters and setters *****/
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public float getPrice() {
-		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
-	}
-
-	public Map<String, Integer> getCategoryInt() {
-		return categoryInt;
-	}
-
-	public Map<String, Boolean> getCategoryBool() {
-		return categoryBool;
-	}
-	
-
-	public Map<String, String> getCategoryString() {
-		return categoryString;
-	}
-	
 	public static String getTitleField() {
 		return titleField;
 	}
@@ -153,24 +81,18 @@ public class Ad implements Serializable{
 	public static String getPriceField() {
 		return priceField;
 	}
-	
+
 	public static String getUserIDField() {
 		return userIDField;
 	}
 
-	public void setCategory(Map<String, Integer> categoryInt, Map<String, Boolean> categoryBool, Map<String, String> categoryString) {
-		this.categoryInt = categoryInt;
-		this.categoryBool = categoryBool;
-		this.categoryString = categoryString;
+	public static String getCategoryIDField() {
+		return categoryIDField;
 	}
 
-	public long getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(long user_id) {
-		this.user_id = user_id;
-	}
+	public static String getIdField() {
+		return idField;
+	}	
 
 
 }
