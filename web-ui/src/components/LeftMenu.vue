@@ -37,10 +37,6 @@ export default {
   margin-left: 30px;
 }
 
-.new-label {
-  // vertical-align: middle;
-}
-
 .new {
   font-size: 1.2em;
 
@@ -79,6 +75,10 @@ export default {
 
 .category {
   padding: 2px 0px;
+}
+
+.category:hover {
+  color: $primary-color;
 }
 
 hr {
