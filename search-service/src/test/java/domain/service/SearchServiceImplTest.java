@@ -121,9 +121,9 @@ public class SearchServiceImplTest {
 		
 		
 		JsonArray newJson = searchService.transformJson(json);
-		Assertions.assertEquals(newJson.get(0).getAsJsonObject().get("a").getAsString(), "A");
-		Assertions.assertEquals(newJson.get(1).getAsJsonObject().get("b").getAsString(), "B");
-		Assertions.assertEquals(newJson.get(2).getAsJsonObject().get("c").getAsString(), "C");
+		Assertions.assertEquals("A", newJson.get(0).getAsJsonObject().get("a").getAsString());
+		Assertions.assertEquals("B", newJson.get(1).getAsJsonObject().get("b").getAsString());
+		Assertions.assertEquals("C", newJson.get(2).getAsJsonObject().get("c").getAsString());
 	}
 	
 	@Test
