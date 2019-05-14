@@ -32,7 +32,7 @@ public class AdServiceImpl implements AdService{
 	@Override
 	public boolean createAd(Ad ad) {
 		em.persist(ad);
-		//log.info("Ad "+ ad.toString()+" created and stored in database");
+		log.info("Ad "+ ad.toString()+" created and stored in database");
 		return true;
 	}
 

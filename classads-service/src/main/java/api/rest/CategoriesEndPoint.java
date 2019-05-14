@@ -6,8 +6,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.google.gson.Gson;
-
 import domain.service.CategoriesService;
 
 /**
@@ -36,7 +34,6 @@ public class CategoriesEndPoint {
 	@Path("index/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCategories() {
-		Gson gson = new Gson(); 
 		return catService.getNameIndexCategories().toString(); 
 	}
 	

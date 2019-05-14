@@ -10,10 +10,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Categories {
 	
+	/***** Static fields and code *****/
 	private static String categoryIDField = "categoryID";
-	private static Map<Integer, Category> categories = new HashMap<>();
+	private static Map<Integer, Category> categoriesList = new HashMap<>();
 	
 	static {
+		String parent;
 		addNewCategory(new Category("General", 0, null));
 		
 		int id = 1;		
@@ -22,26 +24,32 @@ public class Categories {
 		addNewCategory(new Category("Vinyles", id++, null));
 		addNewCategory(new Category("Livres", id++, null));
 		
-		addNewCategory(new Category("Immobilier", id++, null));
-		addNewCategory(new Category("Colocations", id++, "Immobilier"));
-		addNewCategory(new Category("Studios", id++, "Immobilier"));
+		parent = "Immobilier";
+		addNewCategory(new Category(parent, id++, null));
+		addNewCategory(new Category("Colocations", id++, parent));
+		addNewCategory(new Category("Studios", id++, parent));
 	}
 	
+	/***** Constructors *****/
+	private Categories() {}
+	
+	/***** Manipulation *****/
 	private static void addNewCategory(Category newCategory) {
-		Categories.categories.put(newCategory.getCategoryID(), newCategory);
+		Categories.categoriesList.put(newCategory.getCategoryID(), newCategory);
 	}
 	
+	/***** Getters and setters *****/
 	public static Collection<Category> getCategories() {
-		return Categories.categories.values();
+		return Categories.categoriesList.values();
 	}
 	
 	public static Set<Integer> getCategoriesID() {
-		return categories.keySet();
+		return categoriesList.keySet();
 	}
 	
 	public static Category getCategoryById(int id) {
-		if (Categories.categories.containsKey(id))
-			return Categories.categories.get(id);
+		if (Categories.categoriesList.containsKey(id))
+			return Categories.categoriesList.get(id);
 		log.error("Try to get a category for which the ID doesn't exist");
 		return null;
 	}
@@ -51,7 +59,7 @@ public class Categories {
 	}
 	
 	public static Set<Integer> getCategoriesIndex() {
-		return categories.keySet();
+		return categoriesList.keySet();
 	}
 
 }
