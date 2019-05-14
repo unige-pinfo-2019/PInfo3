@@ -2,9 +2,8 @@
   <div class="results">
 
     <div class="search-bar-wrapper">
-      <Searchbar v-model="query"/>
+      <Searchbar v-on:clicked="onClickSearch"/>
     </div>
-
     <div class="results-wrapper">
       <template v-if="ads !=null">
         <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
@@ -30,21 +29,24 @@ export default {
   data() {
     return {
       ads : null,
-      query:"Hello World"
+      query: null
     }
   },
   methods: {
     onClickSearch (value) {
-      console.log(value);
       this.query=value;
+      axios
+        .get('http://localhost:8084/search?request=' + this.query)
+        .then(response => (this.ads = response));
+      this.$forceUpdate();
     }
   },
   mounted: function () {
     // retrieve list of categories
     axios
       .get('http://localhost:8081/classads')
-      .then(response => (this.ads = response))
-  },
+      .then(response => (this.ads = response));
+  }
 }
 </script>
 

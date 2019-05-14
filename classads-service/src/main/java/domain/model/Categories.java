@@ -1,113 +1,67 @@
 package domain.model;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Represents all possible categories, their names and their attributes are hard coded in the ArrayList
- * categories.
- *
- */
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Categories {
 	
-	/***** Attributes *****/
-	private static ArrayList<Map<String, Object>> categoriesList = new ArrayList<>();
-	private static String categoryNameField = "categoryName";
+	/***** Static fields and code *****/
 	private static String categoryIDField = "categoryID";
-	private static String parentField = "parent";
+	private static Map<Integer, Category> categoriesList = new HashMap<>();
 	
-	/***** Other attributes (automatically computed) *****/
-	private static Map<Integer, Map<String, Object>> categoryAttributes = new HashMap<>();
-	private static Map<Integer, Map<String, Object>> categoryStore = new HashMap<>();
-	private static Map<String, Integer> categoryIndex = new HashMap<>();
+	static {
+		String parent;
+		addNewCategory(new Category("General", 0, null));
+		
+		int id = 1;		
+		addNewCategory(new Category("Ordinateurs", id++, null));
+		addNewCategory(new Category("Vélos", id++, null));
+		addNewCategory(new Category("Vinyles", id++, null));
+		addNewCategory(new Category("Livres", id++, null));
+		
+		parent = "Immobilier";
+		addNewCategory(new Category(parent, id++, null));
+		addNewCategory(new Category("Colocations", id++, parent));
+		addNewCategory(new Category("Studios", id++, parent));
+	}
 	
 	/***** Constructors *****/
 	private Categories() {}
 	
-	/***** Defining the list of categories *****/	
-	static {
-		
-		addCategory("General", null);
-		addCategory("Books", null, "authors", "", "nbPages", 0);
-		addCategory("Math Books", "Books", "Theme", "");
-		addCategory("Computers", null, "size", 0, "memory", 0);
-		addCategory("Bikes", null, "type", "", "color", "");
-		
-	
-		int id = 0;
-		for (Map<String, Object> map : categoriesList) {
-			
-			Map<String, Object> newMap = new HashMap<>();
-			Map<String, Object> newMapStore= new HashMap<>();
-			for (Map.Entry<String, Object> entry : map.entrySet()) {
-				String key = entry.getKey();
-				newMap.put(key, map.get(key));
-				newMapStore.put(key, map.get(key));
-			}
-	
-			newMap.remove(categoryNameField);
-			newMap.remove(parentField);
-			categoryAttributes.put(id, newMap);
-			
-			categoryStore.put(id, newMapStore);
-			categoryIndex.put((String) newMapStore.get(categoryNameField), id);
-			id += 1;
-		}
-	}
-	
 	/***** Manipulation *****/
-	private static void addCategory(String categoryName, String parent, Object... objects) {
-		Map<String, Object> attributes = new HashMap<>();
-		attributes.put(categoryNameField, categoryName);
-		attributes.put(parentField, parent);
-		
-		for (int i=0; i < objects.length; i=i+2) {
-			attributes.put((String)objects[i], objects[i+1]);
-		}
-		categoriesList.add(attributes);
-		
-	}
-	
-
-	/***** Custom getters and setters *****/
-	public static Set<String> getCategories() {
-		return categoryIndex.keySet();
-	}
-	
-	public static Map<String, Object> getCategory(int categoryID) {
-		return categoryAttributes.get(categoryID);
-	}
-	
-	public static String getCategoryName(int categoryID) {
-		return (String) Categories.getCategoryStore().get(categoryID).get(categoryNameField);
+	private static void addNewCategory(Category newCategory) {
+		Categories.categoriesList.put(newCategory.getCategoryID(), newCategory);
 	}
 	
 	/***** Getters and setters *****/
-	public static Map<Integer, Map<String, Object>> getCategoryAttributes() {
-		return categoryAttributes;
+	public static Collection<Category> getCategories() {
+		return Categories.categoriesList.values();
 	}
 	
-	public static Map<Integer, Map<String, Object>> getCategoryStore() {
-		return categoryStore;
-	}
-
-	public static Map<String, Integer> getCategoryIndex() {
-		return categoryIndex;
+	public static Set<Integer> getCategoriesID() {
+		return categoriesList.keySet();
 	}
 	
-	public static String getCategoryNameField() {
-		return categoryNameField;
-	}
-
-	public static String getParentField() {
-		return parentField;
+	public static Category getCategoryById(int id) {
+		if (Categories.categoriesList.containsKey(id))
+			return Categories.categoriesList.get(id);
+		log.error("Try to get a category for which the ID doesn't exist");
+		return null;
 	}
 	
 	public static String getCategoryIDField() {
 		return categoryIDField;
 	}
+	
+	public static Set<Integer> getCategoriesIndex() {
+		return categoriesList.keySet();
+	}
 
 }
+
 
