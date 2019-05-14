@@ -117,7 +117,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/***** Search methods *****/
-	public JsonArray searchResquet(String request) {
+	public JsonArray searchRequest(String request) {
 		//Request without arguments to run for all indices
 		SearchRequest searchRequest = new SearchRequest();
 
@@ -165,7 +165,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/****** Manipulation *****/
-	private JsonArray transformJson(JsonArray json) {
+	JsonArray transformJson(JsonArray json) {
 		JsonArray array = new JsonArray();
 		JsonParser parser = new JsonParser();
 		for (JsonElement elt : json) {
