@@ -1,98 +1,111 @@
 sudo: required
 dist: trusty
 
-matrix:
+jobs:
   include:
-    - language: java
-      jdk: openjdk11
-      addons:
-        sonarcloud:
-          organization: "unige-pinfo-2019" # the key of the org you chose at step #3
+    - stage: build
+      matrix:
+        include:
+          - language: java
+            jdk: openjdk11
+            addons:
+              sonarcloud:
+                organization: "unige-pinfo-2019" # the key of the org you chose at step #3
+            script:
+              - mvn clean package
+              - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo3 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=b89cca69d31bf42b2d5c4ec913c8ae8f1f84f450
+      
+      
+          - language: java
+            jdk: openjdk11
+            services:
+              - docker
+            before_script:
+              - cd search-service
+            script:
+              - mvn clean package
+              - docker build -t 2019pinfo3/search-service .
+            after_success:
+              - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+              - docker push 2019pinfo3/search-service:latest
+      
+      
+          - language: java
+            jdk: openjdk11
+            services:
+              - docker
+            before_script:
+              - cd classads-service
+            script:
+              - mvn clean package
+              - docker build -t 2019pinfo3/classads-service .
+            after_success:
+              - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+              - docker push 2019pinfo3/classads-service:latest
+      
+      
+          - language: java
+            jdk: openjdk11
+            services:
+              - docker
+            before_script:
+              - cd user-service
+            script:
+              - mvn clean package
+              - docker build -t 2019pinfo3/user-service .
+            after_success:
+              - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+              - docker push 2019pinfo3/user-service:latest
+      
+          # - language: java
+          #     jdk: openjdk11
+          #     before_script:
+          #       - cd classadsresponse-service
+          #     script:
+          #       - mvn clean package
+          #
+          # - language: java
+          #     jdk: openjdk11
+          #     before_script:
+          #       - cd statistic-service
+          #     script:
+          #       - mvn clean package
+      
+      
+          - language: minimal
+            services:
+              - docker
+            before_script:
+              - cd api-gateway
+            script:
+              - docker build -t 2019pinfo3/api-gateway .
+            after_success:
+              - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+              - docker push 2019pinfo3/api-gateway:latest
+      
+      
+          - language: node_js
+            node_js:
+              - "11"
+            services:
+              - docker
+            before_script:
+              - cd web-ui
+              - npm rebuild node-sass
+              - npm install dependencies
+            script:
+              - npm run build
+              - docker build -t 2019pinfo3/web-ui .
+            after_success:
+              - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+              - docker push 2019pinfo3/web-ui:latest
+    - stage: deploy
       script:
-        - mvn clean package
-        - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo3 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=b89cca69d31bf42b2d5c4ec913c8ae8f1f84f450
-
-
-    - language: java
-      jdk: openjdk11
-      services:
-        - docker
-      before_script:
-        - cd search-service
-      script:
-        - mvn clean package
-        - docker build -t 2019pinfo3/search-service .
-      after_success:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push 2019pinfo3/search-service:latest
-
-
-    - language: java
-      jdk: openjdk11
-      services:
-        - docker
-      before_script:
-        - cd classads-service
-      script:
-        - mvn clean package
-        - docker build -t 2019pinfo3/classads-service .
-      after_success:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push 2019pinfo3/classads-service:latest
-
-
-    - language: java
-      jdk: openjdk11
-      services:
-        - docker
-      before_script:
-        - cd user-service
-      script:
-        - mvn clean package
-        - docker build -t 2019pinfo3/user-service .
-      after_success:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push 2019pinfo3/user-service:latest
-
-    # - language: java
-    #     jdk: openjdk11
-    #     before_script:
-    #       - cd classadsresponse-service
-    #     script:
-    #       - mvn clean package
-    #
-    # - language: java
-    #     jdk: openjdk11
-    #     before_script:
-    #       - cd statistic-service
-    #     script:
-    #       - mvn clean package
-
-
-    - language: minimal
-      services:
-        - docker
-      before_script:
-        - cd api-gateway
-      script:
-        - docker build -t 2019pinfo3/api-gateway .
-      after_success:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push 2019pinfo3/api-gateway:latest
-
-
-    - language: node_js
-      node_js:
-        - "11"
-      services:
-        - docker
-      before_script:
-        - cd web-ui
-        - npm rebuild node-sass
-        - npm install dependencies
-      script:
-        - npm run build
-        - docker build -t 2019pinfo3/web-ui .
-      after_success:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push 2019pinfo3/web-ui:latest
+        - echo "$SSH_PASS" | ssh "$SSH_USER"
+        - curl -o docker-compose-api-gw.yml https://raw.githubusercontent.com/unige-pinfo-2019/PInfo3/master/docker-compose/docker-compose-api-gw.yml
+        - curl -o docker-compose-unitrade.yml https://raw.githubusercontent.com/unige-pinfo-2019/PInfo3/master/docker-compose/docker-compose-unitrade.yml
+        - docker-compose -f docker-compose-unitrade.yml pull
+        - docker-compose -f docker-compose-api-gw.yml pull
+        - docker-compose -f docker-compose-unitrade.yml up -d
+        - docker-compose -f docker-compose-api-gw.yml up -d
+        - exit
