@@ -1,5 +1,9 @@
 package domain.service;
 
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -14,6 +18,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import domain.model.Categories;
 import eu.drus.jpa.unit.api.JpaUnit;
 
 @ExtendWith(JpaUnit.class)
@@ -39,6 +44,25 @@ public class CategoriesServiceImplTest {
 			} catch (Exception e) {
 				Assertions.fail("Tree view hasn't the right shape (impossible to extract name and children)");
 			}
+		}
+	}
+	
+	@Test
+	public void getNameIndexCategoriesTest() {
+		JsonObject json = csi.getNameIndexCategories();
+		
+		//Test if there is not twice the same indice
+		Set<Entry<String, JsonElement>> entrySet = json.entrySet();
+		for(Map.Entry<String,JsonElement> entry : entrySet){
+			for(Map.Entry<String,JsonElement> entry2 : entrySet){
+				Assertions.assertNotEquals(entry.getValue().getAsInt(), entry2.getValue().getAsInt());
+			}
+		}
+		
+		//Test if all category ID are present
+		Set<Integer> indices = Categories.getCategoriesIndex();
+		for(Map.Entry<String,JsonElement> entry : entrySet){
+			Assertions.assertEquals(true, indices.contains(entry.getValue().getAsInt()));;
 		}
 	}
 	

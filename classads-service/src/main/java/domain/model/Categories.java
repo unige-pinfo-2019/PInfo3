@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 public class Categories {
 	
 	/***** Static fields and code *****/
@@ -41,17 +38,6 @@ public class Categories {
 	/***** Getters and setters *****/
 	public static Collection<Category> getCategories() {
 		return Categories.categoriesList.values();
-	}
-	
-	public static Set<Integer> getCategoriesID() {
-		return categoriesList.keySet();
-	}
-	
-	public static Category getCategoryById(int id) {
-		if (Categories.categoriesList.containsKey(id))
-			return Categories.categoriesList.get(id);
-		log.error("Try to get a category for which the ID doesn't exist");
-		return null;
 	}
 	
 	public static String getCategoryIDField() {
