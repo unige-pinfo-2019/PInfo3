@@ -36,7 +36,6 @@ public class CategoriesEndPoint {
 	@Path("index/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCategories() {
-		Gson gson = new Gson(); 
 		return catService.getNameIndexCategories().toString(); 
 	}
 	

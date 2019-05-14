@@ -132,10 +132,11 @@ public class AdServiceImpl implements AdService{
 		try {
 			ad.setTitle(json.get(Ad.getTitleField()).getAsString());
 			ad.setDescription(json.get(Ad.getDescriptionField()).getAsString());
-			ad.setPrice(json.get(Ad.getPriceField()).getAsInt());
+			ad.setPrice(json.get(Ad.getPriceField()).getAsFloat());
 			ad.setUserID(json.get(Ad.getUserIDField()).getAsLong());
+			ad.setImagesFromJson(json.get(Ad.getImageField()).getAsJsonArray());
 		} catch (Exception e) {
-			log.error("Mandatory fields are missing (title, description, price or userID)");
+			log.error("Mandatory fields are missing (title, description, price, userID or image)");
 			return false;
 		}
 		return true;
@@ -152,9 +153,15 @@ public class AdServiceImpl implements AdService{
 			jsonAd.addProperty(Ad.getPriceField(), ad.getPrice());
 			jsonAd.addProperty(Ad.getUserIDField(), ad.getUserID());
 			jsonAd.addProperty(Categories.getCategoryIDField(), ad.getCategoryID());
+			jsonAd.add(Ad.getImageField(), getImagesInJson(ad));
 			result.add(jsonAd);
 		}
 		return result;
+	}
+	public JsonArray getImagesInJson(Ad ad) {
+		JsonArray J = new JsonArray();
+		for(int i=0; i<ad.getImages().size(); i++) J.add(ad.getImages().get(i));
+		return J;
 	}
 	
 	
