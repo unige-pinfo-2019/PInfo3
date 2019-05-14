@@ -86,7 +86,10 @@ public class SearchServiceImpl implements SearchService {
 	    GetResponse getResponse = null;
 	    try {
 	        getResponse = client.get(getRequest, RequestOptions.DEFAULT);
-	    } catch (java.io.IOException e){
+	    } catch (ElasticsearchException e) {
+			log.error(e.getDetailedMessage());
+			return null;
+		} catch (java.io.IOException e){
 	        log.error(e.getMessage());
 	    }
 	    Ad ad = null;
@@ -104,7 +107,9 @@ public class SearchServiceImpl implements SearchService {
 	    DeleteRequest deleteRequest = new DeleteRequest(index, id);
 	    try {
 	    	client.delete(deleteRequest, RequestOptions.DEFAULT);
-	    } catch (java.io.IOException e){
+	    } catch (ElasticsearchException e) {
+			log.error(e.getDetailedMessage());
+		} catch (java.io.IOException e){
 	        log.error(e.getMessage());
 	    } finally {
 	    	log.info("Succefully delete the ad with id : "+id);

@@ -8,6 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import domain.model.Ad;
@@ -28,7 +29,10 @@ public class SearchEndpoint {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getRequest(@QueryParam("request") String request) {
-		return searchService.searchResquet(request).toString();
+		JsonArray json = searchService.searchResquet(request);
+		if (json != null)
+			return json.toString();
+		return "[]";
 	}
 	
 	@GET
