@@ -147,6 +147,7 @@ public class AdServiceImpl implements AdService{
 		
 		for (Ad ad : ads) {
 			JsonObject jsonAd = new JsonObject();
+			jsonAd.addProperty(Ad.getIdField(), ad.getId());
 			jsonAd.addProperty(Ad.getTitleField(), ad.getTitle());
 			jsonAd.addProperty(Ad.getDescriptionField(), ad.getDescription());
 			jsonAd.addProperty(Ad.getPriceField(), ad.getPrice());

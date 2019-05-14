@@ -9,9 +9,10 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -54,30 +55,30 @@ public class AdEndpoint {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String addNewAd(String jsonStr) {
+	public Response addNewAd(String jsonStr) {
 		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
 		Ad ad = adservice.createAdFromJson(json); //We create the ad
 		if (ad != null) {
 			adservice.createAd(ad);
 			adProducer.send(ad);
-			return "You've inserted an ad\n" + ad.toString();
+			return Response.ok(ad.getId(), MediaType.TEXT_PLAIN).build();
 		} else {
-			return "Unable to create ad. Please check your parameters.";
+			return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't create ad, please check your parameters").build();
 		}
 		
 	}
 
 	/* Delete an ad according to its ID */
 	@DELETE
-	@Path("/")
+	@Path("/ads/ad/{id}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteAd(@QueryParam("id") String strID) {
+	public Response deleteAd(@PathParam("id") String strID) {
 		//Is expecting the id of the ad we want to delete
 		long id = Long.parseLong(strID);
 
 		Optional<Ad> popt = adservice.getById(id);
 		if(popt.isEmpty()) {
-			return "Error. There is no ad with ID "+ id;
+			return Response.status(Response.Status.NOT_FOUND).entity("Error. There is no ad with ID "+ id).build();
 		}
 		else {
 			Ad ad = popt.get();
@@ -85,10 +86,10 @@ public class AdEndpoint {
 			try {
 				adservice.deleteAd(ad);
 				adProducer.sendDelete(ad);
-				return "Deleted classadd "+ ad.toString();
+				return Response.ok("Deleted classadd "+ ad.toString()).build();
 			} catch(IllegalArgumentException ex) {
 				log.error(ex.toString());
-				return "Some form of error occurred. Could not delete "+ ad.toString();
+				return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Some form of error occurred. Could not delete "+ ad.toString()).build();
 			}
 		}
 
