@@ -4,11 +4,8 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.google.gson.Gson;
-import domain.model.Categories;
 import domain.service.CategoriesService;
 
 /**
@@ -32,21 +29,12 @@ public class CategoriesEndPoint {
 		return catService.getCategoriesTreeView().toString();
 	}
 	
-	/* Get all attributes (including those for ad class) of a specific category */
-	@GET
-	@Path("category/")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getCategoriesAttributes(@QueryParam("id") int categoryID) {
-		return catService.getAttributes(categoryID).toString();
-	}
-	
 	/* Get a list of all the categories and their related indices */
 	@GET
 	@Path("index/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getCategories() {
-		Gson gson = new Gson(); 
-		return gson.toJson(Categories.getCategoryIndex()); 
+		return catService.getNameIndexCategories().toString(); 
 	}
 	
 

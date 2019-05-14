@@ -32,6 +32,11 @@ Post an ad (in json format)
 Delete an ad (with the id)
 `DELETE http://host:port/classads`
 
+## Search
+
+Search ads from a request
+`GET http://host:port/search?resquest="<request>"` returns a list of ads like getAll.
+
 ## Categories
 
 Get a tree view representation of the categories
