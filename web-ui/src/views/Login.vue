@@ -16,7 +16,10 @@
                   <b-input type="password" v-model="password" name="password" v-validate="'required|min:8'" />
               </b-field>
 
-              <button type="submit" class="button is-primary"> Connection </button>
+              <div class="block submit-flex">
+                <b-button type ="submit" style="float: right;"  variant="primary">Soumettre</b-button>
+              </div>
+              <!-- <button type="submit" class="button is-primary"> Connection </button> -->
           </form>
       </section>
     </div>
@@ -45,9 +48,7 @@
     };
 
     Validator.localize('en', dict);
-    Vue.use(VeeValidate, {
-        events: ''
-    })
+    Vue.use(VeeValidate)
 
     export default {
         name : 'login',

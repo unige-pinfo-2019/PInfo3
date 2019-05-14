@@ -4,7 +4,7 @@
       <Searchbar/>
     </div>
     <template v-if="ads !=null">
-    <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/> -->
+    <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/> 
     </template>
 
   </div>

@@ -29,9 +29,13 @@
         <span class="field-title" > <h4>Images</h4> <hr> </span>
 
         <!-- <span > -->
-        <div class="input">
-          <b-button class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile">
+          <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
+        <!-- <div class="input">
+          <input type="file" class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </input>
+        </div> -->
         <!-- </span> -->
 
         <span class="field-title" > <h4>Prix</h4> <hr> </span>
@@ -77,8 +81,8 @@ export default {
     return {
       title: '',
       description: '',
-      price: '', // float
-      categoryID: '',
+      price: 0.0, // float
+      categoryID: 0,
       categories: [
         { value: 1, text: 'Ordinateur' },
         { value: 2, text: 'Habits homme' },
@@ -91,18 +95,18 @@ export default {
     submit: function (event) {
        // `this` inside methods points to the Vue instance
        // Data
-       var data = new FormData();
-       data.append("title", this.title);
-       data.append("description", this.title);
-       data.append("price", this.price);
-       data.append("categories", this.categoryID);
+       var data = {"title" : this.title,
+                    "description": this.description,
+                    "price": this.price,
+                    "categoryID": this.categoryID,
+                    "userID":0};
 
 
           axios
-         .post('https://api.imgur.com/3/image',data)
+         .post('http://localhost:8081/classads',data)
          .then((response) => {
            // Success
-           this.$router.push('/ad/');
+           this.$router.push('/');
          })
          .catch(error => {
            alert('Request failed');
