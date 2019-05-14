@@ -29,7 +29,6 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.ScoreSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -124,7 +123,8 @@ public class SearchServiceImpl implements SearchService {
 		sourceBuilder.timeout(new TimeValue(60, TimeUnit.SECONDS)); //Set the maximum time for the search
 		sourceBuilder.sort(new ScoreSortBuilder().order(SortOrder.DESC)); //Sort by the highest matching
 
-		QueryBuilder queryBuilder = QueryBuilders.matchQuery("description", request)
+		QueryBuilder queryBuilder = QueryBuilders
+				.matchQuery("description", request)
                 .fuzziness(Fuzziness.AUTO) //Enable fuzzy matching (search even if there's not a full match)
                 .prefixLength(3)
                 .maxExpansions(10);
