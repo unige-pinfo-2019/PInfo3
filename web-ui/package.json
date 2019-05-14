@@ -14,6 +14,7 @@
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.18",
     "core-js": "^2.6.5",
+    "dependencies": "0.0.1",
     "i": "^0.3.6",
     "node-sass": "^4.11.0",
     "npm": "^6.9.0",
