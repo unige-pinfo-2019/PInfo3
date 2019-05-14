@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     shortenTitle() {
-      var max_length = 25;
+      var max_length = 50;
 
       if (this.title.length > max_length) {
         this.shortenedTitle = this.title.substring(0, max_length-1) + "...";
@@ -73,10 +73,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+.card-title {
+  height: 2.2em;
+}
+
 #descr {
   color: #666;
   text-align: justify;
   letter-spacing: -0.01em;
+  height: 120px;
 }
 
 #price {
