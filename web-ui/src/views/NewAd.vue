@@ -28,15 +28,17 @@
 
         <span class="field-title" > <h4>Images</h4> <hr> </span>
 
-        <!-- <span > -->
-        <div class="custom-file">
+        <!-- <div class="custom-file">
           <input type="file" class="custom-file-input" id="customFile">
           <label class="custom-file-label" for="customFile">Choose file</label>
-        </div>
-        <!-- <div class="input">
-          <input type="file" class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </input>
         </div> -->
-        <!-- </span> -->
+        <div class="images-wrapper">
+          <div class="image-wrapper" v-for="image in images" v-bind:key="image.id">
+            <b-img v-bind:src="image" rounded width="100px" height="100px"></b-img>
+          </div>
+          <b-button class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
+        </div>
+
 
         <span class="field-title" > <h4>Prix</h4> <hr> </span>
 
@@ -88,7 +90,8 @@ export default {
         { value: 2, text: 'Habits homme' },
         { value: 3, text: 'Habits femme' },
         { value: 4, text: 'Livres' },
-      ]
+      ],
+      images: []//["https://picsum.photos/600/300/?image=23", "https://picsum.photos/600/300/?image=24", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=26"]
     }
   },
   methods: {
@@ -140,6 +143,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+.images-wrapper {
+  // display: inline-block;
+  // float: left;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  // justify-content: flex-start;
+  // align-items: flex-start;
+  text-align: left;
+
+}
+
+.image-wrapper {
+  margin-right: 20px;
+  margin-bottom: 20px;
+  // width: 50%;
+}
 
 .container {
   display: flex;
@@ -193,14 +214,13 @@ h4 {
 
 .input {
   margin-bottom: 40px;
-
 }
 
 .new-photo {
-  float: left;
+  // float: left;
   width: 100px;
   height: 100px;
-  // margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .submit-flex {
