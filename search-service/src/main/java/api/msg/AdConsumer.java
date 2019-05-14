@@ -21,7 +21,7 @@ public class AdConsumer {
 	@Consumer(topics = "ads", groupId = "ch.unige")
 	public void updateAd(Ad ad) {
 		log.info("Consumer got following message : " + ad);
-		if (searchService.getAdById(Long.toString(ad.getId())) != null) {
+		if (searchService.getAdById(Long.toString(ad.getId())) == null) {
 			searchService.insertAd(ad);	
 		} else {
 			searchService.updateAd(ad);

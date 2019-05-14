@@ -29,7 +29,11 @@ import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.ScoreSortBuilder;
 import org.elasticsearch.search.sort.SortOrder;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import domain.model.Ad;
 import lombok.extern.slf4j.Slf4j;
@@ -89,9 +93,10 @@ public class SearchServiceImpl implements SearchService {
 	    Ad ad = null;
 		if (getResponse != null) {
 	    	Map<String, Object> mapData = getResponse.getSourceAsMap();
-	    	ad = buildAdFromMap(mapData);
-	    	if (ad != null)
+	    	if (mapData != null) {
+	    		ad = buildAdFromMap(mapData);
 	    		log.info("Succefully get the ad\nAd information : "+ad);
+	    	}	    		
 	    }
 		return ad;
 	}
@@ -145,6 +150,7 @@ public class SearchServiceImpl implements SearchService {
 				String sourceAsString = hit.getSourceAsString();
 				json.add(sourceAsString);
 			}
+			json = transformJson(json);
 			log.info("Search done, the results are : "+json.toString());
 			return json;
 		}
@@ -154,58 +160,49 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/****** Manipulation *****/
+	private JsonArray transformJson(JsonArray json) {
+		JsonArray array = new JsonArray();
+		JsonParser parser = new JsonParser();
+		for (JsonElement elt : json) {
+			JsonObject jsonObj = parser.parse(elt.getAsString()).getAsJsonObject();
+			array.add(jsonObj);			
+		}
+		return array;
+	}
 	Map<String, Object> buildMapFromAd(Ad ad) {
 		Map<String, Object> dataMap = new HashMap<>();
-	    dataMap.put("id", ad.getId());
+	    dataMap.put(Ad.getIdField(), ad.getId());
 	    dataMap.put(Ad.getTitleField(), ad.getTitle());
 	    dataMap.put(Ad.getDescriptionField(), ad.getDescription());
 	    dataMap.put(Ad.getPriceField(), ad.getPrice());
-
-
-	    for (Map.Entry<String, Integer> entry : ad.getCategoryInt().entrySet()) {
-	    	dataMap.put(entry.getKey(), entry.getValue());
-	    }
-	    for (Map.Entry<String, String> entry : ad.getCategoryString().entrySet()) {
-	    	dataMap.put(entry.getKey(), entry.getValue());
-	    }
-	    for (Map.Entry<String, Boolean> entry : ad.getCategoryBool().entrySet()) {
-	    	dataMap.put(entry.getKey(), entry.getValue());
-	    }
+	    dataMap.put(Ad.getCategoryIDField(), ad.getCategoryID());
+	    dataMap.put(Ad.getUserIDField(), ad.getUserID());
 	    return dataMap;
 	}
 
 	Ad buildAdFromMap(Map<String, Object> mapData) {
 		Ad ad = new Ad();
-		Map<String, Integer> mapInt = new HashMap<>();
-		Map<String, Boolean> mapBool = new HashMap<>();
-		Map<String, String> mapString = new HashMap<>();
 
-		if (mapData.containsKey(Ad.getTitleField())) {
-			ad.setTitle((String)(mapData.get(Ad.getTitleField())));
-			mapData.remove(Ad.getTitleField());
+		if (mapData != null) {
+			if (mapData.containsKey(Ad.getTitleField())) {
+				ad.setTitle((String)(mapData.get(Ad.getTitleField())));
+			}
+			if (mapData.containsKey(Ad.getDescriptionField())) {
+				ad.setDescription((String)(mapData.get(Ad.getDescriptionField())));
+			}
+			if (mapData.containsKey(Ad.getPriceField())) {
+				ad.setPrice(Float.parseFloat(mapData.get(Ad.getPriceField()).toString()));
+			}
+			if (mapData.containsKey(Ad.getIdField())) {
+				ad.setId(Long.parseLong(mapData.get(Ad.getIdField()).toString()));
+			}
+			if (mapData.containsKey(Ad.getUserIDField())) {
+				ad.setUserID(Long.parseLong(mapData.get(Ad.getUserIDField()).toString()));
+			}
+			if (mapData.containsKey(Ad.getCategoryIDField())) {
+				ad.setCategoryID(Integer.parseInt(mapData.get(Ad.getCategoryIDField()).toString()));
+			}
 		}
-		if (mapData.containsKey(Ad.getDescriptionField())) {
-			ad.setDescription((String)(mapData.get(Ad.getDescriptionField())));
-			mapData.remove(Ad.getDescriptionField());
-		}
-		if (mapData.containsKey(Ad.getPriceField())) {
-			ad.setPrice(Float.parseFloat(mapData.get(Ad.getPriceField()).toString()));
-			mapData.remove(Ad.getPriceField());
-		}
-		if (mapData.containsKey("id")) {
-			ad.setId(Long.parseLong(mapData.get("id").toString()));
-			mapData.remove("id");
-		}
-
-		for (Map.Entry<String, Object> entry : mapData.entrySet()) {
-
-			if(entry.getValue().getClass()== Integer.class) mapInt.put(entry.getKey(), (Integer) entry.getValue());
-			if(entry.getValue().getClass()== Boolean.class) mapBool.put(entry.getKey(), (Boolean) entry.getValue());
-			if(entry.getValue().getClass()== String.class) mapString.put(entry.getKey(), (String) entry.getValue());
-
-		}
-
-		ad.setCategory(mapInt, mapBool, mapString);
 		return ad;
 	}
 

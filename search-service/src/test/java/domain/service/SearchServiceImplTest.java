@@ -1,6 +1,5 @@
 package domain.service;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpHost;
@@ -41,12 +40,8 @@ public class SearchServiceImplTest {
 		ad.setDescription("Any description");
 		ad.setPrice((float)(10));
 		ad.setId((long)(100));
-		
-		Map<String, Integer> mapInt = new HashMap<>();
-		Map<String, String> mapString = new HashMap<>();
-		Map<String, Boolean> mapBool = new HashMap<>();
-		
-		ad.setCategory(mapInt, mapBool, mapString);
+		ad.setCategoryID(0);
+		ad.setUserID((long)(0));
 		
 		return ad;
 	}
