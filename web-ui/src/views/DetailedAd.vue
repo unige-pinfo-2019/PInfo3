@@ -102,6 +102,11 @@ export default {
     // variables title, description, prix, images ci-dessus. Si il faut on peut
     // les renomer, faut juste les renomer dans la partie HTML ci-dessus.
     console.log('Need to do a request to: ' + this.id); // Cette ligne pour être supprimée une fois la requête implémentée
+    // retrieve ad
+    axios
+      .get('http://localhost:8081/classads')
+      .then(response => (this.ads = response));
+  
   }
 }
 </script>

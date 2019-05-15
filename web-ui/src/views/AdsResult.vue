@@ -42,7 +42,7 @@ export default {
     }
   },
   mounted: function () {
-    // retrieve list of categories
+    // retrieve list of ads
     axios
       .get('http://localhost:8081/classads')
       .then(response => (this.ads = response));
