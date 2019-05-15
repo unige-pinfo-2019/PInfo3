@@ -28,11 +28,18 @@
 
         <span class="field-title" > <h4>Images</h4> <hr> </span>
 
-        <!-- <span > -->
-        <div class="input">
+        <!-- <div class="custom-file">
+          <input type="file" class="custom-file-input" id="customFile">
+          <label class="custom-file-label" for="customFile">Choose file</label>
+        </div> -->
+        <div class="images-wrapper">
+          <div class="image-wrapper" v-for="image in images" v-bind:key="image.id">
+            <b-img v-bind:src="image" rounded width="100px" height="100px"></b-img>
+          </div>
           <b-button class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
+          <input type="file" class="invisible-file-input">
         </div>
-        <!-- </span> -->
+
 
         <span class="field-title" > <h4>Prix</h4> <hr> </span>
 
@@ -62,7 +69,7 @@
       </div>
 
       <div class="block submit-flex">
-        <b-button style="float: right;" v-on:click="submit" variant="primary">Soumettre</b-button>
+        <b-button style="float: right;"  v-on:click="submit" variant="primary">Soumettre</b-button>
       </div>
     </div>
   </div>
@@ -77,38 +84,40 @@ export default {
     return {
       title: '',
       description: '',
-      price: '', // float
-      categoryID: '',
+      price: 0.0, // float
+      categoryID: 0,
       categories: [
         { value: 1, text: 'Ordinateur' },
         { value: 2, text: 'Habits homme' },
         { value: 3, text: 'Habits femme' },
         { value: 4, text: 'Livres' },
-      ]
+      ],
+      images: []//["https://picsum.photos/600/300/?image=23", "https://picsum.photos/600/300/?image=24", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=26"]
     }
   },
   methods: {
     submit: function (event) {
        // `this` inside methods points to the Vue instance
        // Data
-       var data = new FormData();
-       data.append("title", this.title);
-       data.append("description", this.title);
-       data.append("price", this.price);
-       data.append("categories", this.categoryID);
+       var data = {"title" : this.title,
+                    "description": this.description,
+                    "price": this.price,
+                    "categoryID": this.categoryID,
+                    "userID":0};
 
 
           axios
-         .post('https://api.imgur.com/3/image',data)
+         .post('http://localhost:8081/classads',data)
          .then((response) => {
            // Success
-           this.$router.push('/ad/');
+           this.$router.push('/');
          })
          .catch(error => {
            alert('Request failed');
          });
 
      }
+
 
     // format(value, event) {
     //   console.log('[' + value + ']');
@@ -136,6 +145,28 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+.invisible-file-input {
+  display: none;
+}
+
+.images-wrapper {
+  // display: inline-block;
+  // float: left;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  // justify-content: flex-start;
+  // align-items: flex-start;
+  text-align: left;
+
+}
+
+.image-wrapper {
+  margin-right: 20px;
+  margin-bottom: 20px;
+  // width: 50%;
+}
 
 .container {
   display: flex;
@@ -189,14 +220,13 @@ h4 {
 
 .input {
   margin-bottom: 40px;
-
 }
 
 .new-photo {
-  float: left;
+  // float: left;
   width: 100px;
   height: 100px;
-  // margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .submit-flex {

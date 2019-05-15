@@ -14,6 +14,8 @@ public interface AdService {
 	
 	public List<Ad> getAll();
 	
+	public List<Ad> getAllByCategory(int cat);
+	
 	public Optional<Ad> getByTitle(String title);
 	
 	public Optional<Ad> getById(long id);

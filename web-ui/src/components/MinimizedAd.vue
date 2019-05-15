@@ -1,6 +1,8 @@
 <template>
   <div class="minimized-ad">
-    <b-card
+    <div class="clicker" v-on:click="alert('Clicked')">
+
+      <b-card v-if="title !== ''"
       v-bind:title="shortenedTitle"
       v-bind:img-src="imgUrl"
       img-alt="Image"
@@ -8,9 +10,9 @@
       tag="article"
       style="max-width: 20rem;"
       class="mb-2 card"
-    >
+      >
+      <a v-bind:href="'/ad/'+ id"></a>
       <b-card-text id="descr">
-        <!-- Some quick example text to build on the card title and make up the bulk of the card's content. -->
         {{ shortenedDescription }}
       </b-card-text>
 
@@ -20,8 +22,13 @@
         </b-card-text>
       </div>
 
-      <!-- <b-button href="#" variant="outline-primary">Go somewhere</b-button> -->
     </b-card>
+    </div>
+
+
+
+    <div v-if="title == ''" style="width: 20rem">
+    </div>
   </div>
 </template>
 
@@ -32,7 +39,8 @@ export default {
     imgUrl: String, //https://picsum.photos/600/300/?image=25
     title: String,
     description: String,
-    prix: String
+    prix: Number,
+    id: Number
   },
   data() {
     return {
@@ -43,10 +51,10 @@ export default {
   mounted() {
     this.shortenTitle();
     this.shortenDescription();
-  },
+   },
   methods: {
     shortenTitle() {
-      var max_length = 25;
+      var max_length = 50;
 
       if (this.title.length > max_length) {
         this.shortenedTitle = this.title.substring(0, max_length-1) + "...";
@@ -65,7 +73,10 @@ export default {
       else {
         this.shortenedDescription = this.description;
       }
-      console.log(this.description.length)
+      //console.log(this.description.length)
+    },
+    redirect() {
+      alert(3)
     }
   }
 }
@@ -73,10 +84,24 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.card-title {
+  height: 2.2em;
+}
+
 #descr {
   color: #666;
   text-align: justify;
   letter-spacing: -0.01em;
+  height: 120px;
 }
 
 #price {

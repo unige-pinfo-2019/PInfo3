@@ -4,7 +4,7 @@
 
       <div class="ad-rows">
         <div class="row-ad">
-          <div class="block">
+          <div class="block col-flex">
             <h1 class="title">{{this.title}}</h1>
 
             <div class="carousel-container">
@@ -58,7 +58,13 @@
 
           <p class="price">{{this.prix}} CHF</p>
         </div>
+
+        <div class="block button-container">
+          <b-button class="delete-btn" variant="danger"><font-awesome-icon class="icon" icon="trash-alt"/>Supprimer</b-button>
+          <b-button class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
         </div>
+        </div>
+
 
         <div class="row-user">
           <div class="block user-container">
@@ -75,9 +81,6 @@
           <b-button class="buy-button" variant='primary'>Acheter</b-button>
         </div>
       </div>
-
-
-
 
 
 
@@ -112,12 +115,55 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
+.icon {
+  margin-right: 0.5em;
+}
+
+.delete-btn {
+  float: right;
+}
+
+.edit-btn {
+  margin-right: 30px;
+  float: right;
+}
+
+.button-container {
+  padding: 20px;
+  display: inline;
+  // display: flex;
+  // flex-direction: row;
+  // justify-content: flex-end;
+  // align-items: center;
+}
+
+.col-flex  {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+}
+
+.block {
+  width: 100%;
+  // max-width: 800px;
+  background: white;
+  // min-height: 100px;
+  border-radius: 3px;
+  border: 1px solid lightgrey;
+  // padding: 20px 20px 20px 20px;
+  margin-bottom: 30px;
+
+}
+
 .ad-rows {
   display: flex;
 }
 
 .row-ad {
   // flex-basis: 80%;
+  display: flex;
+  flex-direction: column;
 }
 
 .row-user {
@@ -135,20 +181,6 @@ export default {
   margin-top: 50px;
 }
 
-.block {
-  width: 100%;
-  // max-width: 800px;
-  background: white;
-  min-height: 100px;
-  border-radius: 3px;
-  border: 1px solid lightgrey;
-  // padding: 20px 20px 20px 20px;
-  margin-bottom: 30px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
 
 h1 {
   margin-bottom: 20px;

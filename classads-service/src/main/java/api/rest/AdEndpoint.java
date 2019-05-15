@@ -32,15 +32,15 @@ import lombok.extern.slf4j.Slf4j;
 public class AdEndpoint {
 	@Inject
 	private AdService adservice;
-	
+
 	@Inject
 	private AdProducer adProducer;
-	
+
 	public void setAdService(AdService cs) {
 		adservice = cs;
 	}
-	
-	
+
+
 	/* Get all classads */
 	@GET
 	@Path("/")
@@ -49,7 +49,7 @@ public class AdEndpoint {
 		//We get the ads back in a list
 		return adservice.getJsonListAds(adservice.getAll()).toString();
 	}
-	
+
 	@GET
 	@Path("/ads/ad/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -59,8 +59,15 @@ public class AdEndpoint {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't extract the ad, the id may not exist").build();
 		}
 		return Response.ok(adservice.createJsonRepresentation(ad.get()).toString()).build();
+
+
+	@GET
+	@Path("/categories/{cID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAllByCategory(@PathParam("cID") int cid) {
+		return adservice.getJsonListAds(adservice.getAllByCategory(cid)).toString();
 	}
-	
+
 	/* Add a new ad in the DB */
 	@POST
 	@Path("/")
@@ -76,7 +83,7 @@ public class AdEndpoint {
 		} else {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't create ad, please check your parameters").build();
 		}
-		
+
 	}
 
 	/* Delete an ad according to its ID */
@@ -104,8 +111,8 @@ public class AdEndpoint {
 			}
 		}
 
-		
+
 	}
-	
-	
+
+
 }
