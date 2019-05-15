@@ -6,7 +6,7 @@
     </div>
     <div class="results-wrapper">
       <template v-if="ads !=null">
-        <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="30" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
+        <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="ad.id" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
         <!-- <MiniAd class="mini-ad" title="" prix="0" :id="30" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" description="blankone"/>
         <MiniAd class="mini-ad" title="" prix="0" :id="30" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" description="blankone"/> -->
       </template>
