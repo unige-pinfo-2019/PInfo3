@@ -8,7 +8,7 @@
       </div>
       <hr>
       <div v-for="cat in categories.data" v-bind:key="cat.name">
-        <TreeMenu :label="cat.name" :nodes="cat.children"></TreeMenu>
+        <TreeMenu :label="cat.name" :nodes="cat.children" :depth="0"></TreeMenu>
       </div>
 
       <!-- <span class="category">Ordinateur</span>

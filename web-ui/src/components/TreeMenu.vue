@@ -3,7 +3,7 @@
     <div class="label-wrapper" @click="toggleChildren">
       <div :style="indent" :class="labelClasses">
         <i v-if="nodes"></i>
-        <span> {{ label }} </span>
+      {{ label }}
       </div>
     </div>
     <TreeMenu
@@ -21,7 +21,7 @@
 
 <style>
 
-.Tree {
+.TreeMenu {
   .label-wrapper {
     padding-bottom: 10px;
     margin-bottom: 10px;
@@ -49,7 +49,7 @@
       return { 'has-children': this.nodes }
     },
     indent() {
-      return { transform: `translate(${this.depth * 50}px)` }
+      return { transform: `translate(${this.depth * 25}px)` }
     }
   },
   methods: {
