@@ -1,11 +1,16 @@
 <template>
   <div class="results">
+
     <div class="search-bar-wrapper">
-      <Searchbar/>
+      <Searchbar v-on:clicked="onClickSearch"/>
     </div>
-    <template v-if="ads !=null">
-    <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/> -->
-    </template>
+    <div class="results-wrapper">
+      <template v-if="ads !=null">
+        <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="ad.id" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
+        <!-- <MiniAd class="mini-ad" title="" prix="0" :id="30" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" description="blankone"/>
+        <MiniAd class="mini-ad" title="" prix="0" :id="30" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" description="blankone"/> -->
+      </template>
+    </div>
 
   </div>
 </template>
@@ -24,15 +29,38 @@ export default {
     Searchbar
   },
   data() {
-  return {
-    ads : null
-  }
+    return {
+      ads : null,
+      query: null
+    }
+  },
+  methods: {
+    onClickSearch (value) {
+      this.query=value;
+      axios
+        .get('http://localhost:8084/search?request=' + this.query)
+        .then(response => (this.ads = response));
+      this.$forceUpdate();
+    }
   },
   mounted: function () {
     // retrieve list of categories
     axios
       .get('http://localhost:8081/classads')
-      .then(response => (this.ads = response))
-  },
+      .then(response => (this.ads = response));
+  }
 }
 </script>
+
+<style lang="scss" scoped>
+.mini-ad {
+  margin-right: auto;
+}
+
+.results-wrapper {
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-between;
+  flex-wrap: wrap;
+}
+</style>

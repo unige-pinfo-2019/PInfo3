@@ -1,6 +1,6 @@
 <template>
   <div class="left-menu">
-    <b-button class="new" variant="primary" to="/newad">Nouvelle annonce</b-button>
+    <b-button block class="new" variant="primary" to="/newad"><font-awesome-icon icon="plus"/><span class="new-label">Nouvelle annonce</span></b-button>
 
     <div class="categories">
       <div class="title">
@@ -38,13 +38,23 @@ export default {
 }
 
 .new {
+  font-size: 1.2em;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+
   // -webkit-appearance: none;
   // background: #862d86;
   // color: white;
   // border: 1px solid gray;
-  margin: 30px 5px;
+  margin: 50px 5px;
   height: 100%;
   align-self: center;
+  flex-basis: 50px;
+
+  // vertical-align: middle;
 }
 
 .categories {
@@ -65,6 +75,10 @@ export default {
 
 .category {
   padding: 2px 0px;
+}
+
+.category:hover {
+  color: $primary-color;
 }
 
 hr {
