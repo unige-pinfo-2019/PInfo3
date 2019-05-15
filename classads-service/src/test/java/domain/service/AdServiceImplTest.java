@@ -40,13 +40,13 @@ public class AdServiceImplTest {
 	private String title = "Charger iPhone";
 	private String description = "Works with Android (not a joke)";
 	private float price = (float) 120;
-	private Ad adExample = new Ad(title, description, price, 0, 0);
+	private Ad adExample = new Ad(title, description, price, 0, 0, new ArrayList<String>());
 
 	
 	@Test
 	public void testCreateAd() {
 		//We create an ad
-		Ad ad = new Ad("Any title", "Any description", (float) 12.50, 0, 0);
+		Ad ad = new Ad("Any title", "Any description", (float) 12.50, 0, 0, new ArrayList<String>());
 		
 		//At the beginning, the DB is empty but we get its size and we insert the ad
 		int tailleInitiale = as.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
@@ -86,7 +86,7 @@ public class AdServiceImplTest {
 		
 		//We create some ads and add them in the DB
 		for (int i=0; i<5; i++) {
-			as.createAd(new Ad("Title"+i, "Description"+i, (float)i*10, 0, 0));
+			as.createAd(new Ad("Title"+i, "Description"+i, (float)i*10, 0, 0, new ArrayList<String>()));
 		}
 		
 		//We extract the ads
@@ -137,7 +137,7 @@ public class AdServiceImplTest {
 	public void testDeleteClassAd() {
 		//We create some ads and add them in the DB
 		for (int i=0; i<5; i++) {
-			as.createAd(new Ad("Title"+i, "Description"+i, (float)i*10, 0, 0));
+			as.createAd(new Ad("Title"+i, "Description"+i, (float)i*10, 0, 0, new ArrayList<String>()));
 		}
 		as.createAd(adExample);
 		as.deleteAd(adExample);
@@ -157,8 +157,8 @@ public class AdServiceImplTest {
 		
 		//First, we create 2 ads
 		
-		Ad ad1 = new Ad("Livre de Maupassant", "Livre utilisé au collège pour un cours de français", 10, 0, 0);
-		Ad ad2 = new Ad("Vélo bleu", "VTT de mon frere devenu trop petit pour lui", 100, 0, 0);
+		Ad ad1 = new Ad("Livre de Maupassant", "Livre utilisé au collège pour un cours de français", 10, 0, 0, new ArrayList<String>());
+		Ad ad2 = new Ad("Vélo bleu", "VTT de mon frere devenu trop petit pour lui", 100, 0, 0, new ArrayList<String>());
 		
 		//Then, we create a list
 		List<Ad> ads = new ArrayList<Ad>();
@@ -201,6 +201,7 @@ public class AdServiceImplTest {
 		json.addProperty(Ad.getTitleField(), "Any title");
 		json.addProperty(Ad.getPriceField(), 10);
 		json.addProperty(Ad.getUserIDField(), 0);
+		json.add(Ad.getImageField(), new JsonArray());
 		ad = as.createAdFromJson(json);
 		Assertions.assertEquals(null, ad);
 		
@@ -212,6 +213,7 @@ public class AdServiceImplTest {
 		json.addProperty(Ad.getDescriptionField(), "Interessing book");
 		json.addProperty(Ad.getPriceField(), 20);
 		json.addProperty(Ad.getUserIDField(), 0);
+		json.add(Ad.getImageField(), new JsonArray());
 		ad = as.createAdFromJson(json);
 		Assertions.assertNotEquals(null, ad);
 		Assertions.assertEquals(ad.getClass(), adExample.getClass());

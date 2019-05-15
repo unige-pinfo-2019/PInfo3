@@ -7,7 +7,8 @@ Get the list of all ads (in json format)
 
  ```
  [
-  {"0" : {"title" : String,
+  {"0" : {"id" : Integer,
+          "title" : String,
           "description" : String,
           "price" : Float,
           "categoryID" : Integer,
@@ -25,17 +26,21 @@ Post an ad (in json format)
  "description" : String,
  "price" : Float,
  "categoryID" : Integer,
- "userID" : Integer
+ "userID" : Integer,
+ "images" : [String, String, ...]
 }
 ```
 
 Delete an ad (with the id)
-`DELETE http://host:port/classads`
+`DELETE http://host:port/classads/ads/ad/{id}`
 
 ## Search
 
 Search ads from a request
-`GET http://host:port/search?resquest="<request>"` returns a list of ads like getAll.
+`GET http://host:port/search?request="<request>"` returns a list of ads like getAll.
+
+Delete ads in elasticsearch data (not be used in frontend, just for development purpose)
+`DELETE http://host:port/search/{toId}` will delete ads from id=0 to id=toId.
 
 ## Categories
 
