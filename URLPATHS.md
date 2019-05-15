@@ -12,7 +12,8 @@ Get the list of all ads (in json format)
           "description" : String,
           "price" : Float,
           "categoryID" : Integer,
-          "userID" : Integer}},
+          "userID" : Integer,
+          "images" : [String, String, ...]}},
   {"1" : {...}},
 ]
  ```
