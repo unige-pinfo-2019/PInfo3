@@ -30,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 @Path("/classads")
 @Slf4j
 public class AdEndpoint {
+	
 	@Inject
 	private AdService adservice;
 
