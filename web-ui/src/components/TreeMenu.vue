@@ -9,8 +9,8 @@
     <TreeMenu
       v-if="showChildren"
       v-for="node in nodes"
-      :nodes="node.nodes"
-      :label="node.label"
+      :nodes="node.children"
+      :label="node.name"
       :depth="depth + 1"
     >
   </TreeMenu>

@@ -7,7 +7,6 @@
         CATÉGORIES
       </div>
       <hr>
-      {{categories}}
       <div v-for="cat in categories.data">
         <TreeMenu :label="cat.name" :nodes="cat.children"></TreeMenu>
       </div>
@@ -40,30 +39,6 @@ export default {
   },
   data() {
     return {
-        tree : {
-          label: 'Electronique',
-          nodes: [
-            {
-              label: 'Ordinateurs',
-              nodes: [
-                {
-                  label: 'Fixe'
-                },
-                {
-                  label: 'Laptop',
-                  nodes: [
-                    {
-                      label: 'Apple'
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              label: 'Consoles'
-            }
-          ]
-  },
       categories: null
     }
   },
