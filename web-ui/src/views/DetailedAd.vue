@@ -16,12 +16,8 @@
               background="#ababab"
               style="text-shadow: 1px 1px 2px #333;"
               >
-              <!-- Text slides with image -->
-              <!-- <b-carousel-slide
-              caption="First slide"
-              text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-              img-src="https://picsum.photos/480/1024/?image=52"
-              ></b-carousel-slide> -->
+
+              <!-- If no images in the ad, we display the default 'no image' picture-->
               <b-carousel-slide v-if="images.length < 1">
                 <img
                   slot="img"
@@ -32,6 +28,7 @@
                 >
               </b-carousel-slide>
 
+              <!-- Displays all images of the ad in a carousel -->
               <b-carousel-slide v-for="image in images" v-bind:key="image">
                 <img
                   slot="img"
@@ -42,15 +39,7 @@
                 >
               </b-carousel-slide>
 
-              <!-- <b-carousel-slide>
-                <img
-                  slot="img"
-                  class="d-block img-fluid w-100"
-                  src="https://picsum.photos/1024/480/?image=55"
-                  alt="image slot"
-                  style="object-fit: contain; height: 400px;"
-                >
-              </b-carousel-slide> -->
+
             </b-carousel>
           </div>
 
@@ -59,9 +48,12 @@
           <p class="price">{{this.prix}} CHF</p>
         </div>
 
+        <!-- Delete and edit buttons -->
         <div class="block button-container">
-          <b-button class="delete-btn" variant="danger"><font-awesome-icon class="icon" icon="trash-alt"/>Supprimer</b-button>
+          <b-button v-b-modal.you-sure class="delete-btn" variant="danger"><font-awesome-icon class="icon" icon="trash-alt"/>Supprimer</b-button>
           <b-button class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
+
+          <b-modal id="you-sure">Êtes-vous sûr de vouloir supprimer l'annonce? Cette opération n'est pas réversible.</b-modal>
         </div>
         </div>
 
@@ -112,7 +104,7 @@ export default {
     axios
       .get('http://localhost:8081/classads')
       .then(response => (this.ads = response));
-  
+
   }
 }
 </script>
