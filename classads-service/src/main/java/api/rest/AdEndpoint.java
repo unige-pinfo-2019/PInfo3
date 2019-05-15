@@ -59,6 +59,8 @@ public class AdEndpoint {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't extract the ad, the id may not exist").build();
 		}
 		return Response.ok(adservice.createJsonRepresentation(ad.get()).toString()).build();
+		
+	}
 
 
 	@GET
