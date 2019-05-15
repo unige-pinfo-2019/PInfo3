@@ -1,9 +1,10 @@
 sudo: required
 dist: trusty
 
-matrix:
+jobs:
   include:
-    - language: java
+    - stage: build
+      language: java
       jdk: openjdk11
       addons:
         sonarcloud:
@@ -11,9 +12,9 @@ matrix:
       script:
         - mvn clean package
         - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo3 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=b89cca69d31bf42b2d5c4ec913c8ae8f1f84f450
-
-
-    - language: java
+      
+    - stage: build
+      language: java
       jdk: openjdk11
       services:
         - docker
@@ -25,9 +26,9 @@ matrix:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/search-service:latest
-
-
-    - language: java
+      
+    - stage: build
+      language: java
       jdk: openjdk11
       services:
         - docker
@@ -39,9 +40,9 @@ matrix:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/classads-service:latest
-
-
-    - language: java
+      
+    - stage: build
+      language: java
       jdk: openjdk11
       services:
         - docker
@@ -53,23 +54,23 @@ matrix:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/user-service:latest
-
-    # - language: java
-    #     jdk: openjdk11
-    #     before_script:
-    #       - cd classadsresponse-service
-    #     script:
-    #       - mvn clean package
-    #
-    # - language: java
-    #     jdk: openjdk11
-    #     before_script:
-    #       - cd statistic-service
-    #     script:
-    #       - mvn clean package
-
-
-    - language: minimal
+      
+      # - language: java
+      #     jdk: openjdk11
+      #     before_script:
+      #       - cd classadsresponse-service
+      #     script:
+      #       - mvn clean package
+      #
+      # - language: java
+      #     jdk: openjdk11
+      #     before_script:
+      #       - cd statistic-service
+      #     script:
+      #       - mvn clean package
+      
+    - stage: build
+      language: minimal
       services:
         - docker
       before_script:
@@ -79,9 +80,9 @@ matrix:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/api-gateway:latest
-
-
-    - language: node_js
+      
+    - stage: build
+      language: node_js
       node_js:
         - "11"
       services:
@@ -96,3 +97,17 @@ matrix:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/web-ui:latest
+    - stage: deploy
+      language: minimal
+      addons:
+        ssh_known_hosts:
+          - pinfo3.unige.ch
+      script:
+        - ssh "$SSH_USER" -p "$SSH_PASS"
+        - curl -o docker-compose-api-gw.yml https://raw.githubusercontent.com/unige-pinfo-2019/PInfo3/master/docker-compose/docker-compose-api-gw.yml
+        - curl -o docker-compose-unitrade.yml https://raw.githubusercontent.com/unige-pinfo-2019/PInfo3/master/docker-compose/docker-compose-unitrade.yml
+        - docker-compose -f docker-compose-unitrade.yml pull
+        - docker-compose -f docker-compose-api-gw.yml pull
+        - docker-compose -f docker-compose-unitrade.yml up -d
+        - docker-compose -f docker-compose-api-gw.yml up -d
+        - exit

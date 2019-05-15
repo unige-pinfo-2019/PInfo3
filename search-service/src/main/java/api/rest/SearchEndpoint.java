@@ -2,15 +2,16 @@ package api.rest;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 
-import domain.model.Ad;
 import domain.service.SearchService;
 
 @ApplicationScoped
@@ -28,18 +29,18 @@ public class SearchEndpoint {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getRequest(@QueryParam("request") String request) {
-		return searchService.searchResquet(request).toString();
+		JsonArray json = searchService.searchRequest(request);
+		if (json != null)
+			return json.toString();
+		return "[]";
 	}
 	
-	@GET
-	@Path("/ad")
-	@Produces(MediaType.APPLICATION_JSON)
-	public String getAdById(@QueryParam("id") Long id) {
-		Ad ad = searchService.getAdById(Long.toString(id));
-		JsonObject json = new JsonObject();
-		json.addProperty("title", ad.getTitle());
-		json.addProperty("description", ad.getDescription());
-		return json.toString();
+	@DELETE
+	@Path("/{toId}")
+	public void deleteAds(@PathParam("toId") long toId) {
+		for (long id=0; id<toId; id++) {
+			searchService.deleteAdById(Long.toString(id));
+		}
 	}
 
 

@@ -1,5 +1,7 @@
 package domain.model;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -11,6 +13,7 @@ public class Ad {
 	private static String idField = "id";
 	private static String userIDField = "userID";
 	private static String categoryIDField = "categoryID";
+	private static String imageField = "images";
 
 	private long id;
 
@@ -23,6 +26,9 @@ public class Ad {
 	private long userID;
 
 	private int categoryID;
+	
+
+	private List<String> images;
 
 	public static String getTitleField() {
 		return titleField;
@@ -46,5 +52,9 @@ public class Ad {
 
 	public static String getCategoryIDField() {
 		return categoryIDField;
+	}
+	
+	public static String getImageField() {
+		return imageField;
 	}
 }
