@@ -3,8 +3,9 @@ package domain.model;
 import java.util.List;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data
+@Data @NoArgsConstructor
 public class Ad {
 
 	private static String titleField = "title";
@@ -26,6 +27,16 @@ public class Ad {
 	private long userID;
 
 	private int categoryID;
+	
+	public Ad(long id, String title, String description, float price, long userID, int categoryID, List<String> images) {
+		this.title = title;
+		this.description = description;
+		this.price = price;
+		this.userID = userID;
+		this.categoryID = categoryID;
+		this.images = images;
+		
+	}
 	
 
 	private List<String> images;
