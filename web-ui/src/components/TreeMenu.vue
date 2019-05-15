@@ -1,10 +1,10 @@
 <template>
   <div class="TreeMenu">
     <div class="label-wrapper" @click="toggleChildren">
-      <div :style="indent" :class="labelClasses">
-        <i v-if="nodes"></i>
-      {{ label }}
+      <div :style="indent">
+        {{ label }}
       </div>
+
     </div>
     <TreeMenu
       v-if="showChildren"
@@ -45,9 +45,6 @@
        }
     },
     computed: {
-    labelClasses() {
-      return { 'has-children': this.nodes }
-    },
     indent() {
       return { transform: `translate(${this.depth * 25}px)` }
     }

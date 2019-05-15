@@ -4,6 +4,7 @@
     <div class="search-bar-wrapper">
       <Searchbar v-on:clicked="onClickSearch"/>
     </div>
+    {{id}}
     <div class="results-wrapper">
       <template v-if="ads !=null">
         <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="ad.id" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
@@ -28,6 +29,12 @@ export default {
     MiniAd,
     Searchbar
   },
+  props: {
+    id:{
+      type:String,
+      required:false
+    }
+  },
   data() {
     return {
       ads : null,
@@ -44,10 +51,15 @@ export default {
     }
   },
   mounted: function () {
-    // retrieve list of ads
-    axios
-      .get('http://localhost:8081/classads')
-      .then(response => (this.ads = response));
+    if (this.id) {
+      
+    }
+    else {
+      // retrieve list of ads
+      axios
+        .get('http://localhost:8081/classads')
+        .then(response => (this.ads = response));
+    }
   }
 }
 </script>
