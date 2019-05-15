@@ -36,8 +36,11 @@
           <div class="image-wrapper" v-for="image in images" v-bind:key="image.id">
             <b-img v-bind:src="image" rounded width="100px" height="100px"></b-img>
           </div>
-          <b-button class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
-          <input type="file" class="invisible-file-input">
+          <b-button onclick="document.getElementById('hidden-file-input').click()" class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
+
+          <!-- Cet input dessous est cliqué automatiquement lorsque le "vrai"
+          bouton visible est cliqué. -->
+          <input id="hidden-file-input" type="file" class="invisible-file-input">
         </div>
 
 
