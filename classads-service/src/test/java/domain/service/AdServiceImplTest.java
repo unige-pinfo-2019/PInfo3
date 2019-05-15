@@ -233,4 +233,19 @@ public class AdServiceImplTest {
 	
 	}
 	
+	@Test
+	public void testGetAllByCategory() {
+		//We create some ads and add them in the DB
+		for (int i=1; i<6; i++) {
+			as.createAd(new Ad("Title"+i+5, "Description"+i+5, (float)(1+i*0.1), 0, (i%2), new ArrayList<String>()));
+		}
+		
+		List<Ad> l1 = as.getAllByCategory(0);
+		List<Ad> l2 = as.getAllByCategory(1);
+		
+		Assertions.assertEquals(l1.size(), 2);
+		Assertions.assertEquals(l2.size(), 3);
+		
+	}
+	
 }
