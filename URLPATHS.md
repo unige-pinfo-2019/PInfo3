@@ -26,7 +26,7 @@ Post an ad (in json format)
  "description" : String,
  "price" : Float,
  "categoryID" : Integer,
- "userID" : Integer
+ "userID" : Integer,
  "images" : JsonArray
 }
 ```
