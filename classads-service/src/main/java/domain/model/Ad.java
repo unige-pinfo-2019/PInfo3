@@ -66,7 +66,7 @@ public class Ad implements Serializable{
 	/***** Constructors *****/
 	public Ad() {}
 	
-	public Ad(String title, String description, float price, long userID, int categoryID, ArrayList<String> images) {
+	public Ad(String title, String description, float price, long userID, int categoryID, List<String> images) {
 		this.title = title;
 		this.description = description;
 		this.price = price;
@@ -87,10 +87,10 @@ public class Ad implements Serializable{
 	}
 	
 	
-	public void setImagesFromJson(JsonArray J_array) {
-		images= new ArrayList<String>();
-		for(int i = 0; i < J_array.size(); i++){
-		    images.add(J_array.get(i).getAsString());
+	public void setImagesFromJson(JsonArray jsonArray) {
+		images= new ArrayList<>();
+		for(int i = 0; i < jsonArray.size(); i++){
+		    images.add(jsonArray.get(i).getAsString());
 		}	
 	}
 

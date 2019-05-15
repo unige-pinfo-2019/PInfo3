@@ -40,8 +40,16 @@ public class AdServiceImplTest {
 	private String title = "Charger iPhone";
 	private String description = "Works with Android (not a joke)";
 	private float price = (float) 120;
-	private Ad adExample = new Ad(title, description, price, 0, 0, new ArrayList<String>());
-
+	private int categoryID = 1;
+	private int userID = 100;
+	private ArrayList<String> images = new ArrayList<String>() {
+		private static final long serialVersionUID = -273727299296242150L;
+	{
+		add("Image1");
+		add("Image2");
+		add("Image3");
+	}};
+	private Ad adExample = new Ad(title, description, price, userID, categoryID, images);
 	
 	@Test
 	public void testCreateAd() {
@@ -72,12 +80,16 @@ public class AdServiceImplTest {
 		Ad adInDB = as.getEm().createQuery(query, Ad.class).getResultList().get(size-1);
 
 		//And, we check if it has the same values
-		if (adInDB.getTitle() != title) {
-			fail("Title is different in the DB");
-		} else if (adInDB.getDescription() != description) {
-			fail("Description is different in the DB");
-		} else if (adInDB.getPrice() != price) {
-			fail("Price is different in the DB");
+		Assertions.assertEquals(title, adInDB.getTitle());
+		Assertions.assertEquals(price, adInDB.getPrice());
+		Assertions.assertEquals(description, adInDB.getDescription());
+		Assertions.assertEquals(categoryID, adInDB.getCategoryID());
+		Assertions.assertEquals(userID, adInDB.getUserID());
+		
+		List<String> imgs = adInDB.getImages();
+		Assertions.assertEquals(images.size(), imgs.size());
+		for (int i=0; i<imgs.size(); i++) {
+			Assertions.assertEquals(images.get(i), imgs.get(i));
 		}
 	}
 	
