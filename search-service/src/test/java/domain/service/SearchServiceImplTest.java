@@ -1,5 +1,6 @@
 package domain.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.HttpHost;
@@ -16,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.github.smitajit.elasticsearch.rest.mock.ESRestMockCore;
 import com.github.smitajit.elasticsearch.rest.mock.runner.ESRestMockRunner;
+import com.google.gson.JsonArray;
 
 import domain.model.Ad;
 
@@ -77,15 +79,51 @@ public class SearchServiceImplTest {
 	@Test 
 	public void buildAdTest() {
 		Ad ad = getDefaultAd();
-		Map<String, Object> dataMap = searchService.buildMapFromAd(ad);
-		Ad newAd = searchService.buildAdFromMap(dataMap);
+		Ad newAd;
+		
+		
 		
 		//Testing mandatory fields
+		Map<String, Object> dataMap = searchService.buildMapFromAd(ad);
+		newAd = searchService.buildAdFromMap(dataMap);
 		Assertions.assertEquals(ad.getTitle(), newAd.getTitle());
 		Assertions.assertEquals(ad.getDescription(), newAd.getDescription());
 		Assertions.assertEquals(ad.getPrice(), newAd.getPrice());
 		Assertions.assertEquals(ad.getId(), newAd.getId());
 		
+		//Chacking if no bugs
+		//Testing if it returns an empty ad if mapData is null
+		try {
+			newAd = searchService.buildAdFromMap(null);
+			Assertions.assertEquals(new Ad(), newAd);
+		} catch (Exception e) {
+			Assertions.fail("buildAd doesn't work with a null map");
+		}
+		
+		
+		//Testing if it returns an empty ad if mapData is empty
+		try {
+			newAd = searchService.buildAdFromMap(new HashMap<String, Object>());
+			Assertions.assertEquals(new Ad(), newAd);
+		} catch (Exception e) {
+			Assertions.fail("buildAd doesn't work with an empty map");
+		}
+		
+	}
+	
+	@Test
+	public void transformJsonTest() {
+		String strToParse1 = "{\"a\": \"A\"}";
+		String strToParse2 = "{\"b\": \"B\"}";
+		String strToParse3 = "{\"c\": \"C\"}";
+		JsonArray json = new JsonArray();
+		json.add(strToParse1); json.add(strToParse2); json.add(strToParse3);
+		
+		
+		JsonArray newJson = searchService.transformJson(json);
+		Assertions.assertEquals("A", newJson.get(0).getAsJsonObject().get("a").getAsString());
+		Assertions.assertEquals("B", newJson.get(1).getAsJsonObject().get("b").getAsString());
+		Assertions.assertEquals("C", newJson.get(2).getAsJsonObject().get("c").getAsString());
 	}
 	
 	@Test
@@ -168,7 +206,7 @@ public class SearchServiceImplTest {
 				.build();
 		
 		try {
-			searchService.searchResquet(request);
+			searchService.searchRequest(request);
 		} catch (Exception e) {
 			Assertions.fail("Exception thrown : "+e.getMessage());
 		}

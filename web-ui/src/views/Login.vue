@@ -30,7 +30,7 @@
       <b-form-input size="lg" placeholder="Nom d'utilisateur" class="username" v-model="username"></b-form-input>
       <b-form-input size="lg" placeholder="Mot de passe" class="password" v-model="password"></b-form-input>
     </div>
-    <b-button variant="primary">Se connecter</b-button>
+    <b-button size="lg" variant="primary">Se connecter</b-button>
   </div>
 
 

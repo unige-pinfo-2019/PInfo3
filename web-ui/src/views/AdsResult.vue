@@ -6,7 +6,9 @@
     </div>
     <div class="results-wrapper">
       <template v-if="ads !=null">
-        <MiniAd v-for="ad in ads.data" :title="ad.title" :prix="ad.price" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
+        <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="30" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
+        <!-- <MiniAd class="mini-ad" title="" prix="0" :id="30" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" description="blankone"/>
+        <MiniAd class="mini-ad" title="" prix="0" :id="30" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" description="blankone"/> -->
       </template>
     </div>
 
@@ -51,10 +53,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.mini-ad {
+  margin-right: auto;
+}
+
 .results-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  // justify-content: space-between;
   flex-wrap: wrap;
 }
 </style>

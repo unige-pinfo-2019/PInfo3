@@ -87,9 +87,9 @@ public class SearchServiceImpl implements SearchService {
 	    try {
 	        getResponse = client.get(getRequest, RequestOptions.DEFAULT);
 	    } catch (ElasticsearchException e) {
-					log.error(e.getDetailedMessage());
-					return null;
-			} catch (java.io.IOException e){
+			log.error(e.getDetailedMessage());
+			return null;
+		} catch (java.io.IOException e){
 	        log.error(e.getMessage());
 	    }
 	    Ad ad = null;
@@ -107,7 +107,9 @@ public class SearchServiceImpl implements SearchService {
 	    DeleteRequest deleteRequest = new DeleteRequest(index, id);
 	    try {
 	    	client.delete(deleteRequest, RequestOptions.DEFAULT);
-	    } catch (java.io.IOException e){
+	    } catch (ElasticsearchException e) {
+			log.error(e.getDetailedMessage());
+		} catch (java.io.IOException e){
 	        log.error(e.getMessage());
 	    } finally {
 	    	log.info("Succefully delete the ad with id : "+id);
@@ -115,7 +117,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/***** Search methods *****/
-	public JsonArray searchResquet(String request) {
+	public JsonArray searchRequest(String request) {
 		//Request without arguments to run for all indices
 		SearchRequest searchRequest = new SearchRequest();
 
@@ -163,7 +165,7 @@ public class SearchServiceImpl implements SearchService {
 	}
 
 	/****** Manipulation *****/
-	private JsonArray transformJson(JsonArray json) {
+	JsonArray transformJson(JsonArray json) {
 		JsonArray array = new JsonArray();
 		JsonParser parser = new JsonParser();
 		for (JsonElement elt : json) {

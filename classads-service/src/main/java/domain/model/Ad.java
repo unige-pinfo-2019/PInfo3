@@ -1,13 +1,21 @@
 package domain.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.google.gson.JsonArray;
 
 import lombok.Data;
 
@@ -27,6 +35,7 @@ public class Ad implements Serializable{
 	private static String idField = "id";
 	private static String userIDField = "userID";
 	private static String categoryIDField = "categoryID";
+	private static String imageField = "images";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -47,16 +56,24 @@ public class Ad implements Serializable{
 
 	@Column(name="CATEGORY_ID")
 	private int categoryID;
+	
+
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "images_string_id", joinColumns = @JoinColumn(name = "Ad_id"))
+    @Column(name = "images")
+	private List<String> images;
 
 	/***** Constructors *****/
 	public Ad() {}
 	
-	public Ad(String title, String description, float price, long userID, int categoryID) {
+	public Ad(String title, String description, float price, long userID, int categoryID, ArrayList<String> images) {
 		this.title = title;
 		this.description = description;
 		this.price = price;
 		this.userID = userID;
 		this.categoryID = categoryID;
+		this.images = images;
+		
 	}
 	
 	/***** Utility methods *****/
@@ -67,6 +84,14 @@ public class Ad implements Serializable{
 		res += "Title : " + newLine + "Description : " + description + newLine + "Prix : " + price + newLine;
 		res += "Category ID : " + categoryID + newLine;
 		return res;
+	}
+	
+	
+	public void setImagesFromJson(JsonArray J_array) {
+		images= new ArrayList<String>();
+		for(int i = 0; i < J_array.size(); i++){
+		    images.add(J_array.get(i).getAsString());
+		}	
 	}
 
 	/***** Getters and setters *****/
@@ -88,6 +113,10 @@ public class Ad implements Serializable{
 
 	public static String getCategoryIDField() {
 		return categoryIDField;
+	}
+	
+	public static String getImageField() {
+		return imageField;
 	}
 
 	public static String getIdField() {

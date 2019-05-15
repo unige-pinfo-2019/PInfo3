@@ -7,6 +7,7 @@
         CATÉGORIES
       </div>
       <hr>
+      {{categories}}
       <div v-for="cat in categories.data">
         <TreeMenu :label="cat.name" :nodes="cat.children"></TreeMenu>
       </div>
