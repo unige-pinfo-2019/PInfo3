@@ -243,8 +243,8 @@ public class AdServiceImplTest {
 		List<Ad> l1 = as.getAllByCategory(0);
 		List<Ad> l2 = as.getAllByCategory(1);
 		
-		Assertions.assertEquals(l1.size(), 2);
-		Assertions.assertEquals(l2.size(), 3);
+		Assertions.assertEquals(2, l1.size());
+		Assertions.assertEquals(3, l2.size());
 		
 	}
 	
