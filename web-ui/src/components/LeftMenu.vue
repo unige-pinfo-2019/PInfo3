@@ -8,7 +8,7 @@
       </div>
       <hr>
       <div v-for="cat in categories.data" v-bind:key="cat.name">
-        <TreeMenu :label="cat.name" :nodes="cat.children" :depth="0"></TreeMenu>
+        <TreeMenu :label="cat.name" :nodes="cat.children" :depth="0" :ids="catIds"></TreeMenu>
       </div>
 
       <!-- <span class="category">Ordinateur</span>
@@ -39,7 +39,8 @@ export default {
   },
   data() {
     return {
-      categories: null
+      categories: null,
+      catIds: null
     }
   },
   mounted: function () {
@@ -47,6 +48,11 @@ export default {
     axios
       .get('http://localhost:8081/categories/treeview')
       .then(response => (this.categories = response));
+
+  // retrieve catIds
+    axios
+      .get('http://localhost:8081/categories/index')
+      .then(response => (this.catIds = response));
 
   }
 }

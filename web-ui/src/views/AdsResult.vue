@@ -4,12 +4,11 @@
     <div class="search-bar-wrapper">
       <Searchbar v-on:clicked="onClickSearch"/>
     </div>
-    {{id}}
     <div class="results-wrapper">
       <template v-if="ads !=null">
         <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="ad.id" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
 
-        <MiniAd class="mini-ad" v-for="index in requiredEmpty" :key="index" title="" prix="0" :id="0" imgUrl="" description="blank"/>
+        <!-- <MiniAd class="mini-ad" v-for="index in requiredEmpty" :key="index" title="" prix=0 :id="0" imgUrl="" description="blank"/> -->
       </template>
     </div>
 
@@ -49,17 +48,29 @@ export default {
         .get('http://localhost:8084/search?request=' + this.query)
         .then(response => (this.ads = response));
       this.$forceUpdate();
+    },
+    update () {
+      // retrieve list of ads
+      axios
+        .get('http://localhost:8081/classads/categories/' + this.id)
+        .then(response => (this.ads = response));
     }
   },
+  updated: function() {
+    this.update();
+  },
+
   mounted: function () {
     if (this.id) {
-      
+      this.update();
     }
     else {
       // retrieve list of ads
       axios
         .get('http://localhost:8081/classads')
         .then(response => (this.ads = response));
+        this.$forceUpdate();
+
     }
   }
 }

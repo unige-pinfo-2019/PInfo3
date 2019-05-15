@@ -103,7 +103,8 @@ export default {
                     "description": this.description,
                     "price": this.price,
                     "categoryID": this.categoryID,
-                    "userID":0};
+                    "userID":0,
+                    "images": ["https://www.google.ch/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjT_aPHmJ7iAhWLGuwKHUEbB3oQjRx6BAgBEAU&url=https%3A%2F%2Fwww.biography.com%2Fus-president%2Fbarack-obama&psig=AOvVaw03yK22H4bYQcveRbKGyV_H&ust=1558032248406715"]};
 
 
           axios

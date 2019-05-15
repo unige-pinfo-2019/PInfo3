@@ -1,6 +1,6 @@
 <template>
   <div class="TreeMenu">
-    <div class="label-wrapper" @click="toggleChildren">
+    <div class="label-wrapper" @click="toggleChildren(label)">
       <div :style="indent">
         {{ label }}
       </div>
@@ -11,8 +11,7 @@
       v-for="node in nodes"
       :nodes="node.children"
       :label="node.name"
-      :depth="depth + 1"
-    >
+      :depth="depth + 1"    >
   </TreeMenu>
 
   </div>
@@ -36,12 +35,14 @@
 
 
 <script>
+  import axios from 'axios';
+
   export default {
     name: 'TreeMenu',
-    props: [ 'nodes', 'label', 'depth' ],
+    props: [ 'nodes', 'label', 'depth','ids'],
     data() {
        return {
-         showChildren: false
+         showChildren: false,
        }
     },
     computed: {
@@ -49,9 +50,12 @@
       return { transform: `translate(${this.depth * 25}px)` }
     }
   },
+
   methods: {
-    toggleChildren() {
+    toggleChildren(label) {
        this.showChildren = !this.showChildren;
+       // retrieve category id
+       this.$router.push({ name: 'category', params: { id: this.ids.data[label].toString() }})
     }
   }
 }
