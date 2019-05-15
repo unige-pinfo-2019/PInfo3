@@ -23,5 +23,7 @@ public interface AdService {
 	public Ad createAdFromJson(JsonObject json);
 	
 	public JsonArray getJsonListAds(List<Ad> ads);
+	
+	public JsonObject createJsonRepresentation(Ad ad);
 
 }

@@ -50,6 +50,17 @@ public class AdEndpoint {
 		return adservice.getJsonListAds(adservice.getAll()).toString();
 	}
 	
+	@GET
+	@Path("/ads/ad/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAd(@PathParam("id") String strID) {
+		Optional<Ad> ad = adservice.getById(Long.parseLong(strID));
+		if (ad.isEmpty()) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't extract the ad, the id may not exist").build();
+		}
+		return Response.ok(adservice.createJsonRepresentation(ad.get()).toString()).build();
+	}
+	
 	/* Add a new ad in the DB */
 	@POST
 	@Path("/")

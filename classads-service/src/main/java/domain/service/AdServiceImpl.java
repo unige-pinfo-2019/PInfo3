@@ -145,20 +145,26 @@ public class AdServiceImpl implements AdService{
 	@Override
 	public JsonArray getJsonListAds(List<Ad> ads) {
 		JsonArray result = new JsonArray();
-		
 		for (Ad ad : ads) {
-			JsonObject jsonAd = new JsonObject();
-			jsonAd.addProperty(Ad.getIdField(), ad.getId());
-			jsonAd.addProperty(Ad.getTitleField(), ad.getTitle());
-			jsonAd.addProperty(Ad.getDescriptionField(), ad.getDescription());
-			jsonAd.addProperty(Ad.getPriceField(), ad.getPrice());
-			jsonAd.addProperty(Ad.getUserIDField(), ad.getUserID());
-			jsonAd.addProperty(Categories.getCategoryIDField(), ad.getCategoryID());
-			jsonAd.add(Ad.getImageField(), getImagesInJson(ad));
+			JsonObject jsonAd = createJsonRepresentation(ad);
 			result.add(jsonAd);
 		}
 		return result;
 	}
+	
+	public JsonObject createJsonRepresentation(Ad ad) {
+		JsonObject jsonAd = new JsonObject();
+		jsonAd.addProperty(Ad.getIdField(), ad.getId());
+		jsonAd.addProperty(Ad.getTitleField(), ad.getTitle());
+		jsonAd.addProperty(Ad.getDescriptionField(), ad.getDescription());
+		jsonAd.addProperty(Ad.getPriceField(), ad.getPrice());
+		jsonAd.addProperty(Ad.getUserIDField(), ad.getUserID());
+		jsonAd.addProperty(Categories.getCategoryIDField(), ad.getCategoryID());
+		jsonAd.add(Ad.getImageField(), getImagesInJson(ad));
+		return jsonAd;
+	}
+	
+	
 	public JsonArray getImagesInJson(Ad ad) {
 		JsonArray J = new JsonArray();
 		for(int i=0; i<ad.getImages().size(); i++) J.add(ad.getImages().get(i));
