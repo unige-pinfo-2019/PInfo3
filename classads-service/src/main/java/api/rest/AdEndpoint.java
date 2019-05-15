@@ -50,6 +50,13 @@ public class AdEndpoint {
 		return adservice.getJsonListAds(adservice.getAll()).toString();
 	}
 	
+	@GET
+	@Path("/categories/{cID}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getAllByCategory(@PathParam("cID") int cid) {
+		return adservice.getJsonListAds(adservice.getAllByCategory(cid)).toString();
+	}
+	
 	/* Add a new ad in the DB */
 	@POST
 	@Path("/")

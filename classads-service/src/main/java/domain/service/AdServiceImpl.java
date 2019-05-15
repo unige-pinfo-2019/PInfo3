@@ -44,6 +44,24 @@ public class AdServiceImpl implements AdService{
 		c.select(adRoot);
 		return getEm().createQuery(c).getResultList();
 	}
+	
+	@Override
+	public List<Ad> getAllByCategory(int cat) {
+		
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Ad> q = cb.createQuery(Ad.class);
+		Root<Ad> c = q.from(Ad.class);
+		
+		ParameterExpression<Integer> p = cb.parameter(Integer.class);
+		q.select(c).where(cb.equal(c.get(Ad.getCategoryIDField()), p));
+		
+		TypedQuery<Ad> query = em.createQuery(q);
+		query.setParameter(p, cat);
+		List<Ad> results = query.getResultList();
+		
+		
+		return results;
+	}
 
 	@Override
 	public Optional<Ad> getByTitle(String title) {		
