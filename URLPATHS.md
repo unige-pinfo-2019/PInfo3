@@ -17,6 +17,9 @@ Get the list of all ads (in json format)
 ]
  ```
 
+Get an ab by its ID (in json format)
+`GET http://host:port/classads/ads/ad/{id}` returns the ad if exists or an error message 400
+
 Post an ad (in json format)
 `POST http://host:port/classads` expects
 
