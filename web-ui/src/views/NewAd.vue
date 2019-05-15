@@ -69,7 +69,7 @@
       </div>
 
       <div class="block submit-flex">
-        <b-button style="float: right;" v-on:click="submit" variant="primary">Soumettre</b-button>
+        <b-button style="float: right;"  v-on:click="submit" variant="primary">Soumettre</b-button>
       </div>
     </div>
   </div>
@@ -117,6 +117,7 @@ export default {
          });
 
      }
+
 
     // format(value, event) {
     //   console.log('[' + value + ']');
