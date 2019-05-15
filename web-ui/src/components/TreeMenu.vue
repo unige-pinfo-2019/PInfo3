@@ -1,7 +1,7 @@
 <template>
   <div class="TreeMenu">
     <div class="label-wrapper" @click="toggleChildren(label)">
-      <div :style="indent">
+      <div class="label" :style="indent">
         {{ label }}
       </div>
 
@@ -18,17 +18,11 @@
 </template>
 
 
-<style>
+<style lang="scss" scoped>
 
-.TreeMenu {
-  .label-wrapper {
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    .has-children {
-      cursor: pointer;
-    }
-  }
+.label:hover {
+  color: $primary-color;
+  cursor: pointer;
 }
 
 </style>
