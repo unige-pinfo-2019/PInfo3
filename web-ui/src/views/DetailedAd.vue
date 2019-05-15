@@ -53,7 +53,26 @@
           <b-button v-b-modal.you-sure class="delete-btn" variant="danger"><font-awesome-icon class="icon" icon="trash-alt"/>Supprimer</b-button>
           <b-button class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
 
-          <b-modal id="you-sure">Êtes-vous sûr de vouloir supprimer l'annonce? Cette opération n'est pas réversible.</b-modal>
+          <b-modal id="you-sure" centered v-model="showModal">
+            <template slot="modal-title">
+              Confirmation
+            </template>
+            <div style="display: block;">
+
+              Êtes-vous sûr de vouloir supprimer l'annonce? Cette opération n'est pas réversible.
+              <!-- <b-button variant="secondary">Non</b-button>
+              <b-button variant="primary">Oui</b-button> -->
+
+            </div>
+            <div slot="modal-footer" class="w-100">
+              <b-button variant="primary" class="float-right" @click="showModal=false; deleteThisAd()">
+                Supprimer
+              </b-button>
+              <b-button variant="secondary" style="margin-right: 20px" class="float-right" @click="showModal=false">
+                Annuler
+              </b-button>
+            </div>
+          </b-modal>
         </div>
         </div>
 
@@ -93,6 +112,7 @@ export default {
       prix: "69",
       // images: [],
       images: ["https://picsum.photos/480/1024/?image=52", "https://picsum.photos/1024/480/?image=55"],
+      showModal: false
     }
   },
   mounted() {
@@ -105,6 +125,11 @@ export default {
       .get('http://localhost:8081/classads')
       .then(response => (this.ads = response));
 
+  },
+  methods: {
+    deleteThisAd() {
+      console.log('We need to delete this ad with id: ' + this.id);
+    }
   }
 }
 </script>
@@ -121,7 +146,7 @@ export default {
 }
 
 .edit-btn {
-  margin-right: 30px;
+  margin-right: 20px;
   float: right;
 }
 
