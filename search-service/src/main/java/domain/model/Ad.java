@@ -29,6 +29,7 @@ public class Ad {
 	private int categoryID;
 	
 	public Ad(long id, String title, String description, float price, long userID, int categoryID, List<String> images) {
+		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.price = price;
