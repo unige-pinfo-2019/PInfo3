@@ -2,11 +2,12 @@
 ## Pour lancer les microservices
 
 Vous pouvez lancer le backend avec le script run.sh :
-
-Pour créer les images docker avec maven :
 ```
 sudo ./run.sh
+
 ```
+
+Pour créer les images docker avec maven :
 
 ```
 mvn clean install
