@@ -43,7 +43,8 @@ export default {
   props: {
     id:{
       type:String,
-      required:false
+      required:false,
+      default:"-1"
     }
   },
   data() {
@@ -62,28 +63,30 @@ export default {
       this.$forceUpdate();
     },
     update () {
-      // retrieve list of ads
-      axios
-        .get('http://localhost:8081/classads/categories/' + this.id)
-        .then(response => (this.ads = response));
+      if (this.id >= 0)
+      {
+        // retrieve list of ads
+        axios
+          .get('http://localhost:8081/classads/categories/' + this.id)
+          .then(response => (this.ads = response));
+      }
+      else {
+        // retrieve list of ads
+        axios
+          .get('http://localhost:8081/classads/')
+          .then(response => (this.ads = response));
+      }
     }
   },
-  updated: function() {
-    this.update();
+
+  watch: {
+    id: function() {
+      this.update();
+    }
   },
 
   mounted: function () {
-    if (this.id) {
-      this.update();
-    }
-    else {
-      // retrieve list of ads
-      axios
-        .get('http://localhost:8081/classads')
-        .then(response => (this.ads = response));
-        this.$forceUpdate();
-
-    }
+    this.update();
   }
 }
 </script>

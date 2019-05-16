@@ -124,7 +124,6 @@ export default {
     deleteThisAd() {
       axios
         .delete('http://localhost:8081/classads/ads/ad/' + this.id)
-      console.log('We need to delete this ad with id: ' + this.id);
     }
   }
 }
