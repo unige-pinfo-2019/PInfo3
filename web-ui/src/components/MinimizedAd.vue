@@ -90,6 +90,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
+.card-img-top { // Forces the card image to be of the same size
+    width: 100%;
+    height: 20vh;
+    object-fit: cover;
+}
+
 a {
   position: absolute;
   top: 0;

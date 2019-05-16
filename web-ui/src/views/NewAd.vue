@@ -90,20 +90,31 @@ export default {
       categoryID: 0,
       selectedFile: null,
       categories: [
-        { value: 1, text: 'Ordinateur' },
-        { value: 2, text: 'Habits homme' },
-        { value: 3, text: 'Habits femme' },
-        { value: 4, text: 'Livres' },
+        { value: 1, text: 'Vide' },
       ],
       images: []//["https://picsum.photos/600/300/?image=23", "https://picsum.photos/600/300/?image=24", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=26"]
     }
   },
   mounted: function () {
     // retrieve categories
-      axios
-        .get('http://localhost:8081/categories/index')
-        .then(response => (this.catIds = response));
-
+    function getValues() {
+      return axios
+      .get('http://localhost:8081/categories/index')
+      .then(response => {
+        return response.data;
+      })
+    }
+    getValues().then(data => {
+      var listOfKeys = Object.keys(data);
+      var formatedData = [];
+      listOfKeys.forEach(function(elem) {
+        var line = {value: null, text: null}
+        line.text = elem;
+        line.value = data[elem];
+        formatedData.push(line);
+      });
+      this.categories = formatedData;
+    })
   },
   methods: {
     onFileChanged (event) {
