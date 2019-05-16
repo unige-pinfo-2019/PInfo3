@@ -55,7 +55,7 @@ export default {
    },
   methods: {
     shortenTitle() {
-      var max_length = 50;
+      var max_length = 42;
 
       if (this.title.length > max_length) {
         this.shortenedTitle = this.title.substring(0, max_length-1) + "...";
