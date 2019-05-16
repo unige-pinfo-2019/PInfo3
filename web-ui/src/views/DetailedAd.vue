@@ -60,8 +60,6 @@
             <div style="display: block;">
 
               Êtes-vous sûr de vouloir supprimer l'annonce? Cette opération n'est pas réversible.
-              <!-- <b-button variant="secondary">Non</b-button>
-              <b-button variant="primary">Oui</b-button> -->
 
             </div>
             <div slot="modal-footer" class="w-100">
@@ -179,16 +177,28 @@ export default {
 
 .ad-rows {
   display: flex;
+  flex-direction: row;
 }
 
 .row-ad {
   // flex-basis: 80%;
+  // flex-basis: 75%;
+  // flex-grow: 75%;
+  // flex-shrink: 75%;
+  width: 700px;
+  // flex-grow: 5;
+  // flex-shrink: 3;
+  // flex-basis: 100%;
+
   display: flex;
   flex-direction: column;
 }
 
 .row-user {
-  flex-basis: 25%;
+  // flex-basis: 100px;
+  // flex-grow: 1;
+  // flex-shrink: 3;
+  // flex-basis: auto;
   margin-left: 30px;
 }
 
