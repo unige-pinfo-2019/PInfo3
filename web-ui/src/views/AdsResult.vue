@@ -132,6 +132,8 @@ export default {
   height: 600px;
   background: gray;
   color: lightgray;
+
+  margin-bottom: 30px;
 }
 
 
