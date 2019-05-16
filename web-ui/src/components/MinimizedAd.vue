@@ -28,7 +28,7 @@
 
 
 
-    <div v-if="title == ''" style="width: 20rem">
+    <div v-if="title == ''" style="width: 18rem">
     </div>
   </div>
 </template>
@@ -92,7 +92,7 @@ export default {
 
 .card-img-top { // Forces the card image to be of the same size
     width: 100%;
-    height: 20vh;
+    height: 12rem;
     object-fit: cover;
 }
 
