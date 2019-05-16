@@ -11,7 +11,8 @@
       style="max-width: 18rem;"
       class="mb-2 card"
       >
-      <a v-bind:href="'/ad/'+ id"></a>
+
+      <a v-on:click="changePage(id)"></a>
       <b-card-text id="descr">
         {{ shortenedDescription }}
       </b-card-text>
@@ -77,6 +78,10 @@ export default {
     },
     redirect() {
       alert(3)
+    },
+    changePage(id) {
+      // alert(id)
+      this.$router.push('/ad/' + id)
     }
   }
 }
@@ -91,6 +96,10 @@ a {
   left: 0;
   height: 100%;
   width: 100%;
+}
+
+a:hover {
+  cursor: pointer;
 }
 
 .card-title {
