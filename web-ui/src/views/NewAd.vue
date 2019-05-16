@@ -4,7 +4,6 @@
       <div class="block">
 
         <span class="field-title" > <h4>Titre</h4> <hr> </span>
-        {{catIds}}
         <div class="input">
           <b-form-input v-model="title"
           id="input-1"
@@ -89,7 +88,6 @@ export default {
       description: '',
       price: 0.0, // float
       categoryID: 0,
-      catIds: null, // la reponse de l'api pour les categories
       categories: [
         { value: 1, text: 'Ordinateur' },
         { value: 2, text: 'Habits homme' },
@@ -100,10 +98,26 @@ export default {
     }
   },
   mounted: function () {
-    // retrieve categories
-      axios
-        .get('http://localhost:8081/categories/index')
-        .then(response => (this.catIds = response));
+
+    function getValues() {
+      return axios
+      .get('http://localhost:8081/categories/index')
+      .then(response => {
+        return response.data;
+      })
+    }
+
+    getValues().then(data => {
+      var listOfKeys = Object.keys(data);
+      var formatedData = [];
+      listOfKeys.forEach(function(elem) {
+        var line = {value: null, text: null}
+        line.text = elem;
+        line.value = data[elem];
+        formatedData.push(line);
+      });
+      this.categories = formatedData;
+    })
 
   },
   methods: {
