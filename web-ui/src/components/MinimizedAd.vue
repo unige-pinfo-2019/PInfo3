@@ -8,7 +8,7 @@
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 20rem;"
+      style="max-width: 18rem;"
       class="mb-2 card"
       >
       <a v-bind:href="'/ad/'+ id"></a>
@@ -39,7 +39,7 @@ export default {
     imgUrl: String, //https://picsum.photos/600/300/?image=25
     title: String,
     description: String,
-    prix: Number,
+    prix: String,
     id: Number
   },
   data() {
