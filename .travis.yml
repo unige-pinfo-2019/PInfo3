@@ -102,6 +102,9 @@ jobs:
       addons:
         ssh_known_hosts:
           - pinfo3.unige.ch
+        apt:
+          packages:
+          - sshpass
       script:
         - sshpass -p "$SSH_PASS" ssh "$SSH_USER"
         - curl -o docker-compose-api-gw.yml https://raw.githubusercontent.com/unige-pinfo-2019/PInfo3/master/docker-compose/docker-compose-api-gw.yml
