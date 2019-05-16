@@ -4,13 +4,25 @@
     <div class="search-bar-wrapper">
       <Searchbar v-on:clicked="onClickSearch"/>
     </div>
-    <div class="results-wrapper">
-      <template v-if="ads !=null">
-        <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="ad.id" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
 
-        <MiniAd class="mini-ad" v-for="index in requiredEmpty" :key="index" title="" prix=0 :id="0" imgUrl="" description="blank"/>
-      </template>
+    <div class="results-pub-container">
+
+      <div class="results-wrapper">
+        <template v-if="ads !=null">
+          <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="ad.id" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
+
+          <MiniAd class="mini-ad" v-for="index in requiredEmpty" :key="index" title="" prix="0" :id="0" imgUrl="" description="blank"/>
+        </template>
+      </div>
+
+      <div class="pub-wrapper">
+        <div class="pub">
+          pub placeholder
+        </div>
+      </div>
+
     </div>
+
 
   </div>
 </template>
@@ -77,14 +89,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.mini-ad {
-  margin-right: auto;
+.results-pub-container {
+  display: flex;
 }
 
-.results-wrapper {
-  display: flex;
-  flex-direction: row;
-  // justify-content: space-between;
-  flex-wrap: wrap;
+@media screen and (max-width: 1070px) { // Screens smaller or equal to 1070px width
+  .pub-wrapper {
+    display: none;
+  }
+
+  .results-wrapper {
+    // flex-grow: 100;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
 }
+
+@media screen and (min-width: 1071px) { // Screens bigger or equal to 1071px width
+  .results-wrapper {
+    flex-grow: 100;
+
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .mini-ad {
+    margin-right: auto;
+  }
+}
+
+.pub-wrapper {
+  max-width: 200px;
+  min-width: 200px;
+  // flex-basis: 200px;
+  // flex-shrink: 200px;
+  height: 600px;
+  background: gray;
+  color: lightgray;
+}
+
+
+
+
 </style>
