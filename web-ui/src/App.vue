@@ -46,7 +46,7 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
 #app {
-  font-family: "Lato", Helvetica, Arial, sans-serif; 
+  font-family: "Lato", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -58,7 +58,7 @@ export default {
 }
 
 .test {
-  min-height: 600px;
+  min-height: 700px;
 }
 
 .center-wrapper {

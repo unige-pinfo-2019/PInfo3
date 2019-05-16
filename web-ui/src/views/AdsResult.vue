@@ -4,13 +4,24 @@
     <div class="search-bar-wrapper">
       <Searchbar v-on:clicked="onClickSearch"/>
     </div>
-    <div class="results-wrapper">
-      <template v-if="ads !=null">
-        <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="ad.id" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" :description="ad.description" v-bind:key="ad.title"/>
-        <!-- <MiniAd class="mini-ad" title="" prix="0" :id="30" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" description="blankone"/>
-        <MiniAd class="mini-ad" title="" prix="0" :id="30" imgUrl="http://www.le-grenier-informatique.fr/medias/album/apple-iic-5.jpg" description="blankone"/> -->
-      </template>
+    <div class="results-pub-container">
+
+      <div class="results-wrapper">
+        <template v-if="ads !=null">
+          <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="ad.id" :imgUrl="ad.images" :description="ad.description" v-bind:key="ad.title"/>
+
+          <MiniAd class="mini-ad" v-for="index in requiredEmpty" :key="index" title="" :prix=0 :id="0" imgUrl="" description="blank"/>
+        </template>
+      </div>
+
+      <div class="pub-wrapper">
+        <div class="pub">
+          pub placeholder
+        </div>
+      </div>
+
     </div>
+
 
   </div>
 </template>
@@ -28,10 +39,18 @@ export default {
     MiniAd,
     Searchbar
   },
+  props: {
+    id:{
+      type:String,
+      required:false,
+      default:"-1"
+    }
+  },
   data() {
     return {
       ads : null,
-      query: null
+      query: null,
+      requiredEmpty: 11
     }
   },
   methods: {
@@ -41,26 +60,85 @@ export default {
         .get('http://localhost:8084/search?request=' + this.query)
         .then(response => (this.ads = response));
       this.$forceUpdate();
+    },
+    update () {
+      if (this.id >= 0)
+      {
+        // retrieve list of ads
+        axios
+          .get('http://localhost:8081/classads/categories/' + this.id)
+          .then(response => (this.ads = response));
+      }
+      else {
+        // retrieve list of ads
+        axios
+          .get('http://localhost:8081/classads/')
+          .then(response => (this.ads = response));
+      }
     }
   },
+
+  watch: {
+    id: function() {
+      this.update();
+    }
+  },
+
   mounted: function () {
-    // retrieve list of categories
-    axios
-      .get('http://localhost:8081/classads')
-      .then(response => (this.ads = response));
+    this.update();
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.mini-ad {
-  margin-right: auto;
+.results-pub-container {
+  display: flex;
 }
 
-.results-wrapper {
-  display: flex;
-  flex-direction: row;
-  // justify-content: space-between;
-  flex-wrap: wrap;
+@media screen and (max-width: 1070px) { // Screens smaller or equal to 1070px width
+  .pub-wrapper {
+    display: none;
+  }
+
+  .results-wrapper {
+    // flex-grow: 100;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
 }
+
+@media screen and (min-width: 1071px) { // Screens bigger or equal to 1071px width
+  .results-wrapper {
+    flex-grow: 100;
+
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .mini-ad {
+    margin-right: auto;
+  }
+}
+
+.pub-wrapper {
+  max-width: 200px;
+  min-width: 200px;
+  // flex-basis: 200px;
+  // flex-shrink: 200px;
+  height: 600px;
+  background: gray;
+  color: lightgray;
+
+  margin-bottom: 30px;
+}
+
+
+
+
 </style>

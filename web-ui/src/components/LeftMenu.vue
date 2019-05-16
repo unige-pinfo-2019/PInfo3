@@ -7,10 +7,16 @@
         CATÉGORIES
       </div>
       <hr>
-      <span class="category">Ordinateur</span>
+      <div v-for="cat in categories.data" v-bind:key="cat.name">
+        <TreeMenu :label="cat.name" :nodes="cat.children" :depth="0" :ids="catIds"></TreeMenu>
+      </div>
+
+      <!-- <span class="category">Ordinateur</span>
       <span class="category">Habits homme</span>
       <span class="category">Habits femme</span>
-      <span class="category">Livres</span>
+      <span class="category">Livres</span>  -->
+      <!-- <TreeMenu :label="categories.name" :nodes="categories.children"></TreeMenu> -->
+
     </div>
     <!-- <button type="button" class="new">Nouvelle annonce</button> -->
     <!-- <b-list-group>
@@ -23,8 +29,32 @@
 </template>
 
 <script>
+import TreeMenu from '@/components/TreeMenu.vue'
+import axios from 'axios';
+
 export default {
-  name: 'left-menu'
+  name: 'left-menu',
+  components: {
+    TreeMenu
+  },
+  data() {
+    return {
+      categories: null,
+      catIds: null
+    }
+  },
+  mounted: function () {
+    // retrieve list of categories
+    axios
+      .get('http://localhost:8081/categories/treeview')
+      .then(response => (this.categories = response));
+
+  // retrieve catIds
+    axios
+      .get('http://localhost:8081/categories/index')
+      .then(response => (this.catIds = response));
+
+  }
 }
 </script>
 

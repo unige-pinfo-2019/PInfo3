@@ -5,7 +5,7 @@
       <div class="ad-rows">
         <div class="row-ad">
           <div class="block col-flex">
-            <h1 class="title">{{this.title}}</h1>
+            <h1 class="title">{{this.res.data.title}}</h1>
 
             <div class="carousel-container">
               <b-carousel
@@ -16,13 +16,9 @@
               background="#ababab"
               style="text-shadow: 1px 1px 2px #333;"
               >
-              <!-- Text slides with image -->
-              <!-- <b-carousel-slide
-              caption="First slide"
-              text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-              img-src="https://picsum.photos/480/1024/?image=52"
-              ></b-carousel-slide> -->
-              <b-carousel-slide v-if="images.length < 1">
+
+              <!-- If no images in the ad, we display the default 'no image' picture-->
+              <b-carousel-slide v-if="this.res.data.images.length < 1">
                 <img
                   slot="img"
                   class="d-block img-fluid w-100"
@@ -32,7 +28,8 @@
                 >
               </b-carousel-slide>
 
-              <b-carousel-slide v-for="image in images" v-bind:key="image">
+              <!-- Displays all images of the ad in a carousel -->
+              <b-carousel-slide v-for="image in this.res.data.images" v-bind:key="image">
                 <img
                   slot="img"
                   class="d-block img-fluid w-100"
@@ -42,26 +39,38 @@
                 >
               </b-carousel-slide>
 
-              <!-- <b-carousel-slide>
-                <img
-                  slot="img"
-                  class="d-block img-fluid w-100"
-                  src="https://picsum.photos/1024/480/?image=55"
-                  alt="image slot"
-                  style="object-fit: contain; height: 400px;"
-                >
-              </b-carousel-slide> -->
+
             </b-carousel>
           </div>
 
-          <p class="description">{{this.description}}</p>
+          <p class="description">{{this.res.data.description}} </p>
 
-          <p class="price">{{this.prix}} CHF</p>
+          <p class="price">{{this.res.data.price}} CHF</p>
         </div>
 
+        <!-- Delete and edit buttons -->
         <div class="block button-container">
-          <b-button class="delete-btn" variant="danger"><font-awesome-icon class="icon" icon="trash-alt"/>Supprimer</b-button>
+          <b-button v-b-modal.you-sure class="delete-btn" variant="danger"><font-awesome-icon class="icon" icon="trash-alt"/>Supprimer</b-button>
           <b-button class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
+
+          <b-modal id="you-sure" centered v-model="showModal">
+            <template slot="modal-title">
+              Confirmation
+            </template>
+            <div style="display: block;">
+
+              Êtes-vous sûr de vouloir supprimer l'annonce? Cette opération n'est pas réversible.
+
+            </div>
+            <div slot="modal-footer" class="w-100">
+              <b-button variant="primary" class="float-right" @click="showModal=false; deleteThisAd()">
+                Supprimer
+              </b-button>
+              <b-button variant="secondary" style="margin-right: 20px" class="float-right" @click="showModal=false">
+                Annuler
+              </b-button>
+            </div>
+          </b-modal>
         </div>
         </div>
 
@@ -89,6 +98,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'detailed-ad',
   props: {
@@ -96,18 +107,22 @@ export default {
   },
   data() {
     return {
-      title: "Je vend un pc très très bien",
-      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      prix: "69",
-      // images: [],
-      images: ["https://picsum.photos/480/1024/?image=52", "https://picsum.photos/1024/480/?image=55"],
+      showModal: false,
+      res: null
     }
   },
   mounted() {
-    // TODO: Faire les requêtes axios pour charger les bonnes valeurs dans les
-    // variables title, description, prix, images ci-dessus. Si il faut on peut
-    // les renomer, faut juste les renomer dans la partie HTML ci-dessus.
-    console.log('Need to do a request to: ' + this.id); // Cette ligne pour être supprimée une fois la requête implémentée
+    // retrieve ad
+    axios
+      .get('http://localhost:8081/classads/ads/ad/' + this.id)
+      .then(response => (this.res = response));
+
+  },
+  methods: {
+    deleteThisAd() {
+      axios
+        .delete('http://localhost:8081/classads/ads/ad/' + this.id)
+    }
   }
 }
 </script>
@@ -124,7 +139,7 @@ export default {
 }
 
 .edit-btn {
-  margin-right: 30px;
+  margin-right: 20px;
   float: right;
 }
 
@@ -158,16 +173,28 @@ export default {
 
 .ad-rows {
   display: flex;
+  flex-direction: row;
 }
 
 .row-ad {
   // flex-basis: 80%;
+  // flex-basis: 75%;
+  // flex-grow: 75%;
+  // flex-shrink: 75%;
+  width: 700px;
+  // flex-grow: 5;
+  // flex-shrink: 3;
+  // flex-basis: 100%;
+
   display: flex;
   flex-direction: column;
 }
 
 .row-user {
-  flex-basis: 25%;
+  // flex-basis: 100px;
+  // flex-grow: 1;
+  // flex-shrink: 3;
+  // flex-basis: auto;
   margin-left: 30px;
 }
 

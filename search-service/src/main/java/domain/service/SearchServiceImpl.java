@@ -98,7 +98,7 @@ public class SearchServiceImpl implements SearchService {
 	    	if (mapData != null) {
 	    		ad = buildAdFromMap(mapData);
 	    		log.info("Succefully get the ad\nAd information : "+ad);
-	    	}	    		
+	    	}
 	    }
 		return ad;
 	}
@@ -170,7 +170,7 @@ public class SearchServiceImpl implements SearchService {
 		JsonParser parser = new JsonParser();
 		for (JsonElement elt : json) {
 			JsonObject jsonObj = parser.parse(elt.getAsString()).getAsJsonObject();
-			array.add(jsonObj);			
+			array.add(jsonObj);
 		}
 		return array;
 	}
