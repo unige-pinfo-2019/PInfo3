@@ -89,7 +89,6 @@ export default {
       price: 0.0, // float
       categoryID: 0,
       selectedFile: null,
-      catIds: null, // la reponse de l'api pour les categories
       categories: [
         { value: 1, text: 'Ordinateur' },
         { value: 2, text: 'Habits homme' },
