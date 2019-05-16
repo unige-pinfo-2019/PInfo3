@@ -4,7 +4,7 @@
       <div class="block">
 
         <span class="field-title" > <h4>Titre</h4> <hr> </span>
-        {{categories}}
+        {{catIds}}
         <div class="input">
           <b-form-input v-model="title"
           id="input-1"
