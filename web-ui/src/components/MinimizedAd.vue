@@ -40,7 +40,7 @@ export default {
     imgUrl: String, //https://picsum.photos/600/300/?image=25
     title: String,
     description: String,
-    prix: String,
+    prix: Number,
     id: Number
   },
   data() {
