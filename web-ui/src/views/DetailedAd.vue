@@ -18,7 +18,7 @@
               >
 
               <!-- If no images in the ad, we display the default 'no image' picture-->
-              <b-carousel-slide v-if="images.length < 1">
+              <b-carousel-slide v-if="this.res.data.images.length < 1">
                 <img
                   slot="img"
                   class="d-block img-fluid w-100"
@@ -109,11 +109,6 @@ export default {
   },
   data() {
     return {
-      title: "Je vend un pc très très bien",
-      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      prix: "69",
-      // images: [],
-      images: ["https://picsum.photos/480/1024/?image=52", "https://picsum.photos/1024/480/?image=55"],
       showModal: false,
       res: null
     }
@@ -127,6 +122,8 @@ export default {
   },
   methods: {
     deleteThisAd() {
+      axios
+        .delete('http://localhost:8081/classads/ads/ad/' + this.id)
       console.log('We need to delete this ad with id: ' + this.id);
     }
   }
