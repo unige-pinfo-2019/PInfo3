@@ -98,6 +98,19 @@ export default {
       images: []//["https://picsum.photos/600/300/?image=23", "https://picsum.photos/600/300/?image=24", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=26"]
     }
   },
+  mounted: function () {
+    // retrieve categories
+    // retrieve catIds
+      // axios
+      //   .get('http://localhost:8081/categories/index')
+      //   .then(response => (this.categories = response));
+      //   var temp = [];
+      //   for item in this.categories
+      //   {
+      //     temp.push('{value:}'+item.)
+      //   }
+
+  },
   methods: {
     submit: function (event) {
        // `this` inside methods points to the Vue instance
@@ -107,7 +120,7 @@ export default {
                     "price": this.price,
                     "categoryID": this.categoryID,
                     "userID":0,
-                    "images": ["https://www.google.ch/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjT_aPHmJ7iAhWLGuwKHUEbB3oQjRx6BAgBEAU&url=https%3A%2F%2Fwww.biography.com%2Fus-president%2Fbarack-obama&psig=AOvVaw03yK22H4bYQcveRbKGyV_H&ust=1558032248406715"]};
+                    "images": ["https://i.imgur.com/swNCDIv.jpg","https://i.imgur.com/S699QTB.jpg"]};
 
 
           axios
