@@ -56,11 +56,9 @@ public class AdServiceImpl implements AdService{
 		q.select(c).where(cb.equal(c.get(Ad.getCategoryIDField()), p));
 		
 		TypedQuery<Ad> query = em.createQuery(q);
-		query.setParameter(p, cat);
-		List<Ad> results = query.getResultList();
+		query.setParameter(p, cat);	
 		
-		
-		return results;
+		return query.getResultList();
 	}
 
 	@Override
@@ -184,9 +182,9 @@ public class AdServiceImpl implements AdService{
 	
 	
 	public JsonArray getImagesInJson(Ad ad) {
-		JsonArray J = new JsonArray();
-		for(int i=0; i<ad.getImages().size(); i++) J.add(ad.getImages().get(i));
-		return J;
+		JsonArray json = new JsonArray();
+		for(int i=0; i<ad.getImages().size(); i++) json.add(ad.getImages().get(i));
+		return json;
 	}
 	
 	

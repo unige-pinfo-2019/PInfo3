@@ -24,7 +24,7 @@ We are a 6 members team :
 
 You can access the application on `pinfo3.unige.ch`
 
-If you want to deploy the docker images, we need to connect to the VM (with your university login):
+If you want to connect to the VM (with your university login):
 
 ```
 ssh username@pinfo3.unige.ch

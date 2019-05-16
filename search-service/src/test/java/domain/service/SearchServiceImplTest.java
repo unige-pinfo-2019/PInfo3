@@ -14,6 +14,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import com.github.smitajit.elasticsearch.rest.mock.ESRestMockCore;
 import com.github.smitajit.elasticsearch.rest.mock.runner.ESRestMockRunner;
@@ -31,10 +33,10 @@ public class SearchServiceImplTest {
 	private RestHighLevelClient client;
 	
 	@Before
-    public void setup() {
-        client = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
-        searchService.setClient(client);
-    }
+   public void setup() {
+       client = new RestHighLevelClient(RestClient.builder(new HttpHost("localhost", 9200, "http")));
+       searchService.setClient(client);
+   }
 	
 	private Ad getDefaultAd() {
 		Ad ad = new Ad();
@@ -142,7 +144,7 @@ public class SearchServiceImplTest {
 		} catch (Exception e) {
 			Assertions.fail("Exception thrown in inserting an ad");
 		}
-        
+       
 	}
 	
 	@Test
@@ -159,7 +161,7 @@ public class SearchServiceImplTest {
 		} catch (Exception e) {
 			Assertions.fail("Exception thrown : "+e.getMessage());
 		}
-        
+       
 	}
 	
 	@Test
@@ -176,7 +178,7 @@ public class SearchServiceImplTest {
 		} catch (Exception e) {
 			Assertions.fail("Exception thrown : "+e.getMessage());
 		}
-        
+       
 	}
 	
 	@Test
@@ -193,7 +195,7 @@ public class SearchServiceImplTest {
 		} catch (Exception e) {
 			Assertions.fail("Exception thrown : "+e.getMessage());
 		}
-        
+       
 	}
 	
 	@Test
@@ -210,7 +212,7 @@ public class SearchServiceImplTest {
 		} catch (Exception e) {
 			Assertions.fail("Exception thrown : "+e.getMessage());
 		}
-        
+       
 	}
 
 }
