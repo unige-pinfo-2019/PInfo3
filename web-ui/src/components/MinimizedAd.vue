@@ -8,10 +8,11 @@
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 20rem;"
+      style="max-width: 18rem;"
       class="mb-2 card"
       >
-      <a v-bind:href="'/ad/'+ id"></a>
+
+      <a v-on:click="changePage(id)"></a>
       <b-card-text id="descr">
         {{ shortenedDescription }}
       </b-card-text>
@@ -54,7 +55,7 @@ export default {
    },
   methods: {
     shortenTitle() {
-      var max_length = 50;
+      var max_length = 42;
 
       if (this.title.length > max_length) {
         this.shortenedTitle = this.title.substring(0, max_length-1) + "...";
@@ -77,6 +78,10 @@ export default {
     },
     redirect() {
       alert(3)
+    },
+    changePage(id) {
+      // alert(id)
+      this.$router.push('/ad/' + id)
     }
   }
 }
@@ -85,12 +90,22 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
+.card-img-top { // Forces the card image to be of the same size
+    width: 100%;
+    height: 20vh;
+    object-fit: cover;
+}
+
 a {
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
+}
+
+a:hover {
+  cursor: pointer;
 }
 
 .card-title {

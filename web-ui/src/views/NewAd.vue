@@ -4,7 +4,6 @@
       <div class="block">
 
         <span class="field-title" > <h4>Titre</h4> <hr> </span>
-
         <div class="input">
           <b-form-input v-model="title"
           id="input-1"
@@ -36,8 +35,11 @@
           <div class="image-wrapper" v-for="image in images" v-bind:key="image.id">
             <b-img v-bind:src="image" rounded width="100px" height="100px"></b-img>
           </div>
-          <b-button class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
-          <input type="file" class="invisible-file-input">
+          <b-button onclick="document.getElementById('hidden-file-input').click()" class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
+
+          <!-- Cet input dessous est cliqué automatiquement lorsque le "vrai"
+          bouton visible est cliqué. -->
+          <input id="hidden-file-input" type="file" class="invisible-file-input" @change="onFileChanged">
         </div>
 
 
@@ -86,60 +88,72 @@ export default {
       description: '',
       price: 0.0, // float
       categoryID: 0,
+      selectedFile: null,
       categories: [
-        { value: 1, text: 'Ordinateur' },
-        { value: 2, text: 'Habits homme' },
-        { value: 3, text: 'Habits femme' },
-        { value: 4, text: 'Livres' },
+        { value: 1, text: 'Vide' },
       ],
       images: []//["https://picsum.photos/600/300/?image=23", "https://picsum.photos/600/300/?image=24", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=26"]
     }
   },
+  mounted: function () {
+    // retrieve categories
+    function getValues() {
+      return axios
+      .get('http://localhost:8081/categories/index')
+      .then(response => {
+        return response.data;
+      })
+    }
+    getValues().then(data => {
+      var listOfKeys = Object.keys(data);
+      var formatedData = [];
+      listOfKeys.forEach(function(elem) {
+        var line = {value: null, text: null}
+        line.text = elem;
+        line.value = data[elem];
+        formatedData.push(line);
+      });
+      this.categories = formatedData;
+    })
+  },
   methods: {
+    onFileChanged (event) {
+      this.selectedFile = event.target.files[0]
+      console.log(this.selectedFile)
+
+    },
     submit: function (event) {
        // `this` inside methods points to the Vue instance
+       // On upload l'image sur imgur
+       // Authentification
+       var config = {
+         headers: {'Authorization': 'Client-ID a98be453a893668'}
+       };
        // Data
-       var data = {"title" : this.title,
+       var data = new FormData();
+       data.append("image", this.selectedFile);
+       var dataad = {"title" : this.title,
                     "description": this.description,
                     "price": this.price,
                     "categoryID": this.categoryID,
-                    "userID":0};
-
-
-          axios
-         .post('http://localhost:8081/classads',data)
-         .then((response) => {
-           // Success
-           this.$router.push('/');
+                    "userID":0,
+                    "images": []};
+       axios
+         .post('https://api.imgur.com/3/image',data, config)
+         .then(function (response) {
+           var imglink = response.data.data.link; // setup image link
+           dataad["images"]=[imglink]
+           // upload ad
+              axios
+             .post('http://localhost:8081/classads',dataad)
          })
-         .catch(error => {
-           alert('Request failed');
-         });
-
-     }
-
-
-    // format(value, event) {
-    //   console.log('[' + value + ']');
-    //   console.log('Caller event: ' + event);
-    //   if(!value.includes('.')) {
-    //     console.log('No dot');
-    //     return value;
-    //   }
-    //
-    //   if((value.split(".").length) > 2) { // Si il y a plus d'une virgule
-    //   console.log('More than one dot');
-    //     var elements = value.split(".");
-    //     console.log(elements);
-    //     var toReturn = elements[0] + "." + elements[1]
-    //     console.log("Value to return: " + toReturn);
-    //     return toReturn;
-    //   }
-    //
-    //   console.log('Exactly one dot');
-    //   return value;
-    // }
+       .catch(error => {
+         alert("Ad has failed to upload, please try again");
+       });
+       // Success
+       this.$router.push('/');
   }
+}
 }
 </script>
 
