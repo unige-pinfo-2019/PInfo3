@@ -93,9 +93,34 @@ export default {
   display: flex;
 }
 
-@media screen and (max-width: 1070px) {
+@media screen and (max-width: 1070px) { // Screens smaller or equal to 1070px width
   .pub-wrapper {
     display: none;
+  }
+
+  .results-wrapper {
+    // flex-grow: 100;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+}
+
+@media screen and (min-width: 1071px) { // Screens bigger or equal to 1071px width
+  .results-wrapper {
+    flex-grow: 100;
+
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .mini-ad {
+    margin-right: auto;
   }
 }
 
@@ -109,18 +134,7 @@ export default {
   color: lightgray;
 }
 
-.mini-ad {
-  margin-right: auto;
-}
 
-.results-wrapper {
-  flex-grow: 100;
-  // flex-basis: auto;
-  // width: auto;
 
-  display: flex;
-  flex-direction: row;
-  // justify-content: space-between;
-  flex-wrap: wrap;
-}
+
 </style>
