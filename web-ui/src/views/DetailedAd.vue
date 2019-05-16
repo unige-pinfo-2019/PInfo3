@@ -5,7 +5,7 @@
       <div class="ad-rows">
         <div class="row-ad">
           <div class="block col-flex">
-            <h1 class="title">{{this.title}}</h1>
+            <h1 class="title">{{this.res.data.title}}</h1>
 
             <div class="carousel-container">
               <b-carousel
@@ -29,7 +29,7 @@
               </b-carousel-slide>
 
               <!-- Displays all images of the ad in a carousel -->
-              <b-carousel-slide v-for="image in images" v-bind:key="image">
+              <b-carousel-slide v-for="image in this.res.data.images" v-bind:key="image">
                 <img
                   slot="img"
                   class="d-block img-fluid w-100"
@@ -43,9 +43,9 @@
             </b-carousel>
           </div>
 
-          <p class="description">{{this.description}}</p>
+          <p class="description">{{this.res.data.description}} </p>
 
-          <p class="price">{{this.prix}} CHF</p>
+          <p class="price">{{this.res.data.price}} CHF</p>
         </div>
 
         <!-- Delete and edit buttons -->
@@ -100,6 +100,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'detailed-ad',
   props: {
@@ -112,18 +114,15 @@ export default {
       prix: "69",
       // images: [],
       images: ["https://picsum.photos/480/1024/?image=52", "https://picsum.photos/1024/480/?image=55"],
-      showModal: false
+      showModal: false,
+      res: null
     }
   },
   mounted() {
-    // TODO: Faire les requêtes axios pour charger les bonnes valeurs dans les
-    // variables title, description, prix, images ci-dessus. Si il faut on peut
-    // les renomer, faut juste les renomer dans la partie HTML ci-dessus.
-    console.log('Need to do a request to: ' + this.id); // Cette ligne pour être supprimée une fois la requête implémentée
     // retrieve ad
     axios
-      .get('http://localhost:8081/classads')
-      .then(response => (this.ads = response));
+      .get('http://localhost:8081/classads/ads/ad/' + this.id)
+      .then(response => (this.res = response));
 
   },
   methods: {
