@@ -84,7 +84,7 @@ jobs:
     - stage: build
       language: node_js
       node_js:
-        - "11"
+        - "10"
       services:
         - docker
       before_script:
