@@ -22,7 +22,7 @@ jobs:
         - cd search-service
       script:
         - mvn clean package
-        - docker build -t 2019pinfo3/search-service .
+        - docker build -t 2019pinfo3/search-service:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/search-service:latest
@@ -36,7 +36,7 @@ jobs:
         - cd classads-service
       script:
         - mvn clean package
-        - docker build -t 2019pinfo3/classads-service .
+        - docker build -t 2019pinfo3/classads-service:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/classads-service:latest
@@ -50,7 +50,7 @@ jobs:
         - cd user-service
       script:
         - mvn clean package
-        - docker build -t 2019pinfo3/user-service .
+        - docker build -t 2019pinfo3/user-service:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/user-service:latest
@@ -76,7 +76,7 @@ jobs:
       before_script:
         - cd api-gateway
       script:
-        - docker build -t 2019pinfo3/api-gateway .
+        - docker build -t 2019pinfo3/api-gateway:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/api-gateway:latest
@@ -93,7 +93,7 @@ jobs:
         - npm install dependencies
       script:
         - npm run build
-        - docker build -t 2019pinfo3/web-ui .
+        - docker build -t 2019pinfo3/web-ui:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/web-ui:latest
