@@ -1,6 +1,11 @@
 # Commandes
-
 ## Pour lancer les microservices
+
+Vous pouvez lancer le backend avec le script run.sh :
+```
+sudo ./run.sh
+
+```
 
 Pour créer les images docker avec maven :
 
