@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:11-alpine
 COPY  . /web-ui/
 WORKDIR /web-ui
 EXPOSE 8081
