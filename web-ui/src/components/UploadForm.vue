@@ -6,6 +6,9 @@
     <br>
     Lien de l'image :     {{ info }}
 
+    <br>
+    BASE_API: [ {{baseAPI}} ]
+
 </div>
 </template>
 
@@ -17,7 +20,8 @@ export default {
   data() {
   return {
     selectedFile: null,
-    info:null
+    info:null,
+    baseAPI: "not set"
   }
   },
 
@@ -40,6 +44,9 @@ export default {
         .post('https://api.imgur.com/3/image',data, config)
         .then(response => (this.info = response.data.data.link))
     }
+  },
+  mounted: function() {
+    this.baseAPI = process.env.VUE_APP_BASE_API;
   }
 }
 </script>
