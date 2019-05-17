@@ -135,9 +135,9 @@ volumes:
 networks:
   frontend-network:
      external:
-        name: dockercompose_frontend-network 
+        name: dockercomposefiles_frontend-network 
   gateway-network:
      driver: bridge     
   backend-network:
      external:
-        name: dockercompose_backend-network
+        name: dockercomposefiles_backend-network
