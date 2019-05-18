@@ -82,3 +82,8 @@ Post a user (in json format)
 
 Delete a user (with the id)
 `DELETE http://host:port/users`
+
+## Responses
+
+Get the list of all the responses from a user (with the id, format json)
+`GET http://host:port/classadsresponses/users/{uid}/ads`
