@@ -86,4 +86,5 @@ Delete a user (with the id)
 ## Responses
 
 Get the list of all the responses from a user (with the id, format json)
+
 `GET http://host:port/classadsresponses/users/{uid}/ads`
