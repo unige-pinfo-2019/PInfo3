@@ -35,6 +35,20 @@ Post an ad (in json format)
 }
 ```
 
+Modifies an ad by its ID (in json format)
+`PUT http://host:port/classads/ads/ad/{id}` expects
+
+```
+{
+ "title" : String,
+ "description" : String,
+ "price" : Float,
+ "categoryID" : Integer,
+ "userID" : Integer,
+ "images" : [String, String, ...]
+}
+```
+
 Delete an ad (with the id)
 `DELETE http://host:port/classads/ads/ad/{id}`
 
@@ -82,3 +96,9 @@ Post a user (in json format)
 
 Delete a user (with the id)
 `DELETE http://host:port/users`
+
+## Responses
+
+Get the list of all the responses from a user (with the id, format json)
+
+`GET http://host:port/classadsresponses/users/{uid}/ads`

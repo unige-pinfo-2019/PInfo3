@@ -101,6 +101,19 @@ public class AdServiceImpl implements AdService{
 		
 		return Optional.empty();
 	}
+	
+	
+	
+	
+	@Override
+	public boolean update(Ad ad) {
+		Ad a = em.find(Ad.class, ad.getId());
+		if (a == null) {
+			throw new IllegalArgumentException("Classads does not exist : " + ad.getId());
+		}
+		em.merge(ad);
+		return true;
+	}
 
 	@Override
 	public void deleteAd(Ad ad) {
@@ -142,6 +155,7 @@ public class AdServiceImpl implements AdService{
 		}
 		return ad;
 	}
+	
 	
 	/***** Manipulation *****/
 	private Boolean setMandatoryParameters(Ad ad, JsonObject json) {

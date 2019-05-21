@@ -66,6 +66,7 @@ public class Ad implements Serializable{
 	/***** Constructors *****/
 	public Ad() {}
 	
+	
 	public Ad(String title, String description, float price, long userID, int categoryID, List<String> images) {
 		this.title = title;
 		this.description = description;
