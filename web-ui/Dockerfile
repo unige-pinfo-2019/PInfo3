@@ -1,8 +1,9 @@
-FROM node:11-alpine
-COPY  . /web-ui/
-WORKDIR /web-ui
-EXPOSE 8081
-ENV Name World
-RUN npm install
-RUN npm rebuild node-sass
-ENTRYPOINT ["npm","run", "dev"]
+FROM node:10
+COPY ./ /app
+WORKDIR /app
+RUN npm install && npm run build
+
+FROM nginx
+RUN mkdir /app
+COPY --from=0 /app/dist /app
+COPY nginx.conf /etc/nginx/nginx.conf
