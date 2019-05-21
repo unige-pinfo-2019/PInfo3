@@ -129,10 +129,10 @@ public class SearchServiceImpl implements SearchService {
 		sourceBuilder.sort(new ScoreSortBuilder().order(SortOrder.DESC)); //Sort by the highest matching
 
 		QueryBuilder queryBuilder = QueryBuilders
-				.matchQuery("description", request)
+				.multiMatchQuery(request, Ad.getDescriptionField(), Ad.getTitleField())
                 .fuzziness(Fuzziness.AUTO) //Enable fuzzy matching (search even if there's not a full match)
-                .prefixLength(3)
-                .maxExpansions(10);
+                .prefixLength(1)
+                .maxExpansions(50);
 		sourceBuilder.query(queryBuilder);
 
 		//Add the source builder to the search request
