@@ -46,12 +46,12 @@ export default {
   mounted: function () {
     // retrieve list of categories
     axios
-      .get('http://localhost:8081/categories/treeview')
+      .get(process.env.VUE_APP_BASE_API + ':8081/categories/treeview')
       .then(response => (this.categories = response));
 
   // retrieve catIds
     axios
-      .get('http://localhost:8081/categories/index')
+      .get(process.env.VUE_APP_BASE_API + ':8081/categories/index')
       .then(response => (this.catIds = response));
 
   }

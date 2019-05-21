@@ -99,7 +99,7 @@ export default {
     // retrieve categories
     function getValues() {
       return axios
-      .get('http://localhost:8081/categories/index')
+      .get(process.env.VUE_APP_BASE_API + ':8081/categories/index')
       .then(response => {
         return response.data;
       })
@@ -119,7 +119,9 @@ export default {
   methods: {
     onFileChanged (event) {
       this.selectedFile = event.target.files[0]
-      console.log(this.selectedFile)
+      var src = window.URL.createObjectURL(this.selectedFile);
+      this.images.push(src);
+      console.log(this.images);
 
     },
     submit: function (event) {
@@ -145,7 +147,7 @@ export default {
            dataad["images"]=[imglink]
            // upload ad
               axios
-             .post('http://localhost:8081/classads',dataad)
+             .post(process.env.VUE_APP_BASE_API + ':8081/classads',dataad)
          })
        .catch(error => {
          alert("Ad has failed to upload, please try again");

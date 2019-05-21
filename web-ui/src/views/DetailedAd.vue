@@ -114,14 +114,14 @@ export default {
   mounted() {
     // retrieve ad
     axios
-      .get('http://localhost:8081/classads/ads/ad/' + this.id)
+      .get(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
       .then(response => (this.res = response));
 
   },
   methods: {
     deleteThisAd() {
       axios
-        .delete('http://localhost:8081/classads/ads/ad/' + this.id)
+        .delete(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
     }
   }
 }
