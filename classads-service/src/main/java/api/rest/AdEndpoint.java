@@ -60,18 +60,19 @@ public class AdEndpoint {
 		if (ad.isEmpty()) {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't extract the ad, the id may not exist").build();
 		}
+		ad.get().setNbVues(ad.get().getNbVues()+1); //if the method is called the nb of vue rows
+		adservice.update(ad.get());
 		return Response.ok(adservice.createJsonRepresentation(ad.get()).toString()).build();
 		
 	}
 	
 	
 	@PUT
-	@Path("/ads/ad/{id}")
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(@PathParam("id") String strID, String jsonStr) {
+	public Response update(String jsonStr) {
 		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
 		Ad ad = adservice.createAdFromJson(json); //We create the ad
-		ad.setId(Long.parseLong(strID));
 		try {
 			adservice.update(ad);
 		}catch(IllegalArgumentException ex) {
@@ -79,7 +80,7 @@ public class AdEndpoint {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Some form of error occurred. Could not modifie "+ ad.toString()).build();
 		}
 		adProducer.send(ad);
-		return Response.ok("the ad " + strID + " have been modified").build();
+		return Response.ok("the ad " + ad.getId() + " have been modified").build();
 	}
 
 
