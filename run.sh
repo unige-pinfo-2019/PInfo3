@@ -8,7 +8,7 @@ gnome-terminal -x docker-compose -f docker-compose/docker-compose-unitrade.yml u
 
 sleep 10
 cd web-ui
-npm run dev
+npm run dev   
 
 
 

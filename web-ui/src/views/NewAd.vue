@@ -119,7 +119,9 @@ export default {
   methods: {
     onFileChanged (event) {
       this.selectedFile = event.target.files[0]
-      console.log(this.selectedFile)
+      var src = window.URL.createObjectURL(this.selectedFile);
+      this.images.push(src);
+      console.log(this.images);
 
     },
     submit: function (event) {
