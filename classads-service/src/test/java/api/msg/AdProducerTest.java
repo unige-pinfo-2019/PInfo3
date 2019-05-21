@@ -14,13 +14,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import domain.model.Ad;
+import domain.model.AdSearchable;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
 public class AdProducerTest {
 	
 	@Mock
-	private SimpleKafkaProducer<String, Ad> kafkaProducer;
+	private SimpleKafkaProducer<String, AdSearchable> kafkaProducer;
 	
 	@InjectMocks
 	private AdProducer producer;
@@ -39,14 +40,18 @@ public class AdProducerTest {
 	void testSendAd() {
 		Ad ad = getAdDefault();
 		producer.send(ad);
-		verify(kafkaProducer, times(1)).send("ads", ad);
+		AdSearchable adSearchable = new AdSearchable();
+		adSearchable.createAd(ad);
+		verify(kafkaProducer, times(1)).send("ads", adSearchable);
 	}
 	
 	@Test
 	void testDeleteAd() {
 		Ad ad = getAdDefault();
 		producer.sendDelete(ad);
-		verify(kafkaProducer, times(1)).send("deleteAds", ad);
+		AdSearchable adSearchable = new AdSearchable();
+		adSearchable.createAd(ad);
+		verify(kafkaProducer, times(1)).send("deleteAds", adSearchable);
 	}
 
 

@@ -71,8 +71,6 @@ public class Ad implements Serializable{
 	
 	@Column(name="DELETED")
 	private boolean deleted = false;
-	
-	
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "images_string_id", joinColumns = @JoinColumn(name = "Ad_id"))

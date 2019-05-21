@@ -43,6 +43,7 @@ public class AdServiceImpl implements AdService{
 		CriteriaQuery<Ad> c = qb.createQuery(Ad.class);
 		Root<Ad> adRoot = c.from(Ad.class);
 		c.select(adRoot);
+		c.where(qb.equal(adRoot.get(Ad.getDeletedField()), false));
 		return getEm().createQuery(c).getResultList();
 	}
 	

@@ -1,6 +1,7 @@
 package domain.service;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -183,6 +184,8 @@ public class SearchServiceImpl implements SearchService {
 	    dataMap.put(Ad.getCategoryIDField(), ad.getCategoryID());
 	    dataMap.put(Ad.getUserIDField(), ad.getUserID());
 	    dataMap.put(Ad.getImageField(), ad.getImages());
+	    dataMap.put(Ad.getNbVuesField(), ad.getNbVues());
+	    dataMap.put(Ad.getTimeField(), ad.getTime());
 	    return dataMap;
 	}
 
@@ -207,6 +210,9 @@ public class SearchServiceImpl implements SearchService {
 			}
 			if (mapData.containsKey(Ad.getCategoryIDField())) {
 				ad.setCategoryID(Integer.parseInt(mapData.get(Ad.getCategoryIDField()).toString()));
+			}
+			if (mapData.containsKey(Ad.getNbVuesField())) {
+				ad.setNbVues(Integer.parseInt(mapData.get(Ad.getNbVuesField()).toString()));
 			}
 		}
 		return ad;
