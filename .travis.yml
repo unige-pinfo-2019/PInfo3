@@ -12,7 +12,7 @@ jobs:
       script:
         - mvn clean package
         - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo3 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=b89cca69d31bf42b2d5c4ec913c8ae8f1f84f450
-      
+
     - stage: build
       language: java
       jdk: openjdk11
@@ -26,7 +26,7 @@ jobs:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/search-service:latest
-      
+
     - stage: build
       language: java
       jdk: openjdk11
@@ -40,7 +40,7 @@ jobs:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/classads-service:latest
-      
+
     - stage: build
       language: java
       jdk: openjdk11
@@ -54,7 +54,7 @@ jobs:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/user-service:latest
-      
+
       # - language: java
       #     jdk: openjdk11
       #     before_script:
@@ -68,7 +68,7 @@ jobs:
       #       - cd statistic-service
       #     script:
       #       - mvn clean package
-      
+
     - stage: build
       language: minimal
       services:
@@ -80,7 +80,7 @@ jobs:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/api-gateway:latest
-      
+
     - stage: build
       language: node_js
       node_js:
@@ -89,10 +89,7 @@ jobs:
         - docker
       before_script:
         - cd web-ui
-        - npm rebuild node-sass
-        - npm install dependencies
       script:
-        - npm run build
         - docker build -t 2019pinfo3/web-ui:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
