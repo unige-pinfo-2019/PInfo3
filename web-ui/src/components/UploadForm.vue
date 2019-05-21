@@ -7,7 +7,9 @@
     Lien de l'image :     {{ info }}
 
     <br>
-    BASE_API: [ {{baseAPI}} ]
+    <hr>
+
+    BASE_API 2: [{{baseAPI}}]
 
 </div>
 </template>
@@ -18,11 +20,11 @@ import axios from 'axios';
 export default {
   name: 'UploadForm',
   data() {
-  return {
-    selectedFile: null,
-    info:null,
-    baseAPI: "not set"
-  }
+    return {
+      selectedFile: null,
+      info:null,
+      baseAPI: "not set",
+    }
   },
 
   methods: {
