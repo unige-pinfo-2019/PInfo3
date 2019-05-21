@@ -36,10 +36,14 @@ Post an ad (in json format)
 ```
 
 Modifies an ad by its ID (in json format)
-`PUT http://host:port/classads/ads/ad/{id}` expects
+`PUT http://host:port/classads/` expects
 
 ```
 {
+ "id" : String,
+ "deleted" : boolean,
+ "nbVues" : int,
+ "time" : String,  (ex:"2019-05-21T14:40:10.600755")
  "title" : String,
  "description" : String,
  "price" : Float,
