@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -61,6 +62,24 @@ public class AdEndpoint {
 		}
 		return Response.ok(adservice.createJsonRepresentation(ad.get()).toString()).build();
 		
+	}
+	
+	
+	@PUT
+	@Path("/ads/ad/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response update(@PathParam("id") String strID, String jsonStr) {
+		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
+		Ad ad = adservice.createAdFromJson(json); //We create the ad
+		ad.setId(Long.parseLong(strID));
+		try {
+			adservice.update(ad);
+		}catch(IllegalArgumentException ex) {
+			log.error(ex.toString());
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Some form of error occurred. Could not modifie "+ ad.toString()).build();
+		}
+		adProducer.send(ad);
+		return Response.ok("the ad " + strID + " have been modified").build();
 	}
 
 
