@@ -8,6 +8,9 @@ Get the list of all ads (in json format)
  ```
  [
   {"0" : {"id" : Integer,
+          "deleted" : boolean,
+          "nbVues" : int,
+          "time" : String,
           "title" : String,
           "description" : String,
           "price" : Float,
@@ -40,7 +43,7 @@ Modifies an ad by its ID (in json format)
 
 ```
 {
- "id" : String,
+ "id" : Integer,
  "deleted" : boolean,
  "nbVues" : int,
  "time" : String,  (ex:"2019-05-21T14:40:10.600755")
