@@ -28,6 +28,8 @@ public class Ad {
 
 	private int categoryID;
 	
+	private List<String> images;
+	
 	public Ad(long id, String title, String description, float price, long userID, int categoryID, List<String> images) {
 		this.id = id;
 		this.title = title;
@@ -36,12 +38,8 @@ public class Ad {
 		this.userID = userID;
 		this.categoryID = categoryID;
 		this.images = images;
-		
 	}
 	
-
-	private List<String> images;
-
 	public static String getTitleField() {
 		return titleField;
 	}

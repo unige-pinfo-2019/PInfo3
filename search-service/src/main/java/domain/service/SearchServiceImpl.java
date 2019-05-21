@@ -182,6 +182,7 @@ public class SearchServiceImpl implements SearchService {
 	    dataMap.put(Ad.getPriceField(), ad.getPrice());
 	    dataMap.put(Ad.getCategoryIDField(), ad.getCategoryID());
 	    dataMap.put(Ad.getUserIDField(), ad.getUserID());
+	    dataMap.put(Ad.getImageField(), ad.getImages());
 	    return dataMap;
 	}
 
