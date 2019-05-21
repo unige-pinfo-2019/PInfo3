@@ -213,7 +213,6 @@ public class AdServiceImpl implements AdService{
 		jsonAd.addProperty(Categories.getCategoryIDField(), ad.getCategoryID());
 		jsonAd.add(Ad.getImageField(), getImagesInJson(ad));
 		jsonAd.addProperty(Ad.getTimeField(), ad.getTime().toString());
-		jsonAd.addProperty(Ad.getDeletedField(), ad.isDeleted());
 		jsonAd.addProperty(Ad.getNbVuesField(), ad.getNbVues());
 		
 		return jsonAd;
