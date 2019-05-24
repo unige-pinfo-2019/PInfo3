@@ -13,6 +13,7 @@ import javax.persistence.Table;
 @Table(name="USER")
 public class User implements Serializable {
 
+
 	private static final long serialVersionUID = 1881800838175136618L;
 	
 	@Id
@@ -37,6 +38,7 @@ public class User implements Serializable {
 	
 	public User() {}
 	
+	
 	public User(String prenom, String nom, int age, String email, String tel) {
 		this.setAge(age);
 		this.setEmail(email);
@@ -44,6 +46,16 @@ public class User implements Serializable {
 		this.setFirstName(prenom);
 		this.setTel(tel);
 		
+	}
+	
+	public User(long id, String firstName, String lastName, int age, String tel, String email) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.tel = tel;
+		this.email = email;
 	}
 	
 	@Override

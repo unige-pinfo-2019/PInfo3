@@ -14,16 +14,19 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import domain.model.User;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @ApplicationScoped
 @Transactional
 public class UserServiceImpl implements UserService {
 	
-	@PersistenceContext (name="InmemoryPU")
+	@PersistenceContext (name="UsersPU")
 	EntityManager em;
 
 	@Override
 	public boolean createUser(User u) {
+		log.info("trying to create user");
 		Optional<User> existing = this.getByName(u.getFirstName());
 		if(!existing.isPresent()) {
 			em.persist(u);
