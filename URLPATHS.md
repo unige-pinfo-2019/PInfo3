@@ -109,3 +109,22 @@ Delete a user (with the id)
 Get the list of all the responses from a user (with the id, format json)
 
 `GET http://host:port/classadsresponses/users/{uid}/ads`
+# api-gateway
+## classads-service
+
+`localhost/api/classads`
+Everything request that has something to do with the classads (service) is routed through localhost/api/classads. This will redirect the request to localhost:port/classads of the classads service. One possible issue is that the categories are implemented at a different path so it has to be fixed.
+
+## user-service
+
+`localhost/api/user`
+Same as above, localhost:port/user
+
+## search-service
+
+`localhost/api/search`
+Same as above, localhost:port/search
+
+In the future, all api calls in the form of `localhost/api/service` will be translated as `localhost:port/service`
+
+
