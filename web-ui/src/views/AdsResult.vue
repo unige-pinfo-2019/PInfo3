@@ -57,7 +57,7 @@ export default {
     onClickSearch (value) {
       this.query=value;
       axios
-        .get('http://localhost:8084/search?request=' + this.query)
+        .get(process.env.VUE_APP_BASE_API + ':8084/search?request=' + this.query)
         .then(response => (this.ads = response));
       this.$forceUpdate();
     },
@@ -66,13 +66,13 @@ export default {
       {
         // retrieve list of ads
         axios
-          .get('http://localhost:8081/classads/categories/' + this.id)
+          .get(process.env.VUE_APP_BASE_API + ':8081/classads/categories/' + this.id)
           .then(response => (this.ads = response));
       }
       else {
         // retrieve list of ads
         axios
-          .get('http://localhost:8081/classads/')
+          .get(process.env.VUE_APP_BASE_API + ':8081/classads/')
           .then(response => (this.ads = response));
       }
     }

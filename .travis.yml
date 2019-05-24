@@ -89,10 +89,7 @@ jobs:
         - docker
       before_script:
         - cd web-ui
-        - npm rebuild node-sass
-        - npm install dependencies
       script:
-        - npm run build
         - docker build -t 2019pinfo3/web-ui .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

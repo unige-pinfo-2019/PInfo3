@@ -105,7 +105,7 @@ export default {
     // retrieve categories
     function getValues() {
       return axios
-      .get('http://localhost:8081/categories/index')
+      .get(process.env.VUE_APP_BASE_API + ':8081/categories/index')
       .then(response => {
         return response.data;
       })
@@ -158,9 +158,8 @@ export default {
            dataad["images"]=[imglink]
            // upload ad
               axios
-             .post('http://localhost:8081/classads',dataad)
-             .then(function (response) {
-               // Success
+             .post(process.env.VUE_APP_BASE_API + ':8081/classads',dataad)
+             .then(functin (response) {
                this.$router.push('/');
              })
          })
