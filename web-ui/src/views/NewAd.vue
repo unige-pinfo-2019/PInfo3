@@ -33,14 +33,19 @@
         </div> -->
         <div class="images-wrapper">
           <div class="image-wrapper" v-for="image in images" v-bind:key="image.id">
-            <b-img v-bind:src="image" rounded width="100px" height="100px"></b-img>
+            <b-img v-bind:src="image" rounded width="100px" height="100px" v-img></b-img>
           </div>
           <b-button onclick="document.getElementById('hidden-file-input').click()" class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
+
+          <b-modal ref="modalim" title="Aperçu" :ok-only='true'>
+            <b-img class="img-responsive" v-bind:src="srcurl"></b-img>
+          </b-modal>
 
           <!-- Cet input dessous est cliqué automatiquement lorsque le "vrai"
           bouton visible est cliqué. -->
           <input id="hidden-file-input" type="file" class="invisible-file-input" @change="onFileChanged">
         </div>
+
 
 
         <span class="field-title" > <h4>Prix</h4> <hr> </span>
@@ -89,6 +94,7 @@ export default {
       price: 0.0, // float
       categoryID: 0,
       selectedFile: null,
+      srcurl:null,
       categories: [
         { value: 1, text: 'Vide' },
       ],
@@ -124,6 +130,11 @@ export default {
       console.log(this.images);
 
     },
+    showModal(image) {
+      this.srcurl = image;
+      this.$refs['modalim'].show()
+    },
+
     submit: function (event) {
        // `this` inside methods points to the Vue instance
        // On upload l'image sur imgur
@@ -148,12 +159,15 @@ export default {
            // upload ad
               axios
              .post('http://localhost:8081/classads',dataad)
+             .then(function (response) {
+               // Success
+               this.$router.push('/');
+             })
          })
        .catch(error => {
          alert("Ad has failed to upload, please try again");
        });
-       // Success
-       this.$router.push('/');
+
   }
 }
 }

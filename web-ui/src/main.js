@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueImg from 'v-img';
 import App from './App.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
@@ -21,6 +22,8 @@ library.add(faEdit)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(BootstrapVue)
+Vue.use(VueImg);
+
 
 Vue.config.productionTip = false
 
