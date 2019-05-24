@@ -56,11 +56,7 @@ volumes:
   pgdata-iam:
 
 networks:
-  frontend-network:
-    external:
-       name: docker-compose_frontend-network
   gateway-network:
-    driver: bridge
+     driver: bridge
   backend-network:
-    external:
-       name: docker-compose_backend-network
+     driver: bridge
