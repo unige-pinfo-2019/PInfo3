@@ -151,16 +151,17 @@ export default {
                     "categoryID": this.categoryID,
                     "userID":0,
                     "images": []};
+       var self = this;
        axios
          .post('https://api.imgur.com/3/image',data, config)
          .then(function (response) {
            var imglink = response.data.data.link; // setup image link
-           dataad["images"]=[imglink]
+           dataad["images"]=[imglink];
            // upload ad
               axios
              .post(process.env.VUE_APP_BASE_API + ':8081/classads',dataad)
-             .then(functin (response) {
-               this.$router.push('/');
+             .then(function (response) {
+               self.$router.push('/');
              })
          })
        .catch(error => {
