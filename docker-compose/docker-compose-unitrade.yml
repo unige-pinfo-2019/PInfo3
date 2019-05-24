@@ -37,7 +37,6 @@ services:
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
-      KAFKA_HEAP_OPTS: "-Xmx256M -Xms128M"
     volumes:
       - ./target/zk-single-kafka-single/kafka1/data:/var/lib/kafka/data
     depends_on:
@@ -116,7 +115,7 @@ services:
     networks:
       - frontend-network
     ports:
-      - "8083:8081"
+      - "8083:80"
     depends_on:
        - classads-service
        - user-service
