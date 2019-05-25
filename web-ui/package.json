@@ -21,7 +21,8 @@
     "sass-loader": "^7.1.0",
     "vee-validate": "^2.2.3",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.3"
+    "vue-router": "^3.0.3",
+    "keycloak-js": "^5.0.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.6.0",
