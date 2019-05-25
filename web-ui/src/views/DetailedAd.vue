@@ -63,7 +63,7 @@
 
             </div>
             <div slot="modal-footer" class="w-100">
-              <b-button variant="primary" class="float-right" @click="showModal=false; deleteThisAd()">
+              <b-button variant="primary" class="float-right" v-on:click="showModal=false; deleteThisAd()">
                 Supprimer
               </b-button>
               <b-button variant="secondary" style="margin-right: 20px" class="float-right" @click="showModal=false">
@@ -120,8 +120,18 @@ export default {
   },
   methods: {
     deleteThisAd() {
+
       axios
         .delete(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
+        .then(function (response) {
+          // handle success
+          // TODO
+          // this.$router.push('/')
+        })
+        .catch(function (error) {
+          // handle error
+          alert('Could not route url location: ' + error);
+        })
     }
   }
 }
