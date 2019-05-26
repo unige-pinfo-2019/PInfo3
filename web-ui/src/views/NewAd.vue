@@ -79,6 +79,13 @@
         <b-button style="float: right;"  v-on:click="submit" variant="primary">Soumettre</b-button>
       </div>
     </div>
+
+
+    <b-modal id="sending-notification" hide-header hide-footer centered v-model="sending">
+      <div style="font-size: 1.7em;">
+        Envoie en cours <b-spinner style="margin-left: 20px;" label="Small Spinner" variant="primary"></b-spinner>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -95,6 +102,7 @@ export default {
       categoryID: 0,
       selectedFile: null,
       srcurl:null,
+      sending: false,
       categories: [
         { value: 1, text: 'Vide' },
       ],
@@ -166,7 +174,10 @@ export default {
          })
        .catch(error => {
          alert("Ad has failed to upload, please try again");
+         this.sending = false;
        });
+
+       this.sending = true;
 
   }
 }

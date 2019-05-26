@@ -50,7 +50,7 @@ export default {
     return {
       ads : null,
       query: null,
-      requiredEmpty: 11
+      requiredEmpty: 3
     }
   },
   methods: {
