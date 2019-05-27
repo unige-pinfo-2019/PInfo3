@@ -10,6 +10,7 @@ classads-service/classads-service.log
 
 # Frontend #
 .DS_Store
+web-ui/node_modules/.cache
 /dist
 
 # local env files
