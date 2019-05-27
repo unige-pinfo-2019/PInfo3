@@ -11,7 +11,8 @@
       v-for="node in nodes"
       :nodes="node.children"
       :label="node.name"
-      :depth="depth + 1"    >
+      :depth="depth + 1"
+      :ids="ids"   >
   </TreeMenu>
 
   </div>
