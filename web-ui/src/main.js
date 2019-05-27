@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
-import Keycloak from 'keycloak-js/dist/keycloak.js'
+import Keycloak from 'keycloak-js'///dist/keycloak.js'
 // import store from 'plugin-vuejs-keycloak'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
