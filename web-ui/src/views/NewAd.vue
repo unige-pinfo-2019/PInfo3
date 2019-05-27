@@ -32,8 +32,14 @@
           <div class="image-wrapper" v-for="image in images" v-bind:key="image.id">
 
             <b-img v-bind:src="image" rounded width="100px" height="100px" v-img></b-img>
-            <div class="buttons-container">
-              <b-link class="delete-img">X</b-link>
+
+            <div class="buttons-container star-container">
+              <!-- <b-link class="delete-img">X</b-link> -->
+              <font-awesome-icon style="color: #FFD700;" :icon="['far', 'star']"/>
+            </div>
+
+            <div class="buttons-container delete-container">
+              <font-awesome-icon style="color: red; transform: translate(-3px, 5px) scale(1.3); float: right;" icon="times"/>
             </div>
 
           </div>
@@ -193,15 +199,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
-.delete-img {
-  // position: relative;
-}
+
 
 .buttons-container {
   // background: #CCC;
   position: relative;
   top: -100px;
-  padding: 2px 10px;
+  padding: 2px 8px;
 }
 
 .invisible-file-input {
