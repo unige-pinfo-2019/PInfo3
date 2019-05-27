@@ -122,6 +122,12 @@ export default {
     deleteThisAd() {
       axios
         .delete(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
+        .then((response) => {
+          this.$router.push("/")
+          // console.log(response); // Succès !
+        }, (reason) => {
+          console.log(reason); // Erreur !
+        });
     }
   }
 }

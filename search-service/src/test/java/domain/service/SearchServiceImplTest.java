@@ -1,5 +1,6 @@
 package domain.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,8 +15,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 
 import com.github.smitajit.elasticsearch.rest.mock.ESRestMockCore;
 import com.github.smitajit.elasticsearch.rest.mock.runner.ESRestMockRunner;
@@ -46,6 +45,12 @@ public class SearchServiceImplTest {
 		ad.setId((long)(100));
 		ad.setCategoryID(0);
 		ad.setUserID((long)(0));
+		
+		ArrayList<String> images = new ArrayList<String>();
+		images.add("Image1");
+		images.add("Image2");
+		images.add("Image3");
+		ad.setImages(images);
 		
 		return ad;
 	}

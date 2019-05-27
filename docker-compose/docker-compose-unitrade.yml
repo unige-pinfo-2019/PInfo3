@@ -115,7 +115,7 @@ services:
     networks:
       - frontend-network
     ports:
-      - "8083:8081"
+      - "8083:80"
     depends_on:
        - classads-service
        - user-service

@@ -1,11 +1,13 @@
 package domain.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -36,6 +38,9 @@ public class Ad implements Serializable{
 	private static String userIDField = "userID";
 	private static String categoryIDField = "categoryID";
 	private static String imageField = "images";
+	private static String timeField = "time";
+	private static String nbVuesField = "nbVues";
+	private static String deletedField = "deleted";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -46,6 +51,7 @@ public class Ad implements Serializable{
 	private String title;
 
 	@Column(name="DESCRIPTION")
+	@Lob
 	private String description;
 
 	@Column(name="PRICE")
@@ -57,6 +63,14 @@ public class Ad implements Serializable{
 	@Column(name="CATEGORY_ID")
 	private int categoryID;
 	
+	@Column(name="CREATION_DATE")
+	private LocalDateTime time;
+	
+	@Column(name="NB_VUE")
+	private int nbVues = 0;
+	
+	@Column(name="DELETED")
+	private boolean deleted = false;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "images_string_id", joinColumns = @JoinColumn(name = "Ad_id"))
@@ -64,7 +78,15 @@ public class Ad implements Serializable{
 	private List<String> images;
 
 	/***** Constructors *****/
-	public Ad() {}
+	public Ad() {
+		this.time = LocalDateTime.now();
+	}
+	
+	public Ad(Long id) {
+		this.id = id;
+		this.time = LocalDateTime.now();
+	}
+	
 	
 	public Ad(String title, String description, float price, long userID, int categoryID, List<String> images) {
 		this.title = title;
@@ -73,6 +95,7 @@ public class Ad implements Serializable{
 		this.userID = userID;
 		this.categoryID = categoryID;
 		this.images = images;
+		this.time = LocalDateTime.now();
 		
 	}
 	
@@ -121,7 +144,19 @@ public class Ad implements Serializable{
 
 	public static String getIdField() {
 		return idField;
-	}	
+	}
+	public static String getTimeField() {
+		return timeField;
+	}
+
+
+	public static String getNbVuesField() {
+		return nbVuesField;
+	}
+
+	public static String getDeletedField() {
+		return deletedField;
+	}
 
 
 }

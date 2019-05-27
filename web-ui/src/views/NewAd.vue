@@ -76,6 +76,13 @@
         <b-button style="float: right;"  v-on:click="submit" variant="primary">Soumettre</b-button>
       </div>
     </div>
+
+
+    <b-modal id="sending-notification" hide-header hide-footer centered v-model="sending">
+      <div style="font-size: 1.7em;">
+        Envoie en cours <b-spinner style="margin-left: 20px;" label="Small Spinner" variant="primary"></b-spinner>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -93,6 +100,7 @@ export default {
       selectedFile: null,
       selectedFiles : [],
       srcurl:null,
+      sending: false,
       categories: [
         { value: 1, text: 'Vide' },
       ],
@@ -171,31 +179,9 @@ export default {
         alert("Ad has failed to upload, please try again");
       });
 
-       // // Data
-       // var data = new FormData();
-       // data.append("image", this.selectedFile);
-       // var dataad = {"title" : this.title,
-       //              "description": this.description,
-       //              "price": this.price,
-       //              "categoryID": this.categoryID,
-       //              "userID":0,
-       //              "images": []};
-       // var self = this;
-       // axios
-       //   .post('https://api.imgur.com/3/image',data, config)
-       //   .then(function (response) {
-       //     var imglink = response.data.data.link; // setup image link
-       //     dataad["images"]=[imglink];
-       //     // upload ad
-       //        axios
-       //       .post(process.env.VUE_APP_BASE_API + ':8081/classads',dataad)
-       //       .then(function (response) {
-       //         self.$router.push('/');
-       //       })
-       //   })
-       // .catch(error => {
-       //   alert("Ad has failed to upload, please try again");
-       // });
+
+
+       this.sending = true;
 
   }
 }

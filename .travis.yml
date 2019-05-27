@@ -12,7 +12,7 @@ jobs:
       script:
         - mvn clean package
         - mvn sonar:sonar -Dsonar.projectKey=unige-pinfo-2019_PInfo3 -Dsonar.organization=unige-pinfo-2019 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=b89cca69d31bf42b2d5c4ec913c8ae8f1f84f450
-      
+
     - stage: build
       language: java
       jdk: openjdk11
@@ -22,11 +22,11 @@ jobs:
         - cd search-service
       script:
         - mvn clean package
-        - docker build -t 2019pinfo3/search-service .
+        - docker build -t 2019pinfo3/search-service:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/search-service:latest
-      
+
     - stage: build
       language: java
       jdk: openjdk11
@@ -36,11 +36,11 @@ jobs:
         - cd classads-service
       script:
         - mvn clean package
-        - docker build -t 2019pinfo3/classads-service .
+        - docker build -t 2019pinfo3/classads-service:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/classads-service:latest
-      
+
     - stage: build
       language: java
       jdk: openjdk11
@@ -50,11 +50,11 @@ jobs:
         - cd user-service
       script:
         - mvn clean package
-        - docker build -t 2019pinfo3/user-service .
+        - docker build -t 2019pinfo3/user-service:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/user-service:latest
-      
+
       # - language: java
       #     jdk: openjdk11
       #     before_script:
@@ -68,7 +68,7 @@ jobs:
       #       - cd statistic-service
       #     script:
       #       - mvn clean package
-      
+
     - stage: build
       language: minimal
       services:
@@ -76,21 +76,21 @@ jobs:
       before_script:
         - cd api-gateway
       script:
-        - docker build -t 2019pinfo3/api-gateway .
+        - docker build -t 2019pinfo3/api-gateway:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/api-gateway:latest
-      
+
     - stage: build
       language: node_js
       node_js:
-        - "11"
+        - "10"
       services:
         - docker
       before_script:
         - cd web-ui
       script:
-        - docker build -t 2019pinfo3/web-ui .
+        - docker build -t 2019pinfo3/web-ui:latest .
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/web-ui:latest
@@ -99,12 +99,8 @@ jobs:
       addons:
         ssh_known_hosts:
           - pinfo3.unige.ch
+        apt:
+          packages:
+          - sshpass
       script:
-        - ssh "$SSH_USER" -p "$SSH_PASS"
-        - curl -o docker-compose-api-gw.yml https://raw.githubusercontent.com/unige-pinfo-2019/PInfo3/master/docker-compose/docker-compose-api-gw.yml
-        - curl -o docker-compose-unitrade.yml https://raw.githubusercontent.com/unige-pinfo-2019/PInfo3/master/docker-compose/docker-compose-unitrade.yml
-        - docker-compose -f docker-compose-unitrade.yml pull
-        - docker-compose -f docker-compose-api-gw.yml pull
-        - docker-compose -f docker-compose-unitrade.yml up -d
-        - docker-compose -f docker-compose-api-gw.yml up -d
-        - exit
+        - sshpass -p "$SSH_PASS" ssh "$SSH_USER" ./deploy.sh

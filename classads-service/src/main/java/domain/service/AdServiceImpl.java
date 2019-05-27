@@ -1,5 +1,6 @@
 package domain.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -42,6 +43,7 @@ public class AdServiceImpl implements AdService{
 		CriteriaQuery<Ad> c = qb.createQuery(Ad.class);
 		Root<Ad> adRoot = c.from(Ad.class);
 		c.select(adRoot);
+		c.where(qb.equal(adRoot.get(Ad.getDeletedField()), false));
 		return getEm().createQuery(c).getResultList();
 	}
 	
@@ -101,10 +103,31 @@ public class AdServiceImpl implements AdService{
 		
 		return Optional.empty();
 	}
+	
+	
+	
+	
+	@Override
+	public boolean update(Ad ad) {
+		Ad a = em.find(Ad.class, ad.getId());
+		if (a == null) {
+			throw new IllegalArgumentException("Classads does not exist : " + ad.getId());
+		}
+		ad.setTime(a.getTime());
+		em.merge(ad);
+		return true;
+	}
+	
 
 	@Override
 	public void deleteAd(Ad ad) {
-		em.remove(em.contains(ad) ? ad : em.merge(ad));
+		Ad a = em.find(Ad.class, ad.getId());
+		if (a != null) {
+			a.setDeleted(true);
+			em.merge(a);
+		}
+		
+		//em.remove(em.contains(ad) ? ad : em.merge(ad));
 		
 	}
 
@@ -118,8 +141,20 @@ public class AdServiceImpl implements AdService{
 
 	@Override
 	public Ad createAdFromJson(JsonObject json) {
-		Ad ad = new Ad();
 		//We need to decrypt the json object and instanciate the attributes of the ad
+		Ad ad;
+		
+		try {				// if the id is given in the jsonObjet, we use it to initialise an ad (typically for PUT querrys)
+			long id = json.get(Ad.getIdField()).getAsLong();
+			ad = new Ad(id);
+		}catch (Exception e) {	// else we let the Id be automatiquely generated
+			ad = new Ad();
+		}
+		try {				// if the Date is given we change the automatically generated time
+			LocalDateTime time = LocalDateTime.parse(json.get(Ad.getTimeField()).getAsString());
+			ad.setTime(time);
+		}catch (Exception e) {}
+		
 		try {
 			//Some attributes are mandatory so they'll generate an exception if they don't exist
 			
@@ -142,6 +177,7 @@ public class AdServiceImpl implements AdService{
 		}
 		return ad;
 	}
+	
 	
 	/***** Manipulation *****/
 	private Boolean setMandatoryParameters(Ad ad, JsonObject json) {
@@ -177,6 +213,9 @@ public class AdServiceImpl implements AdService{
 		jsonAd.addProperty(Ad.getUserIDField(), ad.getUserID());
 		jsonAd.addProperty(Categories.getCategoryIDField(), ad.getCategoryID());
 		jsonAd.add(Ad.getImageField(), getImagesInJson(ad));
+		jsonAd.addProperty(Ad.getTimeField(), ad.getTime().toString());
+		jsonAd.addProperty(Ad.getNbVuesField(), ad.getNbVues());
+		
 		return jsonAd;
 	}
 	
