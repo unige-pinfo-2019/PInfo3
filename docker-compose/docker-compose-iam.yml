@@ -46,7 +46,7 @@ services:
       - DB_PORT=5432
       - DB_DATABASE=keycloakdb
       - PROXY_ADDRESS_FORWARDING=true
-      - KEYCLOAK_IMPORT=/tmp/iam-config/realms.json
+      - KEYCLOAK_IMPORT=/tmp/iam-config/realm-export.json
     depends_on:
        iam-db :
          condition: service_healthy
