@@ -80,7 +80,7 @@
 
     <b-modal id="sending-notification" hide-header hide-footer centered v-model="sending">
       <div style="font-size: 1.7em;">
-        Envoie en cours <b-spinner style="margin-left: 20px;" label="Small Spinner" variant="primary"></b-spinner>
+        Envoi en cours <b-spinner style="margin-left: 20px;" label="Small Spinner" variant="primary"></b-spinner>
       </div>
     </b-modal>
   </div>
