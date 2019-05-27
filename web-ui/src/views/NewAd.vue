@@ -27,13 +27,15 @@
 
         <span class="field-title" > <h4>Images</h4> <hr> </span>
 
-        <!-- <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile">
-          <label class="custom-file-label" for="customFile">Choose file</label>
-        </div> -->
+
         <div class="images-wrapper">
           <div class="image-wrapper" v-for="image in images" v-bind:key="image.id">
+
             <b-img v-bind:src="image" rounded width="100px" height="100px" v-img></b-img>
+            <div class="buttons-container">
+              <b-link class="delete-img">X</b-link>
+            </div>
+
           </div>
           <b-button onclick="document.getElementById('hidden-file-input').click()" class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
 
@@ -190,6 +192,17 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+.delete-img {
+  // position: relative;
+}
+
+.buttons-container {
+  // background: #CCC;
+  position: relative;
+  top: -100px;
+  padding: 2px 10px;
+}
 
 .invisible-file-input {
   display: none;
