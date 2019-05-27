@@ -16,7 +16,7 @@
     "core-js": "^2.6.5",
     "dependencies": "0.0.1",
     "i": "^0.3.6",
-    "keycloak-js": "^5.0.0",
+    "keycloak-js": "^6.0.1",
     "node-sass": "^4.11.0",
     "npm": "^6.9.0",
     "plugin-vuejs-keycloak": "0.0.2",
@@ -24,7 +24,7 @@
     "vee-validate": "^2.2.3",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
-    "keycloak-connect": "3.0.0.Final"
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.6.0",

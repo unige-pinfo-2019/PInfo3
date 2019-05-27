@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Home from './views/Home.vue'
+
+// import store from 'plugin-vuejs-keycloak'
+// import security from 'plugin-vuejs-keycloak/security'
+
 import Results from '@/views/AdsResult.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -25,6 +28,8 @@ export default new Router({
     {
       path: '/upload',
       name: 'upload',
+      // meta: { abc: 'efg' },
+      // meta: { requiresAuth: true, roles: ['user'] },
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -74,6 +79,38 @@ export default new Router({
       props: true,
 
     },
+    {
+      path: '/unauthorized',
+      name: 'Unauthorized',
+      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    } // Unauthorized
 
   ]
 })
+
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.requiresAuth) {
+//     const auth = store.state.security.auth
+//     if (!auth.authenticated) {
+//       security.init(next, to.meta.roles)
+//     }
+//     else {
+//       if (to.meta.roles) {
+//         if (security.roles(to.meta.roles[0])) {
+//           next()
+//         }
+//         else {
+//           next({ name: 'unauthorized' })
+//         }
+//       }
+//       else {
+//         next()
+//       }
+//     }
+//   }
+//   else {
+//     next()
+//   }
+// })
+//
+export default router
