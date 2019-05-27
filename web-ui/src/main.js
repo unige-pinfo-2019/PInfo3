@@ -79,6 +79,5 @@ keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
 
 new Vue({
   router,
-  store,
   render: h => h(App)
 }).$mount('#app')
