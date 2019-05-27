@@ -84,6 +84,11 @@ export default {
     }
   },
 
+  beforeRouteUpdate(to, from, next) {
+    this.update();
+    next()
+  },
+
   mounted: function () {
     this.update();
   }

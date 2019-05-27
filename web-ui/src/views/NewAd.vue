@@ -37,9 +37,6 @@
           </div>
           <b-button onclick="document.getElementById('hidden-file-input').click()" class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
 
-          <b-modal ref="modalim" title="Aperçu" :ok-only='true'>
-            <b-img class="img-responsive" v-bind:src="srcurl"></b-img>
-          </b-modal>
 
           <!-- Cet input dessous est cliqué automatiquement lorsque le "vrai"
           bouton visible est cliqué. -->
@@ -94,6 +91,7 @@ export default {
       price: 0.0, // float
       categoryID: 0,
       selectedFile: null,
+      selectedFiles : [],
       srcurl:null,
       categories: [
         { value: 1, text: 'Vide' },
@@ -124,15 +122,11 @@ export default {
   },
   methods: {
     onFileChanged (event) {
-      this.selectedFile = event.target.files[0]
+      this.selectedFile = event.target.files[0];
+      this.selectedFiles.push(event.target.files[0]);
       var src = window.URL.createObjectURL(this.selectedFile);
       this.images.push(src);
-      console.log(this.images);
 
-    },
-    showModal(image) {
-      this.srcurl = image;
-      this.$refs['modalim'].show()
     },
 
     submit: function (event) {
@@ -142,31 +136,66 @@ export default {
        var config = {
          headers: {'Authorization': 'Client-ID a98be453a893668'}
        };
-       // Data
-       var data = new FormData();
-       data.append("image", this.selectedFile);
-       var dataad = {"title" : this.title,
-                    "description": this.description,
-                    "price": this.price,
-                    "categoryID": this.categoryID,
-                    "userID":0,
-                    "images": []};
        var self = this;
-       axios
-         .post('https://api.imgur.com/3/image',data, config)
-         .then(function (response) {
-           var imglink = response.data.data.link; // setup image link
-           dataad["images"]=[imglink];
-           // upload ad
-              axios
-             .post(process.env.VUE_APP_BASE_API + ':8081/classads',dataad)
-             .then(function (response) {
-               self.$router.push('/');
-             })
-         })
-       .catch(error => {
-         alert("Ad has failed to upload, please try again");
-       });
+       // build the promises
+       var promises = [];
+       for (var i = 0; i < this.selectedFiles.length; i++) {
+         var tmp = new FormData();
+         tmp.append('image',this.selectedFiles[i]);
+         var prom = axios.post('https://api.imgur.com/3/image',tmp, config);
+         promises.push(prom);
+       }
+       // execute the requests
+       axios.all(promises)
+       .then(axios.spread((...args) => {
+         var images = [];
+         for (let i = 0; i < args.length; i++) {
+            console.log(args[i].data.data.link);
+            images.push(args[i].data.data.link);
+        }
+        // upload ad
+        var data = {"title" : this.title,
+                     "description": this.description,
+                     "price": this.price,
+                     "categoryID": this.categoryID,
+                     "userID":0,
+                     "images": images};
+         axios
+        .post(process.env.VUE_APP_BASE_API + ':8081/classads',data)
+        .then(function (response) {
+          self.$router.push('/');
+        });
+
+      }))
+      .catch(error => {
+        alert("Ad has failed to upload, please try again");
+      });
+
+       // // Data
+       // var data = new FormData();
+       // data.append("image", this.selectedFile);
+       // var dataad = {"title" : this.title,
+       //              "description": this.description,
+       //              "price": this.price,
+       //              "categoryID": this.categoryID,
+       //              "userID":0,
+       //              "images": []};
+       // var self = this;
+       // axios
+       //   .post('https://api.imgur.com/3/image',data, config)
+       //   .then(function (response) {
+       //     var imglink = response.data.data.link; // setup image link
+       //     dataad["images"]=[imglink];
+       //     // upload ad
+       //        axios
+       //       .post(process.env.VUE_APP_BASE_API + ':8081/classads',dataad)
+       //       .then(function (response) {
+       //         self.$router.push('/');
+       //       })
+       //   })
+       // .catch(error => {
+       //   alert("Ad has failed to upload, please try again");
+       // });
 
   }
 }
