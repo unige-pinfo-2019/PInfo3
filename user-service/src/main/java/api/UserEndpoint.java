@@ -46,7 +46,6 @@ public class UserEndpoint {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
 	public String addNewUser(User u) {
-		log.info("UserEndpoint tries to create user");
 		if(userservice.createUser(u)) {
 			return "You inserted an user ";
 		} else {
