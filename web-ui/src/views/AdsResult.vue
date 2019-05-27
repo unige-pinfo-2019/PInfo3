@@ -10,7 +10,7 @@
         <template v-if="ads !=null">
           <MiniAd class="mini-ad" v-for="ad in ads.data" :title="ad.title" :prix="ad.price" :id="ad.id" :imgUrl="ad.images" :description="ad.description" v-bind:key="ad.title"/>
 
-          <MiniAd class="mini-ad" v-for="index in requiredEmpty" :key="index" title="" :prix=0 :id="0" imgUrl="" description="blank"/>
+          <MiniAd class="mini-ad" v-for="index in requiredEmpty" :key="index" title="" :prix=0 :id="0" :imgUrl="[]" description="blank"/>
         </template>
       </div>
 
@@ -135,7 +135,7 @@ export default {
   background: gray;
   color: lightgray;
 
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 

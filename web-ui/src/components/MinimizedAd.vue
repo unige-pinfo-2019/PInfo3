@@ -3,7 +3,7 @@
     <div class="clicker" v-on:click="alert('Clicked')">
 
       <b-card v-if="title !== ''"
-      v-bind:img-src="imgUrl"
+      v-bind:img-src="firstImage"
       img-alt="Image"
       img-top
       tag="article"
@@ -46,10 +46,7 @@
 export default {
   name: 'minimized-ad',
   props: {
-    imgUrl: {
-        Type: String,
-        default: 'https://batanes.dost02.com/wp-content/themes/iloveit/images/no.image.600x300.png'
-    }, //https://picsum.photos/600/300/?image=25
+    imgUrl: Array,
     title: String,
     description: String,
     prix: Number,
@@ -57,13 +54,22 @@ export default {
   },
   data() {
     return {
-      shortenedDescription: null,
-      shortenedTitle: null
+      firstImage: null
     }
   },
   mounted() {
+    this.checkImage();
    },
   methods: {
+    checkImage() {
+      // Checks if there's indeed one image.
+      if(this.imgUrl.length < 1) {
+        this.firstImage = 'https://batanes.dost02.com/wp-content/themes/iloveit/images/no.image.600x300.png'
+      }
+      else {
+        this.firstImage = this.imgUrl[0]
+      }
+    },
     redirect() {
       alert(3)
     },

@@ -255,8 +255,9 @@ h1 {
 
 .description {
   // align-self: flex-start;
-  text-align: justify;
+  text-align: left;
   margin-bottom: 20px;
+  white-space: pre-wrap;
 }
 
 .price {
