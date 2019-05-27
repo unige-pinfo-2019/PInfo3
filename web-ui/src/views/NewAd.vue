@@ -29,12 +29,26 @@
 
 
         <div class="images-wrapper">
-          <div class="image-wrapper" v-for="image in images" v-bind:key="image.id">
+          <div class="image-wrapper" v-for="(image, index) in images" v-bind:key="image.id">
 
             <b-img v-bind:src="image" rounded width="100px" height="100px" v-img></b-img>
+
             <div class="buttons-container">
-              <b-link class="delete-img">X</b-link>
+              <!-- <b-link class="delete-img">X</b-link> -->
+              <div class="star-container">
+                <a v-on:click="starThisPicture(index)">
+                  <font-awesome-icon v-if="staredImage == index" style="color: #FFD700;" :icon="['fas', 'star']"/>
+                  <font-awesome-icon v-else style="color: #FFD700;" :icon="['far', 'star']"/>
+                </a>
+              </div>
+
+              <div class="delete-container">
+                <a v-on:click="deleteThisPicture(index)">
+                  <font-awesome-icon style="color: red; transform: scale(1.2) translateX(-2px);" icon="times"/>
+                </a>
+              </div>
             </div>
+
 
           </div>
           <b-button onclick="document.getElementById('hidden-file-input').click()" class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
@@ -106,7 +120,8 @@ export default {
       categories: [
         { value: 1, text: 'Vide' },
       ],
-      images: []//["https://picsum.photos/600/300/?image=23", "https://picsum.photos/600/300/?image=24", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=26"]
+      images: [],
+      staredImage: 0
     }
   },
   mounted: function () {
@@ -131,14 +146,21 @@ export default {
     })
   },
   methods: {
+    starThisPicture(index) {
+      // alert('Picture stared ! With index: ' + index)
+      this.staredImage = index;
+    },
+    deleteThisPicture(index) {
+      // alert('Picture deleted ! With index: ' + index)
+      this.images.splice(index, 1);
+      this.selectedFiles.splice(index, 1);
+    },
     onFileChanged (event) {
       this.selectedFile = event.target.files[0];
       this.selectedFiles.push(event.target.files[0]);
       var src = window.URL.createObjectURL(this.selectedFile);
       this.images.push(src);
-
     },
-
     submit: function (event) {
        // `this` inside methods points to the Vue instance
        // On upload l'image sur imgur
@@ -193,15 +215,19 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
-.delete-img {
-  // position: relative;
+a:hover {
+  cursor: pointer;
 }
 
 .buttons-container {
   // background: #CCC;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
   position: relative;
   top: -100px;
-  padding: 2px 10px;
+  padding: 2px 8px;
 }
 
 .invisible-file-input {
