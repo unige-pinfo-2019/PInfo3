@@ -11,7 +11,6 @@
       class="mb-2 card"
       >
 
-      <a v-on:click="changePage(id)"></a>
       <b-card-title>
         <div class="title-container">
           {{title}}
@@ -19,7 +18,6 @@
       </b-card-title>
 
       <b-card-text id="descr">
-        <!-- {{ description }} -->
         <div class="descr-container">
           {{description}}
           <!-- Lorem ipsum dolor sit amet, consectetuer addksiojke kdoewpkdewiop  kdoewpk dopewk pdoewk dopw kpoedeipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus -->
@@ -31,6 +29,8 @@
           CHF {{ prix }}
         </b-card-text>
       </div>
+
+      <a v-on:click="changePage(id)"></a>
 
     </b-card>
     </div>
@@ -46,7 +46,10 @@
 export default {
   name: 'minimized-ad',
   props: {
-    imgUrl: String, //https://picsum.photos/600/300/?image=25
+    imgUrl: {
+        Type: String,
+        default: 'https://batanes.dost02.com/wp-content/themes/iloveit/images/no.image.600x300.png'
+    }, //https://picsum.photos/600/300/?image=25
     title: String,
     description: String,
     prix: Number,
@@ -59,34 +62,8 @@ export default {
     }
   },
   mounted() {
-    // this.shortenTitle();
-    // this.shortenDescription();
    },
   methods: {
-    shortenTitle() {
-      var max_length = 42;
-
-      if (this.title.length > max_length) {
-        this.shortenedTitle = this.title.substring(0, max_length-1) + "...";
-      }
-      else {
-        this.shortenedTitle = this.title;
-      }
-      this.shortenedTitle = this.title;
-      // console.log("Title length: " + this.title.length)
-    },
-    shortenDescription() {
-      var max_length = 190;
-
-      if (this.description.length > max_length) {
-        this.shortenedDescription = this.description.substring(0, max_length-1) + "...";
-      }
-      else {
-        this.shortenedDescription = this.description;
-      }
-      this.shortenedDescription = this.description;
-      //console.log(this.description.length)
-    },
     redirect() {
       alert(3)
     },
