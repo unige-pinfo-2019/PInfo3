@@ -20,6 +20,8 @@ public interface AdService {
 	
 	public Optional<Ad> getById(long id);
 	
+	public boolean update(Ad ad);
+		
 	public void deleteAd(Ad ad);
 	
 	public Ad createAdFromJson(JsonObject json);

@@ -157,7 +157,7 @@ public class AdServiceImplTest {
 		List<Ad> ads = as.getAll();
 		
 		for (Ad ad: ads) {
-			if (ad.getTitle() == title) {
+			if (ad.getTitle() == title && !ad.isDeleted()) {
 				fail("Coudn't delete ad properly");
 			}
 		}
