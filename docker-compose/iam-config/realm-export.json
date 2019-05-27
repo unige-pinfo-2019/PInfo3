@@ -649,7 +649,7 @@
         "http://localhost:8081/*"
       ],
       "webOrigins": [
-        ""
+        "*"
       ],
       "notBefore": 0,
       "bearerOnly": false,
