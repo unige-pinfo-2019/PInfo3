@@ -36,6 +36,7 @@ services:
       - 8080:8080
     volumes:
       - ./iam-config/:/tmp/iam-config
+      - ./iam-config/pinfo3:/opt/jboss/keycloak/themes/pinfo3
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=password
@@ -47,6 +48,8 @@ services:
       - DB_DATABASE=keycloakdb
       - PROXY_ADDRESS_FORWARDING=true
       - KEYCLOAK_IMPORT=/tmp/iam-config/realm-export.json
+      - KEYCLOAK_WELCOME_THEME=pinfo3
+      - KEYCLOAK_DEFAULT_THEME=pinfo3
     depends_on:
        iam-db :
          condition: service_healthy
