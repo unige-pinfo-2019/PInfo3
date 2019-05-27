@@ -147,11 +147,13 @@ export default {
   },
   methods: {
     starThisPicture(index) {
-      // alert('Picture stared ! With index: ' + index)
       this.staredImage = index;
     },
     deleteThisPicture(index) {
-      // alert('Picture deleted ! With index: ' + index)
+      if(this.staredImage == index) {
+        this.staredImage = 0;
+      }
+
       this.images.splice(index, 1);
       this.selectedFiles.splice(index, 1);
     },
@@ -203,12 +205,9 @@ export default {
         alert("Ad has failed to upload, please try again");
       });
 
-
-
        this.sending = true;
-
-  }
-}
+     }
+   }
 }
 </script>
 
