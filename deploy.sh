@@ -1,6 +1,6 @@
 #!/bin/sh
-docker-compose -f docker-compose-unitrade.yml down || true
 docker-compose -f docker-compose-api-gw.yml down || true
+docker-compose -f docker-compose-unitrade.yml down || true
 docker rm $(docker ps -a -q) || true
 docker rmi 2019pinfo3/classads-service || true
 docker rmi 2019pinfo3/classadsresponse-service || true
