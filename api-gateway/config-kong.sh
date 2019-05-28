@@ -5,7 +5,6 @@ curl -S -s -i -X POST --url http://api-gateway:8001/services --data "name=search
 curl -S -s -i -X POST --url http://api-gateway:8001/services --data "name=web-ui" --data "url=http://web-ui:8081"
 #Creates the routes
 curl -S -s -i -X POST  --url http://api-gateway:8001/services/classads-service/routes --data "paths[]=/api/classads"
-curl -S -s -i -X POST  --url http://api-gateway:8001/services/classads-service/routes --data "paths[]=/api/user"
 curl -S -s -i -X POST  --url http://api-gateway:8001/services/user-service/routes  --data "paths[]=/api/user"
 curl -S -s -i -X POST  --url http://api-gateway:8001/services/search-service/routes  --data "paths[]=/api/search"
 curl -S -s -i -X POST  --url http://localhost:8001/services/web-ui/routes  --data 'hosts[]=pinfo3.unige.ch' 
