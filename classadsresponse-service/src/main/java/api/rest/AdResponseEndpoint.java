@@ -46,9 +46,6 @@ public class AdResponseEndpoint {
 			@PathParam("aid") long aid, 
 			@QueryParam("offset") int offset, 
 			@QueryParam("limit") int limit) {
-		System.out.println(uid + " et " + aid);
-		System.out.println(adservice.getJsonListAdResponses(adservice.getResponsesFromiToj(0, 1, 1, 1)).toString());
-		System.out.println(adservice.getJsonListAdResponses(adservice.getResponsesFromiToj(uid, aid, offset, limit)).toString());
 		return adservice.getJsonListAdResponses(adservice.getResponsesFromiToj(uid, aid, offset, limit)).toString();
 	}
 

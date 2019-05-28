@@ -58,8 +58,6 @@ public class AdResponse implements Serializable {
 		this.response = rep;
 		this.time = LocalDateTime.now();
 		this.flag = flg = true;
-		System.out.print(this.getTimeField());
-		System.out.println(" : " + this.getTime().toString());
 		
 	}
 	

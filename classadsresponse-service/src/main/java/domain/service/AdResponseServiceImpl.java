@@ -62,16 +62,8 @@ public class AdResponseServiceImpl implements AdResponseService {
 			resultList.addAll(this.getResponsesFromiToj(uid, adID, 0, 1));
 		}
 		
-		System.out.println("Liste asIDs (taille: " + adids.size() + "):");
-		for (Long adID: adids) {
-			System.out.println("AD ID RECUPERE !!! " + adID);
-		}
 		SortAdResponsesByDate adsComp = new SortAdResponsesByDate();
 		resultList.sort(adsComp.reversed());
-		
-		for (AdResponse loliloltest: resultList) {
-			System.out.println(loliloltest.getTime().toString());
-		}
 		
 		return resultList;
 	}
@@ -94,16 +86,13 @@ public class AdResponseServiceImpl implements AdResponseService {
 
 	@Override
 	public List<AdResponse> getResponsesFromiToj(long uid, long aid, int offset, int limit) {
-		System.out.println("getResponsesFromiToj AAAA " + uid + " " + aid + " " + offset + " " + limit);
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AdResponse> q = cb.createQuery(AdResponse.class);
 		Root<AdResponse> c = q.from(AdResponse.class);
-		System.out.println("getResponsesFromiToj BBBB");
 
 		q.select(c);
 		ParameterExpression<Long> puid = cb.parameter(Long.class);
 		ParameterExpression<Long> paid = cb.parameter(Long.class);
-		System.out.println("getResponsesFromiToj CCCC");
 
 		q.where(
 				cb.equal(c.get(AdResponse.getAdIDField()), paid),
@@ -111,52 +100,34 @@ public class AdResponseServiceImpl implements AdResponseService {
 		);
 		q.orderBy(cb.desc(c.get(AdResponse.getTimeField())));
 		
-		System.out.println("getResponsesFromiToj DDDD");
 
 		TypedQuery<AdResponse> query = em.createQuery(q);
 		query.setParameter(puid, uid);
 		query.setParameter(paid, aid);
-		System.out.println("getResponsesFromiToj EEEE");
 		return query.setFirstResult(offset).setMaxResults(limit).getResultList();
 		
 	}
 
 	@Override
 	public JsonArray getJsonListAdResponses(List<AdResponse> responses) {
-		System.out.println("getJsonListAdResponses AAAA");
 		JsonArray result = new JsonArray();
 		for (AdResponse response: responses) {
 			JsonObject jsonResponse = createJsonRepresentation(response);
 			result.add(jsonResponse);
 		}
-		System.out.println("getJsonListAdResponses BBBB");
 
 		return result;
 	}
 
 	@Override
 	public JsonObject createJsonRepresentation(AdResponse response) {
-		System.out.println("createJsonRepresentation " + "AAAA" + response.getId());
 		JsonObject jsonResponse = new JsonObject();
-		System.out.println("Jsonrep1");
 		jsonResponse.addProperty(AdResponse.getIdField(), response.getId());
-		System.out.println(response.getId());
-		System.out.println("Jsonrep2");
 		jsonResponse.addProperty(AdResponse.getAdIDField(), response.getAdID());
-		System.out.println(response.getAdID());
-		System.out.println("Jsonrep3");
 		jsonResponse.addProperty(AdResponse.getUserIDField(), response.getUserID());
-		System.out.println(response.getUserID());
-		System.out.println("Jsonrep4");
 		jsonResponse.addProperty(AdResponse.getResponseField(), response.getResponse());
-		System.out.println(response.getResponse());
-		System.out.println("Jsonrep5");
 		jsonResponse.addProperty(AdResponse.getTimeField(), response.getTime().toString());
-		System.out.println(response.getTime());
-		System.out.println("Jsonrep6");
 		jsonResponse.addProperty(AdResponse.getFlagField(), response.isFlag());
-		System.out.println(response.isFlag());
-		System.out.println("createJsonRepresentation " + "BBBB");
 		return jsonResponse;
 	}
 

@@ -6,7 +6,6 @@ public class SortAdResponsesByDate implements Comparator<AdResponse> {
 
 	@Override
 	public int compare(AdResponse arg0, AdResponse arg1) {
-		// TODO Auto-generated method stub
 		return arg0.getTime().compareTo(arg1.getTime());
 	}
 
