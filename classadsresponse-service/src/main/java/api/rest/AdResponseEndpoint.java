@@ -35,7 +35,7 @@ public class AdResponseEndpoint {
 	@Path("/users/{uid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String getResponsesByUser(@PathParam("id") long id) {
-		return null;
+		return adservice.getJsonListAdResponses(adservice.getByUser(id)).toString();
 	}
 	
 	@GET
