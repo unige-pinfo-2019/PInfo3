@@ -48,7 +48,7 @@ public class User implements Serializable {
 		Field[] fields = u.getClass().getDeclaredFields();
 		
 		for(Field f : fields){
-			if(f.getName()!= "id") {
+			if(!f.getName().equals("id")) {
 				try {
 					f.set(this, f.get(u));
 				} catch (IllegalAccessException e) {

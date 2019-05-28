@@ -82,19 +82,51 @@ services:
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_PASSWORD: 'ad'
     depends_on:
       - classads-database
+
+
+
+# classads response service
+  classadsresponse-database:
+    image: postgres:10
+    container_name: classadsresponse-database
+    hostname: classadsresponse-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: adr
+      POSTGRES_PASSWORD: adr
+      POSTGRES_DB: classadsresponsedb
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "adr", "-d", "classadsresponsedb"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-adr:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
       
-      
-  
 
   classadsresponse-service:
     container_name: classadsresponse-service
     image: 2019pinfo3/classadsresponse-service:latest
     hostname: classadsresponse-service
-    
+
     networks:
       - backend-network
     ports:
       - "8085:8080"
+    environment:
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
+      THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSRESPONSEDS_CONNECTION_DASH_URL: "jdbc:postgresql://classadsresponse-database:5432/classadsresponsedb"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSRESPONSEDS_DRIVER_DASH_NAME: 'postgresql'   
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSRESPONSEDS_USER_DASH_NAME: 'adr'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSRESPONSEDS_PASSWORD: 'adr'
+    depends_on:
+      - classadsresponse-database
     
 
 
@@ -165,6 +197,7 @@ services:
 
 volumes:
   pgdata-ad:
+  pgdata-adr:
   pgdata-us:
 
 networks:
