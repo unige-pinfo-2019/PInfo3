@@ -20,10 +20,12 @@ import javax.persistence.Table;
 import com.google.gson.JsonArray;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Represents classifier ads and manage storage in DB.
  */
+@Slf4j
 @Entity
 @Table(name="AD")
 @Data
@@ -64,7 +66,7 @@ public class Ad implements Serializable{
 	private int categoryID;
 	
 	@Column(name="CREATION_DATE")
-	private LocalDateTime time;
+	private String time;
 	
 	@Column(name="NB_VUE")
 	private int nbVues = 0;
@@ -79,12 +81,12 @@ public class Ad implements Serializable{
 
 	/***** Constructors *****/
 	public Ad() {
-		this.time = LocalDateTime.now();
+		this.time = LocalDateTime.now().toString();
 	}
 	
 	public Ad(Long id) {
 		this.id = id;
-		this.time = LocalDateTime.now();
+		this.time = LocalDateTime.now().toString();
 	}
 	
 	
@@ -95,7 +97,7 @@ public class Ad implements Serializable{
 		this.userID = userID;
 		this.categoryID = categoryID;
 		this.images = images;
-		this.time = LocalDateTime.now();
+		this.time = LocalDateTime.now().toString();
 		
 	}
 	
@@ -156,6 +158,16 @@ public class Ad implements Serializable{
 
 	public static String getDeletedField() {
 		return deletedField;
+	}
+	public void setTime(String t) {
+		try {
+			time = LocalDateTime.parse(t).toString();
+		}catch (Exception e) {
+			log.error("Error setting the date from String, cannot parse the String");
+		}
+	}
+	public void setTime(LocalDateTime t) {
+		time = t.toString();
 	}
 
 

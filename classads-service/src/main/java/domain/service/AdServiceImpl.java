@@ -1,6 +1,5 @@
 package domain.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -151,8 +150,7 @@ public class AdServiceImpl implements AdService{
 			ad = new Ad();
 		}
 		try {				// if the Date is given we change the automatically generated time
-			LocalDateTime time = LocalDateTime.parse(json.get(Ad.getTimeField()).getAsString());
-			ad.setTime(time);
+			ad.setTime(json.get(Ad.getTimeField()).getAsString());
 		}catch (Exception e) {}
 		
 		try {
