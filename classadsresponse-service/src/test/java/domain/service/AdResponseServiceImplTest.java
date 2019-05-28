@@ -1,5 +1,6 @@
 package domain.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import com.google.gson.JsonObject;
 
 import domain.model.AdResponse;
 import eu.drus.jpa.unit.api.JpaUnit;
@@ -90,6 +93,47 @@ class AdResponseServiceImplTest {
 		List<AdResponse> actual = ars.getByUser(usrId);
 		Assertions.assertEquals(respList, actual);
 		
+	}
+	
+	@Test
+	public void createAdFromJsonTest() {
+		JsonObject json;
+		AdResponse adresp;
+		
+		/*
+		//Test to decrypt an ad with a bad category ID
+		json = new JsonObject();
+		adresp = ars.createAdResponseFromJson(json);
+		Assertions.assertEquals(null, adresp); */
+		
+		LocalDateTime time = LocalDateTime.now();
+		
+		AdResponse arExpected = new AdResponse();
+		arExpected.setId(0);
+		arExpected.setAdID(0);
+		arExpected.setUserID(0);
+		arExpected.setResponse("Une réponse.");
+		arExpected.setTime(time);
+		arExpected.setFlag(true);
+		
+		
+		json = new JsonObject();
+		json.addProperty(AdResponse.getIdField(), 0);
+		json.addProperty(AdResponse.getAdIDField(), 0);
+		json.addProperty(AdResponse.getUserIDField(), 0);
+		json.addProperty(AdResponse.getResponseField(), "Une réponse.");
+		json.addProperty(AdResponse.getFlagField(), true);
+		adresp = ars.createAdResponseFromJson(json);
+		adresp.setTime(time);
+		Assertions.assertNotEquals(adresp, null);
+		
+		
+		Assertions.assertEquals(adresp, arExpected);
+		
+		
+		
+		
+	
 	}
 
 }

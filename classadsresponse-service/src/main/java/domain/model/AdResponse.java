@@ -67,20 +67,13 @@ public class AdResponse implements Serializable {
 	/* Returns attributes and their default values in a json format */
 	public static JsonObject getAttributes() {
 		JsonObject json = new JsonObject();
+		json.addProperty(idField, 0);
 		json.addProperty(adIDField, 0);
 		json.addProperty(userIDField, 0);
 		json.addProperty(responseField, "");
 		json.addProperty(timeField, "");
 		json.addProperty(flagField, true);
 		return json;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public static String getIdField() {
-		return idField;
 	}
 
 	public static String getAdIDField() {
@@ -91,17 +84,22 @@ public class AdResponse implements Serializable {
 		return userIDField;
 	}
 
-	public static String getResponseField() {
-		return responseField;
-	}
-
 	public static String getTimeField() {
 		return timeField;
+	}
+
+	public static String getIdField() {
+		return idField;
+	}
+
+	public static String getResponseField() {
+		return responseField;
 	}
 
 	public static String getFlagField() {
 		return flagField;
 	}
+
 	
 	
 

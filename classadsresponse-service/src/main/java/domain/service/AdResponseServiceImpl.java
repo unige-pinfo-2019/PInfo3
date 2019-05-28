@@ -72,7 +72,8 @@ public class AdResponseServiceImpl implements AdResponseService {
 		AdResponse adresp = new AdResponse();
 		//We need to decrypt the json object and instanciate the attributes of the ad response
 		try {
-			adresp = new AdResponse(json.get(AdResponse.getAdIDField()).getAsLong(),
+			adresp = new AdResponse(
+					json.get(AdResponse.getAdIDField()).getAsLong(),
 					json.get(AdResponse.getUserIDField()).getAsLong(),
 					json.get(AdResponse.getResponseField()).getAsString(),
 					json.get(AdResponse.getFlagField()).getAsBoolean());
