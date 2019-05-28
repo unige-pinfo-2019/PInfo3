@@ -1,6 +1,5 @@
 package domain.service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,23 +39,23 @@ public class AdResponseServiceImpl implements AdResponseService {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Long> aid = cb.createQuery(Long.class);
 		
-		Root<AdResponse> T = aid.from(AdResponse.class);
-		aid.select(T.get(AdResponse.getAdIDField()));
+		Root<AdResponse> t = aid.from(AdResponse.class);
+		aid.select(t.get(AdResponse.getAdIDField()));
 		
 		
 		ParameterExpression<Long> puid = cb.parameter(Long.class);
 
 		aid.where(
-				cb.equal(T.get(AdResponse.getUserIDField()), puid)
+				cb.equal(t.get(AdResponse.getUserIDField()), puid)
 				);
-		aid.groupBy(T.get(AdResponse.getAdIDField()));
+		aid.groupBy(t.get(AdResponse.getAdIDField()));
 		
 		TypedQuery<Long> query = em.createQuery(aid);
 		query.setParameter(puid, uid);
 		
 		List<Long> adids = query.getResultList();
 		
-		List<AdResponse> resultList = new ArrayList<AdResponse>();
+		List<AdResponse> resultList = new ArrayList<>();
 		
 		for (Long adID: adids) {
 			resultList.addAll(this.getResponsesFromiToj(uid, adID, 0, 1));
