@@ -12,7 +12,9 @@ import javax.persistence.Table;
 
 import com.google.gson.JsonObject;
 
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name="ADRESPONSE")
 public class AdResponse implements Serializable {
@@ -56,8 +58,8 @@ public class AdResponse implements Serializable {
 		this.adID = aid;
 		this.userID = uid;
 		this.response = rep;
+		this.flag = flg;
 		this.time = LocalDateTime.now();
-		this.flag = flg = true;
 		
 	}
 	
@@ -72,108 +74,36 @@ public class AdResponse implements Serializable {
 		json.addProperty(flagField, true);
 		return json;
 	}
-	
-	
-	/***** Getters and setters *****/
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public static String getIdField() {
 		return idField;
-	}
-
-	public static void setIdField(String idField) {
-		AdResponse.idField = idField;
 	}
 
 	public static String getAdIDField() {
 		return adIDField;
 	}
 
-	public static void setAdIDField(String adIDField) {
-		AdResponse.adIDField = adIDField;
-	}
-
 	public static String getUserIDField() {
 		return userIDField;
-	}
-
-	public static void setUserIDField(String userIDField) {
-		AdResponse.userIDField = userIDField;
 	}
 
 	public static String getResponseField() {
 		return responseField;
 	}
 
-	public static void setResponseField(String responseField) {
-		AdResponse.responseField = responseField;
-	}
-
 	public static String getTimeField() {
 		return timeField;
-	}
-
-	public static void setTimeField(String timeField) {
-		AdResponse.timeField = timeField;
 	}
 
 	public static String getFlagField() {
 		return flagField;
 	}
+	
+	
 
-	public static void setFlagField(String flagField) {
-		AdResponse.flagField = flagField;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public long getAdID() {
-		return adID;
-	}
-
-	public void setAdID(long adID) {
-		this.adID = adID;
-	}
-
-	public long getUserID() {
-		return userID;
-	}
-
-	public void setUserID(long userID) {
-		this.userID = userID;
-	}
-
-	public String getResponse() {
-		return response;
-	}
-
-	public void setResponse(String response) {
-		this.response = response;
-	}
-
-	public LocalDateTime getTime() {
-		return time;
-	}
-
-	public void setTime(LocalDateTime time) {
-		this.time = time;
-	}
-
-	public boolean isFlag() {
-		return flag;
-	}
-
-	public void setFlag(boolean flag) {
-		this.flag = flag;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 	
 }
