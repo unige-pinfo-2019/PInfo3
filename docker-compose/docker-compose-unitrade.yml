@@ -82,6 +82,20 @@ services:
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_PASSWORD: 'ad'
     depends_on:
       - classads-database
+      
+      
+  
+
+  classadsresponse-service:
+    container_name: classadsresponse-service
+    image: 2019pinfo3/classadsresponse-service:latest
+    hostname: classadsresponse-service
+    
+    networks:
+      - backend-network
+    ports:
+      - "8085:8080"
+    
 
 
   # user service is for logging in users
