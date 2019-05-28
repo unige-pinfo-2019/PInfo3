@@ -14,19 +14,23 @@ import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import domain.model.User;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @ApplicationScoped
 @Transactional
 public class UserServiceImpl implements UserService {
 	
-	@PersistenceContext (name="InmemoryPU")
+	@PersistenceContext (name="UsersPU")
 	EntityManager em;
 
 	@Override
 	public boolean createUser(User u) {
-		Optional<User> existing = this.getByName(u.getFirstName());
+		User us = new User(u);
+		Optional<User> existing = this.getByName(us.getFirstName());
 		if(!existing.isPresent()) {
-			em.persist(u);
+			em.persist(us);
+			log.info("user " + us.toString() + " added to database");
 			return true;
 		}
 		return false;
@@ -54,7 +58,6 @@ public class UserServiceImpl implements UserService {
 		TypedQuery<User> query = em.createQuery(q);
 		query.setParameter(p, name);
 		List<User> results = query.getResultList();
-		
 		if(!results.isEmpty()) {
 			return Optional.of(results.get(0));
 		}

@@ -99,6 +99,28 @@ services:
 
 
   # user service is for logging in users
+
+  users-database:
+    image: postgres:10
+    container_name: users-database
+    hostname: users-database
+    networks:
+     - backend-network
+    environment:
+      POSTGRES_USER: us
+      POSTGRES_PASSWORD: us
+      POSTGRES_DB: usersdb
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "us", "-d", "usersdb"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - pgdata-us:/var/lib/postgresql/data
+    restart: on-failure
+    stdin_open: true
+    tty: true
+
   user-service:
     container_name: user-service
     image: 2019pinfo3/user-service:latest
@@ -107,6 +129,13 @@ services:
       - backend-network
     ports:
       - "8082:8080"
+    environment:
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERSDS_CONNECTION_DASH_URL: "jdbc:postgresql://users-database:5432/usersdb"
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERSDS_DRIVER_DASH_NAME: 'postgresql'   
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERSDS_USER_DASH_NAME: 'us'
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_USERSDS_PASSWORD: 'us'
+    depends_on:
+      - users-database
 
   # search service is for getting ads back corresponding to a request
   search-service:
@@ -129,13 +158,14 @@ services:
     networks:
       - frontend-network
     ports:
-      - "8083:8081"
+      - "8083:80"
     depends_on:
        - classads-service
        - user-service
 
 volumes:
   pgdata-ad:
+  pgdata-us:
 
 networks:
   backend-network:

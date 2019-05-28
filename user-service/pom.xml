@@ -49,9 +49,21 @@
 			<groupId>io.thorntail</groupId>
 			<artifactId>logging</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.glassfish.jersey.core</groupId>
+		    <artifactId>jersey-common</artifactId>
+		    <version>2.22.2</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.5</version>
 		</dependency>
 
 		<dependency>
@@ -77,7 +89,11 @@
 		    <artifactId>slf4j-api</artifactId>
 		    <version>1.7.25</version>
 		</dependency>
-
+		<dependency>
+        	<groupId>org.apache.logging.log4j</groupId>
+        	<artifactId>log4j-core</artifactId>
+        	<version>2.11.1</version>
+    	</dependency>
 		<dependency>
 			<groupId>com.github.dadrus.jpa-unit</groupId>
 			<artifactId>jpa-unit5</artifactId>

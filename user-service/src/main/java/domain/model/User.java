@@ -1,6 +1,7 @@
 package domain.model;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Entity
-@Table(name="USER")
+@Table(name="USERUNITRADE")
+@Data
 public class User implements Serializable {
+
 
 	private static final long serialVersionUID = 1881800838175136618L;
 	
@@ -37,6 +44,21 @@ public class User implements Serializable {
 	
 	public User() {}
 	
+	public User(User u) {
+		Field[] fields = u.getClass().getDeclaredFields();
+		
+		for(Field f : fields){
+			if(f.getName()!= "id") {
+				try {
+					f.set(this, f.get(u));
+				} catch (IllegalAccessException e) {
+					log.error(e.toString());
+				}
+			}
+		}
+	}
+	
+	
 	public User(String prenom, String nom, int age, String email, String tel) {
 		this.setAge(age);
 		this.setEmail(email);
@@ -44,6 +66,16 @@ public class User implements Serializable {
 		this.setFirstName(prenom);
 		this.setTel(tel);
 		
+	}
+	
+	public User(long id, String firstName, String lastName, int age, String tel, String email) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.tel = tel;
+		this.email = email;
 	}
 	
 	@Override

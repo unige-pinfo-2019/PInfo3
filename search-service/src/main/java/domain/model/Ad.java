@@ -1,6 +1,8 @@
 package domain.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,9 @@ public class Ad {
 	private static String userIDField = "userID";
 	private static String categoryIDField = "categoryID";
 	private static String imageField = "images";
+	private static String timeField = "time";
+	private static String nbVuesField = "nbVues";
+	private static String deletedField = "deleted";
 
 	private long id;
 
@@ -28,6 +33,14 @@ public class Ad {
 
 	private int categoryID;
 	
+	private List<String> images;
+
+	private String time;
+	
+	private int nbVues = 0;
+	
+	private boolean deleted = false;
+	
 	public Ad(long id, String title, String description, float price, long userID, int categoryID, List<String> images) {
 		this.id = id;
 		this.title = title;
@@ -36,12 +49,9 @@ public class Ad {
 		this.userID = userID;
 		this.categoryID = categoryID;
 		this.images = images;
-		
+		this.time = LocalDateTime.now().toString();
 	}
 	
-
-	private List<String> images;
-
 	public static String getTitleField() {
 		return titleField;
 	}
@@ -68,5 +78,17 @@ public class Ad {
 	
 	public static String getImageField() {
 		return imageField;
+	}
+
+	public static String getTimeField() {
+		return timeField;
+	}
+
+	public static String getNbVuesField() {
+		return nbVuesField;
+	}
+
+	public static String getDeletedField() {
+		return deletedField;
 	}
 }

@@ -8,6 +8,9 @@ Get the list of all ads (in json format)
  ```
  [
   {"0" : {"id" : Integer,
+          "deleted" : boolean,
+          "nbVues" : int,
+          "time" : String,
           "title" : String,
           "description" : String,
           "price" : Float,
@@ -26,6 +29,24 @@ Post an ad (in json format)
 
 ```
 {
+ "title" : String,
+ "description" : String,
+ "price" : Float,
+ "categoryID" : Integer,
+ "userID" : Integer,
+ "images" : [String, String, ...]
+}
+```
+
+Modifies an ad by its ID (in json format)
+`PUT http://host:port/classads/` expects
+
+```
+{
+ "id" : Integer,
+ "deleted" : boolean,
+ "nbVues" : int,
+ "time" : String,  (ex:"2019-05-21T14:40:10.600755")
  "title" : String,
  "description" : String,
  "price" : Float,
@@ -82,3 +103,28 @@ Post a user (in json format)
 
 Delete a user (with the id)
 `DELETE http://host:port/users`
+
+## Responses
+
+Get the list of all the responses from a user (with the id, format json)
+
+`GET http://host:port/classadsresponses/users/{uid}/ads`
+# api-gateway
+## classads-service
+
+`localhost/api/classads`
+Everything request that has something to do with the classads (service) is routed through localhost/api/classads. This will redirect the request to localhost:port/classads of the classads service. One possible issue is that the categories are implemented at a different path so it has to be fixed.
+
+## user-service
+
+`localhost/api/user`
+Same as above, localhost:port/user
+
+## search-service
+
+`localhost/api/search`
+Same as above, localhost:port/search
+
+In the future, all api calls in the form of `localhost/api/service` will be translated as `localhost:port/service`
+
+
