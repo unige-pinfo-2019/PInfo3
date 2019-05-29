@@ -27,20 +27,38 @@
 
         <span class="field-title" > <h4>Images</h4> <hr> </span>
 
-        <!-- <div class="custom-file">
-          <input type="file" class="custom-file-input" id="customFile">
-          <label class="custom-file-label" for="customFile">Choose file</label>
-        </div> -->
+
         <div class="images-wrapper">
-          <div class="image-wrapper" v-for="image in images" v-bind:key="image.id">
-            <b-img v-bind:src="image" rounded width="100px" height="100px"></b-img>
+          <div class="image-wrapper" v-for="(image, index) in images" v-bind:key="image.id">
+
+            <b-img v-bind:src="image" rounded width="100px" height="100px" v-img></b-img>
+
+            <div class="buttons-container">
+              <!-- <b-link class="delete-img">X</b-link> -->
+              <div class="star-container">
+                <a v-on:click="starThisPicture(index)">
+                  <font-awesome-icon v-if="staredImage == index" style="color: #FFD700;" :icon="['fas', 'star']"/>
+                  <font-awesome-icon v-else style="color: #FFD700;" :icon="['far', 'star']"/>
+                </a>
+              </div>
+
+              <div class="delete-container">
+                <a v-on:click="deleteThisPicture(index)">
+                  <font-awesome-icon style="color: red; transform: scale(1.2) translateX(-2px);" icon="times"/>
+                </a>
+              </div>
+            </div>
+
+
           </div>
           <b-button onclick="document.getElementById('hidden-file-input').click()" class="new-photo" variant="outline-primary"> <font-awesome-icon style="font-size: 2em;" icon="camera"/> </b-button>
+
 
           <!-- Cet input dessous est cliqué automatiquement lorsque le "vrai"
           bouton visible est cliqué. -->
           <input id="hidden-file-input" type="file" class="invisible-file-input" @change="onFileChanged">
         </div>
+
 
 
         <span class="field-title" > <h4>Prix</h4> <hr> </span>
@@ -74,6 +92,13 @@
         <b-button style="float: right;"  v-on:click="submit" variant="primary">Soumettre</b-button>
       </div>
     </div>
+
+
+    <b-modal id="sending-notification" hide-header hide-footer centered v-model="sending">
+      <div style="font-size: 1.7em;">
+        Envoi en cours <b-spinner style="margin-left: 20px;" label="Small Spinner" variant="primary"></b-spinner>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -89,10 +114,14 @@ export default {
       price: 0.0, // float
       categoryID: 0,
       selectedFile: null,
+      selectedFiles : [],
+      srcurl:null,
+      sending: false,
       categories: [
         { value: 1, text: 'Vide' },
       ],
-      images: []//["https://picsum.photos/600/300/?image=23", "https://picsum.photos/600/300/?image=24", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=25", "https://picsum.photos/600/300/?image=26"]
+      images: [],
+      staredImage: 0
     }
   },
   mounted: function () {
@@ -117,12 +146,22 @@ export default {
     })
   },
   methods: {
+    starThisPicture(index) {
+      this.staredImage = index;
+    },
+    deleteThisPicture(index) {
+      if(this.staredImage == index) {
+        this.staredImage = 0;
+      }
+
+      this.images.splice(index, 1);
+      this.selectedFiles.splice(index, 1);
+    },
     onFileChanged (event) {
-      this.selectedFile = event.target.files[0]
+      this.selectedFile = event.target.files[0];
+      this.selectedFiles.push(event.target.files[0]);
       var src = window.URL.createObjectURL(this.selectedFile);
       this.images.push(src);
-      console.log(this.images);
-
     },
     submit: function (event) {
        // `this` inside methods points to the Vue instance
@@ -131,36 +170,64 @@ export default {
        var config = {
          headers: {'Authorization': 'Client-ID a98be453a893668'}
        };
-       // Data
-       var data = new FormData();
-       data.append("image", this.selectedFile);
-       var dataad = {"title" : this.title,
-                    "description": this.description,
-                    "price": this.price,
-                    "categoryID": this.categoryID,
-                    "userID":0,
-                    "images": []};
-       axios
-         .post('https://api.imgur.com/3/image',data, config)
-         .then(function (response) {
-           var imglink = response.data.data.link; // setup image link
-           dataad["images"]=[imglink]
-           // upload ad
-              axios
-             .post(process.env.VUE_APP_BASE_API + ':8081/classads',dataad)
-         })
-       .catch(error => {
-         alert("Ad has failed to upload, please try again");
-       });
-       // Success
-       this.$router.push('/');
-  }
-}
+       var self = this;
+       // build the promises
+       var promises = [];
+       for (var i = 0; i < this.selectedFiles.length; i++) {
+         var tmp = new FormData();
+         tmp.append('image',this.selectedFiles[i]);
+         var prom = axios.post('https://api.imgur.com/3/image',tmp, config);
+         promises.push(prom);
+       }
+       // execute the requests
+       axios.all(promises)
+       .then(axios.spread((...args) => {
+         var images = [];
+         for (let i = 0; i < args.length; i++) {
+            console.log(args[i].data.data.link);
+            images.push(args[i].data.data.link);
+        }
+        // upload ad
+        var data = {"title" : this.title,
+                     "description": this.description,
+                     "price": this.price,
+                     "categoryID": this.categoryID,
+                     "userID":0,
+                     "images": images};
+         axios
+        .post(process.env.VUE_APP_BASE_API + ':8081/classads',data)
+        .then(function (response) {
+          self.$router.push('/');
+        });
+
+      }))
+      .catch(error => {
+        alert("Ad has failed to upload, please try again");
+      });
+
+       this.sending = true;
+     }
+   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+a:hover {
+  cursor: pointer;
+}
+
+.buttons-container {
+  // background: #CCC;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  position: relative;
+  top: -100px;
+  padding: 2px 8px;
+}
 
 .invisible-file-input {
   display: none;
