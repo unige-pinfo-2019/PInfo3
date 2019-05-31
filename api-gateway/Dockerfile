@@ -1,6 +1,6 @@
 # COMPILING web-ui
 FROM node:10
-COPY ../web-ui/. /app
+COPY ./web-ui/. /app
 WORKDIR /app
 RUN npm install && npm run build
 

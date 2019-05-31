@@ -75,6 +75,7 @@ jobs:
         - docker
       before_script:
         - cd api-gateway
+        - cp -r ../web-ui .
       script:
         - docker build -t 2019pinfo3/api-gateway:latest .
       after_success:
