@@ -8,6 +8,8 @@ RUN npm install && npm run build
 FROM kong:1.1rc1-centos
 LABEL description="Centos 7 + Kong 0.14 + kong-oidc plugin"
 #RUN USER=root usermod -a -G rootong
+RUN mkdir /www
+RUN mkdir /www/data
 COPY --from=0 /app/dist /www/data # COPY web-ui to api-gateway
 
 RUN yum install -y git unzip && yum clean all
