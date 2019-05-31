@@ -189,47 +189,75 @@
 					<artifactId>fabric8-maven-plugin</artifactId>
 					<version>4.0.0-M2</version>
 				</plugin>
+
+        <plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>3.0.0-M6</version>
+				</plugin>
+
   			</plugins>
   		</pluginManagement>
 
   		<plugins>
-  			<plugin>
-  				<groupId>org.apache.maven.plugins</groupId>
-  				<artifactId>maven-compiler-plugin</artifactId>
-  			</plugin>
-  			<plugin>
-  				<groupId>io.thorntail</groupId>
-  				<artifactId>thorntail-maven-plugin</artifactId>
-
-  				<executions>
-  					<execution>
-  						<goals>
-  							<goal>package</goal>
-  						</goals>
-  					</execution>
-  				</executions>
-  			</plugin>
-  			<plugin>
-  				<groupId>org.jacoco</groupId>
-  				<artifactId>jacoco-maven-plugin</artifactId>
-  				<executions>
-  					<execution>
-  						<goals>
-  							<goal>prepare-agent</goal>
-  						</goals>
-  					</execution>
-  					<execution>
-  						<id>report</id>
-  						<phase>prepare-package</phase>
-  						<goals>
-  							<goal>report</goal>
-  						</goals>
-  					</execution>
-  				</executions>
-  			</plugin>
-  		</plugins>
+      			<plugin>
+      				<groupId>org.apache.maven.plugins</groupId>
+      				<artifactId>maven-compiler-plugin</artifactId>
+      			</plugin>
+            <plugin>
+    				<groupId>org.jacoco</groupId>
+    				<artifactId>jacoco-maven-plugin</artifactId>
+    				<executions>
+    					<execution>
+    						<id>unit-tests</id>
+    						<goals>
+    							<goal>prepare-agent</goal>
+    						</goals>
+    					</execution>
+    					<execution>
+    						<id>integration-tests-preaparation</id>
+    						<phase>pre-integration-test</phase>
+    						<goals>
+    							<goal>prepare-agent</goal>
+    						</goals>
+    						<configuration>
+    							<propertyName>argLineForIntegration</propertyName>
+    							<destFile>${project.build.directory}/jacoco-it.exec</destFile>
+    						</configuration>
+    					</execution>
+    					<execution>
+    						<id>merge</id>
+    						<phase>post-integration-test</phase>
+    						<goals>
+    							<goal>merge</goal>
+    						</goals>
+    						<configuration>
+    							<fileSets>
+    								<fileSet>
+    									<directory>${project.build.directory}</directory>
+    									<includes>
+    										<include>*.exec</include>
+    									</includes>
+    								</fileSet>
+    							</fileSets>
+    							<destFile>${project.build.directory}/jacoco-merged.exec</destFile>
+    						</configuration>
+    					</execution>
+    					<execution>
+    						<id>report</id>
+    						<phase>post-integration-test</phase>
+    						<goals>
+    							<goal>report</goal>
+    						</goals>
+    						<configuration>
+    						<dataFile>${project.build.directory}/jacoco-merged.exec</dataFile>
+    						</configuration>
+    					</execution>
+    				</executions>
+    			</plugin>
+      		</plugins>
   </build>
-  
+
  <profiles>
 		<profile>
 			<id>package-docker-image</id>
