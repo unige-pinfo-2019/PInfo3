@@ -92,7 +92,7 @@ http {
 > end
 	
 	    location / {
-			root /www/data;
+			root http://web-ui:80;
 		}
 	   
 	    
