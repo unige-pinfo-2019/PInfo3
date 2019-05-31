@@ -366,13 +366,13 @@
       "clientId": "web-sso",
       "rootUrl": "",
       "adminUrl": "",
-      "baseUrl": "http://localhost:8085",
+      "baseUrl": "http://localhost:8081",
       "surrogateAuthRequired": false,
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "http://localhost:8085/*"
+        "http://localhost:8081/*"
       ],
       "webOrigins": [
         "*"
