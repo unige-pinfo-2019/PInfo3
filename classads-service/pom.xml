@@ -131,6 +131,24 @@
     		<artifactId>kafka-cdi-extension</artifactId>
     		<version>0.1.0</version>
 		</dependency>
+		
+		<dependency>
+		    <groupId>io.swagger</groupId>
+		    <artifactId>swagger-annotations</artifactId>
+		    <version>1.5.22</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.keycloak</groupId>
+		    <artifactId>keycloak-core</artifactId>
+		    <version>5.0.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.jboss.resteasy</groupId>
+		    <artifactId>resteasy-jaxrs</artifactId>
+		    <version>3.7.0.Final</version>
+		</dependency>
 	
   </dependencies>
 </project>

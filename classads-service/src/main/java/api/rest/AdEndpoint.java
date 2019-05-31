@@ -1,7 +1,10 @@
 package api.rest;
 
+import java.security.Principal;
 import java.util.Optional;
 
+import javax.annotation.Resource;
+import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -12,8 +15,14 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
+
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.KeycloakSecurityContext;
+import org.keycloak.representations.IDToken;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -21,6 +30,9 @@ import com.google.gson.JsonObject;
 import api.msg.AdProducer;
 import domain.model.Ad;
 import domain.service.AdService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -30,6 +42,9 @@ import lombok.extern.slf4j.Slf4j;
 @ApplicationScoped
 @Path("/classads")
 @Slf4j
+@Api(value = "classads", authorizations = {
+	      @Authorization(value="sampleoauth", scopes = {})
+})
 public class AdEndpoint {
 	
 	@Inject
@@ -65,6 +80,53 @@ public class AdEndpoint {
 		return Response.ok(adservice.createJsonRepresentation(ad.get()).toString()).build();
 		
 	}
+	
+	@Context SecurityContext securityContext;
+	
+	@GET
+	@Path("/hola-secured")
+	@Produces("text/plain")
+	@ApiOperation("Returns a message that is only available for authenticated users")
+	public String holaSecured() {
+//	    // this will set the user id as userName
+//	    // String userName = securityContext.getUserPrincipal().getName();
+//
+//	    if (securityContext.getUserPrincipal() instanceof KeycloakPrincipal) {
+//	        @SuppressWarnings("unchecked")
+//	        KeycloakPrincipal<KeycloakSecurityContext> kp = (KeycloakPrincipal<KeycloakSecurityContext>) securityContext.getUserPrincipal();
+//	    
+//
+//	        // this is how to get the real userName (or rather the login name)
+//	        String userName = kp.getKeycloakSecurityContext().getToken().getName();
+//	        return "This is a Secured resource. You are logged as " + userName;
+//	    } else {
+//	    	try {
+//	    		Principal p = securityContext.getUserPrincipal();
+//	    		
+//	    		//String userName = securityContext.getUserPrincipal().getName();
+//	    		return p.toString();
+//	    	} catch (Exception e) {
+//	    		return "Can't extract Name from security Context";
+//	    	}
+//	    }
+		
+		try {
+			// obtain the caller principal.
+			Principal callerPrincipal = securityContext.getUserPrincipal();
+
+			return callerPrincipal.toString();
+        
+		} catch (Exception e) {
+			return "Can't extract principal user";
+		}
+		
+		
+
+     
+	    
+
+	}
+	 
 	
 	
 	@PUT
