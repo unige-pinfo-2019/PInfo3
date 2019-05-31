@@ -69,7 +69,7 @@ services:
     container_name: classads-service
     image: 2019pinfo3/classads-service:latest
     hostname: classads-service
-    
+
     networks:
       - backend-network
     ports:
@@ -78,7 +78,7 @@ services:
       THORNTAIL_KAFKA_DASH_CONFIGURATION_HOST: "kafka"
       THORNTAIL_KAFKA_DASH_CONFIGURATION_PORT: "9092"
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_CONNECTION_DASH_URL: "jdbc:postgresql://classads-database:5432/classadsdb"
-      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_DRIVER_DASH_NAME: 'postgresql'   
+      THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_DRIVER_DASH_NAME: 'postgresql'
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_USER_DASH_NAME: 'ad'
       THORNTAIL_DATASOURCES_DATA_DASH_SOURCES_CLASSADSDS_PASSWORD: 'ad'
     depends_on:
@@ -116,7 +116,7 @@ services:
     networks:
       - frontend-network
     ports:
-      - "8083:8081"
+      - "8083:80"
     depends_on:
        - classads-service
        - user-service

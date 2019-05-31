@@ -11,6 +11,18 @@
 
     BASE_API 2: [{{baseAPI}}]
 
+    <hr>
+
+    {{myToken}}
+
+    <hr>
+
+    <input type="button" v-on:click="disconect()"  value="Deconnexion">
+
+    <hr>
+
+    Status: {{myAuthStatus}}
+
 </div>
 </template>
 
@@ -24,6 +36,8 @@ export default {
       selectedFile: null,
       info:null,
       baseAPI: "not set",
+      myToken: null,
+      myAuthStatus: null
     }
   },
 
@@ -45,10 +59,20 @@ export default {
       axios
         .post('https://api.imgur.com/3/image',data, config)
         .then(response => (this.info = response.data.data.link))
+    },
+    disconect() {
+      this.$store._actions.logout[0]()
     }
   },
   mounted: function() {
     this.baseAPI = process.env.VUE_APP_BASE_API;
+
+    // this.myToken = keycloak.token;
+    this.myToken = localStorage.getItem('vue-token');
+
+    console.log('Auth status: ');
+    console.log(this.$store.getters.authStatus);
+    this.myAuthStatus = this.$store.getters.authStatus
   }
 }
 </script>
