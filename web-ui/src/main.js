@@ -4,6 +4,7 @@ import router from './router'
 import BootstrapVue from 'bootstrap-vue'
 import Keycloak from 'keycloak-js'///dist/keycloak.js'
 import store from './store.js'
+import VueGlobalVariable from 'vue-global-var'
 // import store from 'plugin-vuejs-keycloak'
 
 Vue.prototype.$store = store;
@@ -27,6 +28,12 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(BootstrapVue)
 
+Vue.use(VueGlobalVariable, {globals: {keycloak: Keycloak({
+    url: 'http://localhost:8080/auth',
+    realm: 'apigw',
+    clientId: 'web-sso'})
+}})
+
 Vue.config.productionTip = false
 
 // let initOptions = {
@@ -43,10 +50,12 @@ var keycloak = Keycloak({
     clientId: 'web-sso'
 });
 
+store.keycloak = keycloak;
+/*
 keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
 
     if(!auth) {
-      window.location.reload();
+      // window.location.reload();
       console.log('Not authenticated');
     } else {
       // Vue.$log.info("Authenticated");
@@ -58,7 +67,7 @@ keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
     //   render: h => h(App),
     // }).$mount('#app')
 
-
+    alert('Dans success')
     localStorage.setItem("vue-token", keycloak.token);
     // localStorage.setItem("vue-refresh-token", keycloak.refreshToken);
 
@@ -79,9 +88,11 @@ keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
 
 }).error(() =>{
   Vue.$log.error("Authenticated Failed");
+  alert('Dans error')
 });
-
+*/
 new Vue({
   router,
+  keycloak,
   render: h => h(App)
 }).$mount('#app')

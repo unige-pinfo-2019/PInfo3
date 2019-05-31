@@ -12,6 +12,31 @@ export default {
   name: 'login',
   methods: {
     askLogin() {
+      // var keycloak = Keycloak({
+      //     url: 'http://localhost:8080/auth',
+      //     realm: 'apigw',
+      //     clientId: 'web-sso'
+      // });
+      // alert(keycloak.);
+      alert(localStorage.getItem("vue-token"))
+      this.$keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
+
+          if(!auth) {
+            window.location.reload();
+            console.log('Not authenticated');
+          } else {
+            // Vue.$log.info("Authenticated");
+            console.log('Authenticated');
+              alert('Authenticated : ' +  keycloak.token)
+          }
+
+          alert('Dans success')
+          localStorage.setItem("vue-token", keycloak.token);
+
+      }).error(() =>{
+        Vue.$log.error("Authenticated Failed");
+        alert('Dans error')
+      });
       // console.log(this.$store._actions.login[0]());
       // this.$store._actions.login[0]()
       // this.$store.dispatch('login')
@@ -58,7 +83,10 @@ export default {
       // this.$store._actions.register[0]()
       this.$store.dispatch('register')
     }
-  }
+  },
+  // mounted() {
+  //
+  // }
 }
 </script>
 

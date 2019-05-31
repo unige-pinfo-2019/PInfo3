@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    user : {}
+    user : {},
+    keycloak: null,
   },
   mutations: {
     auth_request(state){
@@ -27,22 +28,20 @@ export default new Vuex.Store({
       state.status = ''
       state.token = ''
     },
+    // loginTest() {
+    //   state.keycloak = state.keycloak.init()
+    // }
   },
   actions: {
     login({commit}){
       return new Promise((resolve, reject) => {
-        commit('auth_request')
-        var keycloak = Keycloak({
-          url: 'http://localhost:8080/auth',
-          realm: 'apigw',
-          clientId: 'web-sso'
-        });
+        // commit('auth_request')
 
         console.log('Tryin to loggin');
 
-        keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
-          console.log('Response received:');
-          console.log(auth);
+        state.keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
+          // console.log('Response received:');
+          // console.log(auth);
           // const token = keycloak.token
           // const user = 'not set'
           // // const user = keycloak.userid
@@ -58,12 +57,6 @@ export default new Vuex.Store({
                 // Vue.$log.info("Authenticated");
                 console.log('Authenticated');
               }
-
-              // new Vue({
-              //   router,
-              //   render: h => h(App),
-              // }).$mount('#app')
-
 
               localStorage.setItem("vue-token", keycloak.token);
         })

@@ -68,7 +68,7 @@ export default {
     this.baseAPI = process.env.VUE_APP_BASE_API;
 
     // this.myToken = keycloak.token;
-    this.myToken = localStorage.getItem('vue-token');
+    this.myToken = this.$store.keycloak.token//localStorage.getItem('vue-token');
 
     console.log('Auth status: ');
     console.log(this.$store.getters.authStatus);
