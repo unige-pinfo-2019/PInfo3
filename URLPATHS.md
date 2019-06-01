@@ -108,7 +108,24 @@ Delete a user (with the id)
 
 Get the list of all the responses from a user (with the id, format json)
 
-`GET http://host:port/classadsresponses/users/{uid}/ads`
+`GET http://host:port/classadsresponses/users/{uid}`
+
+
+Get the list of all messages between two users: user who posted the ad with id "aid" and the user with id "uid" who responded to this ad.
+2 query params: offset (first message index (from the most recent)) and limit (number max. of messages you want to receive)
+
+`GET http://host:port/classadsresponses/users/{uid}/ads/{aid}?offset=0&limit=10`
+ (example of query params to get the 10 most recent messages)
+ 
+
+Create a new response (in json format)
+
+`GET http://host:port/classadsresponses/users/{uid}/ads/{aid}`
+ 
+@POST
+	@Path("/users/{uid}/ads/{aid}")
+
+
 # api-gateway
 ## classads-service
 
