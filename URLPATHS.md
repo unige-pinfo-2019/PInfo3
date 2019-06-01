@@ -120,10 +120,7 @@ Get the list of all messages between two users: user who posted the ad with id "
 
 Create a new response (in json format)
 
-`GET http://host:port/classadsresponses/users/{uid}/ads/{aid}`
- 
-@POST
-	@Path("/users/{uid}/ads/{aid}")
+`POST http://host:port/classadsresponses/users/{uid}/ads/{aid}`
 
 
 # api-gateway
