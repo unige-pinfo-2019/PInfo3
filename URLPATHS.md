@@ -21,6 +21,25 @@ Get the list of all ads (in json format)
 ]
  ```
 
+Get the list of all ads of a specific user (in json format)
+`GET http://host:port/classads/user/{UserId}` returns
+
+ ```
+ [
+  {"0" : {"id" : Integer,
+          "deleted" : boolean,
+          "nbVues" : int,
+          "time" : String,
+          "title" : String,
+          "description" : String,
+          "price" : Float,
+          "categoryID" : Integer,
+          "userID" : Integer,
+          "images" : [String, String, ...]}},
+  {"1" : {...}},
+]
+ ```
+
 Get an ab by its ID (in json format)
 `GET http://host:port/classads/ads/ad/{id}` returns the ad if exists or an error message 400
 
