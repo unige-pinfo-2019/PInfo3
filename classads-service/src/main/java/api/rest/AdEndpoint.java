@@ -66,6 +66,14 @@ public class AdEndpoint {
 		
 	}
 	
+	@GET
+	@Path("/user/{UserId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAd(@PathParam("UserId") long us) {
+		return Response.ok(adservice.getJsonListAds(adservice.getByUser(us)).toString()).build();
+		
+	}
+	
 	
 	@PUT
 	@Path("/")
