@@ -94,7 +94,9 @@ export default {
     },
     askRegister() {
       // this.$store._actions.register[0]()
-      this.$store.dispatch('register')
+      // this.$store.dispatch('register')
+      this.$keycloak.init()
+      this.$keycloak.register()
     },
     disconect() {
       // this.$store._actions.logout[0]()

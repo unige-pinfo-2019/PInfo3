@@ -63,8 +63,8 @@ export default {
 
           var userInfos = this.$keycloak.tokenParsed;
           console.log('User profile:');
-          console.log(userInfos.name);
-          this.$myStore.username = userInfos.name
+          console.log(userInfos.preferred_username);
+          this.$myStore.username = userInfos.preferred_username
 
       }).error(() =>{
         Vue.$log.error("Authenticated Failed");
