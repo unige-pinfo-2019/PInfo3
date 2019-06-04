@@ -81,11 +81,6 @@ public class Ad implements Serializable{
 		this.time = LocalDateTime.now().toString();
 	}
 	
-	public Ad(Long id) {
-		this.id = id;
-		this.time = LocalDateTime.now().toString();
-	}
-	
 	
 	public Ad(String title, String description, float price, long userID, int categoryID, List<String> images) {
 		this.title = title;
