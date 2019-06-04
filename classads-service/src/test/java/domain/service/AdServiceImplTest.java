@@ -139,6 +139,38 @@ public class AdServiceImplTest {
 			fail("ID " + id + " has not been resolved in the DB.");
 		}
 	}
+	@Test
+	public void testupdate() {
+		//We create a new ad and insert it in the DB
+		Ad ad = adExample;
+		as.createAd(ad);
+		ad.setPrice((float)12.3);
+		as.update(ad);
+		
+		
+		Optional<Ad> adById = as.getById(ad.getId());
+		if (adById.isEmpty()) {
+			fail("ID " + ad.getId() + " has not been resolved in the DB.");
+		}
+		Assertions.assertEquals((float)12.3, adById.get().getPrice());
+		
+		ad.setDeleted(true);
+		try {
+			as.update(ad);
+			fail("The ad " + ad.getId()+ " was updated after being deleted");
+		}catch(IllegalArgumentException ex) {
+			// we expect an exception
+		}
+		Ad ad2 = new Ad();
+		try {
+			as.update(ad2);
+			fail("an unexisting ad was updated");
+		}catch(IllegalArgumentException ex) {
+			// we expect an exception
+		}
+		
+	
+	}
 	
 	@Test
 	public void testDeleteClassAd() {
@@ -172,6 +204,22 @@ public class AdServiceImplTest {
 		Assertions.assertEquals(2, l1.size());
 		Assertions.assertEquals(3, l2.size());
 		
+	}
+	
+	@Test
+	public void testGetByUser() {
+		//We create some ads and add them in the DB
+		for (int i=1; i<6; i++) {
+			as.createAd(new Ad("Title"+i+5, "Description"+i+5, (float)(1+i*0.1), (i%3), 0, new ArrayList<String>()));
+		}
+		
+		List<Ad> l1 = as.getByUser(0);
+		List<Ad> l2 = as.getByUser(1);
+		List<Ad> l3 = as.getByUser(2);
+		
+		Assertions.assertEquals(1, l1.size());
+		Assertions.assertEquals(2, l2.size());
+		Assertions.assertEquals(2, l3.size());
 	}
 	
 }
