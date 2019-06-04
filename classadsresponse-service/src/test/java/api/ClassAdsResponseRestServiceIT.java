@@ -17,9 +17,16 @@ public class ClassAdsResponseRestServiceIT {
 	}
 
 	@Test
-	public void testGetAll() {
-		//when().get("/").then().body(containsString("984500C2EEUEB4A0C629"));
+	public void testGetResponseByUserAndAd() {
+		when().get("/users/1/ads/0?offset=0&limit=10").then().body(containsString("Message1"));
 
+	}
+	
+	@Test
+	public void testGetResponsesByUser() {
+		when().get("/users/1").then().body(containsString("Message5"));
+		when().get("/users/2").then().body(containsString("Message2"));
+		when().get("/users/2").then().body(containsString("Message4"));
 	}
 //
 //	@Test

@@ -33,14 +33,14 @@
 			<groupId>io.thorntail</groupId>
 			<artifactId>transactions</artifactId>
 		</dependency>
+		
+		<!-- 
 		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
+			<groupId>io.thorntail</groupId>
+			<artifactId>swagger</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.jboss.spec.javax.ws.rs</groupId>
-			<artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
-		</dependency>
+		 -->
+
 		<dependency>
 			<groupId>io.thorntail</groupId>
 			<artifactId>datasources</artifactId>
@@ -49,6 +49,16 @@
 			<groupId>io.thorntail</groupId>
 			<artifactId>logging</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.ws.rs</groupId>
+			<artifactId>jboss-jaxrs-api_2.0_spec</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -107,20 +117,25 @@
 		    <artifactId>slf4j-api</artifactId>
 		    <version>1.7.25</version>
 		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>org.aerogear.kafka</groupId>
+			<artifactId>kafka-cdi-extension</artifactId>
+		</dependency>
+		 -->
+		 <dependency>
+		 	<groupId>io.rest-assured</groupId>
+      		<artifactId>rest-assured</artifactId>
+      		<version>3.3.0</version>
+      		<scope>test</scope>
+    	</dependency>
 
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <version>3.3.0</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-all</artifactId>
-      <version>1.3</version>
-      <scope>test</scope>
-    </dependency>
+    	<dependency>
+      		<groupId>org.hamcrest</groupId>
+      		<artifactId>hamcrest-all</artifactId>
+      		<version>1.3</version>
+      		<scope>test</scope>
+    	</dependency>
   </dependencies>
 
 

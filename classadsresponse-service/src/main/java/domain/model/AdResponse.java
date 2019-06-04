@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.google.gson.JsonObject;
@@ -29,6 +30,7 @@ public class AdResponse implements Serializable {
 	private static String flagField = "flag";
 	
 	@Id
+	// @SequenceGenerator(name = "ADRESPONSE_SEQ", sequenceName = "ADRESPONSE_SEQ")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ADRESPONSE_ID")
 	private long id;
