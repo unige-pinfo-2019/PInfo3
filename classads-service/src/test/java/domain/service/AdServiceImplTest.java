@@ -122,6 +122,11 @@ public class AdServiceImplTest {
 		if (adInDB.isEmpty()) {
 			fail("Title " + title + " has not been resolved in the DB.");
 		}
+
+		Optional<Ad> adInDB2 = as.getByTitle("false title");
+		if(adInDB2.isPresent()) {
+			fail("false title has not been resolved in the DB.");
+		}
 	}
 	
 	@Test
@@ -137,6 +142,10 @@ public class AdServiceImplTest {
 		Optional<Ad> adById = as.getById(id);
 		if (adById.isEmpty()) {
 			fail("ID " + id + " has not been resolved in the DB.");
+		}
+		Optional<Ad> adById2 = as.getById(id+1);
+		if (adById2.isPresent()) {
+			fail("ID " + id+1 + " has been resolved in the DB when it shouldm't have.");
 		}
 	}
 	@Test
