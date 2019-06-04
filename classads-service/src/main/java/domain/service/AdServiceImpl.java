@@ -146,9 +146,6 @@ public class AdServiceImpl implements AdService{
 			a.setDeleted(true);
 			em.merge(a);
 		}
-		
-		//em.remove(em.contains(ad) ? ad : em.merge(ad));
-		
 	}
 
 	public EntityManager getEm() {

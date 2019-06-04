@@ -197,6 +197,7 @@ public class AdServiceImplTest {
 				fail("Coudn't delete ad properly");
 			}
 		}
+		as.deleteAd(new Ad());
 	}
 	
 	
