@@ -8,9 +8,13 @@
           <b-form-input v-model="title"
           id="input-1"
           type="email"
+          :state="titleState"
           required
-          placeholder="Entrez un titre"
           ></b-form-input>
+
+          <b-form-invalid-feedback id="input-live-feedback">
+            Veuillez entrer un titre
+          </b-form-invalid-feedback>
         </div>
 
         <span class="field-title" > <h4>Description</h4> <hr> </span>
@@ -18,11 +22,14 @@
         <div class="input">
           <b-form-textarea v-model="description"
             id="textarea-auto-height"
+            :state="descriptionState"
             rows="6"
             max-rows="12"
             required
-            placeholder="Entrez une description"
           ></b-form-textarea>
+          <b-form-invalid-feedback id="input-live-feedback">
+            Veuillez entrer une description
+          </b-form-invalid-feedback>
         </div>
 
         <span class="field-title" > <h4>Images</h4> <hr> </span>
@@ -69,6 +76,7 @@
             v-model="price"
             required
             type="number"
+            min = "0"
             placeholder="0.00"
 
           ></b-form-input>
@@ -99,6 +107,11 @@
         Envoi en cours <b-spinner style="margin-left: 20px;" label="Small Spinner" variant="primary"></b-spinner>
       </div>
     </b-modal>
+    <b-modal id="sending-notification-2" ok-only hide-header centered v-model="validation">
+      <div style="font-size: 1.7em;">
+        Veuillez remplir les champs nécessaires.
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -111,6 +124,8 @@ export default {
     return {
       title: '',
       description: '',
+      validation : false,
+      errorTitle: 'Hello World',
       price: 0.0, // float
       categoryID: 0,
       selectedFile: null,
@@ -124,6 +139,26 @@ export default {
       staredImage: 0
     }
   },
+  computed: {
+      titleState() {
+        if (this.title.length > 0) {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      },
+      descriptionState() {
+        if (this.description.length > 0) {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+    },
   mounted: function () {
     // retrieve categories
     function getValues() {
@@ -167,6 +202,9 @@ export default {
        // `this` inside methods points to the Vue instance
        // On upload l'image sur imgur
        // Authentification
+       if (this.title.length == 0 || this.description.length == 0) { this.validation = true;}
+       else
+       {
        var config = {
          headers: {'Authorization': 'Client-ID a98be453a893668'}
        };
@@ -207,6 +245,7 @@ export default {
 
        this.sending = true;
      }
+   }
    }
 }
 </script>
