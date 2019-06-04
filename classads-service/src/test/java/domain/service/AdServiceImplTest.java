@@ -17,12 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 import domain.model.Ad;
-import domain.model.Categories;
 import eu.drus.jpa.unit.api.JpaUnit;
 
 
@@ -163,75 +158,6 @@ public class AdServiceImplTest {
 		}
 	}
 	
-	@Test 
-	public void getJsonListAds() {
-		//To test if we generate the right json for a list of ads
-		
-		//First, we create 2 ads
-		
-		Ad ad1 = new Ad("Livre de Maupassant", "Livre utilisé au collège pour un cours de français", 10, 0, 0, new ArrayList<String>());
-		Ad ad2 = new Ad("Vélo bleu", "VTT de mon frere devenu trop petit pour lui", 100, 0, 0, new ArrayList<String>());
-		
-		//Then, we create a list
-		List<Ad> ads = new ArrayList<Ad>();
-		ads.add(ad1);
-		ads.add(ad2);
-
-		JsonArray json = as.getJsonListAds(ads);
-		
-		//Test if the json array has 2 json objects
-		Assertions.assertEquals(2, json.size());
-		
-		//Test if we can extract the mandatory fields from these objects
-		for (JsonElement jsonAtt : json) {
-			if (!jsonAtt.getAsJsonObject().has(Ad.getTitleField())) 
-				Assertions.fail("Coudn't extract title from json");
-			if (!jsonAtt.getAsJsonObject().has(Ad.getDescriptionField())) 
-				Assertions.fail("Coudn't extract description from json");
-			if (!jsonAtt.getAsJsonObject().has(Ad.getPriceField())) 
-				Assertions.fail("Coudn't extract price from json");
-			if (!jsonAtt.getAsJsonObject().has(Categories.getCategoryIDField())) 
-				Assertions.fail("Coudn't extract categoryID from json"); 
-		}	
-			
-	}
-	
-	@Test
-	public void createAdFromJsonTest() {
-		JsonObject json;
-		Ad ad;
-		
-		//Test to decrypt an ad with a bad category ID
-		json = new JsonObject();
-		json.addProperty(Categories.getCategoryIDField(), -1);
-		ad = as.createAdFromJson(json);
-		Assertions.assertEquals(null, ad);
-		
-		//Test to decrypt an ad with a right categoryID but not all mandatory parameters
-		json = new JsonObject();
-		json.addProperty(Categories.getCategoryIDField(), 0);
-		json.addProperty(Ad.getTitleField(), "Any title");
-		json.addProperty(Ad.getPriceField(), 10);
-		json.addProperty(Ad.getUserIDField(), 0);
-		json.add(Ad.getImageField(), new JsonArray());
-		ad = as.createAdFromJson(json);
-		Assertions.assertEquals(null, ad);
-		
-		//Test to decrypt an ad with the right mandatory field but not all category fields
-		//For category 1 which is Books, fields are authors and nbPages
-		json = new JsonObject();
-		json.addProperty(Categories.getCategoryIDField(), 1);
-		json.addProperty(Ad.getTitleField(), "Bel-ami");
-		json.addProperty(Ad.getDescriptionField(), "Interessing book");
-		json.addProperty(Ad.getPriceField(), 20);
-		json.addProperty(Ad.getUserIDField(), 0);
-		json.add(Ad.getImageField(), new JsonArray());
-		ad = as.createAdFromJson(json);
-		Assertions.assertNotEquals(null, ad);
-		Assertions.assertEquals(ad.getClass(), adExample.getClass());
-		
-	
-	}
 	
 	@Test
 	public void testGetAllByCategory() {

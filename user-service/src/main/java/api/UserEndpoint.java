@@ -14,8 +14,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.google.gson.Gson;
-
 import domain.model.User;
 import domain.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,11 +32,13 @@ public class UserEndpoint {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getAll() {
+	public List<User> getAll() {
 		List<User> usl = userservice.getAll();
-		
+		/*
 		Gson gson = new Gson();
 		return gson.toJson(usl);
+		*/
+		return usl;
 	}
 	
 	@POST
