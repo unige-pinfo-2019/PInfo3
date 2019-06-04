@@ -25,7 +25,7 @@ services:
 
 
   iam:
-    image: jboss/keycloak:4.8.3.Final
+    image: jboss/keycloak:5.0.0
     container_name: iam
     hostname: iam
     networks:
@@ -37,6 +37,7 @@ services:
     volumes:
       - ./iam-config/:/tmp/iam-config
       - ./iam-config/pinfo3:/opt/jboss/keycloak/themes/pinfo3
+      - ./iam-config/standalone.xml:/opt/jboss/keycloak/standalone/configuration/standalone.xml
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=password
@@ -48,8 +49,6 @@ services:
       - DB_DATABASE=keycloakdb
       - PROXY_ADDRESS_FORWARDING=true
       - KEYCLOAK_IMPORT=/tmp/iam-config/realm-export.json
-      - KEYCLOAK_WELCOME_THEME=pinfo3
-      - KEYCLOAK_DEFAULT_THEME=pinfo3
     depends_on:
        iam-db :
          condition: service_healthy
@@ -60,6 +59,8 @@ volumes:
 
 networks:
   gateway-network:
-     driver: bridge
+     external:
+        name: nacsa0_frontend-network
   backend-network:
-     driver: bridge
+     external:
+        name: nacsa0_backend-network
