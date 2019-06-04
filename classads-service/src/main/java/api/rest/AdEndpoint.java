@@ -1,5 +1,6 @@
 package api.rest;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -14,9 +15,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import api.msg.AdProducer;
 import domain.model.Ad;
@@ -47,9 +45,9 @@ public class AdEndpoint {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getAll() {
+	public List<Ad> getAll() {
 		//We get the ads back in a list
-		return adservice.getJsonListAds(adservice.getAll()).toString();
+		return adservice.getAll();
 	}
 
 	@GET
@@ -58,11 +56,18 @@ public class AdEndpoint {
 	public Response getAd(@PathParam("id") String strID) {
 		Optional<Ad> ad = adservice.getById(Long.parseLong(strID));
 		if (ad.isEmpty()) {
-			return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't extract the ad, the id may not exist").build();
+			return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't extract the ad, the id may not exist or the ad might have been deleted").build();
 		}
 		ad.get().setNbVues(ad.get().getNbVues()+1); //if the method is called the nb of vue rows
 		adservice.update(ad.get());
-		return Response.ok(adservice.createJsonRepresentation(ad.get()).toString()).build();
+		return Response.ok(ad.get()).build();	
+	}
+	
+	@GET
+	@Path("/user/{UserId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAd(@PathParam("UserId") long us) {
+		return Response.ok(adservice.getByUser(us)).build();
 		
 	}
 	
@@ -70,14 +75,12 @@ public class AdEndpoint {
 	@PUT
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(String jsonStr) {
-		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
-		Ad ad = adservice.createAdFromJson(json); //We create the ad
+	public Response update(Ad ad) {
 		try {
 			adservice.update(ad);
 		}catch(IllegalArgumentException ex) {
 			log.error(ex.toString());
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Some form of error occurred. Could not modifie "+ ad.toString()).build();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(ex.toString() + "\n"+ ad.toString()).build();
 		}
 		adProducer.send(ad);
 		return Response.ok("the ad " + ad.getId() + " have been modified").build();
@@ -87,8 +90,8 @@ public class AdEndpoint {
 	@GET
 	@Path("/categories/{cID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getAllByCategory(@PathParam("cID") int cid) {
-		return adservice.getJsonListAds(adservice.getAllByCategory(cid)).toString();
+	public List<Ad> getAllByCategory(@PathParam("cID") int cid) {
+		return adservice.getAllByCategory(cid);
 	}
 
 	/* Add a new ad in the DB */
@@ -96,9 +99,7 @@ public class AdEndpoint {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response addNewAd(String jsonStr) {
-		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
-		Ad ad = adservice.createAdFromJson(json); //We create the ad
+	public Response addNewAd(Ad ad) {
 		if (ad != null) {
 			adservice.createAd(ad);
 			adProducer.send(ad);

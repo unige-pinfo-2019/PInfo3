@@ -15,6 +15,7 @@ cd $BASEDIR/web-ui
 docker build --tag=2019pinfo3/web-ui:latest .
 ## api gateway ----------------------------------------------
 cd $BASEDIR/api-gateway
+cp -r $BASEDIR/web-ui .
 docker build --tag=2019pinfo3/api-gateway:latest .
 ## search-service -------------------------------------------
 cd $BASEDIR/search-service

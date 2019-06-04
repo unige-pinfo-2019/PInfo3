@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import domain.model.AdResponse;
@@ -95,16 +96,29 @@ class AdResponseServiceImplTest {
 		
 	}
 	
+	/*
+	@Test
+	public void getJsonListAdResponsesTest() {
+		AdResponse resp0 = new AdResponse(333, 17 , "Salut, il parait que tu vends une tondeuse", true);
+		AdResponse resp1 = new AdResponse(333, 17 , "Salut, oui", false);
+		AdResponse resp2 = new AdResponse(333, 17 , "Trop cool, tu me la fais à combien ?", true);
+		AdResponse resp3 = new AdResponse(333, 17 , "Désolé, elle n'est pas à vendre", false);
+		
+		List<AdResponse> responses = new ArrayList<> ();
+		responses.add(resp0);
+		responses.add(resp1);
+		responses.add(resp2);
+		responses.add(resp3);
+		
+		JsonArray jsa = ars.getJsonListAdResponses(responses);
+		
+	} */
+	
 	@Test
 	public void createAdFromJsonTest() {
 		JsonObject json;
 		AdResponse adresp;
 		
-		/*
-		//Test to decrypt an ad with a bad category ID
-		json = new JsonObject();
-		adresp = ars.createAdResponseFromJson(json);
-		Assertions.assertEquals(null, adresp); */
 		
 		LocalDateTime time = LocalDateTime.now();
 		
@@ -125,7 +139,7 @@ class AdResponseServiceImplTest {
 		json.addProperty(AdResponse.getFlagField(), true);
 		adresp = ars.createAdResponseFromJson(json);
 		adresp.setTime(time);
-		Assertions.assertNotEquals(adresp, null);
+		Assertions.assertNotEquals(null, adresp);
 		
 		
 		Assertions.assertEquals(adresp, arExpected);
