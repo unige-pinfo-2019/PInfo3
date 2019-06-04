@@ -41,7 +41,7 @@ public class AdResponse implements Serializable {
 	private String response;
 	
 	@Column(name = "RESPONSE_TIME")
-	private LocalDateTime time;
+	private LocalDateTime time = LocalDateTime.now();
 	
 	@Column(name = "FLAG")
 	private boolean flag;

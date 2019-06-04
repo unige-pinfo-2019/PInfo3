@@ -63,7 +63,7 @@ public class Ad implements Serializable{
 	private int categoryID;
 	
 	@Column(name="CREATION_DATE")
-	private String time;
+	private String time = LocalDateTime.now().toString();
 	
 	@Column(name="NB_VUE")
 	private int nbVues = 0;
