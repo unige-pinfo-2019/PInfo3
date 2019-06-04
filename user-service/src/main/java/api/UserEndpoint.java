@@ -33,12 +33,7 @@ public class UserEndpoint {
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<User> getAll() {
-		List<User> usl = userservice.getAll();
-		/*
-		Gson gson = new Gson();
-		return gson.toJson(usl);
-		*/
-		return usl;
+		return userservice.getAll();
 	}
 	
 	@POST

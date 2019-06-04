@@ -130,7 +130,7 @@ public class AdServiceImpl implements AdService{
 	@Override
 	public boolean update(Ad ad) {
 		Ad a = em.find(Ad.class, ad.getId());
-		if (a == null || a.isDeleted()==true) {
+		if (a == null || a.isDeleted()) {
 			throw new IllegalArgumentException("Classad " +ad.getId() + " does not exist or was deleted.");
 		}
 		ad.setTime(a.getTime());
