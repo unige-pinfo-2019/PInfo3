@@ -3,6 +3,7 @@ package domain.service;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -177,6 +178,17 @@ public class AdServiceImplTest {
 		}catch(IllegalArgumentException ex) {
 			// we expect an exception
 		}
+		
+		String t = ad2.getTime();
+		
+		ad2.setTime("not a date string");
+		Assertions.assertEquals(t, ad2.getTime());
+		//the time shouldn't have change
+		
+		
+		LocalDateTime time = LocalDateTime.now();
+		ad2.setTime(time);
+		Assertions.assertEquals(time, LocalDateTime.parse(ad2.getTime()));
 		
 	
 	}
