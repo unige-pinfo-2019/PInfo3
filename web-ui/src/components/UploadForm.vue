@@ -13,6 +13,7 @@
 
     <hr>
 
+    <input type="button" name="" value="Show token" v-on:click="refreshTokenDisplay">
     {{myToken}}
 
     <hr>
@@ -23,7 +24,7 @@
 
     Status: {{myAuthStatus}}
 
-</div>
+  </div>
 </template>
 
 <script>
@@ -36,7 +37,7 @@ export default {
       selectedFile: null,
       info:null,
       baseAPI: "not set",
-      myToken: null,
+      myToken: 'not set yet',
       myAuthStatus: null
     }
   },
@@ -62,17 +63,56 @@ export default {
     },
     disconect() {
       this.$store._actions.logout[0]()
+      this.$myStore.loggedIn = 'out'
+    },
+    refreshTokenDisplay() {
+      this.myToken = localStorage.getItem('vue-token');
     }
   },
   mounted: function() {
     this.baseAPI = process.env.VUE_APP_BASE_API;
 
-    // this.myToken = keycloak.token;
-    this.myToken = this.$store.keycloak.token//localStorage.getItem('vue-token');
+    // var here = window.location.href;
+    // var before = document.referrer;
+    // if(here.indexOf('#state') != -1 || before.indexOf('auth/realms/apigw/protocol/openid-connect/auth?') != -1) {
+    //   // If we have the long url in the title and we come from the login page
+    //   // ok keycloak, we want to refresh the page using this.$keycloak.init()
+    //   // to retrieve the jwt token
+    //
+    //   this.$keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
+    //
+    //       if(!auth) {
+    //         // window.location.reload();
+    //         console.log('Not authenticated in successs');
+    //       } else {
+    //         // Vue.$log.info("Authenticated");
+    //         console.log('Authenticated in success');
+    //       }
+    //
+    //       localStorage.setItem("vue-token", this.$keycloak.token);
+    //       this.myToken = localStorage.getItem('vue-token');
+    //
+    //   }).error(() =>{
+    //     Vue.$log.error("Authenticated Failed");
+    //     console.log('Dans error')
+    //   });
+    // }
 
-    console.log('Auth status: ');
-    console.log(this.$store.getters.authStatus);
-    this.myAuthStatus = this.$store.getters.authStatus
+    this.myToken = localStorage.getItem('vue-token');
+
+    ///////////////////////////////////////////
+    // console.log('Trying to retrieve the token');
+    // console.log(this.myToken);
+    // console.log('becomes');
+    // this.myToken = this.$keycloak.token//localStorage.getItem('vue-token');
+    // console.log(this.myToken);
+    //
+    // console.log(this.$keycloak);
+    ///////////////////////////////////////////
+
+    // console.log('Auth status: ');
+    // console.log(this.$store.getters.authStatus);
+    // this.myAuthStatus = this.$store.getters.authStatus
   }
 }
 </script>

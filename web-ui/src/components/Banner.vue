@@ -5,8 +5,8 @@
       <span class="brand-name-container">
         <!-- <h1 id="brand-name">UniTrade</h1> -->
         <router-link id="brand-name" to="/">UniTrade</router-link>
+        <Login class="login"/>
       </span>
-      <Login class="login"/>
       <!-- <div class="wrap">
         <div class="center" style="background: #888; min-height: 50px; min-width: 100px; float: right;">
       </div> -->
@@ -89,6 +89,15 @@ export default {
   font-size: 2.5em;
   // font-weight: bolder;
   text-decoration: none;
+}
+
+.brand-name-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  height: 100px;
+  width: 100vw;
+  padding-right: 15px;
 }
 
 .banner-container {
