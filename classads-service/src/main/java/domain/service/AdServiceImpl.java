@@ -166,7 +166,7 @@ public class AdServiceImpl implements AdService{
 		}
 		try {				// if the Date is given we change the automatically generated time
 			ad.setTime(json.get(Ad.getTimeField()).getAsString());
-		}catch (Exception e) {}
+		}catch (Exception e) { /* if the Date is not given we use the generated time */}
 		
 		try {
 			//Some attributes are mandatory so they'll generate an exception if they don't exist
