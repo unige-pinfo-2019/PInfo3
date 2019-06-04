@@ -12,15 +12,20 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import api.msg.AdProducer;
 import domain.model.Ad;
+import domain.model.User;
 import domain.service.AdService;
+import domain.service.KeycloakService;
 import lombok.extern.slf4j.Slf4j;
 
 
@@ -37,9 +42,69 @@ public class AdEndpoint {
 
 	@Inject
 	private AdProducer adProducer;
+	
+	@Inject 
+	private KeycloakService kcService;
 
 	public void setAdService(AdService cs) {
 		adservice = cs;
+	}
+	
+//	@GET
+//	@Path("/keycloak1")
+//	@Produces(MediaType.TEXT_PLAIN)
+//    public String getEndpoint(@Context HttpServletRequest request) {
+//		KeycloakSecurityContext keycloakSecurityContext =
+//		        (KeycloakSecurityContext) request.getAttribute(KeycloakSecurityContext.class.getName());
+//        String userId = keycloakSecurityContext.getIdToken().getSubject();
+//
+//        //....do something
+//
+//        return "ok";
+//    }
+	
+	@Context
+	SecurityContext securityContext;
+//	
+//	@GET
+//	@Path("/keycloak1")
+//	@Produces(MediaType.TEXT_PLAIN)
+//	//@RolesAllowed("web-sso")
+//	public String getKeycloak1() {
+//		
+//		log.info(securityContext.toString());
+//		
+//		log.info(securityContext.getUserPrincipal().toString());
+//		
+//		if (securityContext != null && securityContext.getUserPrincipal() instanceof KeycloakPrincipal) {
+//		    KeycloakPrincipal principal = ((KeycloakPrincipal) securityContext.getUserPrincipal());
+//		    AccessToken token = principal.getKeycloakSecurityContext().getToken();
+//		    // IDToken token = principal.getKeycloakSecurityContext().getIdToken();
+//
+//		    return "User logged in: " + token.getPreferredUsername();
+//		} else {
+//		    return "SecurityContext could not provide a Keycloak context.";
+//		}
+//		
+//		
+//	}
+	
+	@GET
+	@Path("/keycloak")
+	@Produces(MediaType.TEXT_PLAIN)
+	//@RolesAllowed("web-sso")
+	public String getKeycloak(@Context HttpHeaders headers) {
+		
+		if (kcService.hasValidAuthentification(headers)) {
+			String token = kcService.getToken(headers);			
+			User user = kcService.extractUserInfos(token);
+			return user.toString();
+			
+		} else {
+			return "Couldn't extract or decode the token.";
+		}
+		
+		
 	}
 
 
