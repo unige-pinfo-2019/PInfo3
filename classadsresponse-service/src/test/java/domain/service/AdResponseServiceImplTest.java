@@ -125,7 +125,7 @@ class AdResponseServiceImplTest {
 		json.addProperty(AdResponse.getFlagField(), true);
 		adresp = ars.createAdResponseFromJson(json);
 		adresp.setTime(time);
-		Assertions.assertNotEquals(adresp, null);
+		Assertions.assertNotEquals(null, adresp);
 		
 		
 		Assertions.assertEquals(adresp, arExpected);
