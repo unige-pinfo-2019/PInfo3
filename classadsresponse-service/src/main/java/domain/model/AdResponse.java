@@ -64,17 +64,7 @@ public class AdResponse implements Serializable {
 	}
 	
 	/***** Manipulation *****/
-	/* Returns attributes and their default values in a json format */
-	public static JsonObject getAttributes() {
-		JsonObject json = new JsonObject();
-		json.addProperty(idField, 0);
-		json.addProperty(adIDField, 0);
-		json.addProperty(userIDField, 0);
-		json.addProperty(responseField, "");
-		json.addProperty(timeField, "");
-		json.addProperty(flagField, true);
-		return json;
-	}
+
 
 	public static String getAdIDField() {
 		return adIDField;

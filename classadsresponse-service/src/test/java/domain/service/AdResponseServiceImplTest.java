@@ -100,11 +100,6 @@ class AdResponseServiceImplTest {
 		JsonObject json;
 		AdResponse adresp;
 		
-		/*
-		//Test to decrypt an ad with a bad category ID
-		json = new JsonObject();
-		adresp = ars.createAdResponseFromJson(json);
-		Assertions.assertEquals(null, adresp); */
 		
 		LocalDateTime time = LocalDateTime.now();
 		
