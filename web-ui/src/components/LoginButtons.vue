@@ -7,7 +7,7 @@
     <div class="minimized-ad" v-else>
       <!-- <b-button v-on:click="editProfile()" id="edit" class="login" variant="outline-light">Éditer son profil</b-button> -->
       <h4 class="login"> <font-awesome-icon class="icon" icon="user"/> {{$myStore.username}}</h4>
-      <b-button v-on:click="disconect()" id="deco" class="login" onloadedmetadata=""variant="outline-light">Déconnexion</b-button>
+      <b-button v-on:click="disconect()" id="deco" class="login" onloadedmetadata="" variant="outline-light">Déconnexion</b-button>
     </div>
     <!-- <b-button v-on:click="$myStore.loggedIn = 'abcd'">fri</b-button> -->
   </div>
