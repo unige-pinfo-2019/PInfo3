@@ -10,16 +10,16 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor
 public class Ad {
 
-	private static String titleField = "title";
-	private static String descriptionField = "description";
-	private static String priceField = "price";
-	private static String idField = "id";
-	private static String userIDField = "userID";
-	private static String categoryIDField = "categoryID";
-	private static String imageField = "images";
-	private static String timeField = "time";
-	private static String nbVuesField = "nbVues";
-	private static String deletedField = "deleted";
+	private static String searchTitleField = "title";
+	private static String searchDescriptionField = "description";
+	private static String searchPriceField = "price";
+	private static String searchIdField = "id";
+	private static String searchUserIDField = "userID";
+	private static String searchCategoryIDField = "categoryID";
+	private static String searchImageField = "images";
+	private static String searchTimeField = "time";
+	private static String searchNbVuesField = "nbVues";
+	private static String searchDeletedField = "deleted";
 
 	private long id;
 
@@ -53,42 +53,42 @@ public class Ad {
 	}
 	
 	public static String getTitleField() {
-		return titleField;
+		return searchTitleField;
 	}
 
 	public static String getDescriptionField() {
-		return descriptionField;
+		return searchDescriptionField;
 	}
 
 	public static String getPriceField() {
-		return priceField;
+		return searchPriceField;
 	}
 
 	public static String getIdField() {
-		return idField;
+		return searchIdField;
 	}
 
 	public static String getUserIDField() {
-		return userIDField;
+		return searchUserIDField;
 	}
 
 	public static String getCategoryIDField() {
-		return categoryIDField;
+		return searchCategoryIDField;
 	}
 	
 	public static String getImageField() {
-		return imageField;
+		return searchImageField;
 	}
 
 	public static String getTimeField() {
-		return timeField;
+		return searchTimeField;
 	}
 
 	public static String getNbVuesField() {
-		return nbVuesField;
+		return searchNbVuesField;
 	}
 
 	public static String getDeletedField() {
-		return deletedField;
+		return searchDeletedField;
 	}
 }
