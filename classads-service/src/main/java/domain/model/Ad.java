@@ -20,10 +20,12 @@ import javax.persistence.Table;
 import com.google.gson.JsonArray;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Represents classifier ads and manage storage in DB.
  */
+@Slf4j
 @Entity
 @Table(name="AD")
 @Data
@@ -41,6 +43,8 @@ public class Ad implements Serializable{
 	private static String timeField = "time";
 	private static String nbVuesField = "nbVues";
 	private static String deletedField = "deleted";
+	private static String authField = "auth";
+	private static String usernameField = "username";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -58,13 +62,16 @@ public class Ad implements Serializable{
 	private float price;
 
 	@Column(name="USER_ID")
-	private long userID;
+	private String userID;
+	
+	@Column(name="USERNAME")
+	private String username;
 
 	@Column(name="CATEGORY_ID")
 	private int categoryID;
 	
 	@Column(name="CREATION_DATE")
-	private LocalDateTime time;
+	private String time;
 	
 	@Column(name="NB_VUE")
 	private int nbVues = 0;
@@ -79,23 +86,35 @@ public class Ad implements Serializable{
 
 	/***** Constructors *****/
 	public Ad() {
-		this.time = LocalDateTime.now();
+		this.time = LocalDateTime.now().toString();
 	}
 	
 	public Ad(Long id) {
 		this.id = id;
-		this.time = LocalDateTime.now();
+		this.time = LocalDateTime.now().toString();
 	}
 	
 	
-	public Ad(String title, String description, float price, long userID, int categoryID, List<String> images) {
+	public Ad(String title, String description, float price, String userID, int categoryID, List<String> images) {
 		this.title = title;
 		this.description = description;
 		this.price = price;
 		this.userID = userID;
 		this.categoryID = categoryID;
 		this.images = images;
-		this.time = LocalDateTime.now();
+		this.time = LocalDateTime.now().toString();
+		
+	}
+	
+	public Ad(String title, String description, float price, String userID, int categoryID, List<String> images, String username) {
+		this.title = title;
+		this.description = description;
+		this.price = price;
+		this.userID = userID;
+		this.categoryID = categoryID;
+		this.images = images;
+		this.time = LocalDateTime.now().toString();
+		this.username = username;
 		
 	}
 	
@@ -106,6 +125,7 @@ public class Ad implements Serializable{
 		String res = "Ad ID : " + id + newLine;
 		res += "Title : " + newLine + "Description : " + description + newLine + "Prix : " + price + newLine;
 		res += "Category ID : " + categoryID + newLine;
+		res += "Created by " + username + " (" + userID + ")" + newLine;
 		return res;
 	}
 	
@@ -156,6 +176,24 @@ public class Ad implements Serializable{
 
 	public static String getDeletedField() {
 		return deletedField;
+	}
+	public void setTime(String t) {
+		try {
+			time = LocalDateTime.parse(t).toString();
+		}catch (Exception e) {
+			log.error("Error setting the date from String, cannot parse the String");
+		}
+	}
+	public void setTime(LocalDateTime t) {
+		time = t.toString();
+	}
+
+	public static String getAuthField() {
+		return authField;
+	}
+
+	public static String getUsernameField() {
+		return usernameField;
 	}
 
 

@@ -1,6 +1,5 @@
 package domain.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -151,8 +150,7 @@ public class AdServiceImpl implements AdService{
 			ad = new Ad();
 		}
 		try {				// if the Date is given we change the automatically generated time
-			LocalDateTime time = LocalDateTime.parse(json.get(Ad.getTimeField()).getAsString());
-			ad.setTime(time);
+			ad.setTime(json.get(Ad.getTimeField()).getAsString());
 		}catch (Exception e) {}
 		
 		try {
@@ -185,7 +183,7 @@ public class AdServiceImpl implements AdService{
 			ad.setTitle(json.get(Ad.getTitleField()).getAsString());
 			ad.setDescription(json.get(Ad.getDescriptionField()).getAsString());
 			ad.setPrice(json.get(Ad.getPriceField()).getAsFloat());
-			ad.setUserID(json.get(Ad.getUserIDField()).getAsLong());
+			ad.setUserID(json.get(Ad.getUserIDField()).getAsString());
 			ad.setImagesFromJson(json.get(Ad.getImageField()).getAsJsonArray());
 		} catch (Exception e) {
 			log.error("Mandatory fields are missing (title, description, price, userID or image)");
@@ -210,11 +208,11 @@ public class AdServiceImpl implements AdService{
 		jsonAd.addProperty(Ad.getTitleField(), ad.getTitle());
 		jsonAd.addProperty(Ad.getDescriptionField(), ad.getDescription());
 		jsonAd.addProperty(Ad.getPriceField(), ad.getPrice());
-		jsonAd.addProperty(Ad.getUserIDField(), ad.getUserID());
 		jsonAd.addProperty(Categories.getCategoryIDField(), ad.getCategoryID());
 		jsonAd.add(Ad.getImageField(), getImagesInJson(ad));
-		jsonAd.addProperty(Ad.getTimeField(), ad.getTime().toString());
+		jsonAd.addProperty(Ad.getTimeField(), ad.getTime());
 		jsonAd.addProperty(Ad.getNbVuesField(), ad.getNbVues());
+		jsonAd.addProperty(Ad.getUsernameField(), ad.getUsername());
 		
 		return jsonAd;
 	}

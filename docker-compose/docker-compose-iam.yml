@@ -60,7 +60,7 @@ volumes:
 networks:
   gateway-network:
      external:
-        name: nacsa0_frontend-network
+        name: docker_compose_frontend-network
   backend-network:
      external:
-        name: nacsa0_backend-network
+        name: docker_compose_backend-network

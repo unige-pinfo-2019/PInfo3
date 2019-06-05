@@ -34,7 +34,7 @@ public class AdConsumerTest {
 		images.add("Image1");
 		images.add("Image2");
 		images.add("Image3");
-		return new Ad((long)1, "Charger iPhone", "Works with Android (not a joke)", (float) 120, 100, 1, images);
+		return new Ad((long)1, "Charger iPhone", "Works with Android (not a joke)", (float) 120, "100", 1, images);
 	}
 	
 	@Test

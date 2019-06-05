@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
+    "@fortawesome/free-regular-svg-icons": "^5.8.2",
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "axios": "^0.18.0",
@@ -21,6 +22,7 @@
     "npm": "^6.9.0",
     "plugin-vuejs-keycloak": "0.0.2",
     "sass-loader": "^7.1.0",
+    "v-img": "^0.2.0",
     "vee-validate": "^2.2.3",
     "vue": "^2.6.10",
     "vue-router": "^3.0.3",
