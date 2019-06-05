@@ -33,7 +33,9 @@ import Searchbar from '@/components/Searchbar.vue'
 import axios from 'axios';
 
 
+
 export default {
+
   name: 'results',
   components: {
     MiniAd,

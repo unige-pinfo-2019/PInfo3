@@ -42,9 +42,6 @@ import lombok.extern.slf4j.Slf4j;
 @ApplicationScoped
 @Path("/classads")
 @Slf4j
-@Api(value = "classads", authorizations = {
-	      @Authorization(value="sampleoauth", scopes = {})
-})
 public class AdEndpoint {
 
 	@Inject
@@ -99,55 +96,7 @@ public class AdEndpoint {
 		json.addProperty(Ad.getAuthField(), auth);
 		return Response.ok(json.toString()).build();
 	}
-
-	@Context SecurityContext securityContext;
-
-	@GET
-	@Path("/hola-secured")
-	@Produces("text/plain")
-	@ApiOperation("Returns a message that is only available for authenticated users")
-	public String holaSecured() {
-//	    // this will set the user id as userName
-//	    // String userName = securityContext.getUserPrincipal().getName();
-//
-//	    if (securityContext.getUserPrincipal() instanceof KeycloakPrincipal) {
-//	        @SuppressWarnings("unchecked")
-//	        KeycloakPrincipal<KeycloakSecurityContext> kp = (KeycloakPrincipal<KeycloakSecurityContext>) securityContext.getUserPrincipal();
-//
-//
-//	        // this is how to get the real userName (or rather the login name)
-//	        String userName = kp.getKeycloakSecurityContext().getToken().getName();
-//	        return "This is a Secured resource. You are logged as " + userName;
-//	    } else {
-//	    	try {
-//	    		Principal p = securityContext.getUserPrincipal();
-//
-//	    		//String userName = securityContext.getUserPrincipal().getName();
-//	    		return p.toString();
-//	    	} catch (Exception e) {
-//	    		return "Can't extract Name from security Context";
-//	    	}
-//	    }
-
-		try {
-			// obtain the caller principal.
-			Principal callerPrincipal = securityContext.getUserPrincipal();
-
-			return callerPrincipal.toString();
-
-		} catch (Exception e) {
-			return "Can't extract principal user";
-		}
-
-
-
-
-
-
-	}
-
-
-
+	
 	@PUT
 	@Path("")
 	@Produces(MediaType.APPLICATION_JSON)

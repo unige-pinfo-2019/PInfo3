@@ -79,12 +79,19 @@ const router = new Router({
       props: true,
 
     },
+    // {
+    //   path: '/correctly-logged-in',
+    //   name: 'correctly-logged-in',
+    //   // route level code-splitting
+    //   // this generates a separate chunk (about.[hash].js) for this route
+    //   // which is lazy-loaded when the route is visited.
+    //   component: () => import(/* webpackChunkName: "about" */ './views/Correct.vue')
+    // },
     {
       path: '/unauthorized',
       name: 'Unauthorized',
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    } // Unauthorized
-
+    }, // Unauthorized
   ]
 })
 
