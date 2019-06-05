@@ -3,6 +3,7 @@ package domain.service;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -17,12 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 import domain.model.Ad;
-import domain.model.Categories;
 import eu.drus.jpa.unit.api.JpaUnit;
 
 
@@ -127,6 +123,11 @@ public class AdServiceImplTest {
 		if (adInDB.isEmpty()) {
 			fail("Title " + title + " has not been resolved in the DB.");
 		}
+
+		Optional<Ad> adInDB2 = as.getByTitle("false title");
+		if(adInDB2.isPresent()) {
+			fail("false title has not been resolved in the DB.");
+		}
 	}
 	
 	@Test
@@ -143,6 +144,53 @@ public class AdServiceImplTest {
 		if (adById.isEmpty()) {
 			fail("ID " + id + " has not been resolved in the DB.");
 		}
+		Optional<Ad> adById2 = as.getById(id+1);
+		if (adById2.isPresent()) {
+			fail("ID " + id+1 + " has been resolved in the DB when it shouldm't have.");
+		}
+	}
+	@Test
+	public void testupdate() {
+		//We create a new ad and insert it in the DB
+		Ad ad = adExample;
+		as.createAd(ad);
+		ad.setPrice((float)12.3);
+		as.update(ad);
+		
+		
+		Optional<Ad> adById = as.getById(ad.getId());
+		if (adById.isEmpty()) {
+			fail("ID " + ad.getId() + " has not been resolved in the DB.");
+		}
+		Assertions.assertEquals((float)12.3, adById.get().getPrice());
+		
+		ad.setDeleted(true);
+		try {
+			as.update(ad);
+			fail("The ad " + ad.getId()+ " was updated after being deleted");
+		}catch(IllegalArgumentException ex) {
+			// we expect an exception
+		}
+		Ad ad2 = new Ad();
+		try {
+			as.update(ad2);
+			fail("an unexisting ad was updated");
+		}catch(IllegalArgumentException ex) {
+			// we expect an exception
+		}
+		
+		String t = ad2.getTime();
+		
+		ad2.setTime("not a date string");
+		Assertions.assertEquals(t, ad2.getTime());
+		//the time shouldn't have change
+		
+		
+		LocalDateTime time = LocalDateTime.now();
+		ad2.setTime(time);
+		Assertions.assertEquals(time, LocalDateTime.parse(ad2.getTime()));
+		
+	
 	}
 	
 	@Test
@@ -161,77 +209,9 @@ public class AdServiceImplTest {
 				fail("Coudn't delete ad properly");
 			}
 		}
+		as.deleteAd(new Ad());
 	}
 	
-	@Test 
-	public void getJsonListAds() {
-		//To test if we generate the right json for a list of ads
-		
-		//First, we create 2 ads
-		
-		Ad ad1 = new Ad("Livre de Maupassant", "Livre utilisé au collège pour un cours de français", 10, 0, 0, new ArrayList<String>());
-		Ad ad2 = new Ad("Vélo bleu", "VTT de mon frere devenu trop petit pour lui", 100, 0, 0, new ArrayList<String>());
-		
-		//Then, we create a list
-		List<Ad> ads = new ArrayList<Ad>();
-		ads.add(ad1);
-		ads.add(ad2);
-
-		JsonArray json = as.getJsonListAds(ads);
-		
-		//Test if the json array has 2 json objects
-		Assertions.assertEquals(2, json.size());
-		
-		//Test if we can extract the mandatory fields from these objects
-		for (JsonElement jsonAtt : json) {
-			if (!jsonAtt.getAsJsonObject().has(Ad.getTitleField())) 
-				Assertions.fail("Coudn't extract title from json");
-			if (!jsonAtt.getAsJsonObject().has(Ad.getDescriptionField())) 
-				Assertions.fail("Coudn't extract description from json");
-			if (!jsonAtt.getAsJsonObject().has(Ad.getPriceField())) 
-				Assertions.fail("Coudn't extract price from json");
-			if (!jsonAtt.getAsJsonObject().has(Categories.getCategoryIDField())) 
-				Assertions.fail("Coudn't extract categoryID from json"); 
-		}	
-			
-	}
-	
-	@Test
-	public void createAdFromJsonTest() {
-		JsonObject json;
-		Ad ad;
-		
-		//Test to decrypt an ad with a bad category ID
-		json = new JsonObject();
-		json.addProperty(Categories.getCategoryIDField(), -1);
-		ad = as.createAdFromJson(json);
-		Assertions.assertEquals(null, ad);
-		
-		//Test to decrypt an ad with a right categoryID but not all mandatory parameters
-		json = new JsonObject();
-		json.addProperty(Categories.getCategoryIDField(), 0);
-		json.addProperty(Ad.getTitleField(), "Any title");
-		json.addProperty(Ad.getPriceField(), 10);
-		json.addProperty(Ad.getUserIDField(), 0);
-		json.add(Ad.getImageField(), new JsonArray());
-		ad = as.createAdFromJson(json);
-		Assertions.assertEquals(null, ad);
-		
-		//Test to decrypt an ad with the right mandatory field but not all category fields
-		//For category 1 which is Books, fields are authors and nbPages
-		json = new JsonObject();
-		json.addProperty(Categories.getCategoryIDField(), 1);
-		json.addProperty(Ad.getTitleField(), "Bel-ami");
-		json.addProperty(Ad.getDescriptionField(), "Interessing book");
-		json.addProperty(Ad.getPriceField(), 20);
-		json.addProperty(Ad.getUserIDField(), 0);
-		json.add(Ad.getImageField(), new JsonArray());
-		ad = as.createAdFromJson(json);
-		Assertions.assertNotEquals(null, ad);
-		Assertions.assertEquals(ad.getClass(), adExample.getClass());
-		
-	
-	}
 	
 	@Test
 	public void testGetAllByCategory() {
@@ -246,6 +226,22 @@ public class AdServiceImplTest {
 		Assertions.assertEquals(2, l1.size());
 		Assertions.assertEquals(3, l2.size());
 		
+	}
+	
+	@Test
+	public void testGetByUser() {
+		//We create some ads and add them in the DB
+		for (int i=1; i<6; i++) {
+			as.createAd(new Ad("Title"+i+5, "Description"+i+5, (float)(1+i*0.1), (i%3), 0, new ArrayList<String>()));
+		}
+		
+		List<Ad> l1 = as.getByUser(0);
+		List<Ad> l2 = as.getByUser(1);
+		List<Ad> l3 = as.getByUser(2);
+		
+		Assertions.assertEquals(1, l1.size());
+		Assertions.assertEquals(2, l2.size());
+		Assertions.assertEquals(2, l3.size());
 	}
 	
 }

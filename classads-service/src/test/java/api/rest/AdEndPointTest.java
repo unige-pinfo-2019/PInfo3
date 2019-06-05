@@ -17,8 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
-import com.google.gson.JsonObject;
-
 import api.msg.AdProducer;
 import domain.model.Ad;
 import domain.service.AdService;
@@ -80,38 +78,22 @@ public class AdEndPointTest {
 		Ad ad = getAdDefault();
 		when(adservice.getById(ad.getId())).thenReturn(Optional.of(ad));
 		
-		JsonObject json = new JsonObject();
-		json.addProperty("title", ad.getTitle());
-		json.addProperty("description", ad.getDescription());
-		when(adservice.createJsonRepresentation(ad)).thenReturn(json);
-		
 		Response res = aep.getAd(Long.toString(ad.getId()));
 		Assertions.assertEquals(200, res.getStatus());
-		Assertions.assertEquals(json.toString(), res.getEntity());
+		Assertions.assertEquals(ad, res.getEntity());
 	}
 	
 	@Test
 	public void postAdTest() {
 		Ad ad = getAdDefault();
-		JsonObject json = new JsonObject();
-		when(adservice.createAdFromJson(json)).thenReturn(ad);
-		when(adservice.createAd(ad)).thenReturn(true);
-		doNothing().when(adProducer).send(ad);
-		
-		Response res = aep.addNewAd(json.toString());
+		Response res = aep.addNewAd(ad);
 		Assertions.assertEquals(200, res.getStatus());
 		Assertions.assertEquals(ad.getId(), res.getEntity());
 	}
 	
 	@Test
-	public void postBadAdTest() {
-		Ad ad = getAdDefault();
-		JsonObject json = new JsonObject();
-		when(adservice.createAdFromJson(json)).thenReturn(null);
-		when(adservice.createAd(ad)).thenReturn(true);
-		doNothing().when(adProducer).send(ad);
-		
-		Response res = aep.addNewAd(json.toString());
+	public void postBadAdTest() {	
+		Response res = aep.addNewAd(null);
 		Assertions.assertEquals(400, res.getStatus());
 	}
 

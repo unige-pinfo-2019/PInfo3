@@ -13,8 +13,6 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import domain.model.AdResponse;
 import domain.model.SortAdResponsesByDate;
@@ -68,23 +66,6 @@ public class AdResponseServiceImpl implements AdResponseService {
 	}
 
 	@Override
-	public AdResponse createAdResponseFromJson(JsonObject json) {
-		AdResponse adresp = new AdResponse();
-		//We need to decrypt the json object and instanciate the attributes of the ad response
-		try {
-			adresp = new AdResponse(
-					json.get(AdResponse.getAdIDField()).getAsLong(),
-					json.get(AdResponse.getUserIDField()).getAsLong(),
-					json.get(AdResponse.getResponseField()).getAsString(),
-					json.get(AdResponse.getFlagField()).getAsBoolean());
-		} catch (Exception e) {
-			log.error("Mandatory fields are missing (userID, adID or response)");
-			return null;
-		}
-		return adresp;
-	}
-
-	@Override
 	public List<AdResponse> getResponsesFromiToj(long uid, long aid, int offset, int limit) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<AdResponse> q = cb.createQuery(AdResponse.class);
@@ -107,28 +88,4 @@ public class AdResponseServiceImpl implements AdResponseService {
 		return query.setFirstResult(offset).setMaxResults(limit).getResultList();
 		
 	}
-
-	@Override
-	public JsonArray getJsonListAdResponses(List<AdResponse> responses) {
-		JsonArray result = new JsonArray();
-		for (AdResponse response: responses) {
-			JsonObject jsonResponse = createJsonRepresentation(response);
-			result.add(jsonResponse);
-		}
-
-		return result;
-	}
-
-	@Override
-	public JsonObject createJsonRepresentation(AdResponse response) {
-		JsonObject jsonResponse = new JsonObject();
-		jsonResponse.addProperty(AdResponse.getIdField(), response.getId());
-		jsonResponse.addProperty(AdResponse.getAdIDField(), response.getAdID());
-		jsonResponse.addProperty(AdResponse.getUserIDField(), response.getUserID());
-		jsonResponse.addProperty(AdResponse.getResponseField(), response.getResponse());
-		jsonResponse.addProperty(AdResponse.getTimeField(), response.getTime().toString());
-		jsonResponse.addProperty(AdResponse.getFlagField(), response.isFlag());
-		return jsonResponse;
-	}
-
 }
