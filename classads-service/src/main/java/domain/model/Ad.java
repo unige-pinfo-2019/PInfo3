@@ -2,7 +2,6 @@ package domain.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
@@ -16,8 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
-import com.google.gson.JsonArray;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +68,7 @@ public class Ad implements Serializable{
 	private int categoryID;
 	
 	@Column(name="CREATION_DATE")
-	private String time;
+	private String time = LocalDateTime.now().toString();
 	
 	@Column(name="NB_VUE")
 	private int nbVues = 0;
@@ -86,11 +83,6 @@ public class Ad implements Serializable{
 
 	/***** Constructors *****/
 	public Ad() {
-		this.time = LocalDateTime.now().toString();
-	}
-	
-	public Ad(Long id) {
-		this.id = id;
 		this.time = LocalDateTime.now().toString();
 	}
 	
@@ -123,18 +115,10 @@ public class Ad implements Serializable{
 	public String toString() {
 		String newLine = System.getProperty("line.separator");
 		String res = "Ad ID : " + id + newLine;
-		res += "Title : " + newLine + "Description : " + description + newLine + "Prix : " + price + newLine;
+		res += "Title : " + title + newLine + "Description : " + description + newLine + "Prix : " + price + newLine;
 		res += "Category ID : " + categoryID + newLine;
 		res += "Created by " + username + " (" + userID + ")" + newLine;
 		return res;
-	}
-	
-	
-	public void setImagesFromJson(JsonArray jsonArray) {
-		images= new ArrayList<>();
-		for(int i = 0; i < jsonArray.size(); i++){
-		    images.add(jsonArray.get(i).getAsString());
-		}	
 	}
 
 	/***** Getters and setters *****/

@@ -10,17 +10,17 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor
 public class Ad {
 
-	private static String titleField = "title";
-	private static String descriptionField = "description";
-	private static String priceField = "price";
-	private static String idField = "id";
-	private static String userIDField = "userID";
-	private static String categoryIDField = "categoryID";
-	private static String imageField = "images";
-	private static String timeField = "time";
-	private static String nbVuesField = "nbVues";
-	private static String deletedField = "deleted";
-	private static String usernameField = "username";
+	private static String searchTitleField = "title";
+	private static String searchDescriptionField = "description";
+	private static String searchPriceField = "price";
+	private static String searchIdField = "id";
+	private static String searchUserIDField = "userID";
+	private static String searchCategoryIDField = "categoryID";
+	private static String searchImageField = "images";
+	private static String searchTimeField = "time";
+	private static String searchNbVuesField = "nbVues";
+	private static String searchDeletedField = "deleted";
+	private static String searchUsernameField = "username";
 
 	private long id;
 
@@ -31,19 +31,19 @@ public class Ad {
 	private float price;
 
 	private String userID;
-	
+
 	private String username;
 
 	private int categoryID;
-	
+
 	private List<String> images;
 
 	private String time;
-	
+
 	private int nbVues = 0;
-	
+
 	private boolean deleted = false;
-	
+
 	public Ad(long id, String title, String description, float price, String userID, int categoryID, List<String> images) {
 		this.id = id;
 		this.title = title;
@@ -54,49 +54,49 @@ public class Ad {
 		this.images = images;
 		this.time = LocalDateTime.now().toString();
 	}
-	
+
 	public static String getTitleField() {
-		return titleField;
+		return searchTitleField;
 	}
 
 	public static String getDescriptionField() {
-		return descriptionField;
+		return searchDescriptionField;
 	}
 
 	public static String getPriceField() {
-		return priceField;
+		return searchPriceField;
 	}
 
 	public static String getIdField() {
-		return idField;
+		return searchIdField;
 	}
 
 	public static String getUserIDField() {
-		return userIDField;
+		return searchUserIDField;
 	}
 
 	public static String getCategoryIDField() {
-		return categoryIDField;
+		return searchCategoryIDField;
 	}
-	
+
 	public static String getImageField() {
-		return imageField;
+		return searchImageField;
 	}
 
 	public static String getTimeField() {
-		return timeField;
+		return searchTimeField;
 	}
 
 	public static String getNbVuesField() {
-		return nbVuesField;
+		return searchNbVuesField;
 	}
 
 	public static String getDeletedField() {
-		return deletedField;
+		return searchDeletedField;
 	}
-	
+
 	public static String getUsernameField() {
-		return usernameField;
+		return searchUsernameField;
 	}
 
 }

@@ -1,5 +1,7 @@
 package api.rest;
 
+import java.util.List;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -11,9 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import domain.model.AdResponse;
 import domain.service.AdResponseService;	
@@ -34,29 +33,26 @@ public class AdResponseEndpoint {
 	@GET
 	@Path("/users/{uid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getResponsesByUser(@PathParam("id") long id) {
-		return adservice.getJsonListAdResponses(adservice.getByUser(id)).toString();
+	public List<AdResponse> getResponsesByUser(@PathParam("uid") long id) {
+		return adservice.getByUser(id);
 	}
 	
 	@GET
 	@Path("users/{uid}/ads/{aid}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getResponseByUserAndAd(
+	public List<AdResponse> getResponseByUserAndAd(
 			@PathParam("uid") long uid, 
 			@PathParam("aid") long aid, 
 			@QueryParam("offset") int offset, 
 			@QueryParam("limit") int limit) {
-		return adservice.getJsonListAdResponses(adservice.getResponsesFromiToj(uid, aid, offset, limit)).toString();
+		return adservice.getResponsesFromiToj(uid, aid, offset, limit);
 	}
 
 	
 	@POST
 	@Path("/users/{uid}/ads/{aid}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response addNewResponse(String jsonStr) {
-		JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
-		AdResponse adresp = adservice.createAdResponseFromJson(json); //We create the ad
+	public Response addNewResponse(AdResponse adresp) {
 		if (adresp != null) {
 			adservice.createAdResponse(adresp);
 			return Response.ok(adresp.getId(), MediaType.TEXT_PLAIN).build();

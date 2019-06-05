@@ -1,6 +1,7 @@
 package api.rest;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Resource;
@@ -24,9 +25,6 @@ import javax.ws.rs.core.SecurityContext;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.representations.IDToken;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import api.msg.AdProducer;
 import domain.model.Ad;
@@ -62,9 +60,9 @@ public class AdEndpoint {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getAll() {
+	public List<Ad> getAll() {
 		//We get the ads back in a list
-		return adservice.getJsonListAds(adservice.getAll()).toString();
+		return adservice.getAll();
 	}
 
 	@GET
@@ -96,7 +94,14 @@ public class AdEndpoint {
 		json.addProperty(Ad.getAuthField(), auth);
 		return Response.ok(json.toString()).build();
 	}
-	
+
+	@GET
+	@Path("/user/{UserId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAd(@PathParam("UserId") long us) {
+		return Response.ok(adservice.getByUser(us)).build();
+	}
+
 	@PUT
 	@Path("")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -140,8 +145,8 @@ public class AdEndpoint {
 	@GET
 	@Path("/categories/{cID}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public String getAllByCategory(@PathParam("cID") int cid) {
-		return adservice.getJsonListAds(adservice.getAllByCategory(cid)).toString();
+	public List<Ad> getAllByCategory(@PathParam("cID") int cid) {
+		return adservice.getAllByCategory(cid);
 	}
 
 	/* Add a new ad in the DB */
@@ -149,14 +154,11 @@ public class AdEndpoint {
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public Response addNewAd(String jsonStr, @Context HttpHeaders headers) {
+	public Response addNewAd(Ad ad, @Context HttpHeaders headers) {
 
 		if (kcService.hasValidAuthentification(headers)) {
 			String token = kcService.getToken(headers);
 			User user = kcService.extractUserInfos(token);
-
-			JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
-			Ad ad = adservice.createAdFromJson(json); //We create the ad
 
 			if (ad != null) {
 				ad.setUserID(user.getUserID());
