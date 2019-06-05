@@ -44,7 +44,7 @@ public class SearchServiceImplTest {
 		ad.setPrice((float)(10));
 		ad.setId((long)(100));
 		ad.setCategoryID(0);
-		ad.setUserID((long)(0));
+		ad.setUserID("0");
 		
 		ArrayList<String> images = new ArrayList<String>();
 		images.add("Image1");

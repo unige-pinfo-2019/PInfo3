@@ -41,7 +41,7 @@ public class AdServiceImplTest {
 	private String description = "Works with Android (not a joke)";
 	private float price = (float) 120;
 	private int categoryID = 1;
-	private int userID = 100;
+	private String userID = "100";
 	private ArrayList<String> images = new ArrayList<String>() {
 		private static final long serialVersionUID = -273727299296242150L;
 	{
@@ -54,7 +54,7 @@ public class AdServiceImplTest {
 	@Test
 	public void testCreateAd() {
 		//We create an ad
-		Ad ad = new Ad("Any title", "Any description", (float) 12.50, 0, 0, new ArrayList<String>());
+		Ad ad = new Ad("Any title", "Any description", (float) 12.50, "0", 0, new ArrayList<String>());
 		
 		//At the beginning, the DB is empty but we get its size and we insert the ad
 		int tailleInitiale = as.getEm().createQuery("SELECT a FROM Ad a", Ad.class).getResultList().size();
@@ -98,7 +98,7 @@ public class AdServiceImplTest {
 		
 		//We create some ads and add them in the DB
 		for (int i=0; i<5; i++) {
-			as.createAd(new Ad("Title"+i, "Description"+i, (float)i*10, 0, 0, new ArrayList<String>()));
+			as.createAd(new Ad("Title"+i, "Description"+i, (float)i*10, "0", 0, new ArrayList<String>()));
 		}
 		
 		//We extract the ads
@@ -149,7 +149,7 @@ public class AdServiceImplTest {
 	public void testDeleteClassAd() {
 		//We create some ads and add them in the DB
 		for (int i=0; i<5; i++) {
-			as.createAd(new Ad("Title"+i, "Description"+i, (float)i*10, 0, 0, new ArrayList<String>()));
+			as.createAd(new Ad("Title"+i, "Description"+i, (float)i*10, "0", 0, new ArrayList<String>()));
 		}
 		as.createAd(adExample);
 		as.deleteAd(adExample);
@@ -169,8 +169,8 @@ public class AdServiceImplTest {
 		
 		//First, we create 2 ads
 		
-		Ad ad1 = new Ad("Livre de Maupassant", "Livre utilisé au collège pour un cours de français", 10, 0, 0, new ArrayList<String>());
-		Ad ad2 = new Ad("Vélo bleu", "VTT de mon frere devenu trop petit pour lui", 100, 0, 0, new ArrayList<String>());
+		Ad ad1 = new Ad("Livre de Maupassant", "Livre utilisé au collège pour un cours de français", 10, "0", 0, new ArrayList<String>());
+		Ad ad2 = new Ad("Vélo bleu", "VTT de mon frere devenu trop petit pour lui", 100, "0", 0, new ArrayList<String>());
 		
 		//Then, we create a list
 		List<Ad> ads = new ArrayList<Ad>();
@@ -237,7 +237,7 @@ public class AdServiceImplTest {
 	public void testGetAllByCategory() {
 		//We create some ads and add them in the DB
 		for (int i=1; i<6; i++) {
-			as.createAd(new Ad("Title"+i+5, "Description"+i+5, (float)(1+i*0.1), 0, (i%2), new ArrayList<String>()));
+			as.createAd(new Ad("Title"+i+5, "Description"+i+5, (float)(1+i*0.1), "0", (i%2), new ArrayList<String>()));
 		}
 		
 		List<Ad> l1 = as.getAllByCategory(0);

@@ -43,6 +43,8 @@ public class Ad implements Serializable{
 	private static String timeField = "time";
 	private static String nbVuesField = "nbVues";
 	private static String deletedField = "deleted";
+	private static String authField = "auth";
+	private static String usernameField = "username";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -60,7 +62,10 @@ public class Ad implements Serializable{
 	private float price;
 
 	@Column(name="USER_ID")
-	private long userID;
+	private String userID;
+	
+	@Column(name="USERNAME")
+	private String username;
 
 	@Column(name="CATEGORY_ID")
 	private int categoryID;
@@ -90,7 +95,7 @@ public class Ad implements Serializable{
 	}
 	
 	
-	public Ad(String title, String description, float price, long userID, int categoryID, List<String> images) {
+	public Ad(String title, String description, float price, String userID, int categoryID, List<String> images) {
 		this.title = title;
 		this.description = description;
 		this.price = price;
@@ -101,6 +106,18 @@ public class Ad implements Serializable{
 		
 	}
 	
+	public Ad(String title, String description, float price, String userID, int categoryID, List<String> images, String username) {
+		this.title = title;
+		this.description = description;
+		this.price = price;
+		this.userID = userID;
+		this.categoryID = categoryID;
+		this.images = images;
+		this.time = LocalDateTime.now().toString();
+		this.username = username;
+		
+	}
+	
 	/***** Utility methods *****/
 	@Override
 	public String toString() {
@@ -108,6 +125,7 @@ public class Ad implements Serializable{
 		String res = "Ad ID : " + id + newLine;
 		res += "Title : " + newLine + "Description : " + description + newLine + "Prix : " + price + newLine;
 		res += "Category ID : " + categoryID + newLine;
+		res += "Created by " + username + " (" + userID + ")" + newLine;
 		return res;
 	}
 	
@@ -168,6 +186,14 @@ public class Ad implements Serializable{
 	}
 	public void setTime(LocalDateTime t) {
 		time = t.toString();
+	}
+
+	public static String getAuthField() {
+		return authField;
+	}
+
+	public static String getUsernameField() {
+		return usernameField;
 	}
 
 

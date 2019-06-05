@@ -20,6 +20,7 @@ public class Ad {
 	private static String timeField = "time";
 	private static String nbVuesField = "nbVues";
 	private static String deletedField = "deleted";
+	private static String usernameField = "username";
 
 	private long id;
 
@@ -29,7 +30,9 @@ public class Ad {
 
 	private float price;
 
-	private long userID;
+	private String userID;
+	
+	private String username;
 
 	private int categoryID;
 	
@@ -41,7 +44,7 @@ public class Ad {
 	
 	private boolean deleted = false;
 	
-	public Ad(long id, String title, String description, float price, long userID, int categoryID, List<String> images) {
+	public Ad(long id, String title, String description, float price, String userID, int categoryID, List<String> images) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
@@ -91,4 +94,9 @@ public class Ad {
 	public static String getDeletedField() {
 		return deletedField;
 	}
+	
+	public static String getUsernameField() {
+		return usernameField;
+	}
+
 }

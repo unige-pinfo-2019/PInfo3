@@ -8,12 +8,13 @@
 		<jta-data-source>java:jboss/datasources/classadsds</jta-data-source>
 		<class>domain.model.Ad</class>
 		<properties>
-			<!--
+			 
 			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
-			-->
-
-			<property name="hibernate.hbm2ddl.auto" value="update" />
 			
+
+			 <!--
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			-->
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
 			<property name="hibernate.dialect"

@@ -30,7 +30,7 @@ public class AdProducerTest {
 		images.add("Image1");
 		images.add("Image2");
 		images.add("Image3");
-		Ad ad = new Ad("Charger iPhone", "Works with Android (not a joke)", (float) 120, 100, 1, images);
+		Ad ad = new Ad("Charger iPhone", "Works with Android (not a joke)", (float) 120, "100", 1, images);
 		ad.setId((long)1);
 		return ad;
 	}
