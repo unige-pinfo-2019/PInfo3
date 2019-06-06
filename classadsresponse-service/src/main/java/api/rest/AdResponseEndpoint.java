@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import domain.model.AdResponse;
-import domain.service.AdResponseService;	
+import domain.service.AdResponseService;
 
 /**
  * Restful api for the ads responses.
@@ -25,30 +25,30 @@ import domain.service.AdResponseService;
 public class AdResponseEndpoint {
 	@Inject
 	private AdResponseService adservice;
-	
+
 	public void setAdResponseService(AdResponseService cs) {
 		adservice = cs;
 	}
-	
+
 	@GET
 	@Path("/users/{uid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<AdResponse> getResponsesByUser(@PathParam("uid") long id) {
 		return adservice.getByUser(id);
 	}
-	
+
 	@GET
 	@Path("users/{uid}/ads/{aid}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<AdResponse> getResponseByUserAndAd(
-			@PathParam("uid") long uid, 
-			@PathParam("aid") long aid, 
-			@QueryParam("offset") int offset, 
+			@PathParam("uid") long uid,
+			@PathParam("aid") long aid,
+			@QueryParam("offset") int offset,
 			@QueryParam("limit") int limit) {
 		return adservice.getResponsesFromiToj(uid, aid, offset, limit);
 	}
 
-	
+
 	@POST
 	@Path("/users/{uid}/ads/{aid}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -60,5 +60,5 @@ public class AdResponseEndpoint {
 			return Response.status(Response.Status.BAD_REQUEST).entity("Couldn't create ad response, please check your parameters").build();
 		}
 	}
-	
+
 }
