@@ -1,11 +1,8 @@
 package api.rest;
 
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
-import javax.annotation.Resource;
-import javax.annotation.security.RolesAllowed;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -20,11 +17,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
-
-import org.keycloak.KeycloakPrincipal;
-import org.keycloak.KeycloakSecurityContext;
-import org.keycloak.representations.IDToken;
 
 import api.msg.AdProducer;
 import domain.model.Ad;
@@ -79,7 +71,6 @@ public class AdEndpoint {
 		ad.setNbVues(ad.getNbVues()+1); //if the method is called the nb of vue rows
 		adservice.update(ad);
 
-		JsonObject json = adservice.createJsonRepresentation(ad);
 		boolean auth = false;
 
 		if (kcService.hasValidAuthentification(headers)) {
@@ -91,28 +82,35 @@ public class AdEndpoint {
 			}
 		}
 
-		json.addProperty(Ad.getAuthField(), auth);
-		return Response.ok(json.toString()).build();
+		ad.setAuth(auth);
+		return Response.ok(ad).build();
 	}
 
 	@GET
 	@Path("/user/{UserId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAd(@PathParam("UserId") long us) {
-		return Response.ok(adservice.getByUser(us)).build();
+	public Response getAdByUser(@PathParam("UserId") String us, @Context HttpHeaders headers) {
+		
+		if (kcService.hasValidAuthentification(headers)) {
+			String token = kcService.getToken(headers);
+			User user = kcService.extractUserInfos(token);
+			
+			if (user.getUserID().equals(us)) {
+				return Response.ok(adservice.getByUser(us)).build();
+			}
+			return Response.status(Response.Status.FORBIDDEN).entity("ID in path doesn't match with token").build();
+		}
+		return Response.status(Response.Status.FORBIDDEN).entity("There is no authorization header or the token is invalid").build();
 	}
 
 	@PUT
 	@Path("")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(String jsonStr, @Context HttpHeaders headers) {
+	public Response update(Ad ad, @Context HttpHeaders headers) {
 
 		if (kcService.hasValidAuthentification(headers)) {
 			String token = kcService.getToken(headers);
 			User user = kcService.extractUserInfos(token);
-
-			JsonObject json = new Gson().fromJson(jsonStr, JsonObject.class);
-			Ad ad = adservice.createAdFromJson(json); //We create the ad
 
 			//We extract the actual ad from the database
 			Optional<Ad> adOptional = adservice.getById(ad.getId());

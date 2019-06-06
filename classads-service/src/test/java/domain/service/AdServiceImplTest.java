@@ -232,12 +232,12 @@ public class AdServiceImplTest {
 	public void testGetByUser() {
 		//We create some ads and add them in the DB
 		for (int i=1; i<6; i++) {
-			as.createAd(new Ad("Title"+i+5, "Description"+i+5, (float)(1+i*0.1), (i%3), 0, new ArrayList<String>()));
+			as.createAd(new Ad("Title"+i+5, "Description"+i+5, (float)(1+i*0.1), Integer.toString((i%3)), 0, new ArrayList<String>()));
 		}
 
-		List<Ad> l1 = as.getByUser(0);
-		List<Ad> l2 = as.getByUser(1);
-		List<Ad> l3 = as.getByUser(2);
+		List<Ad> l1 = as.getByUser("0");
+		List<Ad> l2 = as.getByUser("1");
+		List<Ad> l3 = as.getByUser("2");
 
 		Assertions.assertEquals(1, l1.size());
 		Assertions.assertEquals(2, l2.size());

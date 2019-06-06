@@ -15,7 +15,7 @@ public interface AdService {
 	
 	public Optional<Ad> getByTitle(String title);
 	
-	public List<Ad> getByUser(long us);
+	public List<Ad> getByUser(String us);
 	
 	public Optional<Ad> getById(long id);
 	

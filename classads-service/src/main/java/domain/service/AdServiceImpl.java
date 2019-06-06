@@ -85,12 +85,12 @@ public class AdServiceImpl implements AdService{
 	}
 
 	@Override
-	public List<Ad> getByUser(long us) {
+	public List<Ad> getByUser(String us) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Ad> q = cb.createQuery(Ad.class);
 		Root<Ad> c = q.from(Ad.class);
 
-		ParameterExpression<Long> p = cb.parameter(Long.class);
+		ParameterExpression<String> p = cb.parameter(String.class);
 		q.select(c).where(
 				cb.equal(c.get(Ad.getUserIDField()), p),
 				cb.equal(c.get(Ad.getDeletedField()), false)

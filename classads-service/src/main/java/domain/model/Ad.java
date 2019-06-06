@@ -5,8 +5,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CollectionTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -14,7 +12,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -75,11 +78,17 @@ public class Ad implements Serializable{
 	
 	@Column(name="DELETED")
 	private boolean deleted = false;
+	
+	@JsonInclude()
+	@Transient
+	private boolean auth = false;
 
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "images_string_id", joinColumns = @JoinColumn(name = "Ad_id"))
     @Column(name = "images")
 	private List<String> images;
+	
+	
 
 	/***** Constructors *****/
 	public Ad() {
