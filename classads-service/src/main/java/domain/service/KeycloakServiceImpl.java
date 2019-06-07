@@ -29,7 +29,7 @@ public class KeycloakServiceImpl implements KeycloakService {
 
 	@Override
 	public boolean hasValidAuthentification(HttpHeaders headers) {
-		return getAuthorizationHeader(headers) != null && getToken(headers) != null;
+		return getAuthorizationHeader(headers) != null && getToken(headers) != null && extractUserInfos(getToken(headers)) != null;
 	}
 	
 	@Override
