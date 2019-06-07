@@ -1,0 +1,117 @@
+07-06-2019 21:29:19 INFO  stdout:71 - Hibernate: 
+07-06-2019 21:29:19 INFO  stdout:71 -     select
+07-06-2019 21:29:19 INFO  stdout:71 -         adresponse0_.ADRESPONSE_ID as ADRESPON1_0_,
+07-06-2019 21:29:19 INFO  stdout:71 -         adresponse0_.AD_ID as AD_ID2_0_,
+07-06-2019 21:29:19 INFO  stdout:71 -         adresponse0_.FLAG as FLAG3_0_,
+07-06-2019 21:29:19 INFO  stdout:71 -         adresponse0_.RESPONSE as RESPONSE4_0_,
+07-06-2019 21:29:19 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME as RESPONSE5_0_,
+07-06-2019 21:29:19 INFO  stdout:71 -         adresponse0_.USER_ID as USER_ID6_0_ 
+07-06-2019 21:29:19 INFO  stdout:71 -     from
+07-06-2019 21:29:19 INFO  stdout:71 -         ADRESPONSE adresponse0_ 
+07-06-2019 21:29:19 INFO  stdout:71 -     where
+07-06-2019 21:29:19 INFO  stdout:71 -         adresponse0_.AD_ID=? 
+07-06-2019 21:29:19 INFO  stdout:71 -         and adresponse0_.USER_ID=? 
+07-06-2019 21:29:19 INFO  stdout:71 -     order by
+07-06-2019 21:29:19 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME desc limit ?
+07-06-2019 21:29:20 INFO  stdout:71 - Hibernate: 
+07-06-2019 21:29:20 INFO  stdout:71 -     select
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID as col_0_0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     from
+07-06-2019 21:29:20 INFO  stdout:71 -         ADRESPONSE adresponse0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     where
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.USER_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -     group by
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID
+07-06-2019 21:29:20 INFO  stdout:71 - Hibernate: 
+07-06-2019 21:29:20 INFO  stdout:71 -     select
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.ADRESPONSE_ID as ADRESPON1_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID as AD_ID2_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.FLAG as FLAG3_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE as RESPONSE4_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME as RESPONSE5_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.USER_ID as USER_ID6_0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     from
+07-06-2019 21:29:20 INFO  stdout:71 -         ADRESPONSE adresponse0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     where
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -         and adresponse0_.USER_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -     order by
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME desc limit ?
+07-06-2019 21:29:20 INFO  stdout:71 - Hibernate: 
+07-06-2019 21:29:20 INFO  stdout:71 -     select
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID as col_0_0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     from
+07-06-2019 21:29:20 INFO  stdout:71 -         ADRESPONSE adresponse0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     where
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.USER_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -     group by
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID
+07-06-2019 21:29:20 INFO  stdout:71 - Hibernate: 
+07-06-2019 21:29:20 INFO  stdout:71 -     select
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.ADRESPONSE_ID as ADRESPON1_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID as AD_ID2_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.FLAG as FLAG3_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE as RESPONSE4_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME as RESPONSE5_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.USER_ID as USER_ID6_0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     from
+07-06-2019 21:29:20 INFO  stdout:71 -         ADRESPONSE adresponse0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     where
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -         and adresponse0_.USER_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -     order by
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME desc limit ?
+07-06-2019 21:29:20 INFO  stdout:71 - Hibernate: 
+07-06-2019 21:29:20 INFO  stdout:71 -     select
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.ADRESPONSE_ID as ADRESPON1_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID as AD_ID2_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.FLAG as FLAG3_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE as RESPONSE4_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME as RESPONSE5_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.USER_ID as USER_ID6_0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     from
+07-06-2019 21:29:20 INFO  stdout:71 -         ADRESPONSE adresponse0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     where
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -         and adresponse0_.USER_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -     order by
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME desc limit ?
+07-06-2019 21:29:20 INFO  stdout:71 - Hibernate: 
+07-06-2019 21:29:20 INFO  stdout:71 -     select
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID as col_0_0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     from
+07-06-2019 21:29:20 INFO  stdout:71 -         ADRESPONSE adresponse0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     where
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.USER_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -     group by
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID
+07-06-2019 21:29:20 INFO  stdout:71 - Hibernate: 
+07-06-2019 21:29:20 INFO  stdout:71 -     select
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.ADRESPONSE_ID as ADRESPON1_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID as AD_ID2_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.FLAG as FLAG3_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE as RESPONSE4_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME as RESPONSE5_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.USER_ID as USER_ID6_0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     from
+07-06-2019 21:29:20 INFO  stdout:71 -         ADRESPONSE adresponse0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     where
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -         and adresponse0_.USER_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -     order by
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME desc limit ?
+07-06-2019 21:29:20 INFO  stdout:71 - Hibernate: 
+07-06-2019 21:29:20 INFO  stdout:71 -     select
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.ADRESPONSE_ID as ADRESPON1_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID as AD_ID2_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.FLAG as FLAG3_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE as RESPONSE4_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME as RESPONSE5_0_,
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.USER_ID as USER_ID6_0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     from
+07-06-2019 21:29:20 INFO  stdout:71 -         ADRESPONSE adresponse0_ 
+07-06-2019 21:29:20 INFO  stdout:71 -     where
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.AD_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -         and adresponse0_.USER_ID=? 
+07-06-2019 21:29:20 INFO  stdout:71 -     order by
+07-06-2019 21:29:20 INFO  stdout:71 -         adresponse0_.RESPONSE_TIME desc limit ?
