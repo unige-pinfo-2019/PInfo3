@@ -23,15 +23,15 @@ import lombok.extern.slf4j.Slf4j;
 @ApplicationScoped
 @Slf4j
 public class KeycloakServiceImpl implements KeycloakService {
-	
+
 	private static final String AUTHORIZATION_PROPERTY = "Authorization";
-    private static final String AUTHENTICATION_SCHEME = "Bearer";    
+    private static final String AUTHENTICATION_SCHEME = "Bearer";
 
 	@Override
 	public boolean hasValidAuthentification(HttpHeaders headers) {
-		return getAuthorizationHeader(headers) != null && getToken(headers) != null;
+		return getAuthorizationHeader(headers) != null && getToken(headers) != null && extractUserInfos(getToken(headers)) != null;
 	}
-	
+
 	@Override
 	public String getAuthorizationHeader(HttpHeaders headers) {
 		try {
@@ -41,7 +41,7 @@ public class KeycloakServiceImpl implements KeycloakService {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public String getToken(HttpHeaders headers) {
 		try {
@@ -56,27 +56,27 @@ public class KeycloakServiceImpl implements KeycloakService {
 		} catch (Exception e) {
 			return null;
 		}
-		
+
 	}
-	
+
 	@Override
 	public User extractUserInfos(String token) {
 		try {
 		    DecodedJWT jwt = JWT.decode(token);
 		    Claim claim = jwt.getClaim("preferred_username");
 		    return new User(jwt.getSubject(), claim.asString());
-		    
+
 		} catch (JWTDecodeException exception){
 		    //Invalid token
 			log.info("Decoding token didn't work");
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Boolean verifyToken(String token) throws Exception {
 		String url = "http://localhost:8080/auth/realms/apigw/protocol/openid-connect/certs";
-		
+
 		//We send a request to get the key ID
 		URL obj = new URL(url);
 		HttpURLConnection connexion = (HttpURLConnection) obj.openConnection();
@@ -85,9 +85,9 @@ public class KeycloakServiceImpl implements KeycloakService {
 		//We get the response
 		int responseCode = connexion.getResponseCode();
 		log.info("Response code : " + responseCode);
-		
+
 		if (responseCode == 200) {
-			
+
 			//We extract the response
 			BufferedReader in = new BufferedReader(new InputStreamReader(connexion.getInputStream()));
 			String inputLine;
@@ -96,27 +96,27 @@ public class KeycloakServiceImpl implements KeycloakService {
 				response.append(inputLine);
 			}
 			in.close();
-			
+
 			//We convert the string in json
 			JsonArray jsonArray = new JsonParser().parse(response.toString()).getAsJsonArray();
-			
+
 			//We extract the keyID
 			JsonObject json = jsonArray.get(0).getAsJsonObject();
 			String kid = json.get("kid").getAsString();
-			
+
 			//We compare with the keyID in the token
 			DecodedJWT jwt = JWT.decode(token);
 			Claim claim = jwt.getHeaderClaim("kid");
 			String kidToken = claim.asString();
-			
+
 			if (kidToken.equals(kid)) {
 				return true;
 			}
 			return false;
 		}
 		return false;
- 
-	   
+
+
 	}
-	
+
 }
