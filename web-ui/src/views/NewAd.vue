@@ -125,14 +125,14 @@ export default {
   },
   mounted: function () {
     // retrieve categories
-    function getValues() {
-      return this.$axios
+    function getValues(thisReference) {
+      return thisReference.$axios
       .get(process.env.VUE_APP_BASE_API + ':8081/categories/index')
       .then(response => {
         return response.data;
       })
     }
-    getValues().then(data => {
+    getValues(this).then(data => {
       var listOfKeys = Object.keys(data);
       var formatedData = [];
       listOfKeys.forEach(function(elem) {
@@ -193,7 +193,7 @@ export default {
                      "categoryID": this.categoryID,
                      "userID":0,
                      "images": images};
-         axios
+        this.$axios
         .post(process.env.VUE_APP_BASE_API + ':8081/classads',data)
         .then(function (response) {
           self.$router.push('/');
