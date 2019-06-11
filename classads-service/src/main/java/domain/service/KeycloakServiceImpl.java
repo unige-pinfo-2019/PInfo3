@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Date;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.HttpHeaders;
@@ -31,7 +32,14 @@ public class KeycloakServiceImpl implements KeycloakService {
 
 	@Override
 	public boolean hasValidAuthentification(HttpHeaders headers) {
-		return getAuthorizationHeader(headers) != null && getToken(headers) != null && extractUserInfos(getToken(headers)) != null;
+		if (getAuthorizationHeader(headers) == null)
+			return false;
+		
+		String token = getToken(headers);
+		if (token != null) {
+			return verifyExpirationTime(token) && extractUserInfos(token) != null;
+		}
+		return false;
 	}
 
 	@Override
@@ -129,6 +137,20 @@ public class KeycloakServiceImpl implements KeycloakService {
 		
 
 
+	}
+
+	@Override
+	public Boolean verifyExpirationTime(String token) {
+		DecodedJWT jwt = JWT.decode(token);
+		
+		Date issuedAt = jwt.getIssuedAt();
+		Date notBefore = jwt.getNotBefore();
+		Date expiresAt = jwt.getExpiresAt();
+		
+		Date now = new Date();
+		
+		
+		return now.after(notBefore) && now.after(issuedAt) && now.before(expiresAt);
 	}
 
 }

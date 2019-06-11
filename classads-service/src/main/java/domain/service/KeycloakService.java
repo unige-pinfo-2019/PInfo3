@@ -12,5 +12,6 @@ public interface KeycloakService {
 	public String getToken(HttpHeaders headers);
 	public User extractUserInfos(String token);
 	public Boolean verifyToken(String token);
+	public Boolean verifyExpirationTime(String token);
 
 }
