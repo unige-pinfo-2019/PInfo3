@@ -1,6 +1,15 @@
+# COMPILING web-ui
+FROM node:10
+COPY ./web-ui/. /app
+WORKDIR /app
+RUN npm install && npm run build
+
+# making main web-ui ima\ge
 FROM kong:1.1rc1-centos
 LABEL description="Centos 7 + Kong 0.14 + kong-oidc plugin"
-#RUN USER=root usermod -a -G root kong
+#RUN USER=root usermod -a -G rootong
+# copy comiled web ui to api-gateway image
+COPY --from=0 /app/dist/. /www/data
 
 RUN yum install -y git unzip && yum clean all
 RUN USER=root luarocks install kong-oidc

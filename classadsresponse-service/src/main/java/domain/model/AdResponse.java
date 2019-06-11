@@ -8,9 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.google.gson.JsonObject;
 
 import lombok.Data;
 
@@ -29,6 +28,7 @@ public class AdResponse implements Serializable {
 	private static String flagField = "flag";
 	
 	@Id
+	// @SequenceGenerator(name = "ADRESPONSE_SEQ", sequenceName = "ADRESPONSE_SEQ")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ADRESPONSE_ID")
 	private long id;
@@ -43,7 +43,7 @@ public class AdResponse implements Serializable {
 	private String response;
 	
 	@Column(name = "RESPONSE_TIME")
-	private LocalDateTime time;
+	private LocalDateTime time = LocalDateTime.now();
 	
 	@Column(name = "FLAG")
 	private boolean flag;
@@ -64,17 +64,7 @@ public class AdResponse implements Serializable {
 	}
 	
 	/***** Manipulation *****/
-	/* Returns attributes and their default values in a json format */
-	public static JsonObject getAttributes() {
-		JsonObject json = new JsonObject();
-		json.addProperty(idField, 0);
-		json.addProperty(adIDField, 0);
-		json.addProperty(userIDField, 0);
-		json.addProperty(responseField, "");
-		json.addProperty(timeField, "");
-		json.addProperty(flagField, true);
-		return json;
-	}
+
 
 	public static String getAdIDField() {
 		return adIDField;
