@@ -8,8 +8,8 @@ import Keycloak from 'keycloak-js'///dist/keycloak.js'
 // import store from 'plugin-vuejs-keycloak'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearch, faCamera, faPlus, faTrashAlt, faEdit, faStar as fasStar, faTimes } from '@fortawesome/free-solid-svg-icons'
-library.add(faSearch, faCamera, faPlus, faTrashAlt, faEdit, fasStar, faTimes)
+import { faSearch, faCamera, faPlus, faTrashAlt, faEdit, faStar as fasStar, faTimes, faUser } from '@fortawesome/free-solid-svg-icons'
+library.add(faSearch, faCamera, faPlus, faTrashAlt, faEdit, fasStar, faTimes, faUser)
 
 import { faStar as farStar} from '@fortawesome/free-regular-svg-icons'
 library.add(farStar)

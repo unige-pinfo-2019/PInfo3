@@ -145,18 +145,14 @@ export default {
   },
   methods: {
     deleteThisAd() {
-
       axios
-        .delete(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
-        .then(function (response) {
-          // handle success
-          // TODO
-          // this.$router.push('/')
-        })
-        .catch(function (error) {
-          // handle error
-          alert('Could not route url location: ' + error);
-        })
+      .delete(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
+      .then((response) => {
+        this.$router.push("/")
+        // console.log(response); // Succès !
+      }, (reason) => {
+        console.log(reason); // Erreur !
+      });
     }
   }
 }
