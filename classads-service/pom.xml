@@ -169,13 +169,6 @@
 		    <artifactId>java-jwt</artifactId>
 		    <version>3.8.1</version>
 		</dependency>
-		
-		
-<!-- 		<dependency>
-		    <groupId>org.jboss.resteasy</groupId>
-		    <artifactId>resteasy-jaxrs</artifactId>
-		    <version>3.0.19.Final</version>
-		</dependency> -->
 	
 	
   </dependencies>

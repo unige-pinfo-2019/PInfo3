@@ -1,145 +1,145 @@
-10-06-2019 13:57:28 INFO  AdServiceImpl:35 - Ad Ad ID : 1
+11-06-2019 11:18:42 INFO  AdServiceImpl:35 - Ad Ad ID : 1
 Title : 
 Description : Works with Android (not a joke)
 Prix : 120.0
 Category ID : 1
 Created by null (100)
  created and stored in database
-10-06-2019 13:57:28 INFO  AdServiceImpl:35 - Ad Ad ID : 2
+11-06-2019 11:18:42 INFO  AdServiceImpl:35 - Ad Ad ID : 2
 Title : 
 Description : Any description
 Prix : 12.5
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 3
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 3
 Title : 
 Description : Description0
 Prix : 0.0
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 4
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 4
 Title : 
 Description : Description1
 Prix : 10.0
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 5
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 5
 Title : 
 Description : Description2
 Prix : 20.0
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 6
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 6
 Title : 
 Description : Description3
 Prix : 30.0
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 7
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 7
 Title : 
 Description : Description4
 Prix : 40.0
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 8
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 8
 Title : 
 Description : Works with Android (not a joke)
 Prix : 120.0
 Category ID : 1
 Created by null (100)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 9
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 9
 Title : 
 Description : Description0
 Prix : 0.0
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 10
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 10
 Title : 
 Description : Description1
 Prix : 10.0
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 11
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 11
 Title : 
 Description : Description2
 Prix : 20.0
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 12
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 12
 Title : 
 Description : Description3
 Prix : 30.0
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 13
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 13
 Title : 
 Description : Description4
 Prix : 40.0
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 14
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 14
 Title : 
 Description : Works with Android (not a joke)
 Prix : 120.0
 Category ID : 1
 Created by null (100)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 15
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 15
 Title : 
 Description : Description15
 Prix : 1.1
 Category ID : 1
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 16
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 16
 Title : 
 Description : Description25
 Prix : 1.2
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 17
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 17
 Title : 
 Description : Description35
 Prix : 1.3
 Category ID : 1
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 18
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 18
 Title : 
 Description : Description45
 Prix : 1.4
 Category ID : 0
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:29 INFO  AdServiceImpl:35 - Ad Ad ID : 19
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 19
 Title : 
 Description : Description55
 Prix : 1.5
 Category ID : 1
 Created by null (0)
  created and stored in database
-10-06-2019 13:57:30 INFO  AdServiceImpl:35 - Ad Ad ID : 20
+11-06-2019 11:18:43 INFO  AdServiceImpl:35 - Ad Ad ID : 20
 Title : 
 Description : Works with Android (not a joke)
 Prix : 120.0
 Category ID : 1
 Created by null (100)
  created and stored in database
-10-06-2019 13:57:30 ERROR AdServiceImpl:173 - Bad categoryID
-10-06-2019 13:57:30 ERROR AdServiceImpl:189 - Mandatory fields are missing (title, description, price, userID or image)
-10-06-2019 13:57:30 ERROR AdServiceImpl:173 - Mandatory fields are missing
-10-06-2019 13:57:30 INFO  AdProducer:21 - Send an ad to delete to the topic with id 1
-10-06-2019 13:57:30 INFO  AdProducer:26 - Send an ad to the topic with id 1
+11-06-2019 11:18:43 ERROR AdServiceImpl:173 - Bad categoryID
+11-06-2019 11:18:43 ERROR AdServiceImpl:189 - Mandatory fields are missing (title, description, price, userID or image)
+11-06-2019 11:18:43 ERROR AdServiceImpl:173 - Mandatory fields are missing
+11-06-2019 11:18:44 INFO  AdProducer:21 - Send an ad to delete to the topic with id 1
+11-06-2019 11:18:44 INFO  AdProducer:26 - Send an ad to the topic with id 1
