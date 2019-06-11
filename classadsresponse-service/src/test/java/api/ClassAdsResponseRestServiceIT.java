@@ -28,15 +28,5 @@ public class ClassAdsResponseRestServiceIT {
 		when().get("/users/2").then().body(containsString("Message2"));
 		when().get("/users/2").then().body(containsString("Message4"));
 	}
-//
-//	@Test
-//	public void testCount() {
-//		when().get("/count").then().body(containsString("5"));
-//	}
-//
-//	@Test
-//	public void testGet() {
-//		when().get("/984500C2EEUEB4A0C629").then().body(containsString("984500C2EEUEB4A0C629"));
-//	}
 
 }
