@@ -37,6 +37,43 @@ export default {
     Banner,
     LeftMenu,
     OurFooter
+  },
+  mounted() {
+    var here = window.location.href;
+    var before = document.referrer;
+
+    if(here.indexOf('#state') != -1 && before.indexOf('auth/realms/apigw/') != -1) {
+      // If we have the long url in the title and we come from the login page
+      // ok keycloak, we want to refresh the page using this.$keycloak.init()
+      // to retrieve the jwt token
+
+      this.$keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
+
+          if(!auth) {
+            // window.location.reload();
+            console.log('Not authenticated in successs');
+          } else {
+            // Vue.$log.info("Authenticated");
+            console.log('Authenticated in success');
+          }
+
+          localStorage.setItem("vue-token", this.$keycloak.token);
+          // localStorage.setItem("status", 'in')
+          this.$myStore.loggedIn = 'in'
+
+          var userInfos = this.$keycloak.tokenParsed;
+          console.log('User profile:');
+          console.log(userInfos);
+          this.$myStore.username = userInfos.preferred_username
+          this.$myStore.userid = userInfos.sub
+
+          this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' +  this.$keycloak.token;
+
+      }).error(() =>{
+        Vue.$log.error("Authenticated Failed");
+        // console.log('Dans error')
+      });
+    }
   }
 }
 </script>

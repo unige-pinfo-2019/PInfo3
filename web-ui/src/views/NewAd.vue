@@ -103,7 +103,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'new-ad',
@@ -126,14 +125,14 @@ export default {
   },
   mounted: function () {
     // retrieve categories
-    function getValues() {
-      return axios
+    function getValues(thisReference) {
+      return thisReference.$axios
       .get(process.env.VUE_APP_BASE_API + ':8081/categories/index')
       .then(response => {
         return response.data;
       })
     }
-    getValues().then(data => {
+    getValues(this).then(data => {
       var listOfKeys = Object.keys(data);
       var formatedData = [];
       listOfKeys.forEach(function(elem) {
@@ -176,12 +175,12 @@ export default {
        for (var i = 0; i < this.selectedFiles.length; i++) {
          var tmp = new FormData();
          tmp.append('image',this.selectedFiles[i]);
-         var prom = axios.post('https://api.imgur.com/3/image',tmp, config);
+         var prom = this.$axios.post('https://api.imgur.com/3/image',tmp, config);
          promises.push(prom);
        }
        // execute the requests
-       axios.all(promises)
-       .then(axios.spread((...args) => {
+       this.$axios.all(promises)
+       .then(this.$axios.spread((...args) => {
          var images = [];
          for (let i = 0; i < args.length; i++) {
             console.log(args[i].data.data.link);
@@ -194,7 +193,7 @@ export default {
                      "categoryID": this.categoryID,
                      "userID":0,
                      "images": images};
-         axios
+        this.$axios
         .post(process.env.VUE_APP_BASE_API + ':8081/classads',data)
         .then(function (response) {
           self.$router.push('/');

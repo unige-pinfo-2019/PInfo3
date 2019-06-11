@@ -44,6 +44,8 @@ public class Ad {
 
 	private boolean deleted = false;
 
+	private boolean auth;
+
 	public Ad(long id, String title, String description, float price, String userID, int categoryID, List<String> images) {
 		this.id = id;
 		this.title = title;

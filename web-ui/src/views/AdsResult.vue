@@ -30,10 +30,9 @@
 // @ is an alias to /src
 import MiniAd from '@/components/MinimizedAd.vue'
 import Searchbar from '@/components/Searchbar.vue'
-import axios from 'axios';
-
 
 export default {
+
   name: 'results',
   components: {
     MiniAd,
@@ -56,7 +55,7 @@ export default {
   methods: {
     onClickSearch (value) {
       this.query=value;
-      axios
+      this.$axios
         .get(process.env.VUE_APP_BASE_API + ':8084/search?request=' + this.query)
         .then(response => (this.ads = response));
       this.$forceUpdate();
@@ -65,13 +64,13 @@ export default {
       if (this.id >= 0)
       {
         // retrieve list of ads
-        axios
+        this.$axios
           .get(process.env.VUE_APP_BASE_API + ':8081/classads/categories/' + this.id)
           .then(response => (this.ads = response));
       }
       else {
         // retrieve list of ads
-        axios
+        this.$axios
           .get(process.env.VUE_APP_BASE_API + ':8081/classads/')
           .then(response => (this.ads = response));
       }

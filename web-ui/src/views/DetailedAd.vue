@@ -63,7 +63,7 @@
 
             </div>
             <div slot="modal-footer" class="w-100">
-              <b-button variant="primary" class="float-right" @click="showModal=false; deleteThisAd()">
+              <b-button variant="primary" class="float-right" v-on:click="showModal=false; deleteThisAd()">
                 Supprimer
               </b-button>
               <b-button variant="secondary" style="margin-right: 20px" class="float-right" @click="showModal=false">
@@ -98,7 +98,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'detailed-ad',
@@ -113,21 +112,21 @@ export default {
   },
   mounted() {
     // retrieve ad
-    axios
+    this.$axios
       .get(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
       .then(response => (this.res = response));
 
   },
   methods: {
     deleteThisAd() {
-      axios
-        .delete(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
-        .then((response) => {
-          this.$router.push("/")
-          // console.log(response); // Succès !
-        }, (reason) => {
-          console.log(reason); // Erreur !
-        });
+      this.$axios
+      .delete(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
+      .then((response) => {
+        this.$router.push("/")
+        // console.log(response); // Succès !
+      }, (reason) => {
+        console.log(reason); // Erreur !
+      });
     }
   }
 }

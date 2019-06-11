@@ -83,7 +83,7 @@ public class KeycloakServiceImpl implements KeycloakService {
 			return null;
 		}
 	}
-	
+
 	String getKidFromCerts() {
 		String url = "http://localhost:8080/auth/realms/apigw/protocol/openid-connect/certs";
 
@@ -128,12 +128,12 @@ public class KeycloakServiceImpl implements KeycloakService {
 
 	@Override
 	public Boolean verifyToken(String token) {
-		
+
 		String kid = getKidFromCerts();
 		if (kid == null) {
 			return false;
 		}
-		
+
 		try {
 			//We compare with the keyID in the token
 			DecodedJWT jwt = JWT.decode(token);

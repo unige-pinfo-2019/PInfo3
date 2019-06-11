@@ -1,11 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Home from './views/Home.vue'
+
+// import store from 'plugin-vuejs-keycloak'
+// import security from 'plugin-vuejs-keycloak/security'
+
 import Results from '@/views/AdsResult.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -25,6 +28,8 @@ export default new Router({
     {
       path: '/upload',
       name: 'upload',
+      // meta: { abc: 'efg' },
+      // meta: { requiresAuth: true, roles: ['user'] },
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
@@ -52,6 +57,7 @@ export default new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
+      meta: { requiresAuth: true },
       component: () => import(/* webpackChunkName: "about" */ './views/NewAd.vue')
     },
     {
@@ -74,6 +80,99 @@ export default new Router({
       props: true,
 
     },
-
+    // {
+    //   path: '/correctly-logged-in',
+    //   name: 'correctly-logged-in',
+    //   // route level code-splitting
+    //   // this generates a separate chunk (about.[hash].js) for this route
+    //   // which is lazy-loaded when the route is visited.
+    //   component: () => import(/* webpackChunkName: "about" */ './views/Correct.vue')
+    // },
+    {
+      path: '/unauthorized',
+      name: 'Unauthorized',
+      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+    }, // Unauthorized
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  // console.log('value of to');
+  // console.log(to);
+  // alert('About to change route')
+  // alert('Before each route')
+  if(to.meta.requiresAuth) {
+    // console.log(Vue.prototype.$myStore.loggedIn);
+    // alert('this page requires auth')
+
+    if(Vue.prototype.$myStore.loggedIn === 'in') {
+      next()
+    }
+    else {
+
+      Vue.prototype.$keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
+
+          // if(!auth) {
+          //   // window.location.reload();
+          //   console.log('Not authenticated in successs');
+          // } else {
+          //   // Vue.$log.info("Authenticated");
+          //   console.log('Authenticated in success');
+          // }
+
+          localStorage.setItem("vue-token", Vue.prototype.$keycloak.token);
+          // localStorage.setItem("status", 'in')
+          Vue.prototype.$myStore.loggedIn = 'in'
+
+          var userInfos = Vue.prototype.$keycloak.tokenParsed;
+          console.log('User profile:');
+          console.log(userInfos);
+          Vue.prototype.$myStore.username = userInfos.preferred_username
+          Vue.prototype.$myStore.userid = userInfos.sub
+
+          Vue.prototype.$axios.defaults.headers.common['Authorization'] = 'Bearer ' +  Vue.prototype.$keycloak.token;
+
+          next()
+
+      }).error(() =>{
+        Vue.$log.error("Authenticated Failed");
+        // console.log('Dans error')
+      });
+
+      next(false)
+    }
+  }
+  else {
+    console.log('log in before each');
+    console.log(to.meta.requiresAuth);
+    // alert('alert in before each')
+    next()
+  }
+})
+
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.requiresAuth) {
+//     const auth = store.state.security.auth
+//     if (!auth.authenticated) {
+//       security.init(next, to.meta.roles)
+//     }
+//     else {
+//       if (to.meta.roles) {
+//         if (security.roles(to.meta.roles[0])) {
+//           next()
+//         }
+//         else {
+//           next({ name: 'unauthorized' })
+//         }
+//       }
+//       else {
+//         next()
+//       }
+//     }
+//   }
+//   else {
+//     next()
+//   }
+// })
+//
+export default router
