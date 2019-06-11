@@ -26,7 +26,7 @@ import io.undertow.util.Headers;
 @ExtendWith(MockitoExtension.class)
 public class KeycloakServiceImplTest {
 	
-	@Mock
+	@InjectMocks
 	private KeycloakServiceImpl keycloakService;
 	
 	private static final String AUTHENTICATION_SCHEME = "Bearer";
@@ -47,8 +47,8 @@ public class KeycloakServiceImplTest {
 	@Test
 	public void hasValidAuthentificationTest() {
 		
-		when(keycloakService.getAuthorizationHeader(any())).thenReturn(AUTHENTICATION_SCHEME + " " + token);
-		when(keycloakService.getToken(any(HttpHeaders.class))).thenReturn(token);
+//		when(keycloakService.getAuthorizationHeader(any())).thenReturn(AUTHENTICATION_SCHEME + " " + token);
+//		when(keycloakService.getToken(any(HttpHeaders.class))).thenReturn(token);
 //		
 //		keycloakService.hasValidAuthentification(any(HttpHeaders.class));
 //		verify(keycloakService).verifyExpirationTime(token);
