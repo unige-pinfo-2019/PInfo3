@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -80,6 +81,9 @@ public class Ad implements Serializable{
 	@CollectionTable(name = "images_string_id", joinColumns = @JoinColumn(name = "Ad_id"))
     @Column(name = "images")
 	private List<String> images;
+	
+	@Transient
+	private boolean auth = false;
 
 	/***** Constructors *****/
 	public Ad() {

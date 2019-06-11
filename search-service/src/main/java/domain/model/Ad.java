@@ -15,6 +15,7 @@ public class Ad {
 	private static String searchPriceField = "price";
 	private static String searchIdField = "id";
 	private static String searchUserIDField = "userID";
+	private static String searchUsernameField = "username";
 	private static String searchCategoryIDField = "categoryID";
 	private static String searchImageField = "images";
 	private static String searchTimeField = "time";
@@ -95,7 +96,7 @@ public class Ad {
 	}
 
 	public static String getUsernameField() {
-		return usernameField;
+		return searchUsernameField;
 	}
 
 }

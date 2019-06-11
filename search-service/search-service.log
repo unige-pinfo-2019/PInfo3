@@ -1,0 +1,301 @@
+11-06-2019 15:15:35 WARN  CafdiSerdes:58 - Class type is not supported. Using generic serdes
+11-06-2019 15:15:35 WARN  CafdiSerdes:58 - Class type is not supported. Using generic serdes
+11-06-2019 15:15:35 INFO  ConsumerConfig:223 - ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = latest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = ch.unige
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.aerogear.kafka.serialization.GenericDeserializer
+
+11-06-2019 15:15:35 INFO  AppInfoParser:109 - Kafka version : 1.0.0
+11-06-2019 15:15:35 INFO  AppInfoParser:110 - Kafka commitId : aaa7af6d4a11b29d
+11-06-2019 15:15:35 WARN  CafdiSerdes:58 - Class type is not supported. Using generic serdes
+11-06-2019 15:15:35 WARN  CafdiSerdes:58 - Class type is not supported. Using generic serdes
+11-06-2019 15:15:35 INFO  ConsumerConfig:223 - ConsumerConfig values: 
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = latest
+	bootstrap.servers = [localhost:9092]
+	check.crcs = true
+	client.id = 
+	connections.max.idle.ms = 540000
+	enable.auto.commit = true
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = ch.unige
+	heartbeat.interval.ms = 3000
+	interceptor.classes = null
+	internal.leave.group.on.close = true
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 500
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 305000
+	retry.backoff.ms = 100
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.aerogear.kafka.serialization.GenericDeserializer
+
+11-06-2019 15:15:35 INFO  AppInfoParser:109 - Kafka version : 1.0.0
+11-06-2019 15:15:35 INFO  AppInfoParser:110 - Kafka commitId : aaa7af6d4a11b29d
+11-06-2019 15:15:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:37 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:37 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:38 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:38 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:39 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:39 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:40 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:40 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:41 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:41 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:42 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:42 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:43 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:43 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:44 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:44 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:45 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:45 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:46 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:46 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:47 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:47 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:48 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:48 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:49 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:50 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:50 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:50 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:51 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:52 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:52 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:53 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:53 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:54 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:54 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:55 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:55 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:56 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:56 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:57 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:57 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:58 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:58 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:15:59 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:00 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:00 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:00 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:01 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:02 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:02 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:03 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:03 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:04 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:04 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:05 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:05 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:06 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:06 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:07 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:07 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:08 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:09 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:09 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:10 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:10 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:11 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:12 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:12 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:12 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:13 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:13 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:13 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:14 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:14 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:15 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:15 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:16 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:16 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:17 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:17 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:18 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:18 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:19 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:19 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:20 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:20 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:21 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:21 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:22 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:22 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:23 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:23 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:24 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:24 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:25 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:25 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:26 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:26 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:27 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:28 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:28 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:29 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:29 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:30 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:30 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:31 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:31 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:32 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:32 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:33 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:33 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:34 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:34 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:35 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:35 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:36 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:37 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:37 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:38 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:38 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:39 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:39 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:40 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:40 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:41 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:41 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:42 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:42 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:43 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:43 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:44 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:44 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:45 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:45 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:46 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:46 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:47 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:47 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:48 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:48 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:49 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:50 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:51 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:51 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:51 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:52 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:52 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:53 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:53 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:54 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:55 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:55 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:56 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:56 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:57 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:57 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:58 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:58 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:59 WARN  NetworkClient:241 - [Consumer clientId=consumer-2, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:16:59 WARN  NetworkClient:241 - [Consumer clientId=consumer-1, groupId=ch.unige] Connection to node -1 could not be established. Broker may not be available.
+11-06-2019 15:17:00 INFO  DelegationKafkaConsumer:188 - Shutting down the consumer.
+11-06-2019 15:17:00 INFO  DelegationKafkaConsumer:172 - Close the consumer.
+11-06-2019 15:17:00 INFO  DelegationKafkaConsumer:188 - Shutting down the consumer.
+11-06-2019 15:17:00 INFO  DelegationKafkaConsumer:172 - Close the consumer.
