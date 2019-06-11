@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import VueImg from 'v-img';
 import App from './App.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
@@ -8,25 +9,21 @@ import Keycloak from 'keycloak-js'///dist/keycloak.js'
 import axios from 'axios';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
-import { faCamera } from '@fortawesome/free-solid-svg-icons'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
-import { faEdit } from '@fortawesome/free-solid-svg-icons'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faCamera, faPlus, faTrashAlt, faEdit, faStar as fasStar, faTimes, faUser } from '@fortawesome/free-solid-svg-icons'
+library.add(faSearch, faCamera, faPlus, faTrashAlt, faEdit, fasStar, faTimes, faUser)
+
+import { faStar as farStar} from '@fortawesome/free-regular-svg-icons'
+library.add(farStar)
+
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import '@/scss/_custom.scss'
 
-library.add(faSearch)
-library.add(faCamera)
-library.add(faPlus)
-library.add(faTrashAlt)
-library.add(faEdit)
-library.add(faUser)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(BootstrapVue)
+Vue.use(VueImg);
+
 
 Vue.config.productionTip = false
 

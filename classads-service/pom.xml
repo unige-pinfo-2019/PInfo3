@@ -76,7 +76,7 @@
 		    <artifactId>slf4j-api</artifactId>
 		    <version>1.7.25</version>
 		</dependency>
-		
+
 		<dependency>
         	<groupId>org.apache.logging.log4j</groupId>
         	<artifactId>log4j-core</artifactId>
@@ -125,17 +125,11 @@
     		<artifactId>gson</artifactId>
     		<version>2.8.5</version>
 		</dependency>
-		
+
 		<dependency>
     		<groupId>org.aerogear.kafka</groupId>
     		<artifactId>kafka-cdi-extension</artifactId>
     		<version>0.1.0</version>
-		</dependency>
-		
-		<dependency>
-		    <groupId>io.swagger</groupId>
-		    <artifactId>swagger-annotations</artifactId>
-		    <version>1.5.22</version>
 		</dependency>
 
 		<dependency>
@@ -143,12 +137,46 @@
 		    <artifactId>keycloak-core</artifactId>
 		    <version>5.0.0</version>
 		</dependency>
-		
+
 		<dependency>
+		    <groupId>org.keycloak</groupId>
+		    <artifactId>keycloak-services</artifactId>
+		    <version>5.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.keycloak</groupId>
+		    <artifactId>keycloak-model-api</artifactId>
+		    <version>1.8.1.Final</version>
+		    <scope>provided</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.keycloak</groupId>
+		    <artifactId>keycloak-admin-client</artifactId>
+		    <version>5.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.keycloak</groupId>
+			<artifactId>keycloak-adapter-core</artifactId>
+			<version>5.0.0</version>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.auth0</groupId>
+		    <artifactId>java-jwt</artifactId>
+		    <version>3.8.1</version>
+		</dependency>
+
+
+<!-- 		<dependency>
 		    <groupId>org.jboss.resteasy</groupId>
 		    <artifactId>resteasy-jaxrs</artifactId>
-		    <version>3.7.0.Final</version>
-		</dependency>
-	
+		    <version>3.0.19.Final</version>
+		</dependency> -->
+
+
   </dependencies>
 </project>

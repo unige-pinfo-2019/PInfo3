@@ -1,7 +1,6 @@
 package domain.service;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -206,7 +205,7 @@ public class SearchServiceImpl implements SearchService {
 				ad.setId(Long.parseLong(mapData.get(Ad.getIdField()).toString()));
 			}
 			if (mapData.containsKey(Ad.getUserIDField())) {
-				ad.setUserID(Long.parseLong(mapData.get(Ad.getUserIDField()).toString()));
+				ad.setUserID((String)(mapData.get(Ad.getUserIDField())));
 			}
 			if (mapData.containsKey(Ad.getCategoryIDField())) {
 				ad.setCategoryID(Integer.parseInt(mapData.get(Ad.getCategoryIDField()).toString()));

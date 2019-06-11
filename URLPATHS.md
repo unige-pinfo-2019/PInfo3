@@ -21,6 +21,25 @@ Get the list of all ads (in json format)
 ]
  ```
 
+Get the list of all ads of a specific user (in json format)
+`GET http://host:port/classads/user/{UserId}` returns
+
+ ```
+ [
+  {"0" : {"id" : Integer,
+          "deleted" : boolean,
+          "nbVues" : int,
+          "time" : String,
+          "title" : String,
+          "description" : String,
+          "price" : Float,
+          "categoryID" : Integer,
+          "userID" : Integer,
+          "images" : [String, String, ...]}},
+  {"1" : {...}},
+]
+ ```
+
 Get an ab by its ID (in json format)
 `GET http://host:port/classads/ads/ad/{id}` returns the ad if exists or an error message 400
 
@@ -106,6 +125,41 @@ Delete a user (with the id)
 
 ## Responses
 
+Port 8085
+
 Get the list of all the responses from a user (with the id, format json)
 
-`GET http://host:port/classadsresponses/users/{uid}/ads`
+`GET http://host:port/classadsresponses/users/{uid}`
+
+
+Get the list of all messages between two users: user who posted the ad with id "aid" and the user with id "uid" who responded to this ad.
+2 query params: offset (first message index (from the most recent)) and limit (number max. of messages you want to receive)
+
+`GET http://host:port/classadsresponses/users/{uid}/ads/{aid}?offset=0&limit=10`
+ (example of query params to get the 10 most recent messages)
+ 
+
+Create a new response (in json format)
+
+`POST http://host:port/classadsresponses/users/{uid}/ads/{aid}`
+
+
+# api-gateway
+## classads-service
+
+`localhost/api/classads`
+Everything request that has something to do with the classads (service) is routed through localhost/api/classads. This will redirect the request to localhost:port/classads of the classads service. One possible issue is that the categories are implemented at a different path so it has to be fixed.
+
+## user-service
+
+`localhost/api/user`
+Same as above, localhost:port/user
+
+## search-service
+
+`localhost/api/search`
+Same as above, localhost:port/search
+
+In the future, all api calls in the form of `localhost/api/service` will be translated as `localhost:port/service`
+
+

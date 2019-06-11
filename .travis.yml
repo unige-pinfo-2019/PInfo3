@@ -54,20 +54,20 @@ jobs:
       after_success:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push 2019pinfo3/user-service:latest
-
-      # - language: java
-      #     jdk: openjdk11
-      #     before_script:
-      #       - cd classadsresponse-service
-      #     script:
-      #       - mvn clean package
-      #
-      # - language: java
-      #     jdk: openjdk11
-      #     before_script:
-      #       - cd statistic-service
-      #     script:
-      #       - mvn clean package
+    
+    - stage: build
+      language: java
+      jdk: openjdk11
+      services:
+        - docker
+      before_script:
+        - cd classadsresponse-service
+      script:
+        - mvn clean package
+        - docker build -t 2019pinfo3/classadsresponse-service:latest .
+      after_success:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker push 2019pinfo3/classadsresponse-service:latest
 
     - stage: build
       language: minimal
@@ -75,6 +75,7 @@ jobs:
         - docker
       before_script:
         - cd api-gateway
+        - cp -r ../web-ui .
       script:
         - docker build -t 2019pinfo3/api-gateway:latest .
       after_success:
