@@ -125,8 +125,11 @@ public class KeycloakServiceImpl implements KeycloakService {
 				return kidToken.equals(kid);
 			}
 			return false;
-		} catch (MalformedURLException|IOException e) {
-			log.info("Verification of the token failed :\n" + e.getLocalizedMessage());
+		} catch (MalformedURLException e) {
+			log.info("Verification of the token failed because of the URL :\n" + e);
+			return false;
+		} catch (IOException e) {
+			log.info("Verification of the token failed :\n" + e);
 			return false;
 		}
 	}
