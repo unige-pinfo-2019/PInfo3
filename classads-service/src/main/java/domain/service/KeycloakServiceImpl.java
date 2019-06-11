@@ -34,7 +34,7 @@ public class KeycloakServiceImpl implements KeycloakService {
 	public boolean hasValidAuthentification(HttpHeaders headers) {
 		if (getAuthorizationHeader(headers) == null)
 			return false;
-		
+
 		String token = getToken(headers);
 		if (token != null) {
 			return verifyExpirationTime(token) && extractUserInfos(token) != null;
@@ -62,7 +62,7 @@ public class KeycloakServiceImpl implements KeycloakService {
 			} else {
 				log.info("Verification succeded");
 			}
-			
+
 			return authorization.replaceFirst(AUTHENTICATION_SCHEME + " ", "");
 		} catch (Exception e) {
 			return null;
@@ -94,7 +94,7 @@ public class KeycloakServiceImpl implements KeycloakService {
 			obj = new URL(url);
 			HttpURLConnection connexion = (HttpURLConnection) obj.openConnection();
 			connexion.setRequestMethod("GET");
-			
+
 			//We get the response
 			int responseCode = connexion.getResponseCode();
 			log.info("Response code : " + responseCode);
@@ -125,31 +125,23 @@ public class KeycloakServiceImpl implements KeycloakService {
 				return kidToken.equals(kid);
 			}
 			return false;
-		} catch (MalformedURLException e) {
-			log.info("Verification of the token failed :\n" + e.getLocalizedMessage());
-			return false;
-		} catch (IOException e) {
+		} catch (MalformedURLException|IOException e) {
 			log.info("Verification of the token failed :\n" + e.getLocalizedMessage());
 			return false;
 		}
-		
-
-		
-
-
 	}
 
 	@Override
 	public Boolean verifyExpirationTime(String token) {
 		DecodedJWT jwt = JWT.decode(token);
-		
+
 		Date issuedAt = jwt.getIssuedAt();
 		Date notBefore = jwt.getNotBefore();
 		Date expiresAt = jwt.getExpiresAt();
-		
+
 		Date now = new Date();
-		
-		
+
+
 		return now.after(notBefore) && now.after(issuedAt) && now.before(expiresAt);
 	}
 
