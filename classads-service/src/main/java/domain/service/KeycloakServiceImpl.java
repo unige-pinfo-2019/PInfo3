@@ -83,9 +83,8 @@ public class KeycloakServiceImpl implements KeycloakService {
 			return null;
 		}
 	}
-
-	@Override
-	public Boolean verifyToken(String token) {
+	
+	String getKidFromCerts() {
 		String url = "http://localhost:8080/auth/realms/apigw/protocol/openid-connect/certs";
 
 		//We send a request to get the key ID
@@ -115,21 +114,37 @@ public class KeycloakServiceImpl implements KeycloakService {
 
 				//We extract the keyID
 				JsonObject json = jsonArray.get(0).getAsJsonObject();
-				String kid = json.get("kid").getAsString();
-
-				//We compare with the keyID in the token
-				DecodedJWT jwt = JWT.decode(token);
-				Claim claim = jwt.getHeaderClaim("kid");
-				String kidToken = claim.asString();
-
-				return kidToken.equals(kid);
+				return json.get("kid").getAsString();
 			}
-			return false;
 		} catch (MalformedURLException e) {
 			log.info("Verification of the token failed because of the URL :\n" + e);
-			return false;
+			return null;
 		} catch (IOException e) {
 			log.info("Verification of the token failed :\n" + e);
+			return null;
+		}
+		return null;
+	}
+
+	@Override
+	public Boolean verifyToken(String token) {
+		
+		String kid = getKidFromCerts();
+		if (kid == null) {
+			return false;
+		}
+		
+		try {
+			//We compare with the keyID in the token
+			DecodedJWT jwt = JWT.decode(token);
+			Claim claim = jwt.getHeaderClaim("kid");
+			String kidToken = claim.asString();
+
+			return kidToken.equals(kid);
+
+		} catch (JWTDecodeException exception){
+		    //Invalid token
+			log.info("Decoding token didn't work");
 			return false;
 		}
 	}
