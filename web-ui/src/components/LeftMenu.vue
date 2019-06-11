@@ -30,7 +30,6 @@
 
 <script>
 import TreeMenu from '@/components/TreeMenu.vue'
-import axios from 'axios';
 
 export default {
   name: 'left-menu',
@@ -45,12 +44,12 @@ export default {
   },
   mounted: function () {
     // retrieve list of categories
-    axios
+    this.$axios
       .get(process.env.VUE_APP_BASE_API + ':8081/categories/treeview')
       .then(response => (this.categories = response));
 
   // retrieve catIds
-    axios
+    this.$axios
       .get(process.env.VUE_APP_BASE_API + ':8081/categories/index')
       .then(response => (this.catIds = response));
 

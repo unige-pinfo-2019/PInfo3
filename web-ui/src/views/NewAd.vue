@@ -78,7 +78,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'new-ad',
@@ -98,7 +97,7 @@ export default {
   mounted: function () {
     // retrieve categories
     function getValues() {
-      return axios
+      return this.$axios
       .get(process.env.VUE_APP_BASE_API + ':8081/categories/index')
       .then(response => {
         return response.data;
@@ -140,13 +139,13 @@ export default {
                     "categoryID": this.categoryID,
                     "userID":0,
                     "images": []};
-       axios
+       this.$axios
          .post('https://api.imgur.com/3/image',data, config)
          .then(function (response) {
            var imglink = response.data.data.link; // setup image link
            dataad["images"]=[imglink]
            // upload ad
-              axios
+              this.$axios
              .post(process.env.VUE_APP_BASE_API + ':8081/classads',dataad)
          })
        .catch(error => {

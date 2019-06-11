@@ -5,6 +5,7 @@ import BootstrapVue from 'bootstrap-vue'
 import Keycloak from 'keycloak-js'///dist/keycloak.js'
 // import VueGlobalVariable from 'vue-global-var'
 // import store from 'plugin-vuejs-keycloak'
+import axios from 'axios';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
@@ -37,12 +38,14 @@ var keycloak = Keycloak({
 });
 
 Vue.prototype.$keycloak = keycloak;
+Vue.prototype.$axios = axios;
 
 Vue.prototype.$myStore = new Vue({
     data: {
        // token property returning the ls token value
        loggedIn: window.localStorage.getItem('status'),
-       username: window.localStorage.getItem('username')
+       username: window.localStorage.getItem('username'),
+       userid: window.localStorage.getItem('userid')
     },
     watch:{
        // watcher listening for changes on the token property
@@ -53,7 +56,11 @@ Vue.prototype.$myStore = new Vue({
 
        username(value) {
          window.localStorage.setItem('username', value)
-       }
+       },
+
+      userid(value) {
+        window.localStorage.setItem('userid', value)
+      }
     }
 })
 

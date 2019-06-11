@@ -14,7 +14,6 @@
 </template>
 
 <script>
-// import Keycloak from 'keycloak-js'
 
 export default {
   name: 'login',
@@ -104,11 +103,13 @@ export default {
       this.$keycloak.logout()
       console.log('Disconected ! :D');
       localStorage.removeItem('vue-token')
-      localStorage.setItem('status', 'out')
+      // localStorage.setItem('status', 'out')
 
 
       this.$myStore.loggedIn = 'out'
       localStorage.removeItem('username')
+
+      delete this.$axios.defaults.headers.common['Authorization'];
     },
     editProfile() {
       this.$keycloak.loadUserProfile()

@@ -98,8 +98,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Keycloak from 'keycloak-js'
 
 export default {
   name: 'detailed-ad',
@@ -113,32 +111,8 @@ export default {
     }
   },
   mounted() {
-    // var keycloak = Keycloak({
-    //     url: 'http://localhost:8080/auth',
-    //     realm: 'apigw',
-    //     clientId: 'web-sso'
-    // });
-    // alert(localStorage.getItem("vue-token"))
-    // keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
-    //
-    //     if(!auth) {
-    //       // window.location.reload();
-    //       console.log('Not authenticated');
-    //     } else {
-    //       // Vue.$log.info("Authenticated");
-    //       console.log('Authenticated');
-    //     }
-    //
-    //     alert('Dans success')
-    //     localStorage.setItem("vue-token", keycloak.token);
-    //
-    // }).error(() =>{
-    //   Vue.$log.error("Authenticated Failed");
-    //   alert('Dans error')
-    // });
-
     // retrieve ad
-    axios
+    this.$axios
       .get(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
       .then(response => (this.res = response));
 
@@ -146,7 +120,7 @@ export default {
   methods: {
     deleteThisAd() {
 
-      axios
+      this.$axios
         .delete(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
         .then(function (response) {
           // handle success

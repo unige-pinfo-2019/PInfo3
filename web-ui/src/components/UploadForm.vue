@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 
 export default {
   name: 'UploadForm',
@@ -57,13 +56,23 @@ export default {
       var data = new FormData();
       data.append("image", this.selectedFile);
 
-      axios
+      this.$axios
         .post('https://api.imgur.com/3/image',data, config)
         .then(response => (this.info = response.data.data.link))
     },
     disconect() {
-      this.$store._actions.logout[0]()
+      // this.$store._actions.logout[0]()
+      this.$keycloak.init()
+      this.$keycloak.logout()
+
+      localStorage.removeItem('vue-token')
+      // localStorage.setItem('status', 'out')
+
+
       this.$myStore.loggedIn = 'out'
+      localStorage.removeItem('username')
+
+      delete this.$axios.defaults.headers.common['Authorization'];
     },
     refreshTokenDisplay() {
       this.myToken = localStorage.getItem('vue-token');
