@@ -7,6 +7,14 @@ target/
 *.jar
 *.war
 classads-service/classads-service.log
+classadsresponse-service/classadsresponse-service.log
+search-service/search-service.log
+bin/
+
+classads-service/META-INF
+classadsresponse-service/META-INF
+search-service/META-INF
+
 
 # Frontend #
 .DS_Store
