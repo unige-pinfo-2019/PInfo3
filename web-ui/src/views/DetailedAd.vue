@@ -7,6 +7,10 @@
           <div class="block col-flex">
             <h1 class="title">{{this.res.data.title}}</h1>
 
+            <div class="username">
+              Par <span style="color: black; text-decoration: underline;">{{this.res.data.username}}</span>
+            </div>
+
             <div class="carousel-container">
               <b-carousel
               id="carousel-1"
@@ -50,8 +54,15 @@
 
         <!-- Delete and edit buttons -->
         <div class="block button-container">
-          <b-button v-b-modal.you-sure class="delete-btn" variant="danger"><font-awesome-icon class="icon" icon="trash-alt"/>Supprimer</b-button>
-          <b-button class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
+          <div v-if="this.res.data.auth">
+            <b-button v-b-modal.you-sure class="delete-btn" variant="danger"><font-awesome-icon class="icon" icon="trash-alt"/>Supprimer</b-button>
+            <b-button class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
+          </div>
+          <div v-else>
+            <b-button variant="primary" class="buy-btn" size="lg">Acheter</b-button>
+          </div>
+
+
 
           <b-modal id="you-sure" centered v-model="showModal">
             <template slot="modal-title">
@@ -75,7 +86,7 @@
         </div>
 
 
-        <div class="row-user">
+        <!-- <div class="row-user">
           <div class="block user-container">
             <b-img src="https://i.stack.imgur.com/o1z7p.jpg" rounded="circle" center width="100px" height="100px"></b-img>
 
@@ -88,7 +99,7 @@
           </div>
 
           <b-button class="buy-button" variant='primary'>Acheter</b-button>
-        </div>
+        </div> -->
       </div>
 
 
@@ -114,7 +125,11 @@ export default {
     // retrieve ad
     this.$axios
       .get(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
-      .then(response => (this.res = response));
+      .then((response) => {
+        this.res = response
+        console.log('data.auth value:');
+        console.log(this.res.data.auth);
+      });
 
   },
   methods: {
@@ -135,6 +150,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
+.username {
+  color: gray;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  font-size: 1.1em;
+}
+
 .icon {
   margin-right: 0.5em;
 }
@@ -145,6 +167,9 @@ export default {
 
 .edit-btn {
   margin-right: 20px;
+  float: right;
+}
+.buy-btn {
   float: right;
 }
 
@@ -211,11 +236,6 @@ export default {
   align-items: center;
   // margin: 0;
   margin-top: 50px;
-}
-
-
-h1 {
-  margin-bottom: 20px;
 }
 
 .user-container {
