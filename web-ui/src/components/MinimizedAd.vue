@@ -110,6 +110,16 @@ export default {
   }
 }
 
+@mixin multiLineTruncation($lineHeight: 1.2em, $lineCount: 1, $bgColor: white){
+  overflow: hidden;
+  position: relative;
+  line-height: $lineHeight;
+  max-height: $lineHeight * $lineCount;
+  // text-align: justify;
+  // margin-right: -1em;
+  // padding-right: 1em;
+}
+
 .card-img-top { // Forces the card image to be of the same size
     width: 100%;
     height: 12rem;
@@ -131,7 +141,7 @@ a:hover {
 .card-title {
   // height: 2.2em;
   min-height: 2.2em;
-  @include multiLineEllipsis($lineHeight: 1.2em, $lineCount: 2, $bgColor: white);
+  @include multiLineTruncation($lineHeight: 1.2em, $lineCount: 2, $bgColor: white);
 }
 
 .title-container {
