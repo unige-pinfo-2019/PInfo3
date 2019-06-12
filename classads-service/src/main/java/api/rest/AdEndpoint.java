@@ -98,7 +98,7 @@ public class AdEndpoint {
 			if (user.getUserID().equals(us)) {
 				return Response.ok(adservice.getByUser(us)).build();
 			}
-			return Response.status(Response.Status.UNAUTHORIZED).entity("ID in path doesn't match with token").build();
+			return Response.status(Response.Status.FORBIDDEN).entity("ID in path doesn't match with token").build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).entity("There is no authorization header or the token is invalid").build();
 	}
@@ -134,7 +134,7 @@ public class AdEndpoint {
 				adProducer.send(ad);
 				return Response.ok("the ad " + ad.getId() + " have been modified").build();
 			}
-			return Response.status(Response.Status.UNAUTHORIZED).entity("You don't have access to this resource").build();
+			return Response.status(Response.Status.FORBIDDEN).entity("You don't have access to this resource").build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).entity("There is no authorization header or the token is invalid").build();
 	}
@@ -202,7 +202,7 @@ public class AdEndpoint {
 						return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Some form of error occurred. Could not delete "+ ad.toString()).build();
 					}
 				}
-				return Response.status(Response.Status.UNAUTHORIZED).entity("You don't have access to this resource").build();
+				return Response.status(Response.Status.FORBIDDEN).entity("You don't have access to this resource").build();
 			}
 
 		}
