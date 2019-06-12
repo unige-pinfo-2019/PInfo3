@@ -46,6 +46,8 @@ public class AdEndpoint {
 	public void setAdService(AdService cs) {
 		adservice = cs;
 	}
+	
+	private String authorizationError = "There is no authorization header or the token is invalid";
 
 
 	/* Get all classads */
@@ -100,7 +102,7 @@ public class AdEndpoint {
 			}
 			return Response.status(Response.Status.FORBIDDEN).entity("ID in path doesn't match with token").build();
 		}
-		return Response.status(Response.Status.UNAUTHORIZED).entity("There is no authorization header or the token is invalid").build();
+		return Response.status(Response.Status.UNAUTHORIZED).entity(authorizationError).build();
 	}
 
 	@PUT
@@ -136,7 +138,7 @@ public class AdEndpoint {
 			}
 			return Response.status(Response.Status.FORBIDDEN).entity("You don't have access to this resource").build();
 		}
-		return Response.status(Response.Status.UNAUTHORIZED).entity("There is no authorization header or the token is invalid").build();
+		return Response.status(Response.Status.UNAUTHORIZED).entity(authorizationError).build();
 	}
 
 
@@ -169,7 +171,7 @@ public class AdEndpoint {
 			}
 
 		}
-		return Response.status(Response.Status.UNAUTHORIZED).entity("There is no authorization header or the token is invalid").build();
+		return Response.status(Response.Status.UNAUTHORIZED).entity(authorizationError).build();
 	}
 
 	/* Delete an ad according to its ID */
@@ -206,7 +208,7 @@ public class AdEndpoint {
 			}
 
 		}
-		return Response.status(Response.Status.UNAUTHORIZED).entity("There is no authorization header or the token is invalid").build();
+		return Response.status(Response.Status.UNAUTHORIZED).entity(authorizationError).build();
 	}
 
 
