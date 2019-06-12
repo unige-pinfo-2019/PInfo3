@@ -71,6 +71,7 @@ export default {
 
       this.$myStore.loggedIn = 'out'
       localStorage.removeItem('username')
+      localStorage.removeItem('userid')
 
       delete this.$axios.defaults.headers.common['Authorization'];
     },
