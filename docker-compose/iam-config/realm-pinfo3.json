@@ -596,13 +596,13 @@
       "id": "0d087940-6be2-49f3-bcc6-26167410a787",
       "clientId": "web-sso",
       "rootUrl": "",
-      "adminUrl": "http://localhost:8086/",
+      "adminUrl": "http://pinfo3.unige.ch:8083/",
       "surrogateAuthRequired": false,
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "http://localhost:8086/*"
+        "http://pinfo3.unige.ch:8083/*"
       ],
       "webOrigins": [
         "*"
