@@ -89,18 +89,14 @@ public class AdEndpoint {
 	}
 
 	@GET
-	@Path("/user/{UserId}")
+	@Path("/user")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAdByUser(@PathParam("UserId") String us, @Context HttpHeaders headers) {
+	public Response getAdByUser(@Context HttpHeaders headers) {
 		
 		if (kcService.hasValidAuthentification(headers)) {
 			String token = kcService.getToken(headers);
 			User user = kcService.extractUserInfos(token);
-			
-			if (user.getUserID().equals(us)) {
-				return Response.ok(adservice.getByUser(us)).build();
-			}
-			return Response.status(Response.Status.FORBIDDEN).entity("ID in path doesn't match with token").build();
+			return Response.ok(adservice.getByUser(user.getUserID())).build();
 		}
 		return Response.status(Response.Status.UNAUTHORIZED).entity(authorizationError).build();
 	}
