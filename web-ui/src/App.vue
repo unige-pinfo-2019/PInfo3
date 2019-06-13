@@ -66,6 +66,7 @@ export default {
           console.log(userInfos);
           this.$myStore.username = userInfos.preferred_username
           this.$myStore.userid = userInfos.sub
+          this.$myStore.refreshToken = this.$keycloak.refreshToken;
 
           this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' +  this.$keycloak.token;
 

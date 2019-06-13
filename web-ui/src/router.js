@@ -115,6 +115,7 @@ router.beforeEach((to, from, next) => {
     // alert('this page requires auth')
 
     if(Vue.prototype.$myStore.loggedIn === 'in') {
+
       next()
     }
     else {
@@ -138,6 +139,7 @@ router.beforeEach((to, from, next) => {
           console.log(userInfos);
           Vue.prototype.$myStore.username = userInfos.preferred_username
           Vue.prototype.$myStore.userid = userInfos.sub
+          Vue.prototype.$myStore.refreshToken = Vue.prototype.$keycloak.refreshToken;
 
           Vue.prototype.$axios.defaults.headers.common['Authorization'] = 'Bearer ' +  Vue.prototype.$keycloak.token;
 

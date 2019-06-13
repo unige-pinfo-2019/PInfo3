@@ -42,7 +42,8 @@ Vue.prototype.$myStore = new Vue({
        // token property returning the ls token value
        loggedIn: window.localStorage.getItem('status'),
        username: window.localStorage.getItem('username'),
-       userid: window.localStorage.getItem('userid')
+       userid: window.localStorage.getItem('userid'),
+       refreshToken: window.localStorage.getItem('refresh-token')
     },
     watch:{
        // watcher listening for changes on the token property
@@ -57,6 +58,10 @@ Vue.prototype.$myStore = new Vue({
 
       userid(value) {
         window.localStorage.setItem('userid', value)
+      },
+
+      refreshToken(value) {
+        window.localStorage.setItem('refresh-token', value)
       }
     }
 })
