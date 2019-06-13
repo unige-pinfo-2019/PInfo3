@@ -75,7 +75,6 @@ public class KeycloakServiceImpl implements KeycloakService {
 		Date notBefore = jwt.getNotBefore();
 		Date expiresAt = jwt.getExpiresAt();
 
-		//Date now = new Date();
 		return now.after(notBefore) && now.after(issuedAt) && now.before(expiresAt);
 	}
 
