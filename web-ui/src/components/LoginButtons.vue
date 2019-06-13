@@ -135,7 +135,7 @@ h4 {
   color: #ea5a5f;
 }
 
-#up:hover, #deco:hover, #edit:hover {
+#up:hover, #deco:hover, #edit:hover, #myads:hover {
   color: #ea5a5f;
 }
 
