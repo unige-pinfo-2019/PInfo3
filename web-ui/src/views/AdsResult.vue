@@ -58,7 +58,7 @@ export default {
   methods: {
     async onClickSearch (value) {
       this.query=value;
-      this.ads = await axios.get(process.env.VUE_APP_BASE_API + ':8084/search?request=' + this.query)
+      this.ads = await this.$axios.get(process.env.VUE_APP_BASE_API + ':8084/search?request=' + this.query)
       //   .then(response => (this.ads = response));
       // this.$forceUpdate();
     },
@@ -66,12 +66,12 @@ export default {
       if (this.id >= 0)
       {
         // retrieve list of ads
-        this.ads = await axios.get(process.env.VUE_APP_BASE_API + ':8081/classads/categories/' + this.id)
+        this.ads = await this.$axios.get(process.env.VUE_APP_BASE_API + ':8081/classads/categories/' + this.id)
           // .then(response => (this.ads = response));
       }
       else {
         // retrieve list of ads
-        this.ads = await axios.get(process.env.VUE_APP_BASE_API + ':8081/classads/')
+        this.ads = await this.$axios.get(process.env.VUE_APP_BASE_API + ':8081/classads/')
           // .then(response => (this.ads = response));
       }
     },

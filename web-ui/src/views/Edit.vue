@@ -235,7 +235,7 @@ export default {
        for (var i = 0; i < this.selectedFiles.length; i++) {
          var tmp = new FormData();
          tmp.append('image',this.selectedFiles[i]);
-         var prom = axios.post('https://api.imgur.com/3/image',tmp, config);
+         var prom = this.$axios.post('https://api.imgur.com/3/image',tmp, config);
          promises.push(prom);
        }
        // execute the requests
@@ -259,7 +259,7 @@ export default {
                      "categoryID": this.categoryID,
                      "userID":0,
                      "images": this.images};
-         axios
+         this.$axios
         .put(process.env.VUE_APP_BASE_API + ':8081/classads/' ,data)
         .then(function (response) {
           self.$router.push('/');
