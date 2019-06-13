@@ -99,7 +99,7 @@
           </div>
 
           <b-button class="buy-button" variant='primary' v-on:click="postMessage">Acheter</b-button>
-        </div>
+        </div> -->
       </div>
 
 

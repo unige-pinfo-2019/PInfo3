@@ -103,16 +103,6 @@ const router = new Router({
       meta: { requiresAuth: true },
       component: () => import(/* webpackChunkName: "about" */ './views/MyAds.vue')
     },
-    {
-      path: '/edit',
-      name: 'edit',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/Edit.vue'),
-      props: true,
-
-    },
   ]
 })
 
@@ -152,8 +142,8 @@ router.beforeEach((to, from, next) => {
           Vue.prototype.$myStore.loggedIn = 'in'
 
           var userInfos = Vue.prototype.$keycloak.tokenParsed;
-          console.log('User profile:');
-          console.log(userInfos);
+          // console.log('User profile:');
+          // console.log(userInfos);
           Vue.prototype.$myStore.username = userInfos.preferred_username
           Vue.prototype.$myStore.userid = userInfos.sub
           Vue.prototype.$myStore.refreshToken = Vue.prototype.$keycloak.refreshToken;
