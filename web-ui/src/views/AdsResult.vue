@@ -15,9 +15,10 @@
       </div>
 
       <div class="pub-wrapper">
-        <div class="pub">
+        <!-- <div class="pub">
           pub placeholder
-        </div>
+        </div> -->
+        <img :src="pubSrc[pubIndex]" alt="Sushis">
       </div>
 
     </div>
@@ -49,7 +50,9 @@ export default {
     return {
       ads : null,
       query: null,
-      requiredEmpty: 3
+      requiredEmpty: 3,
+      pubSrc: [require('../assets/pub2.png'), require('../assets/pub3.png'), require('../assets/pub1.png')],
+      pubIndex: 0,
     }
   },
   methods: {
@@ -74,6 +77,9 @@ export default {
           .get(process.env.VUE_APP_BASE_API + ':8081/classads/')
           .then(response => (this.ads = response));
       }
+    },
+    incrementCount() {
+      this.pubIndex = (this.pubIndex + 1) % this.pubSrc.length
     }
   },
 
@@ -89,6 +95,9 @@ export default {
   },
 
   mounted: function () {
+
+    setInterval(this.incrementCount, 15000)
+
     this.update();
   }
 }
@@ -135,8 +144,8 @@ export default {
   min-width: 200px;
   // flex-basis: 200px;
   // flex-shrink: 200px;
-  height: 600px;
-  background: gray;
+  // height: 600px;
+  // background: gray;
   color: lightgray;
 
   margin-bottom: 50px;
