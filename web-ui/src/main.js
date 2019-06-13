@@ -29,7 +29,7 @@ Vue.config.productionTip = false
 
 
 var keycloak = Keycloak({
-    url: 'http://localhost:8080/auth',
+    url: process.env.VUE_APP_BASE_API + ':8080/auth',
     realm: 'apigw',
     clientId: 'web-sso'
 });

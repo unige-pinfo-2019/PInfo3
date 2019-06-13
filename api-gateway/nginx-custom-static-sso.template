@@ -11,6 +11,8 @@ events {}
 
 http {
     include /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
  	charset UTF-8;
 	error_log ${{PROXY_ERROR_LOG}} ${{LOG_LEVEL}};
 	client_max_body_size ${{CLIENT_MAX_BODY_SIZE}};
@@ -94,8 +96,6 @@ http {
 	
 	    location / {
 			root /www/data;
-			index  index.html;
-            try_files $uri $uri/ /index.html;
 		}
 	   
 	    
