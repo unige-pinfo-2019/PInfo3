@@ -94,7 +94,7 @@ export default {
   mounted: function () {
     // this.update();
     this.$axios
-      .get(process.env.VUE_APP_BASE_API + ':8081/classads/user/' + this.$myStore.userid)
+      .get(process.env.VUE_APP_BASE_API + ':8081/classads/user/')//) + this.$myStore.userid)
       .then(response => {
         this.ads = response
         console.log('Ads received');
