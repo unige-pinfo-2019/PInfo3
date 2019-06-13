@@ -14,9 +14,13 @@
         id="textarea-auto-height"
         rows="6"
         max-rows="12"
+        :state="messageState"
         placeholder="Veuillez entrer un nouveau message"
         required
       ></b-form-textarea>
+      <b-form-invalid-feedback id="input-live-feedback">
+        Veuillez entrer un message
+      </b-form-invalid-feedback>
   </div>
   <b-button style="float: right;"  v-on:click="submit" variant="primary">Soumettre</b-button>
 
@@ -48,6 +52,16 @@ export default {
   },
   mounted: async function() {
     this.update();
+  },
+  computed: {
+    messageState() {
+      if (this.newMessage.length > 0) {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
   },
   methods: {
     update: async function() {

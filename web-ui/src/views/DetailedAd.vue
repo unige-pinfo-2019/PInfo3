@@ -51,7 +51,7 @@
         <!-- Delete and edit buttons -->
         <div class="block button-container">
           <b-button v-b-modal.you-sure class="delete-btn" variant="danger"><font-awesome-icon class="icon" icon="trash-alt"/>Supprimer</b-button>
-          <b-button class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
+          <b-button v-on:click="edit" class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
 
           <b-modal id="you-sure" centered v-model="showModal">
             <template slot="modal-title">
@@ -121,6 +121,10 @@ export default {
   methods: {
     postMessage() {
       this.$router.push('/NewMessage')
+    },
+    edit() {
+      this.$router.push({ name: 'edit', params: { id: this.id }})
+
     },
     deleteThisAd() {
       axios
