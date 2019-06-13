@@ -42,6 +42,10 @@ docker-compose -f docker-compose/docker-compose-search.yml up
 docker-compose -f docker-compose/docker-compose-unitrade.yml up
 ```
 
+```
+docker-compose -f docker-compose-iam.yml up
+```
+
 Pour savoir sur quel port les service tournent, voir le docker-compose-unitrade.yml.
 (En localhost :
   * 8081 : classads-service
