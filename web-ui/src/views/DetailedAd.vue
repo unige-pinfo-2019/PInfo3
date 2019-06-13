@@ -56,7 +56,7 @@
         <div class="block button-container">
           <div v-if="this.res.data.auth">
             <b-button v-b-modal.you-sure class="delete-btn" variant="danger"><font-awesome-icon class="icon" icon="trash-alt"/>Supprimer</b-button>
-            <b-button class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
+            <b-button v-on:click="edit" class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
           </div>
           <div v-else>
             <b-button variant="primary" class="buy-btn" size="lg">Acheter</b-button>
