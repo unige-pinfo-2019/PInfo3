@@ -17,9 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 @ApplicationScoped
 @Slf4j
 public class KeycloakServiceImpl implements KeycloakService {
-	
+
 	private static final String AUTHORIZATION_PROPERTY = "Authorization";
-    private static final String AUTHENTICATION_SCHEME = "Bearer";    
+    private static final String AUTHENTICATION_SCHEME = "Bearer";
 
     @Override
 	public boolean hasValidAuthentification(HttpHeaders headers) {
@@ -28,11 +28,11 @@ public class KeycloakServiceImpl implements KeycloakService {
 
 		String token = getToken(headers);
 		if (token != null) {
-			return verifyExpirationTime(token) && extractUserInfos(token) != null;
+			return extractUserInfos(token) != null && verifyExpirationTime(token);
 		}
 		return false;
     }
-	
+
 	@Override
 	public String getAuthorizationHeader(HttpHeaders headers) {
 		try {
@@ -41,7 +41,7 @@ public class KeycloakServiceImpl implements KeycloakService {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public String getToken(HttpHeaders headers) {
 		try {
@@ -49,23 +49,23 @@ public class KeycloakServiceImpl implements KeycloakService {
 		} catch (Exception e) {
 			return null;
 		}
-		
+
 	}
-	
+
 	@Override
 	public User extractUserInfos(String token) {
 		try {
 		    DecodedJWT jwt = JWT.decode(token);
 		    Claim claim = jwt.getClaim("preferred_username");
 		    return new User(jwt.getSubject(), claim.asString());
-		    
+
 		} catch (JWTDecodeException exception){
 		    //Invalid token
 			log.info("Decoding token didn't work");
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Boolean verifyExpirationTime(String token) {
 		DecodedJWT jwt = JWT.decode(token);
@@ -77,5 +77,5 @@ public class KeycloakServiceImpl implements KeycloakService {
 		Date now = new Date();
 		return now.after(notBefore) && now.after(issuedAt) && now.before(expiresAt);
 	}
-	
+
 }
