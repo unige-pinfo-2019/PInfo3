@@ -1,5 +1,5 @@
 <template>
-  <div class="new-ad">
+  <div class="edit">
     <div class="container">
       <div class="block">
 
@@ -116,11 +116,18 @@
 </template>
 
 <script>
+import axios from 'axios';
 
 export default {
-  name: 'new-ad',
+  name: 'edit',
+  props: {
+    id: String,
+    required:false,
+    default:"1"
+  },
   data() {
     return {
+      data: null,
       title: '',
       description: '',
       validation : false,
@@ -158,16 +165,20 @@ export default {
         }
       }
     },
-  mounted: function () {
+  created: function() {
+    this.fetchData();
+  },
+  mounted:  function () {
     // retrieve categories
-    function getValues(thisReference) {
-      return thisReference.$axios
+    function getValues() {
+      return axios
       .get(process.env.VUE_APP_BASE_API + ':8081/categories/index')
       .then(response => {
         return response.data;
       })
     }
-    getValues(this).then(data => {
+
+    getValues().then(data => {
       var listOfKeys = Object.keys(data);
       var formatedData = [];
       listOfKeys.forEach(function(elem) {
@@ -182,6 +193,17 @@ export default {
   methods: {
     starThisPicture(index) {
       this.staredImage = index;
+    },
+    async fetchData() {
+      this.data = await axios.get(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id);
+      this.title = this.data.data.title;
+      this.description = this.data.data.description;
+      this.images = this.data.data.images;
+      this.price = this.data.data.price;
+      this.categoryID = this.data.data.categoryID;
+      this.images = this.data.data.images;
+
+
     },
     deleteThisPicture(index) {
       if(this.staredImage == index) {
@@ -213,32 +235,34 @@ export default {
        for (var i = 0; i < this.selectedFiles.length; i++) {
          var tmp = new FormData();
          tmp.append('image',this.selectedFiles[i]);
-         var prom = this.$axios.post('https://api.imgur.com/3/image',tmp, config);
+         var prom = axios.post('https://api.imgur.com/3/image',tmp, config);
          promises.push(prom);
        }
        // execute the requests
-       this.$axios.all(promises)
-       .then(this.$axios.spread((...args) => {
+       axios.all(promises)
+       .then(axios.spread((...args) => {
          var images = [];
          for (let i = 0; i < args.length; i++) {
             console.log(args[i].data.data.link);
             images.push(args[i].data.data.link);
         }
+        this.images.concat(images);
         // upload ad
-        var data = {"title" : this.title,
+        var data = {
+                    "id" : this.id,
+                    "deleted" : false,
+                    "nbVues" : 0,
+                    "time" : "2019-05-21T14:40:10.600755",
+                    "title" : this.title,
                      "description": this.description,
                      "price": this.price,
                      "categoryID": this.categoryID,
                      "userID":0,
-                     "images": images};
-        this.$axios
-        .post(process.env.VUE_APP_BASE_API + ':8081/classads',data)
+                     "images": this.images};
+         axios
+        .put(process.env.VUE_APP_BASE_API + ':8081/classads/' ,data)
         .then(function (response) {
           self.$router.push('/');
-        })
-        .catch((error) => {
-          this.sending = false;
-          alert(error + ". Essayez de vous reconnecter à votre compte puis réessayez.")
         });
 
       }))

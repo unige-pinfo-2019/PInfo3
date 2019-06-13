@@ -56,26 +56,23 @@ export default {
     }
   },
   methods: {
-    onClickSearch (value) {
+    async onClickSearch (value) {
       this.query=value;
-      this.$axios
-        .get(process.env.VUE_APP_BASE_API + ':8084/search?request=' + this.query)
-        .then(response => (this.ads = response));
-      this.$forceUpdate();
+      this.ads = await axios.get(process.env.VUE_APP_BASE_API + ':8084/search?request=' + this.query)
+      //   .then(response => (this.ads = response));
+      // this.$forceUpdate();
     },
-    update () {
+    async  update () {
       if (this.id >= 0)
       {
         // retrieve list of ads
-        this.$axios
-          .get(process.env.VUE_APP_BASE_API + ':8081/classads/categories/' + this.id)
-          .then(response => (this.ads = response));
+        this.ads = await axios.get(process.env.VUE_APP_BASE_API + ':8081/classads/categories/' + this.id)
+          // .then(response => (this.ads = response));
       }
       else {
         // retrieve list of ads
-        this.$axios
-          .get(process.env.VUE_APP_BASE_API + ':8081/classads/')
-          .then(response => (this.ads = response));
+        this.ads = await axios.get(process.env.VUE_APP_BASE_API + ':8081/classads/')
+          // .then(response => (this.ads = response));
       }
     },
     incrementCount() {
@@ -89,10 +86,10 @@ export default {
     }
   },
 
-  beforeRouteUpdate(to, from, next) {
-    this.update();
-    next()
-  },
+  // beforeRouteUpdate(to, from, next) {
+  //   this.update();
+  //   next()
+  // },
 
   mounted: function () {
 

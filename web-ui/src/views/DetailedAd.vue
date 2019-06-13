@@ -98,8 +98,8 @@
 
           </div>
 
-          <b-button class="buy-button" variant='primary'>Acheter</b-button>
-        </div> -->
+          <b-button class="buy-button" variant='primary' v-on:click="postMessage">Acheter</b-button>
+        </div>
       </div>
 
 
@@ -133,6 +133,13 @@ export default {
 
   },
   methods: {
+    postMessage() {
+      this.$router.push('/NewMessage')
+    },
+    edit() {
+      this.$router.push({ name: 'edit', params: { id: this.id }})
+
+    },
     deleteThisAd() {
       this.$axios
       .delete(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
