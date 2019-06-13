@@ -58,6 +58,9 @@ public class Ad implements Serializable{
 	
 	@Column(name="USERNAME")
 	private String username;
+	
+	@Column(name="USEREMAIL")
+	private String userEmail;
 
 	@Column(name="CATEGORY_ID")
 	private int categoryID;
@@ -108,7 +111,6 @@ public class Ad implements Serializable{
 		this.images = images;
 		this.time = LocalDateTime.now().toString();
 		this.username = username;
-		
 	}
 	
 	/***** Utility methods *****/

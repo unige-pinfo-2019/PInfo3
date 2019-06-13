@@ -187,6 +187,7 @@ public class SearchServiceImpl implements SearchService {
 	    dataMap.put(Ad.getTimeField(), ad.getTime());
 	    dataMap.put(Ad.getDeletedField(), ad.isDeleted());
 	    dataMap.put(Ad.getUsernameField(), ad.getUsername());
+	    dataMap.put(Ad.getUserEmailField(), ad.getUserEmail());
 	    dataMap.put(Ad.getAuthField(), ad.isAuth());
 	    return dataMap;
 	}
@@ -225,6 +226,9 @@ public class SearchServiceImpl implements SearchService {
 		}
 		if (mapData.containsKey(Ad.getAuthField())) {
 			ad.setAuth(Boolean.parseBoolean(mapData.get(Ad.getAuthField()).toString()));
+		}
+		if (mapData.containsKey(Ad.getUserEmailField())) {
+			ad.setUserEmail((String)(mapData.get(Ad.getUserEmailField())));
 		}
 		return ad;
 	}

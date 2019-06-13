@@ -57,8 +57,9 @@ public class KeycloakServiceImpl implements KeycloakService {
 	public User extractUserInfos(String token) {
 		try {
 		    DecodedJWT jwt = JWT.decode(token);
-		    Claim claim = jwt.getClaim("preferred_username");
-		    return new User(jwt.getSubject(), claim.asString());
+		    Claim claim1 = jwt.getClaim("preferred_username");
+		    Claim claim2 = jwt.getClaim("email");
+		    return new User(jwt.getSubject(), claim1.asString(), claim2.asString());
 
 		} catch (JWTDecodeException exception){
 		    //Invalid token

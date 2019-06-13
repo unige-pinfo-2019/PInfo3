@@ -122,6 +122,7 @@ public class AdEndpoint {
 				ad.setTime(oldAd.getTime());
 				ad.setUserID(oldAd.getUserID());
 				ad.setUsername(oldAd.getUsername());
+				ad.setUserEmail(oldAd.getUserEmail());
 				ad.setDeleted(oldAd.isDeleted());
 				ad.setNbVues(oldAd.getNbVues());
 				try {
@@ -160,6 +161,7 @@ public class AdEndpoint {
 			if (ad != null) {
 				ad.setUserID(user.getUserID());
 				ad.setUsername(user.getUsername());
+				ad.setUserEmail(user.getUserEmail());
 				adservice.createAd(ad);
 				adProducer.send(ad);
 				return Response.ok(ad.getId(), MediaType.TEXT_PLAIN).build();

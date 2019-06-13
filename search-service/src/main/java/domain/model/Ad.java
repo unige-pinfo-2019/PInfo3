@@ -22,6 +22,7 @@ public class Ad {
 	private static String searchDeletedField = "deleted";
 	private static String searchUsernameField = "username";
 	private static String searchAuthField = "auth";
+	private static String searchUserEmailField = "userEmail";
 
 	private long id;
 
@@ -34,6 +35,8 @@ public class Ad {
 	private String userID;
 
 	private String username;
+	
+	private String userEmail;
 
 	private int categoryID;
 
@@ -105,5 +108,11 @@ public class Ad {
 	public static String getAuthField() {
 		return searchAuthField;
 	}
+
+	public static String getUserEmailField() {
+		return searchUserEmailField;
+	}
+	
+	
 
 }
