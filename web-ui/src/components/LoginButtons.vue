@@ -47,8 +47,8 @@ export default {
         this.$myStore.loggedIn = 'in'
 
         var userInfos = this.$keycloak.tokenParsed;
-        console.log('User profile:');
-        console.log(userInfos);
+        // console.log('User profile:');
+        // console.log(userInfos);
         this.$myStore.username = userInfos.preferred_username
         this.$myStore.userid = userInfos.sub
         this.$myStore.refreshToken = this.$keycloak.refreshToken;
@@ -107,7 +107,7 @@ export default {
       // this.$store._actions.logout[0]()
       this.$keycloak.init()
       this.$keycloak.logout()
-      console.log('Disconected ! :D');
+      console.log('Disconected !');
       localStorage.removeItem('vue-token')
       // localStorage.setItem('status', 'out')
 

@@ -127,8 +127,8 @@ export default {
       .get(process.env.VUE_APP_BASE_API + ':8081/classads/ads/ad/' + this.id)
       .then((response) => {
         this.res = response
-        console.log('data.auth value:');
-        console.log(this.res.data.auth);
+        // console.log('data.auth value:');
+        // console.log(this.res.data.auth);
       });
 
   },

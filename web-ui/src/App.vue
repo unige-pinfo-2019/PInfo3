@@ -62,8 +62,8 @@ export default {
           this.$myStore.loggedIn = 'in'
 
           var userInfos = this.$keycloak.tokenParsed;
-          console.log('User profile:');
-          console.log(userInfos);
+          // console.log('User profile:');
+          // console.log(userInfos);
           this.$myStore.username = userInfos.preferred_username
           this.$myStore.userid = userInfos.sub
           this.$myStore.refreshToken = this.$keycloak.refreshToken;
