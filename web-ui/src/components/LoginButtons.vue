@@ -5,11 +5,12 @@
       <b-button v-on:click="askRegister()" id="up" class="login" variant="outline-light">S'inscrire</b-button>
     </div>
     <div class="minimized-ad" v-else>
-      <!-- <b-button v-on:click="editProfile()" id="edit" class="login" variant="outline-light">Éditer son profil</b-button> -->
       <h4 class="login"> <font-awesome-icon class="icon" icon="user"/> {{$myStore.username}}</h4>
+      <b-button to="/myads" id="myads" class="login" variant="outline-light">Mes annonces</b-button>
+      <!-- <b-button v-on:click="editProfile()" id="edit" class="login" variant="outline-light">Éditer son profil</b-button> -->
       <b-button v-on:click="disconect()" id="deco" class="login" onloadedmetadata="" variant="outline-light">Déconnexion</b-button>
     </div>
-    <!-- <b-button v-on:click="$myStore.loggedIn = 'abcd'">fri</b-button> -->
+
   </div>
 </template>
 
@@ -19,20 +20,8 @@ export default {
   name: 'login',
   data() {
     return {
-      // get loggedIn() {
-      //   return localStorage.getItem('status') === 'in' || 0;
-      // }
       isLoggedIn: false
     }
-  },
-  computed: {
-    // get isLoggedIn() {
-    //   // console.log('Mystore: ' + this.$myStore.loggedIn);
-    //   return window.$myStore.loggedIn === 'in';
-    // },
-    // set isLoggedIn(value) {
-    //   console.log("You can't set a value to this property");
-    // }
   },
   mounted() {
     // console.log('My store:');
