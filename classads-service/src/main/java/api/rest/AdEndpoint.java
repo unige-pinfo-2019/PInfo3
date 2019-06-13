@@ -1,5 +1,6 @@
 package api.rest;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,7 +76,7 @@ public class AdEndpoint {
 
 		boolean auth = false;
 
-		if (kcService.hasValidAuthentification(headers)) {
+		if (kcService.hasValidAuthentification(headers, new Date())) {
 			String token = kcService.getToken(headers);
 			User user = kcService.extractUserInfos(token);
 
@@ -93,7 +94,7 @@ public class AdEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAdByUser(@Context HttpHeaders headers) {
 		
-		if (kcService.hasValidAuthentification(headers)) {
+		if (kcService.hasValidAuthentification(headers, new Date())) {
 			String token = kcService.getToken(headers);
 			User user = kcService.extractUserInfos(token);
 			return Response.ok(adservice.getByUser(user.getUserID())).build();
@@ -106,7 +107,7 @@ public class AdEndpoint {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(Ad ad, @Context HttpHeaders headers) {
 
-		if (kcService.hasValidAuthentification(headers)) {
+		if (kcService.hasValidAuthentification(headers, new Date())) {
 			String token = kcService.getToken(headers);
 			User user = kcService.extractUserInfos(token);
 
@@ -152,7 +153,7 @@ public class AdEndpoint {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response addNewAd(Ad ad, @Context HttpHeaders headers) {
 
-		if (kcService.hasValidAuthentification(headers)) {
+		if (kcService.hasValidAuthentification(headers, new Date())) {
 			String token = kcService.getToken(headers);
 			User user = kcService.extractUserInfos(token);
 
@@ -176,7 +177,7 @@ public class AdEndpoint {
 	@Produces(MediaType.TEXT_PLAIN)
 	public Response deleteAd(@PathParam("id") String strID, @Context HttpHeaders headers) {
 
-		if (kcService.hasValidAuthentification(headers)) {
+		if (kcService.hasValidAuthentification(headers, new Date())) {
 			String token = kcService.getToken(headers);
 			User user = kcService.extractUserInfos(token);
 

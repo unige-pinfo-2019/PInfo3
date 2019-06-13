@@ -20,15 +20,16 @@ public class KeycloakServiceImpl implements KeycloakService {
 
 	private static final String AUTHORIZATION_PROPERTY = "Authorization";
     private static final String AUTHENTICATION_SCHEME = "Bearer";
+    
 
     @Override
-	public boolean hasValidAuthentification(HttpHeaders headers) {
+	public boolean hasValidAuthentification(HttpHeaders headers, Date now) {
 		if (getAuthorizationHeader(headers) == null)
 			return false;
 
 		String token = getToken(headers);
 		if (token != null) {
-			return extractUserInfos(token) != null && verifyExpirationTime(token);
+			return extractUserInfos(token) != null && verifyExpirationTime(token, now);
 		}
 		return false;
     }
@@ -67,14 +68,14 @@ public class KeycloakServiceImpl implements KeycloakService {
 	}
 
 	@Override
-	public Boolean verifyExpirationTime(String token) {
+	public Boolean verifyExpirationTime(String token, Date now) {
 		DecodedJWT jwt = JWT.decode(token);
 
 		Date issuedAt = jwt.getIssuedAt();
 		Date notBefore = jwt.getNotBefore();
 		Date expiresAt = jwt.getExpiresAt();
 
-		Date now = new Date();
+		//Date now = new Date();
 		return now.after(notBefore) && now.after(issuedAt) && now.before(expiresAt);
 	}
 
