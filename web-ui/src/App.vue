@@ -42,7 +42,7 @@ export default {
     var here = window.location.href;
     var before = document.referrer;
 
-    if(here.indexOf('#state') != -1 && before.indexOf('auth/realms/apigw/') != -1) {
+    if(( here.indexOf('#state') != -1 )) {
       // If we have the long url in the title and we come from the login page
       // ok keycloak, we want to refresh the page using this.$keycloak.init()
       // to retrieve the jwt token

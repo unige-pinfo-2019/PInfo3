@@ -66,6 +66,7 @@ const router = new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
+      meta: { onlyRefreshToken: true },
       component: () => import(/* webpackChunkName: "about" */ './views/DetailedAd.vue'),
       props: true,
 
@@ -116,19 +117,25 @@ router.beforeEach((to, from, next) => {
 
     if(Vue.prototype.$myStore.loggedIn === 'in') {
 
+      Vue.prototype.$keycloak.init()
+      Vue.prototype.$keycloak.updateToken(1770).success(function(refreshed) {
+          if (refreshed) {
+              console.log('Token was successfully refreshed');
+              // console.log(Vue.prototype.$keycloak.token)
+              Vue.prototype.$axios.defaults.headers.common['Authorization'] = 'Bearer ' +  Vue.prototype.$keycloak.token;
+              // delete Vue.prototype.$axios.defaults.headers.common['Authorization']// = 'Bearer ' +  Vue.prototype.$keycloak.token;
+          } else {
+              console.log('Token is still valid');
+          }
+      }).error(function() {
+          console.log('Failed to refresh the token, or the session has expired');
+      });
+
       next()
     }
     else {
 
       Vue.prototype.$keycloak.init({ onLoad: 'login-required' }).success((auth) =>{
-
-          // if(!auth) {
-          //   // window.location.reload();
-          //   console.log('Not authenticated in successs');
-          // } else {
-          //   // Vue.$log.info("Authenticated");
-          //   console.log('Authenticated in success');
-          // }
 
           localStorage.setItem("vue-token", Vue.prototype.$keycloak.token);
           // localStorage.setItem("status", 'in')
@@ -152,6 +159,32 @@ router.beforeEach((to, from, next) => {
 
       next(false)
     }
+  }
+
+
+  else if(to.meta.onlyRefreshToken) {
+    if(Vue.prototype.$myStore.loggedIn === 'in') {
+
+      Vue.prototype.$keycloak.init()
+      Vue.prototype.$keycloak.updateToken(1770).success(function(refreshed) {
+          if (refreshed) {
+              console.log('Token was successfully refreshed');
+              // console.log(Vue.prototype.$keycloak.token)
+              // delete Vue.prototype.$axios.defaults.headers.common['Authorization']
+              Vue.prototype.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + Vue.prototype.$keycloak.token;
+          } else {
+              console.log('Token is still valid');
+          }
+      }).error(function() {
+          console.log('Failed to refresh the token, or the session has expired');
+      });
+
+      next()
+    }
+    else {
+      next()
+    }
+
   }
   else {
     console.log('log in before each');

@@ -35,33 +35,40 @@ var keycloak = Keycloak({
 });
 
 Vue.prototype.$keycloak = keycloak;
+
+
+
 Vue.prototype.$axios = axios;
 
 Vue.prototype.$myStore = new Vue({
     data: {
        // token property returning the ls token value
-       loggedIn: window.localStorage.getItem('status'),
-       username: window.localStorage.getItem('username'),
-       userid: window.localStorage.getItem('userid'),
-       refreshToken: window.localStorage.getItem('refresh-token')
+       loggedIn: 'out',//window.localStorage.getItem('status'),
+       username: null, //window.localStorage.getItem('username'),
+       userid: null, //window.localStorage.getItem('userid'),
+       refreshToken: null, //window.localStorage.getItem('refresh-token')
     },
     watch:{
        // watcher listening for changes on the token property
        // to ensure the new value is written back to ls
        loggedIn(value) {
-         window.localStorage.setItem('status', value)
+         // window.localStorage.setItem('status', value)
+         loggedIn = value
        },
 
        username(value) {
-         window.localStorage.setItem('username', value)
+         // window.localStorage.setItem('username', value)
+         username = value
        },
 
       userid(value) {
-        window.localStorage.setItem('userid', value)
+        // window.localStorage.setItem('userid', value)
+        userid = value
       },
 
       refreshToken(value) {
-        window.localStorage.setItem('refresh-token', value)
+        // window.localStorage.setItem('refresh-token', value)
+        refreshToken = value
       }
     }
 })

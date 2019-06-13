@@ -40,8 +40,25 @@ export default {
   methods: {
     askLogin() {
 
-      this.$keycloak.init()
-      this.$keycloak.login()//({redirectUri: 'http://localhost:8085/correctly-logged-in'})
+      this.$keycloak.init({ onLoad: 'login-required' }).success((auth) => {
+
+        localStorage.setItem("vue-token", this.$keycloak.token);
+        // localStorage.setItem("status", 'in')
+        this.$myStore.loggedIn = 'in'
+
+        var userInfos = this.$keycloak.tokenParsed;
+        console.log('User profile:');
+        console.log(userInfos);
+        this.$myStore.username = userInfos.preferred_username
+        this.$myStore.userid = userInfos.sub
+        this.$myStore.refreshToken = this.$keycloak.refreshToken;
+
+        this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' +  this.$keycloak.token;
+
+      }).error(() =>{
+        Vue.$log.error("Authenticated Failed");
+        // console.log('Dans error')
+      });
 
 
       // console.log(this.$store._actions.login[0]());
