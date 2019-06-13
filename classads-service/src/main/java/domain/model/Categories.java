@@ -8,7 +8,6 @@ import java.util.Set;
 public class Categories {
 	
 	/***** Static fields and code *****/
-	private static String categoryIDField = "categoryID";
 	private static Map<Integer, Category> categoriesList = new HashMap<>();
 	
 	static {
@@ -38,10 +37,6 @@ public class Categories {
 	/***** Getters and setters *****/
 	public static Collection<Category> getCategories() {
 		return Categories.categoriesList.values();
-	}
-	
-	public static String getCategoryIDField() {
-		return categoryIDField;
 	}
 	
 	public static Set<Integer> getCategoriesIndex() {

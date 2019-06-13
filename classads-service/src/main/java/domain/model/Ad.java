@@ -34,17 +34,9 @@ public class Ad implements Serializable{
 	private static final long serialVersionUID = 5725261213022717645L;
 
 	private static String titleField = "title";
-	private static String descriptionField = "description";
-	private static String priceField = "price";
-	private static String idField = "id";
 	private static String userIDField = "userID";
 	private static String categoryIDField = "categoryID";
-	private static String imageField = "images";
-	private static String timeField = "time";
-	private static String nbVuesField = "nbVues";
 	private static String deletedField = "deleted";
-	private static String authField = "auth";
-	private static String usernameField = "username";
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -131,45 +123,6 @@ public class Ad implements Serializable{
 	}
 
 	/***** Getters and setters *****/
-	public static String getTitleField() {
-		return titleField;
-	}
-
-	public static String getDescriptionField() {
-		return descriptionField;
-	}
-
-	public static String getPriceField() {
-		return priceField;
-	}
-
-	public static String getUserIDField() {
-		return userIDField;
-	}
-
-	public static String getCategoryIDField() {
-		return categoryIDField;
-	}
-	
-	public static String getImageField() {
-		return imageField;
-	}
-
-	public static String getIdField() {
-		return idField;
-	}
-	public static String getTimeField() {
-		return timeField;
-	}
-
-
-	public static String getNbVuesField() {
-		return nbVuesField;
-	}
-
-	public static String getDeletedField() {
-		return deletedField;
-	}
 	public void setTime(String t) {
 		try {
 			time = LocalDateTime.parse(t).toString();
@@ -180,14 +133,22 @@ public class Ad implements Serializable{
 	public void setTime(LocalDateTime t) {
 		time = t.toString();
 	}
-
-	public static String getAuthField() {
-		return authField;
+	
+	/***** Static Getters *****/
+	public static String getTitleField() {
+		return titleField;
 	}
 
-	public static String getUsernameField() {
-		return usernameField;
+	public static String getUserIDField() {
+		return userIDField;
 	}
 
+	public static String getCategoryIDField() {
+		return categoryIDField;
+	}
+
+	public static String getDeletedField() {
+		return deletedField;
+	}
 
 }

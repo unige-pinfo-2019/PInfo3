@@ -21,6 +21,7 @@ public class Ad {
 	private static String searchNbVuesField = "nbVues";
 	private static String searchDeletedField = "deleted";
 	private static String searchUsernameField = "username";
+	private static String searchAuthField = "auth";
 
 	private long id;
 
@@ -99,6 +100,10 @@ public class Ad {
 
 	public static String getUsernameField() {
 		return searchUsernameField;
+	}
+	
+	public static String getAuthField() {
+		return searchAuthField;
 	}
 
 }

@@ -19,12 +19,9 @@ public class AdResponse implements Serializable {
 
 	private static final long serialVersionUID = 1951233445258493142L;
 	
-	private static String idField = "id";
 	private static String adIDField = "adID";
 	private static String userIDField = "userID";
-	private static String responseField = "response";
 	private static String timeField = "time";
-	private static String flagField = "flag";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -74,22 +71,5 @@ public class AdResponse implements Serializable {
 
 	public static String getTimeField() {
 		return timeField;
-	}
-
-	public static String getIdField() {
-		return idField;
-	}
-
-	public static String getResponseField() {
-		return responseField;
-	}
-
-	public static String getFlagField() {
-		return flagField;
-	}
-
-	
-	
-
-	
+	}	
 }
