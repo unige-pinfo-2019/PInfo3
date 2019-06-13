@@ -185,6 +185,9 @@ public class SearchServiceImpl implements SearchService {
 	    dataMap.put(Ad.getImageField(), ad.getImages());
 	    dataMap.put(Ad.getNbVuesField(), ad.getNbVues());
 	    dataMap.put(Ad.getTimeField(), ad.getTime());
+	    dataMap.put(Ad.getDeletedField(), ad.isDeleted());
+	    dataMap.put(Ad.getUsernameField(), ad.getUsername());
+	    dataMap.put(Ad.getAuthField(), ad.isAuth());
 	    return dataMap;
 	}
 
@@ -212,6 +215,15 @@ public class SearchServiceImpl implements SearchService {
 			}
 			if (mapData.containsKey(Ad.getNbVuesField())) {
 				ad.setNbVues(Integer.parseInt(mapData.get(Ad.getNbVuesField()).toString()));
+			}
+			if (mapData.containsKey(Ad.getDeletedField())) {
+				ad.setDeleted(Boolean.parseBoolean(mapData.get(Ad.getDeletedField()).toString()));
+			}
+			if (mapData.containsKey(Ad.getUsernameField())) {
+				ad.setUsername((String)(mapData.get(Ad.getUsernameField())));
+			}
+			if (mapData.containsKey(Ad.getAuthField())) {
+				ad.setAuth(Boolean.parseBoolean(mapData.get(Ad.getAuthField()).toString()));
 			}
 		}
 		return ad;

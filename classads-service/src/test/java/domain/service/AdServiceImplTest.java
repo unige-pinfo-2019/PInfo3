@@ -38,6 +38,7 @@ public class AdServiceImplTest {
 	private float price = (float) 120;
 	private int categoryID = 1;
 	private String userID = "100";
+	private String username = "user1";
 	private ArrayList<String> images = new ArrayList<String>() {
 		private static final long serialVersionUID = -273727299296242150L;
 	{
@@ -45,7 +46,7 @@ public class AdServiceImplTest {
 		add("Image2");
 		add("Image3");
 	}};
-	private Ad adExample = new Ad(title, description, price, userID, categoryID, images);
+	private Ad adExample = new Ad(title, description, price, userID, categoryID, images, username);
 
 	@Test
 	public void testCreateAd() {
@@ -81,6 +82,7 @@ public class AdServiceImplTest {
 		Assertions.assertEquals(description, adInDB.getDescription());
 		Assertions.assertEquals(categoryID, adInDB.getCategoryID());
 		Assertions.assertEquals(userID, adInDB.getUserID());
+		Assertions.assertEquals(username, adInDB.getUsername());
 
 		List<String> imgs = adInDB.getImages();
 		Assertions.assertEquals(images.size(), imgs.size());

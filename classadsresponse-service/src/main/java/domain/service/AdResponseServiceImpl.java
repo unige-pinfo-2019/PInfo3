@@ -13,13 +13,10 @@ import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
-
 import domain.model.AdResponse;
 import domain.model.SortAdResponsesByDate;
-import lombok.extern.slf4j.Slf4j;
 
 
-@Slf4j
 @ApplicationScoped
 @Transactional
 public class AdResponseServiceImpl implements AdResponseService {
