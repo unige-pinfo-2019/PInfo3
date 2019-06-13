@@ -2,15 +2,6 @@
   <div id="app">
     <Banner/>
 
-    <!-- <b-row>
-      <b-col cols="2">
-        <LeftMenu/>
-      </b-col>
-      <b-col cols="10">
-        <router-view class="test"/>
-      </b-col>
-    </b-row> -->
-
     <div class="center-wrapper">
       <div class="sidebar">
         <LeftMenu/>
@@ -27,7 +18,6 @@
 
 <script>
 import Banner from '@/components/Banner.vue'
-import MiniAd from '@/components/MinimizedAd.vue'
 import LeftMenu from '@/components/LeftMenu.vue'
 import OurFooter from '@/components/OurFooter.vue'
 

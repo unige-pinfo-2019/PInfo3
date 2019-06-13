@@ -3,9 +3,7 @@ import VueImg from 'v-img';
 import App from './App.vue'
 import router from './router'
 import BootstrapVue from 'bootstrap-vue'
-import Keycloak from 'keycloak-js'///dist/keycloak.js'
-// import VueGlobalVariable from 'vue-global-var'
-// import store from 'plugin-vuejs-keycloak'
+import Keycloak from 'keycloak-js'
 import axios from 'axios';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
