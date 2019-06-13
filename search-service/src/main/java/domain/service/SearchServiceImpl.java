@@ -193,38 +193,38 @@ public class SearchServiceImpl implements SearchService {
 
 	Ad buildAdFromMap(Map<String, Object> mapData) {
 		Ad ad = new Ad();
-
-		if (mapData != null) {
-			if (mapData.containsKey(Ad.getTitleField())) {
-				ad.setTitle((String)(mapData.get(Ad.getTitleField())));
-			}
-			if (mapData.containsKey(Ad.getDescriptionField())) {
-				ad.setDescription((String)(mapData.get(Ad.getDescriptionField())));
-			}
-			if (mapData.containsKey(Ad.getPriceField())) {
-				ad.setPrice(Float.parseFloat(mapData.get(Ad.getPriceField()).toString()));
-			}
-			if (mapData.containsKey(Ad.getIdField())) {
-				ad.setId(Long.parseLong(mapData.get(Ad.getIdField()).toString()));
-			}
-			if (mapData.containsKey(Ad.getUserIDField())) {
-				ad.setUserID((String)(mapData.get(Ad.getUserIDField())));
-			}
-			if (mapData.containsKey(Ad.getCategoryIDField())) {
-				ad.setCategoryID(Integer.parseInt(mapData.get(Ad.getCategoryIDField()).toString()));
-			}
-			if (mapData.containsKey(Ad.getNbVuesField())) {
-				ad.setNbVues(Integer.parseInt(mapData.get(Ad.getNbVuesField()).toString()));
-			}
-			if (mapData.containsKey(Ad.getDeletedField())) {
-				ad.setDeleted(Boolean.parseBoolean(mapData.get(Ad.getDeletedField()).toString()));
-			}
-			if (mapData.containsKey(Ad.getUsernameField())) {
-				ad.setUsername((String)(mapData.get(Ad.getUsernameField())));
-			}
-			if (mapData.containsKey(Ad.getAuthField())) {
-				ad.setAuth(Boolean.parseBoolean(mapData.get(Ad.getAuthField()).toString()));
-			}
+		if (mapData == null)
+			return ad;
+				
+		if (mapData.containsKey(Ad.getTitleField())) {
+			ad.setTitle((String)(mapData.get(Ad.getTitleField())));
+		}
+		if (mapData.containsKey(Ad.getDescriptionField())) {
+			ad.setDescription((String)(mapData.get(Ad.getDescriptionField())));
+		}
+		if (mapData.containsKey(Ad.getPriceField())) {
+			ad.setPrice(Float.parseFloat(mapData.get(Ad.getPriceField()).toString()));
+		}
+		if (mapData.containsKey(Ad.getIdField())) {
+			ad.setId(Long.parseLong(mapData.get(Ad.getIdField()).toString()));
+		}
+		if (mapData.containsKey(Ad.getUserIDField())) {
+			ad.setUserID((String)(mapData.get(Ad.getUserIDField())));
+		}
+		if (mapData.containsKey(Ad.getCategoryIDField())) {
+			ad.setCategoryID(Integer.parseInt(mapData.get(Ad.getCategoryIDField()).toString()));
+		}
+		if (mapData.containsKey(Ad.getNbVuesField())) {
+			ad.setNbVues(Integer.parseInt(mapData.get(Ad.getNbVuesField()).toString()));
+		}
+		if (mapData.containsKey(Ad.getDeletedField())) {
+			ad.setDeleted(Boolean.parseBoolean(mapData.get(Ad.getDeletedField()).toString()));
+		}
+		if (mapData.containsKey(Ad.getUsernameField())) {
+			ad.setUsername((String)(mapData.get(Ad.getUsernameField())));
+		}
+		if (mapData.containsKey(Ad.getAuthField())) {
+			ad.setAuth(Boolean.parseBoolean(mapData.get(Ad.getAuthField()).toString()));
 		}
 		return ad;
 	}

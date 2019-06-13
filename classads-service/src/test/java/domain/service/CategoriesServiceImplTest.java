@@ -4,14 +4,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.google.gson.JsonArray;
@@ -19,15 +15,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import domain.model.Categories;
-import eu.drus.jpa.unit.api.JpaUnit;
 
-@ExtendWith(JpaUnit.class)
 @ExtendWith(MockitoExtension.class)
 public class CategoriesServiceImplTest {
-	
-	@Spy
-	@PersistenceContext(unitName = "AdUTest")
-	EntityManager em;
 	
 	@InjectMocks
 	private CategoriesServiceImpl csi;
