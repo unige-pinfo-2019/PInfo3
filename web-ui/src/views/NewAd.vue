@@ -197,6 +197,10 @@ export default {
         .post(process.env.VUE_APP_BASE_API + ':8081/classads',data)
         .then(function (response) {
           self.$router.push('/');
+        })
+        .catch((error) => {
+          this.sending = false;
+          alert(error + ". Essayez de vous reconnecter à votre compte puis réessayez.")
         });
 
       }))
