@@ -10,7 +10,6 @@ error_log logs/error.log ${{LOG_LEVEL}}; # can be set by kong.conf
 events {}
 
 http {
-    include /etc/nginx/mime.types;
  	charset UTF-8;
 	error_log ${{PROXY_ERROR_LOG}} ${{LOG_LEVEL}};
 	client_max_body_size ${{CLIENT_MAX_BODY_SIZE}};
