@@ -21,7 +21,7 @@
         <!-- <div class="pub">
           pub placeholder
         </div> -->
-        <img :src="pubSrc[pubIndex]" alt="Sushis">
+        <img :src="pubSrc[pubIndex]" alt="advertisement placeholder">
       </div>
 
     </div>
