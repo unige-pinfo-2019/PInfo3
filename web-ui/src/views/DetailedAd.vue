@@ -59,7 +59,7 @@
             <b-button v-on:click="edit" class="edit-btn" variant="primary"><font-awesome-icon class="icon" icon="edit"/>Éditer</b-button>
           </div>
           <div v-else>
-            <b-button variant="primary" class="buy-btn" size="lg">Acheter</b-button>
+            <b-button v-on:click="displayMail" variant="primary" class="buy-btn" size="lg">Contacter le vendeur</b-button>
           </div>
 
 
@@ -79,6 +79,27 @@
               </b-button>
               <b-button variant="secondary" style="margin-right: 20px" class="float-right" @click="showModal=false">
                 Annuler
+              </b-button>
+            </div>
+          </b-modal>
+
+
+          <b-modal id="contact" centered v-model="showMailModal">
+            <template slot="modal-title">
+              Contact
+            </template>
+            <div style="display: block;">
+
+              Vous pouvez contacter le vendeur à l'adresse email suivante:
+
+              <br>
+
+              {{this.res.data.userEmail}}
+
+            </div>
+            <div slot="modal-footer" class="w-100">
+              <b-button variant="primary" class="float-right" v-on:click="showMailModal=false">
+                Fermer
               </b-button>
             </div>
           </b-modal>
@@ -118,7 +139,8 @@ export default {
   data() {
     return {
       showModal: false,
-      res: null
+      res: null,
+      showMailModal: false
     }
   },
   mounted() {
@@ -149,6 +171,9 @@ export default {
       }, (reason) => {
         console.log(reason); // Erreur !
       });
+    },
+    displayMail() {
+      this.showMailModal = true
     }
   }
 }
